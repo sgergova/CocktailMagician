@@ -1,5 +1,5 @@
 **Telerik Academy Alpha Final Project**
-**Team 15**
+
 
 
 **Team Members**
