@@ -5,7 +5,7 @@ Team 15**
 **Team Members**
  
 * [Simona Gergova](https://gitlab.com/simona.gergova) 
-*  Jivko Jeliazkov
+* [Jivko Jeliazkov](https://gitlab.com/Jivko.98)
  
 **Description**
 
