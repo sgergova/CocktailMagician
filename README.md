@@ -3,9 +3,10 @@ Team 15**
 
 
 **Team Members**
-*  Simona Gergova
+ 
+* [Simona Gergova](https://gitlab.com/simona.gergova) 
 *  Jivko Jeliazkov
-*  
+ 
 **Description**
 
 Design and implement an ASP.NET Core MVC application – Cocktail Magician.
