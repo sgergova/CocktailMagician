@@ -4,15 +4,13 @@ using System.Text;
 
 namespace CocktailMagician.Data.Entities
 {
-    public class Star
+    public class CocktailComment
     {
         public Guid Id { get; set; }
+        public string Comments { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
         public Guid CocktailId { get; set; }
-        public Cocktail Cocktail{ get; set; }
-        public Guid BarId { get; set; }
-        public Bar Bar { get; set; }
-        public bool Vote { get; set; }
+        public Cocktail Cocktail { get; set; }
     }
 }

@@ -12,10 +12,10 @@ namespace CocktailMagician.Data.Entities
         public string Name { get; set; }
         public double Rating { get; set; }
         public double AlcoholPercentage { get; set; }
-        public ICollection<Ingredient> Ingredients { get; set; }
-        public ICollection<Bar> Bars { get; set; }
+        public ICollection<CocktailIngredient> Ingredients { get; set; }
+        public ICollection<BarCocktail> Bars { get; set; }
         public ICollection<Star> Stars { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CocktailComment> Comments { get; set; }
         public string ImageURL { get; set; }
 
     }
