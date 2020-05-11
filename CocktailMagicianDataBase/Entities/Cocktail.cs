@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace CocktailMagician.Data.Entities
 {
     public class Cocktail
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public int Rating { get; set; }
+        public double Rating { get; set; }
         public double AlcoholPercentage { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
-        public List<Comment> Comments { get; set; }
-        public List<Bar> Bars { get; set; }
+        public ICollection<Ingredient> Ingredients { get; set; }
+        public ICollection<Bar> Bars { get; set; }
+        public ICollection<Star> Stars { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public string ImageURL { get; set; }
 
     }
