@@ -1,13 +1,10 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.DataBase.AppContext;
-using CocktailMagician.Services.Contacts;
 using CocktailMagician.Services.EntitiesDTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
