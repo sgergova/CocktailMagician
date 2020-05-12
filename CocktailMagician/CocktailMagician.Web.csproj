@@ -19,4 +19,7 @@
     <ProjectReference Include="..\CocktailMagicianDataBase\CocktailMagician.Data.csproj" />
   </ItemGroup>
 
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/babelrc" /></VisualStudio></ProjectExtensions>
+
 </Project>

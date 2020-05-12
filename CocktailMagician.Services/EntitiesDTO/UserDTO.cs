@@ -1,16 +1,15 @@
-﻿using CocktailMagician.Data.Entities.Contracts;
-using Microsoft.AspNetCore.Identity;
+﻿using CocktailMagician.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using System.Text;
 
-namespace CocktailMagician.Data.Entities
+namespace CocktailMagician.Services.EntitiesDTO
 {
-    public class User : IdentityUser<Guid>, IEntitiesDetails
+   public class UserDTO
     {
-        [Required]
-        [StringLength(30, ErrorMessage = "The username cannot be more than 30 characters")]
+        public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Email { get; set; }
         public ICollection<Cocktail> Cocktails { get; set; }
         public ICollection<Bar> Bars { get; set; }
         public ICollection<BarComment> BarComments { get; set; }

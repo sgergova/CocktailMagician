@@ -24,7 +24,8 @@ namespace CocktailMagician
         {
             services.AddDbContext<CMContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("MyConnection")));
+           
             services.AddIdentity<User, Role>(option => option.SignIn.RequireConfirmedAccount = false)
               .AddEntityFrameworkStores<CMContext>()
               .AddDefaultTokenProviders();
