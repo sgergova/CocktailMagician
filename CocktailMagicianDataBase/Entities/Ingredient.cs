@@ -21,5 +21,6 @@ namespace CocktailMagician.Data.Entities
         public ICollection<CocktailIngredient> CocktailIngredients { get; set; }
         public int Quantity { get; set; }
         public int Rating { get; set; }
+        public bool IsAlcoholic { get; set; }
     }
 }

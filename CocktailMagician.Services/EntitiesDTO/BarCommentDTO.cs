@@ -1,11 +1,12 @@
-﻿using CocktailMagician.Data.Entities;
+﻿using CocktailMagician.Data.Abstract;
+using CocktailMagician.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CocktailMagician.Services.EntitiesDTO
 {
-    public class BarCommentDTO
+    public class BarCommentDTO: EntitiesDetails
     {
         public Guid Id { get; set; }
         public string Comments { get; set; }

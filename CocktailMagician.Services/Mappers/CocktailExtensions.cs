@@ -9,7 +9,7 @@ namespace CocktailMagician.Services.Mappers
 {
     public static class CocktailExtensions
     {
-        public static CocktailDTO Map(this Cocktail item)
+        public static CocktailDTO GetDTO(this Cocktail item)
         {
             if (item == null)
             {
@@ -30,11 +30,11 @@ namespace CocktailMagician.Services.Mappers
             };
         }
 
-        public static ICollection<CocktailDTO> Map(this ICollection<Cocktail> items)
+        public static ICollection<CocktailDTO> GetDTOs(this ICollection<Cocktail> items)
         {
-            return items.Select(Map).ToList();
+            return items.Select(GetDTO).ToList();
         }
-        public static Cocktail Map(this CocktailDTO item)
+        public static Cocktail GetEntity(this CocktailDTO item)
         {
             if (item == null)
             {
@@ -55,9 +55,9 @@ namespace CocktailMagician.Services.Mappers
             };
         }
 
-        public static ICollection<Cocktail> Map(this ICollection<CocktailDTO> items)
+        public static ICollection<Cocktail> GetEntities(this ICollection<CocktailDTO> items)
         {
-            return items.Select(Map).ToList();
+            return items.Select(GetEntity).ToList();
         }
     }
 }

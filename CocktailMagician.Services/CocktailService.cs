@@ -1,17 +1,17 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-   public class CocktailService
+    public class CocktailService : ICocktailServices
     {
         private readonly CMContext context;
 
@@ -20,35 +20,30 @@ namespace CocktailMagician.Services
             this.context = context;
         }
 
-        public async Task<CocktailDTO> Get(Guid id)
+        public async Task<CocktailDTO> GetCocktail(Guid id)
         {
-            var entity = await this.context.Cocktails
-                                    .Include(c=>c.CocktailIngredients)
-                                    .Include(c=>c.Bars)
-                                    .Include(c=>c.Comments)
-                                    .Include(c=>c.Stars)
-                                    .FirstOrDefaultAsync(b =>b.IsDeleted==false && b.Id == id)
-                                    ?? throw new ArgumentNullException("The value cannot be null.");
+            if (id == null)
+                throw new ArgumentNullException("The ID cannot be null");
+           
+            
+            var entity = await GetCocktailsQueryable()
+                                        .FirstOrDefaultAsync(b => b.Id == id);
 
-            return entity.Map();
+
+            return entity.GetDTO();
 
         }
 
-        public async Task<ICollection<CocktailDTO>> GetAll()
+        public async Task<ICollection<CocktailDTO>> GetAllCocktails()
         {
-            var entities = await this.context.Cocktails
-                                    .Where(c => c.IsDeleted == false)
-                                    .Include(c => c.CocktailIngredients)
-                                    .Include(c => c.Bars)
-                                    .Include(c => c.Comments)
-                                    .Include(c => c.Stars)
-                                    .ToListAsync()
-                                    ?? throw new ArgumentNullException("The value cannot be null.");
+            var entities = await GetCocktailsQueryable()
+                                            .ToListAsync();
+                                  
 
-            return entities.Map();
+            return entities.GetDTOs();
         }
 
-        public async Task<CocktailDTO> Create(CocktailDTO cocktailDTO)
+        public async Task<CocktailDTO> CreateCocktail(CocktailDTO cocktailDTO)
         {
             if (this.context.Bars.Any(b => b.Name == cocktailDTO.Name))
                 throw new ArgumentException("The name is already existing");
@@ -73,14 +68,14 @@ namespace CocktailMagician.Services
             await context.SaveChangesAsync();
 
 
-            return cocktail.Map();
+            return cocktail.GetDTO();
         }
 
-        public async Task<CocktailDTO> Update(CocktailDTO cocktailToUpdate)
+        public async Task<CocktailDTO> UpdateCocktail(CocktailDTO cocktailToUpdate)
         {
-            var cocktailDTO = await Get(cocktailToUpdate.Id);
+            var cocktailDTO = await GetCocktail(cocktailToUpdate.Id);
 
-            var cocktail = cocktailDTO.Map();
+            var cocktail = cocktailDTO.GetEntity();
 
             cocktail.Name = cocktailToUpdate.Name;
             cocktail.AlcoholPercentage = cocktailToUpdate.AlcoholPercentage;
@@ -88,25 +83,39 @@ namespace CocktailMagician.Services
             cocktail.ImageURL = cocktailToUpdate.ImageURL;
             cocktail.ModifiedOn = DateTime.UtcNow;
 
-            this.context.Update(cocktail);
 
+            this.context.Cocktails.Update(cocktail);
             await this.context.SaveChangesAsync();
 
-            return cocktail.Map();
+            return cocktail.GetDTO();
         }
-        public async Task<CocktailDTO> Delete(Guid? id)
+        public async Task<CocktailDTO> DeleteCocktail(Guid id)
         {
-            var cocktailToDelete = await this.context.Cocktails
-                                 .FirstOrDefaultAsync(b => b.Id == id && b.IsDeleted == false)
-                                 ?? throw new ArgumentNullException();
+            var cocktailToDelete = await GetCocktailsQueryable()
+                                 .FirstOrDefaultAsync(b => b.Id == id);
 
-            cocktailToDelete.IsDeleted = true;
-            cocktailToDelete.DeletedOn = DateTime.UtcNow;
+            if (cocktailToDelete.Bars.Any(b=>!b.IsDeleted == true))
+            {
+                cocktailToDelete.IsDeleted = true;
+                cocktailToDelete.DeletedOn = DateTime.UtcNow;
                 context.Cocktails.Update(cocktailToDelete);
                 await context.SaveChangesAsync();
-            
+            }
+            else
+            {
+                throw new InvalidOperationException($"There is a bar that offers {cocktailToDelete}");
+            }
 
-            return cocktailToDelete.Map();
+            return cocktailToDelete.GetDTO();
+        }
+
+        private IQueryable<Cocktail> GetCocktailsQueryable()
+        {
+            var cocktails = this.context.Cocktails
+                                    .Where(c => c.IsDeleted == false)
+                                    ?? throw new ArgumentNullException("Value cannot be null");
+
+            return cocktails;
         }
     }
 }

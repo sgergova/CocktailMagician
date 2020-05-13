@@ -24,7 +24,7 @@ namespace CocktailMagician.Data.Entities
         public ICollection<CocktailStar> Stars { get; set; }
         public bool IsAlcoholic { get; set;  }
         public string ImageURL { get; set; }
-
+       
 
     }
 }

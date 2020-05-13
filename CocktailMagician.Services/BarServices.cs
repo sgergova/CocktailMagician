@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-    public class BarServices
+    public class BarServices: IBarServices
     {
         private readonly CMContext context;
 
@@ -19,23 +20,23 @@ namespace CocktailMagician.Services
             this.context = context;
         }
 
-        public async Task<BarDTO> Get(Guid id)
+        public async Task<BarDTO> GetBar(Guid id)
         {
-            var entity = await GetAllBars()
+            var entity = await GetAllBarsQueryable()
                                 .FirstOrDefaultAsync(e => e.Id == id);
 
-            return entity.GetBarDTO();
+            return entity.GetDTO();
 
         }
 
-        public async Task<ICollection<BarDTO>> GetAll()
+        public async Task<ICollection<BarDTO>> GetAllBars()
         {
-            var entities = await GetAllBars().ToListAsync();
+            var entities = await GetAllBarsQueryable().ToListAsync();
 
-            return entities.GetBarDTOs();
+            return entities.GetDTOs();
         }
 
-        public async Task<BarDTO> Create(BarDTO barDTO)
+        public async Task<BarDTO> CreateBar(BarDTO barDTO)
         {
             if (this.context.Bars.Any(b => b.Name == barDTO.Name))
                 throw new ArgumentException("The name is already existing");
@@ -46,11 +47,9 @@ namespace CocktailMagician.Services
             var bar = new Bar
             {
                 Name = barDTO.Name,
-                Country = barDTO.Country,
-                City = barDTO.City,
                 Address = barDTO.Address,
                 Phone = barDTO.Phone,
-                Cocktails = barDTO.Cocktails,
+                BarCocktails = barDTO.BarCocktails,
                 ImageURL = barDTO.ImageURL,
                 CreatedOn = DateTime.UtcNow
             };
@@ -58,40 +57,42 @@ namespace CocktailMagician.Services
             await context.Bars.AddAsync(bar);
             await context.SaveChangesAsync();
 
-            return bar.GetBarDTO();
+            return bar.GetDTO();
         }
 
-        public async Task<BarDTO> Update(BarDTO barDTO)
+        public async Task<BarDTO> UpdateBar(BarDTO barDTO)
         {
             if (barDTO.Id == null)
                 throw new ArgumentNullException("Value cannot be null.");
 
-            var barToUpdate = await Get(barDTO.Id);
-            var bar = barToUpdate.GetBarEntity();
+            var barToUpdate = await GetBar(barDTO.Id);
+            var bar = barToUpdate.GetEntity();
 
             bar.Name = barDTO.Name;
             bar.Address = barDTO.Address;
-            bar.City = barDTO.City;
             bar.Phone = barDTO.Phone;
             bar.ImageURL = barDTO.ImageURL;
+            bar.ModifiedOn = DateTime.UtcNow;
 
-            this.context.Update(bar);
+            this.context.Bars.Update(bar);
             await this.context.SaveChangesAsync();
 
-            return bar.GetBarDTO();
+            return bar.GetDTO();
 
         }
-        public async Task<BarDTO> Delete(Guid? id)
+
+        public async Task<BarDTO> DeleteBar(Guid id)
         {
-            var barToDelete = await this.context.Bars
-                                 .Include(b => b.Cocktails)
-                                 .FirstOrDefaultAsync(b => b.Id == id && b.IsDeleted == false)
+            var barToDelete = await GetAllBarsQueryable()
+                                 .Include(b => b.BarCocktails)
+                                 .FirstOrDefaultAsync(b => b.Id == id)
                                  ?? throw new ArgumentNullException();
 
-            if (barToDelete.Cocktails.Any(c => c.IsDeleted == true))
+
+            if (barToDelete.BarCocktails.Any(c => c.IsDeleted == true))
             {
                 barToDelete.IsDeleted = true;
-                barToDelete.ModifiedOn = DateTime.UtcNow;
+                barToDelete.DeletedOn = DateTime.UtcNow;
                 context.Bars.Update(barToDelete);
                 await context.SaveChangesAsync();
             }
@@ -101,10 +102,10 @@ namespace CocktailMagician.Services
                     $"There are cocktails available.");
             }
 
-            return barToDelete.GetBarDTO();
+            return barToDelete.GetDTO();
         }
 
-        private IQueryable<Bar> GetAllBars()
+        private IQueryable<Bar> GetAllBarsQueryable()
         {
             var entities = this.context.Bars
                                        .Where(b => b.IsDeleted == false)
