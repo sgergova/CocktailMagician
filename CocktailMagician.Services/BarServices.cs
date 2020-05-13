@@ -77,7 +77,7 @@ namespace CocktailMagician.Services
                                  .FirstOrDefaultAsync(b => b.Id == id && b.IsDeleted == false) 
                                  ?? throw new ArgumentNullException();
 
-            if (barToDelete.Cocktails.Count == 0)
+            if (barToDelete.Cocktails.Any(c=>c.IsDeleted == true))
             {
                 barToDelete.IsDeleted = true;
                 barToDelete.ModifiedOn = DateTime.UtcNow;
