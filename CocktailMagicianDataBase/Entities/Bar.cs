@@ -16,7 +16,7 @@ namespace CocktailMagician.Data.Entities
         public string Phone { get; set; }
         public int Rating { get; set; }
         public ICollection<BarCocktail> Cocktails { get; set; }
-        public ICollection<Star> Stars { get; set; }
+        public ICollection<BarStar> Stars { get; set; }
         public ICollection<BarComment> Comments { get; set; }
         public string ImageURL { get; set; }
        

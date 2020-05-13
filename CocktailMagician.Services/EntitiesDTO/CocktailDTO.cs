@@ -13,7 +13,7 @@ namespace CocktailMagician.Services.EntitiesDTO
         public double AlcoholPercentage { get; set; }
         public ICollection<CocktailIngredient> Ingredients { get; set; }
         public ICollection<BarCocktail> Bars { get; set; }
-        public ICollection<Star> Stars { get; set; }
+        public ICollection<BarStar> Stars { get; set; }
         public ICollection<CocktailComment> Comments { get; set; }
         public bool IsAlcoholic { get; set; }
         public string ImageURL { get; set; }

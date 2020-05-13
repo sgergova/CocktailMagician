@@ -15,7 +15,8 @@ namespace CocktailMagician.Data.Entities
         public ICollection<Bar> Bars { get; set; }
         public ICollection<BarComment> BarComments { get; set; }
         public ICollection<CocktailComment> CocktailComments { get; set; }
-        public ICollection<Star> Stars { get; set; }
+        public ICollection<BarStar> BarStars { get; set; }
+        public ICollection<CocktailStar> CocktailStars { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public DateTime? DeletedOn { get; set; }

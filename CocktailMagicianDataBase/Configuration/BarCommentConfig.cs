@@ -9,9 +9,11 @@ namespace CocktailMagician.Data.Configuration
 {
     class BarCommentConfig : IEntityTypeConfiguration<BarComment>
     {
-        
+
         public void Configure(EntityTypeBuilder<BarComment> builder)
         {
+            builder.HasKey(bc => new { bc.UserId, bc.BarId});
+
             builder.HasOne(bc => bc.User)
                  .WithMany(u => u.BarComments)
                  .HasForeignKey(bc => bc.UserId);

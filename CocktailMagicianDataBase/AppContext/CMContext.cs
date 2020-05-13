@@ -27,7 +27,10 @@ namespace CocktailMagician.DataBase.AppContext
             builder.ApplyConfiguration(new CocktailCommentConfig());
             builder.ApplyConfiguration(new CocktailConfig());
             builder.ApplyConfiguration(new IngredientConfig());
-            builder.ApplyConfiguration(new StarConfig());
+            builder.ApplyConfiguration(new BarStarConfig());
+            builder.ApplyConfiguration(new CocktailIngredientConfig());
+            builder.ApplyConfiguration(new CocktailStarConfig());
+
             base.OnModelCreating(builder);
         }
     }

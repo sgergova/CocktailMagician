@@ -7,7 +7,7 @@ using System.Text;
 
 namespace CocktailMagician.Services.Mappers
 {
-    public static class CocktailDTOtoEntityMapper
+    public static class CocktailExtensions
     {
         public static CocktailDTO Map(this Cocktail item)
         {
@@ -23,11 +23,10 @@ namespace CocktailMagician.Services.Mappers
                 Bars = item.Bars,
                 Comments = item.Comments,
                 ImageURL = item.ImageURL,
-                Ingredients = item.Ingredients,
+                Ingredients = item.CocktailIngredients,
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
-                Stars = item.Stars
             };
         }
 
@@ -49,11 +48,10 @@ namespace CocktailMagician.Services.Mappers
                 Bars = item.Bars,
                 Comments = item.Comments,
                 ImageURL = item.ImageURL,
-                Ingredients = item.Ingredients,
+                CocktailIngredients = item.Ingredients,
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
-                Stars = item.Stars
             };
         }
 

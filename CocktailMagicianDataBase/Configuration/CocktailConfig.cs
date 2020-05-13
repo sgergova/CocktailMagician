@@ -11,7 +11,9 @@ namespace CocktailMagician.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Cocktail> builder)
         {
-            builder.HasMany(c => c.Ingredients)
+            builder.HasKey(c => c.Id);
+
+            builder.HasMany(c => c.CocktailIngredients)
                     .WithOne(i => i.Cocktail)
                     .HasForeignKey(i => i.CocktailId);
 

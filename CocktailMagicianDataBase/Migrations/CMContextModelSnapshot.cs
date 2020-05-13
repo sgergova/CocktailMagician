@@ -34,8 +34,20 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -58,19 +70,25 @@ namespace CocktailMagician.Data.Migrations
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.BarCocktail", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("BarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("CocktailId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("BarId");
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("BarId", "CocktailId");
 
                     b.HasIndex("CocktailId");
 
@@ -79,26 +97,52 @@ namespace CocktailMagician.Data.Migrations
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.BarComment", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BarId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "BarId");
+
+                    b.HasIndex("BarId");
+
+                    b.ToTable("BarComment");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Data.Entities.BarStar", b =>
+                {
+                    b.Property<Guid>("BarId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<bool>("Vote")
+                        .HasColumnType("bit");
 
-                    b.HasIndex("BarId");
+                    b.HasKey("BarId", "UserId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BarComment");
+                    b.ToTable("BarStar");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.Cocktail", b =>
@@ -110,11 +154,28 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<double>("AlcoholPercentage")
                         .HasColumnType("float");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ImageURL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAlcoholic")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
@@ -131,22 +192,30 @@ namespace CocktailMagician.Data.Migrations
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailComment", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CocktailId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Comments")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Comments")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
-                    b.HasIndex("CocktailId");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CocktailId", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -155,23 +224,47 @@ namespace CocktailMagician.Data.Migrations
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailIngredient", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CocktailId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IngredientId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("CocktailId");
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CocktailId", "IngredientId");
 
                     b.HasIndex("IngredientId");
 
                     b.ToTable("CocktailIngredient");
+                });
+
+            modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailStar", b =>
+                {
+                    b.Property<Guid>("CocktailId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Vote")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CocktailId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("CocktailStar");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.Ingredient", b =>
@@ -180,11 +273,27 @@ namespace CocktailMagician.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -225,35 +334,6 @@ namespace CocktailMagician.Data.Migrations
                     b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("CocktailMagician.Data.Entities.Star", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("BarId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CocktailId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Vote")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BarId");
-
-                    b.HasIndex("CocktailId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Star");
-                });
-
             modelBuilder.Entity("CocktailMagician.Data.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -267,11 +347,20 @@ namespace CocktailMagician.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -280,8 +369,13 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -461,6 +555,21 @@ namespace CocktailMagician.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CocktailMagician.Data.Entities.BarStar", b =>
+                {
+                    b.HasOne("CocktailMagician.Data.Entities.Bar", "Bar")
+                        .WithMany("Stars")
+                        .HasForeignKey("BarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CocktailMagician.Data.Entities.User", "User")
+                        .WithMany("BarStars")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CocktailMagician.Data.Entities.Cocktail", b =>
                 {
                     b.HasOne("CocktailMagician.Data.Entities.User", null)
@@ -486,7 +595,7 @@ namespace CocktailMagician.Data.Migrations
             modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailIngredient", b =>
                 {
                     b.HasOne("CocktailMagician.Data.Entities.Cocktail", "Cocktail")
-                        .WithMany("Ingredients")
+                        .WithMany("CocktailIngredients")
                         .HasForeignKey("CocktailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -498,14 +607,8 @@ namespace CocktailMagician.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CocktailMagician.Data.Entities.Star", b =>
+            modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailStar", b =>
                 {
-                    b.HasOne("CocktailMagician.Data.Entities.Bar", "Bar")
-                        .WithMany("Stars")
-                        .HasForeignKey("BarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CocktailMagician.Data.Entities.Cocktail", "Cocktail")
                         .WithMany("Stars")
                         .HasForeignKey("CocktailId")
@@ -513,7 +616,7 @@ namespace CocktailMagician.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("CocktailMagician.Data.Entities.User", "User")
-                        .WithMany("Stars")
+                        .WithMany("CocktailStars")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

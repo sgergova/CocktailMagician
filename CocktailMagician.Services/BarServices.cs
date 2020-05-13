@@ -1,6 +1,7 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.DataBase.AppContext;
 using CocktailMagician.Services.EntitiesDTO;
+using CocktailMagician.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-    public class BarServices 
+    public class BarServices
     {
         private readonly CMContext context;
 
@@ -18,32 +19,27 @@ namespace CocktailMagician.Services
             this.context = context;
         }
 
-        public async Task<Bar> Get(Guid id)
+        public async Task<BarDTO> Get(Guid id)
         {
-            var entity = await this.context.Bars
-                                    .Where(b=>b.IsDeleted == false)
-                                    .FirstOrDefaultAsync(b => b.Id == id)
-                                    ?? throw new ArgumentNullException("The value cannot be null.");
-            
-            return entity;
+            var entity = await GetAllBars()
+                                .FirstOrDefaultAsync(e => e.Id == id);
+
+            return entity.GetBarDTO();
 
         }
 
-        public async Task<ICollection<Bar>> GetAll()
+        public async Task<ICollection<BarDTO>> GetAll()
         {
-            var entities = await this.context.Bars
-                                    .Where(b => b.IsDeleted == false)
-                                    .ToListAsync()
-                                    ?? throw new ArgumentNullException("The value cannot be null.");
+            var entities = await GetAllBars().ToListAsync();
 
-            return entities;
+            return entities.GetBarDTOs();
         }
 
-        public async Task<Bar> Create(BarDTO barDTO)
+        public async Task<BarDTO> Create(BarDTO barDTO)
         {
             if (this.context.Bars.Any(b => b.Name == barDTO.Name))
-                    throw new ArgumentException("The name is already existing");
-            
+                throw new ArgumentException("The name is already existing");
+
             if (barDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
@@ -62,22 +58,37 @@ namespace CocktailMagician.Services
             await context.Bars.AddAsync(bar);
             await context.SaveChangesAsync();
 
-
-            return bar;
+            return bar.GetBarDTO();
         }
 
-        public Task<Bar> Update(BarDTO bar)
+        public async Task<BarDTO> Update(BarDTO barDTO)
         {
-            throw new NotImplementedException();
+            if (barDTO.Id == null)
+                throw new ArgumentNullException("Value cannot be null.");
+
+            var barToUpdate = await Get(barDTO.Id);
+            var bar = barToUpdate.GetBarEntity();
+
+            bar.Name = barDTO.Name;
+            bar.Address = barDTO.Address;
+            bar.City = barDTO.City;
+            bar.Phone = barDTO.Phone;
+            bar.ImageURL = barDTO.ImageURL;
+
+            this.context.Update(bar);
+            await this.context.SaveChangesAsync();
+
+            return bar.GetBarDTO();
+
         }
-        public async Task<Bar> Delete(Guid? id)
+        public async Task<BarDTO> Delete(Guid? id)
         {
             var barToDelete = await this.context.Bars
                                  .Include(b => b.Cocktails)
-                                 .FirstOrDefaultAsync(b => b.Id == id && b.IsDeleted == false) 
+                                 .FirstOrDefaultAsync(b => b.Id == id && b.IsDeleted == false)
                                  ?? throw new ArgumentNullException();
 
-            if (barToDelete.Cocktails.Any(c=>c.IsDeleted == true))
+            if (barToDelete.Cocktails.Any(c => c.IsDeleted == true))
             {
                 barToDelete.IsDeleted = true;
                 barToDelete.ModifiedOn = DateTime.UtcNow;
@@ -90,7 +101,16 @@ namespace CocktailMagician.Services
                     $"There are cocktails available.");
             }
 
-            return barToDelete;
+            return barToDelete.GetBarDTO();
+        }
+
+        private IQueryable<Bar> GetAllBars()
+        {
+            var entities = this.context.Bars
+                                       .Where(b => b.IsDeleted == false)
+                                       ?? throw new ArgumentNullException("The value cannot be null");
+
+            return entities;
         }
     }
 }

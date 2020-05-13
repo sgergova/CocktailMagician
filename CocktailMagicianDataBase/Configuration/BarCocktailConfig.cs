@@ -11,6 +11,7 @@ namespace CocktailMagician.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<BarCocktail> builder)
         {
+            builder.HasKey(bc=> new { bc.BarId, bc.CocktailId });
 
             builder.HasOne(bc => bc.Bar)
                     .WithMany(b => b.Cocktails)
@@ -22,3 +23,8 @@ namespace CocktailMagician.Data.Configuration
         }
     }
 }
+//public Guid Id { get; set; }
+//public Guid BarId { get; set; }
+//public Bar Bar { get; set; }
+//public Guid CocktailId { get; set; }
+//public Cocktail Cocktail { get; set; }

@@ -10,6 +10,7 @@ namespace CocktailMagician.Data.Entities
     public class Ingredient :EntitiesDetails
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public Guid Id { get; set; }
         [Required]
         [StringLength(40, ErrorMessage = "The ingredient's name cannot be more than 40 characters")]

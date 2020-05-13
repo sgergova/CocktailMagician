@@ -12,7 +12,7 @@ namespace CocktailMagician.Data.Configuration
         public void Configure(EntityTypeBuilder<Ingredient> builder)
         {
 
-            //public ICollection<CocktailIngredient> CocktailIngredients { get; set; }
+            builder.HasKey(i=>i.Id);
 
             builder.HasMany(i => i.CocktailIngredients)
                     .WithOne(ci => ci.Ingredient)

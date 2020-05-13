@@ -23,7 +23,7 @@ namespace CocktailMagician.Services
         public async Task<CocktailDTO> Get(Guid id)
         {
             var entity = await this.context.Cocktails
-                                    .Include(c=>c.Ingredients)
+                                    .Include(c=>c.CocktailIngredients)
                                     .Include(c=>c.Bars)
                                     .Include(c=>c.Comments)
                                     .Include(c=>c.Stars)
@@ -38,7 +38,7 @@ namespace CocktailMagician.Services
         {
             var entities = await this.context.Cocktails
                                     .Where(c => c.IsDeleted == false)
-                                    .Include(c => c.Ingredients)
+                                    .Include(c => c.CocktailIngredients)
                                     .Include(c => c.Bars)
                                     .Include(c => c.Comments)
                                     .Include(c => c.Stars)
@@ -63,11 +63,10 @@ namespace CocktailMagician.Services
                 Bars = cocktailDTO.Bars,
                 Comments = cocktailDTO.Comments,
                 ImageURL = cocktailDTO.ImageURL,
-                Ingredients = cocktailDTO.Ingredients,
+                CocktailIngredients = cocktailDTO.Ingredients,
                 IsAlcoholic = cocktailDTO.IsAlcoholic,
                 Name = cocktailDTO.Name,
                 Rating = cocktailDTO.Rating,
-                Stars = cocktailDTO.Stars
             };
 
             await context.Cocktails.AddAsync(cocktail);
@@ -87,6 +86,7 @@ namespace CocktailMagician.Services
             cocktail.AlcoholPercentage = cocktailToUpdate.AlcoholPercentage;
             cocktail.IsAlcoholic = cocktailToUpdate.IsAlcoholic;
             cocktail.ImageURL = cocktailToUpdate.ImageURL;
+            cocktail.ModifiedOn = DateTime.UtcNow;
 
             this.context.Update(cocktail);
 
@@ -101,7 +101,7 @@ namespace CocktailMagician.Services
                                  ?? throw new ArgumentNullException();
 
             cocktailToDelete.IsDeleted = true;
-            cocktailToDelete.ModifiedOn = DateTime.UtcNow;
+            cocktailToDelete.DeletedOn = DateTime.UtcNow;
                 context.Cocktails.Update(cocktailToDelete);
                 await context.SaveChangesAsync();
             
