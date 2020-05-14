@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-    public class CocktailService : ICocktailServices
+    public class CocktailServices : ICocktailServices
     {
         private readonly CMContext context;
 
-        public CocktailService(CMContext context)
+        public CocktailServices(CMContext context)
         {
             this.context = context;
         }
@@ -24,8 +24,8 @@ namespace CocktailMagician.Services
         {
             if (id == null)
                 throw new ArgumentNullException("The ID cannot be null");
-           
-            
+
+
             var entity = await GetCocktailsQueryable()
                                         .FirstOrDefaultAsync(b => b.Id == id);
 
@@ -38,7 +38,7 @@ namespace CocktailMagician.Services
         {
             var entities = await GetCocktailsQueryable()
                                             .ToListAsync();
-                                  
+
 
             return entities.GetDTOs();
         }
@@ -71,6 +71,8 @@ namespace CocktailMagician.Services
             return cocktail.GetDTO();
         }
 
+     
+
         public async Task<CocktailDTO> UpdateCocktail(CocktailDTO cocktailToUpdate)
         {
             var cocktailDTO = await GetCocktail(cocktailToUpdate.Id);
@@ -94,7 +96,7 @@ namespace CocktailMagician.Services
             var cocktailToDelete = await GetCocktailsQueryable()
                                  .FirstOrDefaultAsync(b => b.Id == id);
 
-            if (cocktailToDelete.Bars.Any(b=>!b.IsDeleted == true))
+            if (cocktailToDelete.Bars.Any(b => !b.IsDeleted == true))
             {
                 cocktailToDelete.IsDeleted = true;
                 cocktailToDelete.DeletedOn = DateTime.UtcNow;
