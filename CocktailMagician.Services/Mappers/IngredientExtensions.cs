@@ -19,7 +19,7 @@ namespace CocktailMagician.Services.Mappers
                 Id = entity.Id,
                 Name = entity.Name,
                 CocktailIngredients = entity.CocktailIngredients,
-                Description = entity.Name,
+                Description = entity.Description,
                 Quantity = entity.Quantity,
                 Rating = entity.Rating,
             };
