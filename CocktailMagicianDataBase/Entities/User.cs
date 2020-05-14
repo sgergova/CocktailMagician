@@ -11,12 +11,12 @@ namespace CocktailMagician.Data.Entities
         [Required]
         [StringLength(30, ErrorMessage = "The username cannot be more than 30 characters")]
         public string Name { get; set; }
-        public ICollection<Cocktail> Cocktails { get; set; }
-        public ICollection<Bar> Bars { get; set; }
-        public ICollection<BarComment> BarComments { get; set; }
-        public ICollection<CocktailComment> CocktailComments { get; set; }
-        public ICollection<BarStar> BarStars { get; set; }
-        public ICollection<CocktailStar> CocktailStars { get; set; }
+        public ICollection<Cocktail> Cocktails { get; set; } = new List<Cocktail>();
+        public ICollection<Bar> Bars { get; set; } = new List<Bar>();
+        public ICollection<BarComment> BarComments { get; set; } = new List<BarComment>();
+        public ICollection<CocktailComment> CocktailComments { get; set; } = new List<CocktailComment>();
+        public ICollection<BarStar> BarStars { get; set; } = new List<BarStar>();
+        public ICollection<CocktailStar> CocktailStars { get; set; } = new List<CocktailStar>();
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }
         public DateTime? DeletedOn { get; set; }

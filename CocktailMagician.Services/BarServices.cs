@@ -7,11 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-    public class BarServices: IBarServices
+    public class BarServices : IBarServices
     {
         private readonly CMContext context;
 
@@ -19,23 +20,62 @@ namespace CocktailMagician.Services
         {
             this.context = context;
         }
-
+        /// <summary>
+        /// Searches if given ID of bar exists in the database and if its not found throws an exception.
+        /// </summary>
+        /// <param name="id">Id of the Bar</param>
+        /// <returns>BarDTO</returns>
         public async Task<BarDTO> GetBar(Guid id)
         {
             var entity = await GetAllBarsQueryable()
-                                .FirstOrDefaultAsync(e => e.Id == id);
+                                .AsNoTracking()
+                                .Include(b => b.BarCocktails)
+                                .FirstOrDefaultAsync(e => e.Id == id)
+                                ?? throw new ArgumentNullException("The ID of the bar cannot be null");
 
             return entity.GetDTO();
 
         }
+        /// <summary>
+        /// Searches if given name of bar exists in the database and if its not found throws an exception.
+        /// </summary>
+        /// <param name="name">Name of the Bar</param>
+        /// <returns>BarDTO</returns>
+        public async Task<BarDTO> GetBar(string barName)
+        {
+            if (barName == null)
+                throw new ArgumentNullException("The name cannot be null.");
 
+            var bar = await GetAllBarsQueryable()
+                                         .Include(b => b.BarCocktails)
+                                         .AsNoTracking()
+                                         .FirstOrDefaultAsync(b => b.Name.ToLower().Contains(barName.ToLower()))
+                                         ?? throw new ArgumentNullException();
+
+
+            return bar.GetDTO();
+
+        }
+        /// <summary>
+        /// Sorts the bars of a sequence in ascending order according to names.
+        /// </summary>
+        /// <returns>ICollection<BarDTO></BarDTO></returns>
         public async Task<ICollection<BarDTO>> GetAllBars()
         {
-            var entities = await GetAllBarsQueryable().ToListAsync();
+            var bars = await GetAllBarsQueryable()
+                                        .OrderBy(b => b.Name)
+                                        .AsNoTracking()
+                                        .ToListAsync();
 
-            return entities.GetDTOs();
+
+
+            return bars.GetDTOs();
         }
-
+        /// <summary>
+        /// Adds the new bar to the database after checking if it does not exists already.
+        /// </summary>
+        /// <param name="barToCreate">This is the newly created Bar object</param>
+        /// <returns>BarDTO</returns>
         public async Task<BarDTO> CreateBar(BarDTO barDTO)
         {
             if (this.context.Bars.Any(b => b.Name == barDTO.Name))
@@ -44,21 +84,54 @@ namespace CocktailMagician.Services
             if (barDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
-            var bar = barDTO.GetEntity();
+
+            var bar = new Bar
+            {
+                Name = barDTO.Name,
+                Address = barDTO.Address,
+                Phone = barDTO.Phone,
+                BarCocktails = barDTO.BarCocktails,
+                ImageURL = barDTO.ImageURL,
+                CreatedOn = DateTime.UtcNow
+            };
             await context.Bars.AddAsync(bar);
             await context.SaveChangesAsync();
 
             return bar.GetDTO();
-            //var bar = new Bar
-            //{
-            //    Name = barDTO.Name,
-            //    Address = barDTO.Address,
-            //    Phone = barDTO.Phone,
-            //    BarCocktails = barDTO.BarCocktails,
-            //    ImageURL = barDTO.ImageURL,
-            //    CreatedOn = DateTime.UtcNow
-            //};
         }
+
+        public async Task<BarCocktailDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail)
+        {
+            var bar = await GetAllBarsQueryable()
+                                 .FirstOrDefaultAsync(b => b.Id == barId)
+                                 ?? throw new ArgumentNullException();
+
+           
+            var cocktailToAdd = cocktail.GetEntity();
+
+            var barCocktail = await this.context.BarCocktails
+                                            .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktail.Id);
+
+            if (barCocktail == null)
+            {
+                var newBarCocktail = new BarCocktail
+                {
+                    Bar = bar,
+                    Cocktail = cocktailToAdd,
+                    IsListed = true
+                };
+                context.Cocktails.Update(cocktailToAdd);
+                await context.BarCocktails.AddAsync(newBarCocktail);
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+               throw new InvalidOperationException("This cocktail is already in this bar.");
+            }
+
+            return barCocktail.GetDTO();
+        }
+
 
         public async Task<BarDTO> UpdateBar(BarDTO barDTO)
         {

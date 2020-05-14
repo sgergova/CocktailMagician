@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CocktailMagician.DataBase.AppContext;
 using CocktailMagician.Data.Entities;
+using CocktailMagician.Services;
+using CocktailMagician.Services.Contracts;
 
 namespace CocktailMagician
 {
@@ -25,6 +27,12 @@ namespace CocktailMagician
             services.AddDbContext<CMContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("MyConnection")));
+
+            //Register services
+            services.AddScoped<IBarServices, BarServices>();
+            services.AddScoped<IIngredientServices, IngredientServices>();
+            services.AddScoped<ICocktailServices, CocktailServices>();
+
            
             services.AddIdentity<User, Role>(option => option.SignIn.RequireConfirmedAccount = false)
               .AddEntityFrameworkStores<CMContext>()
