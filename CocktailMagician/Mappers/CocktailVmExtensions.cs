@@ -1,4 +1,5 @@
 ﻿using CocktailMagician.Services.EntitiesDTO;
+using CocktailMagician.Services.Mappers;
 using CocktailMagician.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,10 @@ namespace CocktailMagician.Web.Mappers
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
+                Bars = item.Bars.GetDTOs(),
+                Comments = item.Comments.GetDTOs(),
+                Ingredients = item.Ingredients.GetDTOs(),
+                Stars = item.Stars,
             };
         }
         public static ICollection<CocktailViewModel> GetViewModels(this ICollection<CocktailDTO> items)
@@ -47,6 +52,10 @@ namespace CocktailMagician.Web.Mappers
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
+                Bars = item.Bars.GetEntities(),
+                Comments = item.Comments.GetEntities(),
+                Ingredients = item.Ingredients.GetEntities(),
+                Stars = item.Stars,
             };
         }
         public static ICollection<CocktailDTO> GetDtoFromVMs(this ICollection<CocktailViewModel> items)

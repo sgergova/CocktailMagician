@@ -1,4 +1,5 @@
 ﻿using CocktailMagician.Services.EntitiesDTO;
+using CocktailMagician.Services.Mappers;
 using CocktailMagician.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace CocktailMagician.Web.Mappers
                 Phone = item.Phone,
                 Rating = item.Rating,
                 ImageURL = item.ImageURL,
+                BarCocktails = item.BarCocktails.GetDTOs(),
+                Comments = item.Comments.GetDTOs(),
             };
         }
         public static ICollection<BarViewModel> GetViewModels(this ICollection<BarDTO> items)
@@ -44,6 +47,8 @@ namespace CocktailMagician.Web.Mappers
                 Phone = item.Phone,
                 Rating = item.Rating,
                 ImageURL = item.ImageURL,
+                BarCocktails = item.BarCocktails.GetEntities(),
+                Comments = item.Comments.GetEntities(),
             };
         }
         public static ICollection<BarDTO> GetDtoFromVMs(this ICollection<BarViewModel> items)
