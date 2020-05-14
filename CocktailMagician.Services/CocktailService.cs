@@ -50,25 +50,25 @@ namespace CocktailMagician.Services
 
             if (cocktailDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
-
-            var cocktail = new Cocktail
-            {
-                Id = cocktailDTO.Id,
-                AlcoholPercentage = cocktailDTO.AlcoholPercentage,
-                Bars = cocktailDTO.Bars,
-                Comments = cocktailDTO.Comments,
-                ImageURL = cocktailDTO.ImageURL,
-                CocktailIngredients = cocktailDTO.Ingredients,
-                IsAlcoholic = cocktailDTO.IsAlcoholic,
-                Name = cocktailDTO.Name,
-                Rating = cocktailDTO.Rating,
-            };
+            var cocktail = cocktailDTO.GetEntity();
 
             await context.Cocktails.AddAsync(cocktail);
             await context.SaveChangesAsync();
 
 
             return cocktail.GetDTO();
+            //var cocktail = new Cocktail
+            //{
+            //    Id = cocktailDTO.Id,
+            //    AlcoholPercentage = cocktailDTO.AlcoholPercentage,
+            //    Bars = cocktailDTO.Bars,
+            //    Comments = cocktailDTO.Comments,
+            //    ImageURL = cocktailDTO.ImageURL,
+            //    CocktailIngredients = cocktailDTO.Ingredients,
+            //    IsAlcoholic = cocktailDTO.IsAlcoholic,
+            //    Name = cocktailDTO.Name,
+            //    Rating = cocktailDTO.Rating,
+            //};
         }
 
         public async Task<CocktailDTO> UpdateCocktail(CocktailDTO cocktailToUpdate)

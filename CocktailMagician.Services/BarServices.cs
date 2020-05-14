@@ -44,20 +44,20 @@ namespace CocktailMagician.Services
             if (barDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
-            var bar = new Bar
-            {
-                Name = barDTO.Name,
-                Address = barDTO.Address,
-                Phone = barDTO.Phone,
-                BarCocktails = barDTO.BarCocktails,
-                ImageURL = barDTO.ImageURL,
-                CreatedOn = DateTime.UtcNow
-            };
-
+            var bar = barDTO.GetEntity();
             await context.Bars.AddAsync(bar);
             await context.SaveChangesAsync();
 
             return bar.GetDTO();
+            //var bar = new Bar
+            //{
+            //    Name = barDTO.Name,
+            //    Address = barDTO.Address,
+            //    Phone = barDTO.Phone,
+            //    BarCocktails = barDTO.BarCocktails,
+            //    ImageURL = barDTO.ImageURL,
+            //    CreatedOn = DateTime.UtcNow
+            //};
         }
 
         public async Task<BarDTO> UpdateBar(BarDTO barDTO)
