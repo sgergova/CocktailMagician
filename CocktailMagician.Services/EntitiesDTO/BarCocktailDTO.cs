@@ -13,5 +13,9 @@ namespace CocktailMagician.Services.EntitiesDTO
         public Bar Bar { get; set; }
         public Guid CocktailId { get; set; }
         public Cocktail Cocktail { get; set; }
+        public bool IsListed { get; set; }
+        public DateTime ListedOn { get; set; }
+        public DateTime UnlistedOn { get; set; }
+
     }
 }

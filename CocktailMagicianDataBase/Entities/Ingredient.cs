@@ -18,7 +18,7 @@ namespace CocktailMagician.Data.Entities
         [Required]
         [StringLength(100, ErrorMessage = "The ingredient's description cannot be more than 100 characters")]
         public string Description { get; set; }
-        public ICollection<CocktailIngredient> CocktailIngredients { get; set; }
+        public ICollection<CocktailIngredient> CocktailIngredients { get; set; } = new List<CocktailIngredient>();
         public int Quantity { get; set; }
         public int Rating { get; set; }
         public bool IsAlcoholic { get; set; }

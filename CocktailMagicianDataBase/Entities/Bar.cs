@@ -13,12 +13,11 @@ namespace CocktailMagician.Data.Entities
         public string Address{ get; set; }
         public string Phone { get; set; }
         public int Rating { get; set; }
-        public ICollection<BarCocktail> BarCocktails { get; set; }
-        public ICollection<BarStar> Stars { get; set; }
-        public ICollection<BarComment> Comments { get; set; }
+        public ICollection<BarCocktail> BarCocktails { get; set; } = new List<BarCocktail>();
+        public ICollection<BarStar> Stars { get; set; } = new List<BarStar>();
+        public ICollection<BarComment> Comments { get; set; } = new List<BarComment>();
         public string ImageURL { get; set; }
        
         // set google maps
     }
-
 }
