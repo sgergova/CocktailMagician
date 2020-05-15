@@ -1,4 +1,4 @@
-**Telerik Academy Alpha Final Project**
+# Telerik Academy Alpha Final Project
 
 
 
