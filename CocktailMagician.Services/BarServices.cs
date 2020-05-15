@@ -20,6 +20,8 @@ namespace CocktailMagician.Services
         {
             this.context = context;
         }
+
+
         /// <summary>
         /// Searches if given ID of bar exists in the database and if its not found throws an exception.
         /// </summary>
@@ -28,14 +30,17 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBar(Guid id)
         {
             var entity = await GetAllBarsQueryable()
-                                .AsNoTracking()
-                                .Include(b => b.BarCocktails)
-                                .FirstOrDefaultAsync(e => e.Id == id)
-                                ?? throw new ArgumentNullException("The ID of the bar cannot be null");
+                                        .Include(b => b.Address)
+                                        .Include(b => b.Rating)
+                                        .Include(b => b.BarCocktails)
+                                        .FirstOrDefaultAsync(e => e.Id == id)
+                                        ?? throw new ArgumentNullException("The ID of the bar cannot be null");
 
             return entity.GetDTO();
 
         }
+
+
         /// <summary>
         /// Searches if given name of bar exists in the database and if its not found throws an exception.
         /// </summary>
@@ -47,6 +52,8 @@ namespace CocktailMagician.Services
                 throw new ArgumentNullException("The name cannot be null.");
 
             var bar = await GetAllBarsQueryable()
+                                         .Include(b => b.Address)
+                                         .Include(b => b.Rating)
                                          .Include(b => b.BarCocktails)
                                          .AsNoTracking()
                                          .FirstOrDefaultAsync(b => b.Name.ToLower().Contains(barName.ToLower()))
@@ -56,21 +63,34 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
 
         }
+
+
         /// <summary>
-        /// Sorts the bars of a sequence in ascending order according to names.
+        /// Sorts the bars of a sequence in according to given parameters.
         /// </summary>
+        /// <param name="name">Name of the Bar</param>
+        /// <param name="rating">Rating of the Bar</param>
+        /// <param name="address">Address of the Bar</param>
         /// <returns>ICollection<BarDTO></BarDTO></returns>
-        public async Task<ICollection<BarDTO>> GetAllBars()
+        public async Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address)
         {
-            var bars = await GetAllBarsQueryable()
-                                        .OrderBy(b => b.Name)
-                                        .AsNoTracking()
-                                        .ToListAsync();
+            var bars = GetAllBarsQueryable();
+
+            if (name != null)
+                bars = bars.Where(b => b.Name.ToLower().Contains(name.ToLower()));
+
+            if (address != null)
+                bars = bars.Where(b => b.Address.ToLower().Contains(address.ToLower()));
+
+            if (rating != 0)
+                bars = bars.Where(b => b.Rating == rating);
 
 
-
-            return bars.GetDTOs();
+            var barsToReturn = await bars.ToListAsync();
+            return barsToReturn.GetDTOs();
         }
+
+
         /// <summary>
         /// Adds the new bar to the database after checking if it does not exists already.
         /// </summary>
@@ -100,17 +120,30 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
         }
 
-        public async Task<BarCocktailDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail)
+
+        /// <summary>
+        /// Checks in the database if given cocktail's ID and bar's ID are valid and if yes adds current cocktail to the bar.
+        /// If some of the params is not valid throws exception.
+        /// </summary>
+        /// <param name="barId">The ID of the bar</param>
+        /// <param name="cocktailId">The ID of the cocktail to add</param>
+        /// <param name="cocktail"></param>
+        /// <returns>BarDTO</returns>
+        public async Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail)
         {
             var bar = await GetAllBarsQueryable()
                                  .FirstOrDefaultAsync(b => b.Id == barId)
                                  ?? throw new ArgumentNullException();
 
-           
+
             var cocktailToAdd = cocktail.GetEntity();
 
             var barCocktail = await this.context.BarCocktails
                                             .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktail.Id);
+
+            if (barCocktail != null)
+                throw new InvalidOperationException($"The cocktail is already listed on {bar}");
+            
 
             if (barCocktail == null)
             {
@@ -126,19 +159,28 @@ namespace CocktailMagician.Services
             }
             else
             {
-               throw new InvalidOperationException("This cocktail is already in this bar.");
+                throw new InvalidOperationException("This cocktail is already in this bar.");
             }
 
-            return barCocktail.GetDTO();
+            return bar.GetDTO();
         }
 
-        public async Task RemoveCocktailFromBar(Guid barId, Guid cocktailId)
-        {
-            if (barId == null)
-                throw new ArgumentNullException("The ID of the bar is mandatory.");
-            if (cocktailId == null)
-                throw new ArgumentNullException("The ID of the cocktail is mandatory.");
 
+        /// <summary>
+        ///Check in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
+        /// If some of the params is not valid throws exception. 
+        /// </summary>
+        /// <param name="barId"></param>
+        /// <param name="cocktailId"></param>
+        /// <returns>BarDTO</returns>
+        public async Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId)
+        {
+
+            var bar = await GetAllBarsQueryable()
+                            .FirstOrDefaultAsync(b => b.Id == barId);
+
+            var cocktail = await this.context.Cocktails
+                                             .FirstOrDefaultAsync(c => c.Id == cocktailId);
 
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktailId)
@@ -147,20 +189,55 @@ namespace CocktailMagician.Services
 
             barCocktail.IsListed = false;
             barCocktail.ModifiedOn = DateTime.UtcNow;
-            
+            bar.BarCocktails.Remove(barCocktail);
+            cocktail.Bars.Remove(barCocktail);
+
 
             this.context.Update(barCocktail);
             await this.context.SaveChangesAsync();
 
+            return bar.GetDTO();
+        }
+
+        /// <summary>
+        ///Searchs in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
+        /// If some of the params is not valid throws exception. 
+        /// </summary>
+        /// <param name="barId"></param>
+        /// <param name="cocktailId"></param>
+        /// <returns>BarDTO</returns>
+        public async Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId)
+        {
+           
+            var barCocktail = await this.context.BarCocktails
+                                                .FirstOrDefaultAsync(bc => bc.Id == barCocktailId)
+                                                ?? throw new ArgumentNullException();
+            var bar = barCocktail.Bar;
+            var cocktail = barCocktail.Cocktail;
+
+            barCocktail.IsListed = false;
+            barCocktail.ModifiedOn = DateTime.UtcNow;
+            bar.BarCocktails.Remove(barCocktail);
+            cocktail.Bars.Remove(barCocktail);
+
+            this.context.Update(barCocktail);
+            await this.context.SaveChangesAsync();
+
+            return bar.GetDTO();
         }
 
 
-        public async Task<BarDTO> UpdateBar(BarDTO barDTO)
+        /// <summary>
+        /// Searchs in the database if given bar is available and if it exists updates with given one.
+        /// If some of the params is not valid throws exception. 
+        /// </summary>
+        /// <param name="id">T|he ID of bar that should be updated</param>
+        /// <param name="barDTO">The updates that should be done</param>
+        /// <returns>The updated BarDTO</returns>
+        public async Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO)
         {
-            if (barDTO.Id == null)
-                throw new ArgumentNullException("Value cannot be null.");
+            var barToUpdate = await GetBar(id);
 
-            var barToUpdate = await GetBar(barDTO.Id);
             var bar = barToUpdate.GetEntity();
 
             bar.Name = barDTO.Name;
@@ -175,7 +252,12 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
 
         }
-
+        /// <summary>
+        /// Searchs in the database if given bar is available and if it exists delete it.
+        /// If ID is not valid throws exception. 
+        /// </summary>
+        /// <param name="id">The ID of bar that should be deleted</param>
+        /// <returns>BarDTO</returns>
         public async Task<BarDTO> DeleteBar(Guid id)
         {
             var barToDelete = await GetAllBarsQueryable()
@@ -199,6 +281,8 @@ namespace CocktailMagician.Services
 
             return barToDelete.GetDTO();
         }
+
+
 
         private IQueryable<Bar> GetAllBarsQueryable()
         {
