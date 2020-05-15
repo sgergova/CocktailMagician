@@ -49,8 +49,5 @@ namespace CocktailMagician.Services.Mappers
         }
     }
 
-
-
-
 }
-}
+

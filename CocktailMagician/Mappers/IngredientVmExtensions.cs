@@ -51,4 +51,4 @@ namespace CocktailMagician.Web.Mappers
 
     }
 }
-}
+
