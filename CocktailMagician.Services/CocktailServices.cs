@@ -63,6 +63,8 @@ namespace CocktailMagician.Services
                 IsAlcoholic = cocktailDTO.IsAlcoholic,
                 Name = cocktailDTO.Name,
                 Rating = cocktailDTO.Rating,
+                CreatedOn = DateTime.UtcNow
+
             };
 
             await context.Cocktails.AddAsync(cocktail);

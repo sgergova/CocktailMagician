@@ -8,6 +8,8 @@ namespace CocktailMagician.Data.Entities
 {
    public class CocktailIngredient : EntitiesDetails
     {
+        public Guid Id { get; set; }
+
         public Guid CocktailId { get; set; }
         public Cocktail Cocktail { get; set; }
         public Guid IngredientId { get; set; }
