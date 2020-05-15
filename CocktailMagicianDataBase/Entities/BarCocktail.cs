@@ -5,6 +5,7 @@ namespace CocktailMagician.Data.Entities
 {
     public class BarCocktail : EntitiesDetails
     {
+        public Guid Id { get; set; }
         public Guid BarId { get; set; }
         public Bar Bar { get; set; }
         public Guid CocktailId { get; set; }

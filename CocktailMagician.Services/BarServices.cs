@@ -132,6 +132,28 @@ namespace CocktailMagician.Services
             return barCocktail.GetDTO();
         }
 
+        public async Task RemoveCocktailFromBar(Guid barId, Guid cocktailId)
+        {
+            if (barId == null)
+                throw new ArgumentNullException("The ID of the bar is mandatory.");
+            if (cocktailId == null)
+                throw new ArgumentNullException("The ID of the cocktail is mandatory.");
+
+
+            var barCocktail = await this.context.BarCocktails
+                                                .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktailId)
+                                                ?? throw new ArgumentNullException();
+
+
+            barCocktail.IsListed = false;
+            barCocktail.ModifiedOn = DateTime.UtcNow;
+            
+
+            this.context.Update(barCocktail);
+            await this.context.SaveChangesAsync();
+
+        }
+
 
         public async Task<BarDTO> UpdateBar(BarDTO barDTO)
         {

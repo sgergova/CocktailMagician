@@ -6,6 +6,7 @@ namespace CocktailMagician.Data.Entities
 {
    public  class CocktailStar
     {
+        public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
         public Guid CocktailId { get; set; }
