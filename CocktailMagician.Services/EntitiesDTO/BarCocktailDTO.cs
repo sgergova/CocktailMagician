@@ -1,12 +1,9 @@
-﻿using CocktailMagician.Data.Abstract;
-using CocktailMagician.Data.Entities;
+﻿using CocktailMagician.Data.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CocktailMagician.Services.EntitiesDTO
 {
-    public class BarCocktailDTO :EntitiesDetails
+    public class BarCocktailDTO //:EntitiesDetails
     {
         public Guid Id { get; set; }
         public Guid BarId { get; set; }
@@ -16,6 +13,10 @@ namespace CocktailMagician.Services.EntitiesDTO
         public bool IsListed { get; set; }
         public DateTime ListedOn { get; set; }
         public DateTime UnlistedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public bool IsDeleted { get; set; }
 
     }
 }

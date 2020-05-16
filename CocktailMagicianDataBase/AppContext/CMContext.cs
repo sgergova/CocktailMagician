@@ -3,6 +3,7 @@ using CocktailMagician.Data.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using CocktailMagician.Data.Seeder;
 
 namespace CocktailMagician.DataBase.AppContext
 {
@@ -22,6 +23,7 @@ namespace CocktailMagician.DataBase.AppContext
         public DbSet<CocktailIngredient> CocktailIngredients { get; set; }
         public DbSet<CocktailStar> CocktailStars { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new BarCocktailConfig());
@@ -34,7 +36,7 @@ namespace CocktailMagician.DataBase.AppContext
             builder.ApplyConfiguration(new CocktailIngredientConfig());
             builder.ApplyConfiguration(new CocktailStarConfig());
 
-
+            builder.Seeder();
             base.OnModelCreating(builder);
         }
     }

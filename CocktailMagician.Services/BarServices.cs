@@ -30,9 +30,6 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBar(Guid id)
         {
             var entity = await GetAllBarsQueryable()
-                                        .Include(b => b.Address)
-                                        .Include(b => b.Rating)
-                                        .Include(b => b.BarCocktails)
                                         .FirstOrDefaultAsync(e => e.Id == id)
                                         ?? throw new ArgumentNullException("The ID of the bar cannot be null");
 
@@ -52,10 +49,6 @@ namespace CocktailMagician.Services
                 throw new ArgumentNullException("The name cannot be null.");
 
             var bar = await GetAllBarsQueryable()
-                                         .Include(b => b.Address)
-                                         .Include(b => b.Rating)
-                                         .Include(b => b.BarCocktails)
-                                         .AsNoTracking()
                                          .FirstOrDefaultAsync(b => b.Name.ToLower().Contains(barName.ToLower()))
                                          ?? throw new ArgumentNullException();
 
@@ -88,6 +81,19 @@ namespace CocktailMagician.Services
 
             var barsToReturn = await bars.ToListAsync();
             return barsToReturn.GetDTOs();
+        }
+
+        public IQueryable<Bar> OrderBeer(IQueryable<Bar> bars, string orderBy)
+        {
+            return orderBy switch
+            {
+                "name" => bars.OrderBy(b => b.Name),
+                "name_desc" => bars.OrderByDescending(b => b.Name),
+                "address" => bars.OrderBy(b => b.Address),
+                "cocktail" => bars.OrderBy(b => b.BarCocktails),
+
+                _ => throw new InvalidOperationException("Command does not exist")
+            };
         }
 
 
@@ -143,7 +149,7 @@ namespace CocktailMagician.Services
 
             if (barCocktail != null)
                 throw new InvalidOperationException($"The cocktail is already listed on {bar}");
-            
+
 
             if (barCocktail == null)
             {
@@ -208,7 +214,7 @@ namespace CocktailMagician.Services
         /// <returns>BarDTO</returns>
         public async Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId)
         {
-           
+
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.Id == barCocktailId)
                                                 ?? throw new ArgumentNullException();

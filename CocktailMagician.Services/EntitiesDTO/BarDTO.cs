@@ -1,12 +1,10 @@
-﻿using CocktailMagician.Data.Abstract;
-using CocktailMagician.Data.Entities;
+﻿using CocktailMagician.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CocktailMagician.Services.EntitiesDTO
 {
-    public class BarDTO :EntitiesDetails
+    public class BarDTO 
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -17,5 +15,9 @@ namespace CocktailMagician.Services.EntitiesDTO
         public ICollection<BarStar> Stars { get; set; }
         public ICollection<BarComment> Comments { get; set; }
         public string ImageURL { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

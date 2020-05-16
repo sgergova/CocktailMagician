@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CocktailMagician.Data.Migrations
 {
     [DbContext(typeof(CMContext))]
-    [Migration("20200513173352_ChangesOfBarEntity")]
-    partial class ChangesOfBarEntity
+    [Migration("20200516154248_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,6 +62,80 @@ namespace CocktailMagician.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bars");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("1fc708ed-edce-415d-9401-9987f4c7cd38"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "American Bar",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("7b2fe070-1bb8-44fc-85d3-a790254cac1e"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "The NoMad",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("6f1ba2d3-eb8d-49d2-b20e-31322f5d5997"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Drink Kong",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("d07e224e-eb3a-47a3-ada9-42692bdb467d"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Manhattan",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("6c10e839-351f-4f70-8a5f-147f65a396fa"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Connaught Bar",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("d0f5eb20-847f-4e98-8f10-a8f4b52f038f"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "The Old Man",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("81bae617-ec16-4d86-aa90-37aa013d1bca"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Salmon Guru",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("8ef23bc5-7876-4337-84cb-ae69f1e9d38b"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Katana Kitten",
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("bfba4312-00f1-4761-83ad-ae59e1bd5fd4"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false,
+                            Name = "Native",
+                            Rating = 0
+                        });
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.BarCocktail", b =>
@@ -78,17 +152,29 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsListed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ListedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UnlistedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("BarId", "CocktailId");
 
                     b.HasIndex("CocktailId");
 
-                    b.ToTable("BarCocktail");
+                    b.ToTable("BarCocktails");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.BarComment", b =>
@@ -110,6 +196,9 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -120,7 +209,7 @@ namespace CocktailMagician.Data.Migrations
 
                     b.HasIndex("BarId");
 
-                    b.ToTable("BarComment");
+                    b.ToTable("BarComments");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.BarStar", b =>
@@ -131,6 +220,9 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Vote")
                         .HasColumnType("bit");
 
@@ -138,7 +230,7 @@ namespace CocktailMagician.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BarStar");
+                    b.ToTable("BarStars");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.Cocktail", b =>
@@ -184,6 +276,98 @@ namespace CocktailMagician.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Cocktails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("619e984a-91ce-4948-bdcb-396e57739e1c"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Bacardi",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("ea1a896c-c0cb-4767-bd3a-9af687b23e7d"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Americano",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("ab6d63b7-cfb7-4b72-96e0-0e7d7098949e"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Caipiroska",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("627dc490-c911-435a-be36-b05ebbc11059"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Caipirinha",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("879e6c2f-e098-4d89-80ef-42b40207833c"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Bramble",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("f77e91a0-06dc-42ff-bd13-16581efc8d45"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Black Russian",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("72180b8c-e04e-4cbc-8b04-d2be913484fd"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "White Russian",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("7f6a0a9d-1bee-4885-84e2-0a3234ff8f54"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Barracuda",
+                            Rating = 0.0
+                        },
+                        new
+                        {
+                            Id = new Guid("d7aeeb26-98d0-4ebd-b521-561d9933f2c1"),
+                            AlcoholPercentage = 3.3999999999999999,
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Bacardi",
+                            Rating = 0.0
+                        });
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailComment", b =>
@@ -205,6 +389,9 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -215,7 +402,7 @@ namespace CocktailMagician.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CocktailComment");
+                    b.ToTable("CocktailComments");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailIngredient", b =>
@@ -232,6 +419,9 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -242,7 +432,7 @@ namespace CocktailMagician.Data.Migrations
 
                     b.HasIndex("IngredientId");
 
-                    b.ToTable("CocktailIngredient");
+                    b.ToTable("CocktailIngredients");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.CocktailStar", b =>
@@ -253,6 +443,9 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("Vote")
                         .HasColumnType("bit");
 
@@ -260,7 +453,7 @@ namespace CocktailMagician.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CocktailStar");
+                    b.ToTable("CocktailStars");
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.Ingredient", b =>
@@ -276,7 +469,6 @@ namespace CocktailMagician.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
@@ -303,6 +495,98 @@ namespace CocktailMagician.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ingredients");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("12246f7d-078c-4d86-b595-fbc93cf2bcc2"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Banana Daiquiri",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("5ce2ef36-a896-40a9-af7d-638ddbf8f247"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Banana Juice",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("c5513657-5edc-49d3-a105-99f5d10e6568"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Vodka",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("3c1b452e-2201-42f0-af9d-f2666a368ebd"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Orange juice",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("139afd66-a073-44cf-8383-2b7dc9c69623"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Whiskey",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("476f7e58-9366-4275-97ad-9022cb2e7c19"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Coffee",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("cfddb650-6e61-4019-b635-015f8521e832"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Gin",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("cda274d2-7b0e-44c0-a145-02cba35ab7fd"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Campari",
+                            Quantity = 0,
+                            Rating = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("4be96a90-1ae9-4403-b69c-d08ea053d3ba"),
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAlcoholic = false,
+                            IsDeleted = false,
+                            Name = "Rum",
+                            Quantity = 0,
+                            Rating = 0
+                        });
                 });
 
             modelBuilder.Entity("CocktailMagician.Data.Entities.Role", b =>

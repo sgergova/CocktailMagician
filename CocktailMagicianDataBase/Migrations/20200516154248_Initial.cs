@@ -56,14 +56,15 @@ namespace CocktailMagician.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(maxLength: 40, nullable: false),
+                    Description = table.Column<string>(maxLength: 100, nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    Rating = table.Column<int>(nullable: false),
+                    IsAlcoholic = table.Column<bool>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(maxLength: 40, nullable: false),
-                    Description = table.Column<string>(maxLength: 100, nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    Rating = table.Column<int>(nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -181,17 +182,15 @@ namespace CocktailMagician.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Country = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
                     Rating = table.Column<int>(nullable: false),
                     ImageURL = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     UserId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -210,15 +209,15 @@ namespace CocktailMagician.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(maxLength: 30, nullable: false),
                     Rating = table.Column<double>(nullable: false),
                     AlcoholPercentage = table.Column<double>(nullable: false),
                     IsAlcoholic = table.Column<bool>(nullable: false),
                     ImageURL = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     UserId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
@@ -233,28 +232,29 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BarComment",
+                name: "BarComments",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     BarId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    Comments = table.Column<string>(maxLength: 500, nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Comments = table.Column<string>(maxLength: 500, nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BarComment", x => new { x.UserId, x.BarId });
+                    table.PrimaryKey("PK_BarComments", x => new { x.UserId, x.BarId });
                     table.ForeignKey(
-                        name: "FK_BarComment_Bars_BarId",
+                        name: "FK_BarComments_Bars_BarId",
                         column: x => x.BarId,
                         principalTable: "Bars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BarComment_AspNetUsers_UserId",
+                        name: "FK_BarComments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -262,24 +262,25 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BarStar",
+                name: "BarStars",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     BarId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Vote = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BarStar", x => new { x.BarId, x.UserId });
+                    table.PrimaryKey("PK_BarStars", x => new { x.BarId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_BarStar_Bars_BarId",
+                        name: "FK_BarStars_Bars_BarId",
                         column: x => x.BarId,
                         principalTable: "Bars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BarStar_AspNetUsers_UserId",
+                        name: "FK_BarStars_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -287,11 +288,15 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BarCocktail",
+                name: "BarCocktails",
                 columns: table => new
                 {
                     BarId = table.Column<Guid>(nullable: false),
                     CocktailId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    IsListed = table.Column<bool>(nullable: false),
+                    ListedOn = table.Column<DateTime>(nullable: false),
+                    UnlistedOn = table.Column<DateTime>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
@@ -299,15 +304,15 @@ namespace CocktailMagician.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BarCocktail", x => new { x.BarId, x.CocktailId });
+                    table.PrimaryKey("PK_BarCocktails", x => new { x.BarId, x.CocktailId });
                     table.ForeignKey(
-                        name: "FK_BarCocktail_Bars_BarId",
+                        name: "FK_BarCocktails_Bars_BarId",
                         column: x => x.BarId,
                         principalTable: "Bars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BarCocktail_Cocktails_CocktailId",
+                        name: "FK_BarCocktails_Cocktails_CocktailId",
                         column: x => x.CocktailId,
                         principalTable: "Cocktails",
                         principalColumn: "Id",
@@ -315,28 +320,29 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CocktailComment",
+                name: "CocktailComments",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     CocktailId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
+                    Comments = table.Column<string>(maxLength: 500, nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    Comments = table.Column<string>(maxLength: 500, nullable: false)
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CocktailComment", x => new { x.CocktailId, x.UserId });
+                    table.PrimaryKey("PK_CocktailComments", x => new { x.CocktailId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_CocktailComment_Cocktails_CocktailId",
+                        name: "FK_CocktailComments_Cocktails_CocktailId",
                         column: x => x.CocktailId,
                         principalTable: "Cocktails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CocktailComment_AspNetUsers_UserId",
+                        name: "FK_CocktailComments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -344,11 +350,12 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CocktailIngredient",
+                name: "CocktailIngredients",
                 columns: table => new
                 {
                     CocktailId = table.Column<Guid>(nullable: false),
                     IngredientId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     DeletedOn = table.Column<DateTime>(nullable: true),
@@ -356,15 +363,15 @@ namespace CocktailMagician.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CocktailIngredient", x => new { x.CocktailId, x.IngredientId });
+                    table.PrimaryKey("PK_CocktailIngredients", x => new { x.CocktailId, x.IngredientId });
                     table.ForeignKey(
-                        name: "FK_CocktailIngredient_Cocktails_CocktailId",
+                        name: "FK_CocktailIngredients_Cocktails_CocktailId",
                         column: x => x.CocktailId,
                         principalTable: "Cocktails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CocktailIngredient_Ingredients_IngredientId",
+                        name: "FK_CocktailIngredients_Ingredients_IngredientId",
                         column: x => x.IngredientId,
                         principalTable: "Ingredients",
                         principalColumn: "Id",
@@ -372,28 +379,77 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CocktailStar",
+                name: "CocktailStars",
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(nullable: false),
                     CocktailId = table.Column<Guid>(nullable: false),
+                    Id = table.Column<Guid>(nullable: false),
                     Vote = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CocktailStar", x => new { x.CocktailId, x.UserId });
+                    table.PrimaryKey("PK_CocktailStars", x => new { x.CocktailId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_CocktailStar_Cocktails_CocktailId",
+                        name: "FK_CocktailStars_Cocktails_CocktailId",
                         column: x => x.CocktailId,
                         principalTable: "Cocktails",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CocktailStar_AspNetUsers_UserId",
+                        name: "FK_CocktailStars_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Bars",
+                columns: new[] { "Id", "Address", "CreatedOn", "DeletedOn", "ImageURL", "IsDeleted", "ModifiedOn", "Name", "Phone", "Rating", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("1fc708ed-edce-415d-9401-9987f4c7cd38"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "American Bar", null, 0, null },
+                    { new Guid("7b2fe070-1bb8-44fc-85d3-a790254cac1e"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "The NoMad", null, 0, null },
+                    { new Guid("6f1ba2d3-eb8d-49d2-b20e-31322f5d5997"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "Drink Kong", null, 0, null },
+                    { new Guid("d07e224e-eb3a-47a3-ada9-42692bdb467d"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "Manhattan", null, 0, null },
+                    { new Guid("6c10e839-351f-4f70-8a5f-147f65a396fa"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "Connaught Bar", null, 0, null },
+                    { new Guid("d0f5eb20-847f-4e98-8f10-a8f4b52f038f"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "The Old Man", null, 0, null },
+                    { new Guid("81bae617-ec16-4d86-aa90-37aa013d1bca"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "Salmon Guru", null, 0, null },
+                    { new Guid("8ef23bc5-7876-4337-84cb-ae69f1e9d38b"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "Katana Kitten", null, 0, null },
+                    { new Guid("bfba4312-00f1-4761-83ad-ae59e1bd5fd4"), null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, null, "Native", null, 0, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cocktails",
+                columns: new[] { "Id", "AlcoholPercentage", "CreatedOn", "DeletedOn", "ImageURL", "IsAlcoholic", "IsDeleted", "ModifiedOn", "Name", "Rating", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("d7aeeb26-98d0-4ebd-b521-561d9933f2c1"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Bacardi", 0.0, null },
+                    { new Guid("7f6a0a9d-1bee-4885-84e2-0a3234ff8f54"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Barracuda", 0.0, null },
+                    { new Guid("72180b8c-e04e-4cbc-8b04-d2be913484fd"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "White Russian", 0.0, null },
+                    { new Guid("f77e91a0-06dc-42ff-bd13-16581efc8d45"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Black Russian", 0.0, null },
+                    { new Guid("879e6c2f-e098-4d89-80ef-42b40207833c"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Bramble", 0.0, null },
+                    { new Guid("627dc490-c911-435a-be36-b05ebbc11059"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Caipirinha", 0.0, null },
+                    { new Guid("ab6d63b7-cfb7-4b72-96e0-0e7d7098949e"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Caipiroska", 0.0, null },
+                    { new Guid("ea1a896c-c0cb-4767-bd3a-9af687b23e7d"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Americano", 0.0, null },
+                    { new Guid("619e984a-91ce-4948-bdcb-396e57739e1c"), 3.3999999999999999, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Bacardi", 0.0, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Ingredients",
+                columns: new[] { "Id", "CreatedOn", "DeletedOn", "Description", "IsAlcoholic", "IsDeleted", "ModifiedOn", "Name", "Quantity", "Rating" },
+                values: new object[,]
+                {
+                    { new Guid("12246f7d-078c-4d86-b595-fbc93cf2bcc2"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Banana Daiquiri", 0, 0 },
+                    { new Guid("5ce2ef36-a896-40a9-af7d-638ddbf8f247"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Banana Juice", 0, 0 },
+                    { new Guid("c5513657-5edc-49d3-a105-99f5d10e6568"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Vodka", 0, 0 },
+                    { new Guid("3c1b452e-2201-42f0-af9d-f2666a368ebd"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Orange juice", 0, 0 },
+                    { new Guid("139afd66-a073-44cf-8383-2b7dc9c69623"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Whiskey", 0, 0 },
+                    { new Guid("476f7e58-9366-4275-97ad-9022cb2e7c19"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Coffee", 0, 0 },
+                    { new Guid("cfddb650-6e61-4019-b635-015f8521e832"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Gin", 0, 0 },
+                    { new Guid("cda274d2-7b0e-44c0-a145-02cba35ab7fd"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Campari", 0, 0 },
+                    { new Guid("4be96a90-1ae9-4403-b69c-d08ea053d3ba"), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, false, false, null, "Rum", 0, 0 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -436,13 +492,13 @@ namespace CocktailMagician.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BarCocktail_CocktailId",
-                table: "BarCocktail",
+                name: "IX_BarCocktails_CocktailId",
+                table: "BarCocktails",
                 column: "CocktailId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BarComment_BarId",
-                table: "BarComment",
+                name: "IX_BarComments_BarId",
+                table: "BarComments",
                 column: "BarId");
 
             migrationBuilder.CreateIndex(
@@ -451,18 +507,18 @@ namespace CocktailMagician.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BarStar_UserId",
-                table: "BarStar",
+                name: "IX_BarStars_UserId",
+                table: "BarStars",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CocktailComment_UserId",
-                table: "CocktailComment",
+                name: "IX_CocktailComments_UserId",
+                table: "CocktailComments",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CocktailIngredient_IngredientId",
-                table: "CocktailIngredient",
+                name: "IX_CocktailIngredients_IngredientId",
+                table: "CocktailIngredients",
                 column: "IngredientId");
 
             migrationBuilder.CreateIndex(
@@ -471,8 +527,8 @@ namespace CocktailMagician.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CocktailStar_UserId",
-                table: "CocktailStar",
+                name: "IX_CocktailStars_UserId",
+                table: "CocktailStars",
                 column: "UserId");
         }
 
@@ -494,22 +550,22 @@ namespace CocktailMagician.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "BarCocktail");
+                name: "BarCocktails");
 
             migrationBuilder.DropTable(
-                name: "BarComment");
+                name: "BarComments");
 
             migrationBuilder.DropTable(
-                name: "BarStar");
+                name: "BarStars");
 
             migrationBuilder.DropTable(
-                name: "CocktailComment");
+                name: "CocktailComments");
 
             migrationBuilder.DropTable(
-                name: "CocktailIngredient");
+                name: "CocktailIngredients");
 
             migrationBuilder.DropTable(
-                name: "CocktailStar");
+                name: "CocktailStars");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

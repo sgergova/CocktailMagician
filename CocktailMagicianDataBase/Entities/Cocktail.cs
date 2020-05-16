@@ -1,14 +1,11 @@
-﻿using CocktailMagician.Data.Abstract;
-using CocktailMagician.Data.Entities.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace CocktailMagician.Data.Entities
 {
-    public class Cocktail :EntitiesDetails
+    public class Cocktail 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
@@ -24,7 +21,11 @@ namespace CocktailMagician.Data.Entities
         public ICollection<CocktailStar> Stars { get; set; } = new List<CocktailStar>();
         public bool IsAlcoholic { get; set;  }
         public string ImageURL { get; set; }
-       
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public bool IsDeleted { get; set; }
+
 
     }
 }
