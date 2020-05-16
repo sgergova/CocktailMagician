@@ -21,7 +21,6 @@ namespace CocktailMagician.Services
             this.context = context;
         }
 
-
         /// <summary>
         /// Searches if given ID of bar exists in the database and if its not found throws an exception.
         /// </summary>
@@ -84,7 +83,7 @@ namespace CocktailMagician.Services
 
             if (rating != 0)
                 bars = bars.Where(b => b.Rating == rating);
-
+            
 
             var barsToReturn = await bars.ToListAsync();
             return barsToReturn.GetDTOs();
