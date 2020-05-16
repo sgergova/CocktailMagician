@@ -17,5 +17,9 @@ namespace CocktailMagician.Services.EntitiesDTO
         public ICollection<CocktailComment> Comments { get; set; }
         public bool IsAlcoholic { get; set; }
         public string ImageURL { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

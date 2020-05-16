@@ -1,12 +1,11 @@
-﻿using CocktailMagician.Data.Entities.Contracts;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CocktailMagician.Data.Entities
 {
-    public class User : IdentityUser<Guid>, IEntitiesDetails
+    public class User : IdentityUser<Guid> 
     {
         [Required]
         [StringLength(30, ErrorMessage = "The username cannot be more than 30 characters")]

@@ -1,12 +1,8 @@
-﻿using CocktailMagician.Data.Abstract;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System;
 
 namespace CocktailMagician.Data.Entities
 {
-   public class CocktailIngredient : EntitiesDetails
+    public class CocktailIngredient 
     {
         public Guid Id { get; set; }
 
@@ -15,5 +11,9 @@ namespace CocktailMagician.Data.Entities
         public Guid IngredientId { get; set; }
         public Ingredient Ingredient { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

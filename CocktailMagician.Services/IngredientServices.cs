@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-    public class IngredientServices :IIngredientServices
+    public class IngredientServices : IIngredientServices
     {
         private readonly CMContext context;
 
@@ -68,7 +68,7 @@ namespace CocktailMagician.Services
             await context.SaveChangesAsync();
 
             return ingredient.GetDTO();
-           
+
         }
 
         public async Task<IngredientDTO> UpdateIngredient(IngredientDTO ingredientDTO)
@@ -95,7 +95,7 @@ namespace CocktailMagician.Services
         public async Task<IngredientDTO> DeleteIngredient(Guid id)
         {
             var ingredientsToDelete = await GetAllQueryable()
-                                 .Include(i=>i.CocktailIngredients)
+                                 .Include(i => i.CocktailIngredients)
                                  .FirstOrDefaultAsync(b => b.Id == id)
                                  ?? throw new ArgumentNullException();
 

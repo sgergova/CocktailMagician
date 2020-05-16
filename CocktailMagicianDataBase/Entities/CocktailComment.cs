@@ -1,12 +1,9 @@
-﻿using CocktailMagician.Data.Abstract;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace CocktailMagician.Data.Entities
 {
-    public class CocktailComment : EntitiesDetails
+    public class CocktailComment 
     {
         public Guid Id { get; set; }
 
@@ -17,5 +14,9 @@ namespace CocktailMagician.Data.Entities
         public User User { get; set; }
         public Guid CocktailId { get; set; }
         public Cocktail Cocktail { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
+        public DateTime? DeletedOn { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
