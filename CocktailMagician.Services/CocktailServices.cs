@@ -23,24 +23,45 @@ namespace CocktailMagician.Services
         public async Task<CocktailDTO> GetCocktail(Guid id)
         {
             if (id == null)
+            {
                 throw new ArgumentNullException("The ID cannot be null");
+            }
 
 
             var entity = await GetCocktailsQueryable()
-                                        .FirstOrDefaultAsync(b => b.Id == id);
+                .Include(c => c.CocktailIngredients)
+                .Include(c => c.Bars)
+                .Include(c => c.Comments)
+                .Include(c => c.Stars)
+                .FirstOrDefaultAsync(b => b.Id == id);
 
 
             return entity.GetDTO();
 
         }
 
-        public async Task<ICollection<CocktailDTO>> GetAllCocktails()
+        public async Task<ICollection<CocktailDTO>> GetAllCocktails(string name, ICollection<CocktailIngredient> ingredients
+            , int? rating)
         {
-            var entities = await GetCocktailsQueryable()
-                                            .ToListAsync();
-
-
-            return entities.GetDTOs();
+            var cocktails = GetCocktailsQueryable();
+            
+            if (name!=null)
+            {
+                cocktails = cocktails.Where(c => c.Name.ToLower().Contains( name.ToLower()));
+            }
+            if (ingredients!=null)
+            {
+                foreach (var item in ingredients)
+                {
+                    cocktails = cocktails.Where(c => c.CocktailIngredients.Contains(item));
+                }
+            }
+            if (rating!=null)
+            {
+                cocktails = cocktails.Where(c => c.Rating == rating);
+            }
+            var returnCocktails = await cocktails.ToListAsync();
+            return returnCocktails.GetDTOs();
         }
 
         public async Task<CocktailDTO> CreateCocktail(CocktailDTO cocktailDTO)

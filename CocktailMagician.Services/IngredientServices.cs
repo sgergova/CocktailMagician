@@ -32,12 +32,19 @@ namespace CocktailMagician.Services
             return entity.GetDTO();
 
         }
-        public async Task<ICollection<IngredientDTO>> GetAllIngredients()
+        public async Task<ICollection<IngredientDTO>> GetAllIngredients(string name)
         {
-            var entities = await GetAllQueryable()
-                                                    .ToListAsync();
+            var entities =  GetAllQueryable();
+                                                    
+            if (name!=null)
+            {
+                entities = entities.Where(i => i.Name.ToLower().Contains(name.ToLower()));
 
-            return entities.GetDTOs();
+            }
+
+            var ingredient = await entities.ToListAsync();
+
+            return ingredient.GetDTOs();
         }
 
         public async Task<IngredientDTO> CreateIngredient(IngredientDTO ingredientDTO)
