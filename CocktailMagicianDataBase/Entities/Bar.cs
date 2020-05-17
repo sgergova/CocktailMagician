@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CocktailMagician.Data.Entities
@@ -12,12 +13,18 @@ namespace CocktailMagician.Data.Entities
         public string Address { get; set; }
         public string Phone { get; set; }
         public int Rating { get; set; }
+        public Guid CountryId { get; set; }
+        public Country Country { get; set; }
         public ICollection<BarCocktail> BarCocktails { get; set; } = new List<BarCocktail>();
         public ICollection<BarStar> Stars { get; set; } = new List<BarStar>();
         public ICollection<BarComment> Comments { get; set; } = new List<BarComment>();
-        public string ImageURL { get; set; }
+        [Url]
+        public string BarImageURL { get; set; }
+        [DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
 

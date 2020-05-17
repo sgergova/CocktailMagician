@@ -14,8 +14,11 @@ namespace CocktailMagician.Data.Entities
         public User User { get; set; }
         public Guid BarId { get; set; }
         public Bar Bar { get; set; }
+        [DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
     }

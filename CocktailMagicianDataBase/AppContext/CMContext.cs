@@ -22,6 +22,7 @@ namespace CocktailMagician.DataBase.AppContext
         public DbSet<CocktailComment> CocktailComments { get; set; }
         public DbSet<CocktailIngredient> CocktailIngredients { get; set; }
         public DbSet<CocktailStar> CocktailStars { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -35,6 +36,7 @@ namespace CocktailMagician.DataBase.AppContext
             builder.ApplyConfiguration(new BarStarConfig());
             builder.ApplyConfiguration(new CocktailIngredientConfig());
             builder.ApplyConfiguration(new CocktailStarConfig());
+            builder.ApplyConfiguration(new CountryConfig());
 
             builder.Seeder();
             base.OnModelCreating(builder);

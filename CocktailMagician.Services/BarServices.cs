@@ -82,7 +82,7 @@ namespace CocktailMagician.Services
             return barsToReturn.GetDTOs();
         }
 
-        public IQueryable<Bar> OrderBeer(IQueryable<Bar> bars, string orderBy)
+        public IQueryable<Bar> OrderBar(IQueryable<Bar> bars, string orderBy)
         {
             return orderBy switch
             {
@@ -116,7 +116,7 @@ namespace CocktailMagician.Services
                 Address = barDTO.Address,
                 Phone = barDTO.Phone,
                 BarCocktails = barDTO.BarCocktails,
-                ImageURL = barDTO.ImageURL,
+                BarImageURL = barDTO.ImageURL,
                 CreatedOn = DateTime.UtcNow
             };
             await context.Bars.AddAsync(bar);
@@ -248,7 +248,7 @@ namespace CocktailMagician.Services
             bar.Name = barDTO.Name;
             bar.Address = barDTO.Address;
             bar.Phone = barDTO.Phone;
-            bar.ImageURL = barDTO.ImageURL;
+            bar.BarImageURL = barDTO.ImageURL;
             bar.ModifiedOn = DateTime.UtcNow;
 
             this.context.Bars.Update(bar);
