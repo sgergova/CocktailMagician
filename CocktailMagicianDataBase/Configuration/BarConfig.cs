@@ -22,6 +22,10 @@ namespace CocktailMagician.Data.Configuration
             builder.HasMany(b => b.Stars)
                 .WithOne(s => s.Bar)
                 .HasForeignKey(s => s.BarId);
+
+            builder.HasOne(b => b.Country)
+                   .WithMany(c => c.Bars)
+                   .HasForeignKey(b=>b.CountryId);
         }
     }
 }

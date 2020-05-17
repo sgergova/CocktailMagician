@@ -20,9 +20,13 @@ namespace CocktailMagician.Data.Entities
         public ICollection<CocktailComment> Comments { get; set; } = new List<CocktailComment>();
         public ICollection<CocktailStar> Stars { get; set; } = new List<CocktailStar>();
         public bool IsAlcoholic { get; set;  }
+        [Url]
         public string ImageURL { get; set; }
+        [DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
 

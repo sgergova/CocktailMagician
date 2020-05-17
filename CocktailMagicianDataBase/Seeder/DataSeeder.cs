@@ -25,7 +25,10 @@ namespace CocktailMagician.Data.Seeder
             //var cocktails = CreateCocktails(rawIngredients);
             //builder.Entity<Cocktail>().HasData(cocktails);
 
-            //var bars = CreateBars(rawIngredients);
+            //var countries = CreateCountries(rawIngredients);
+            //builder.Entity<Country>().HasData(countries);
+
+            //var bars = CreateBars(rawIngredients, countries);
             //builder.Entity<Bar>().HasData(bars);
         }
 
@@ -45,8 +48,12 @@ namespace CocktailMagician.Data.Seeder
 
                     ingredientRawData.Add("Ingredient", fields[0]);
                     ingredientRawData.Add("Cocktail", fields[1]);
-                    ingredientRawData.Add("AlcoholPercentage", fields[2]);
-                    ingredientRawData.Add("Bar", fields[3]);
+                    ingredientRawData.Add("ImageURL", fields[2]);
+                    ingredientRawData.Add("AlcoholPercentage", fields[3]);
+                    ingredientRawData.Add("Bar", fields[4]);
+                    ingredientRawData.Add("BarImageURL", fields[5]);
+                    ingredientRawData.Add("Country", fields[6]);
+
 
                     ingredients.Add(ingredientRawData);
                 }
@@ -57,7 +64,7 @@ namespace CocktailMagician.Data.Seeder
 
         private static List<Ingredient> CreateIngredients(List<Dictionary<string, string>> rawIngredients)
         {
-           var ingredientNames = GetUniqueNames(rawIngredients, "Ingredient");
+            var ingredientNames = GetUniqueNames(rawIngredients, "Ingredient");
             var ingredients = new List<Ingredient>();
             var counter = 1;
 
@@ -86,12 +93,14 @@ namespace CocktailMagician.Data.Seeder
             foreach (var item in rawIngredients)
             {
                 var alcohol = double.Parse(item["AlcoholPercentage"]);
+                var image = item["ImageURL"];
 
                 var cocktail = new Cocktail()
                 {
                     Id = Guid.NewGuid(),
                     Name = item["Cocktail"],
-                    AlcoholPercentage = Math.Round(alcohol, 1)
+                    AlcoholPercentage = Math.Round(alcohol, 1),
+                    ImageURL = image
                 };
                 counter++;
                 cocktails.Add(cocktail);
@@ -100,24 +109,50 @@ namespace CocktailMagician.Data.Seeder
             return cocktails;
         }
 
-        private static List<Bar> CreateBars(List<Dictionary<string, string>> rawIngredients)
+
+        private static List<Country> CreateCountries(List<Dictionary<string, string>> rawIngredients)
         {
-            var barNames = GetUniqueNames(rawIngredients, "Bar");
+            var countryNames = GetUniqueNames(rawIngredients, "Country");
+            var countries = new List<Country>();
+            var counter = 1;
+
+            foreach (var countryName in countryNames)
+            {
+                var country = new Country()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = countryName,
+                };
+                counter++;
+                countries.Add(country);
+            }
+
+            return countries;
+        }
+
+        private static List<Bar> CreateBars(List<Dictionary<string, string>> rawIngredients, List<Country> countries)
+        {
+            var barNames = new HashSet<string>();
             var bars = new List<Bar>();
             var counter = 1;
-            foreach (var name in barNames)
+            foreach (var rawIngredient in rawIngredients)
             {
+
+                var country = countries.Where(country => country.Name == rawIngredient["Country"]).First();
+
                 var bar = new Bar()
                 {
                     Id = Guid.NewGuid(),
-                    Name = name
+                    Name = rawIngredient["Bar"],
+                    BarImageURL = rawIngredient["BarImageURL"],
+                    CountryId = country.Id,
+
                 };
                 counter++;
                 bars.Add(bar);
             };
             return bars;
         }
-
 
         private static HashSet<string> GetUniqueNames(List<Dictionary<string, string>> rawIngredients, string nameKey)
         {

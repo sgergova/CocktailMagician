@@ -23,7 +23,7 @@ namespace CocktailMagician.Services.Mappers
                 Rating = bar.Rating,
                 BarCocktails = bar.BarCocktails,
                 Comments = bar.Comments,
-                ImageURL = bar.ImageURL,
+                ImageURL = bar.BarImageURL,
 
             };
         }
@@ -47,7 +47,7 @@ namespace CocktailMagician.Services.Mappers
                 Rating = barDTO.Rating,
                 BarCocktails = barDTO.BarCocktails,
                 Comments = barDTO.Comments,
-                ImageURL = barDTO.ImageURL,
+                BarImageURL = barDTO.ImageURL,
             };
 
             return bar;

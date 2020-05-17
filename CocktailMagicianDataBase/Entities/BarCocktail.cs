@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CocktailMagician.Data.Entities
 {
@@ -12,8 +13,11 @@ namespace CocktailMagician.Data.Entities
         public bool IsListed { get; set; }
         public DateTime ListedOn { get; set; }
         public DateTime UnlistedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime CreatedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
 
