@@ -10,8 +10,6 @@ namespace CocktailMagician.Web.Mappers
 {
     public static class CocktailVmExtensions
     {
-
-
         public static CocktailViewModel GetViewModel(this CocktailDTO item)
         {
             if (item == null)
@@ -27,9 +25,9 @@ namespace CocktailMagician.Web.Mappers
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
-                Bars = item.Bars.GetDTOs(),
+                Bars = item.Bars,
                 Comments = item.Comments.GetDTOs(),
-                Ingredients = item.Ingredients.GetDTOs(),
+                Ingredients = item.Ingredients,
                 Stars = item.Stars,
             };
         }
@@ -52,9 +50,9 @@ namespace CocktailMagician.Web.Mappers
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
-                Bars = item.Bars.GetEntities(),
+                Bars = item.Bars,
                 Comments = item.Comments.GetEntities(),
-                Ingredients = item.Ingredients.GetEntities(),
+                Ingredients = item.Ingredients,
                 Stars = item.Stars,
             };
         }

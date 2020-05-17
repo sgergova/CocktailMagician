@@ -9,7 +9,7 @@ namespace CocktailMagician.Services.EntitiesDTO
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<CocktailIngredient> CocktailIngredients { get; set; }
+        public ICollection<CocktailIngredientDTO> CocktailIngredients { get; set; }
         public int Quantity { get; set; }
         public int Rating { get; set; }
         public bool IsAlcoholic { get; set; }

@@ -18,10 +18,10 @@ namespace CocktailMagician.DataBase.AppContext
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<BarCocktail> BarCocktails { get; set; }
         public DbSet<BarComment> BarComments { get; set; }
-        public DbSet<BarStar> BarStars { get; set; }
+        public DbSet<BarRating> BarStars { get; set; }
         public DbSet<CocktailComment> CocktailComments { get; set; }
         public DbSet<CocktailIngredient> CocktailIngredients { get; set; }
-        public DbSet<CocktailStar> CocktailStars { get; set; }
+        public DbSet<CocktailRating> CocktailStars { get; set; }
         public DbSet<Country> Countries { get; set; }
 
 

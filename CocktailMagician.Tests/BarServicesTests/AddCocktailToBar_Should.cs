@@ -69,103 +69,56 @@ namespace CocktailMagician.Tests.BarServicesTests
 
         }
 
-        [TestMethod]
-        public async Task AddCocktailToBar_Adds_Correctly_When_Params_Are_Valid()
-        {
-            //Arrange
-            var options = Utils.GetOptions(nameof(AddCocktailToBar_Adds_Correctly_When_Params_Are_Valid));
+       [TestMethod]
+       public async Task AddCocktailToBar_Adds_Correctly_When_Params_Are_Valid()
+       {
+           //Arrange
+           var options = Utils.GetOptions(nameof(AddCocktailToBar_Adds_Correctly_When_Params_Are_Valid));
 
 
-            var bar = new Bar
-            {
-                Id = Guid.Parse("65e6f2f3-a2a3-47da-b5e9-966085c05731"),
-                Name = "Cosmos"
-            };
+           var bar = new Bar
+           {
+               Id = Guid.Parse("65e6f2f3-a2a3-47da-b5e9-966085c05731"),
+               Name = "Cosmos",
+               Country = new Country
+               {
+                   Id = Guid.Parse("a7db8a1a-e036-4de8-b673-7ece0aecf043"),
+                   Name = "Bulgaria"
+               }
+           };
 
-            var cocktail = new Cocktail
-            {
-                Id = Guid.Parse("42b312f9-09c9-435a-a82a-3b4d1f027234"),
-                Name = "Manhattan",
-            };
+           var cocktail = new Cocktail
+           {
+               Id = Guid.Parse("42b312f9-09c9-435a-a82a-3b4d1f027234"),
+               Name = "Manhattan",
+           };
 
-            var cocktailDTO = new CocktailDTO
-            {
-                Id = cocktail.Id,
-                Name = cocktail.Name,
+           var cocktailDTO = new CocktailDTO
+           {
+               Id = cocktail.Id,
+               Name = cocktail.Name,
 
-            };
+           };
 
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Bars.AddAsync(bar);
-                await arrangeContext.Cocktails.AddAsync(cocktail);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-
-            //Act,Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new BarServices(assertContext);
-                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO);
-
-                Assert.AreEqual(1, assertContext.BarCocktails.Count());
-                Assert.IsInstanceOfType(result, typeof(BarDTO));
-            }
-
-        }
-
-            [TestMethod]
-        public async Task AddCocktailToBar_Throws_When_CocktailsIsInThisBar()
-        {
-            //Arrange
-            var options = Utils.GetOptions(nameof(AddCocktailToBar_Throws_When_CocktailsIsInThisBar));
+           using (var arrangeContext = new CMContext(options))
+           {
+               await arrangeContext.Bars.AddAsync(bar);
+               await arrangeContext.Cocktails.AddAsync(cocktail);
+               await arrangeContext.SaveChangesAsync();
+           }
 
 
-            var bar = new Bar
-            {
-                Id = Guid.Parse("65e6f2f3-a2a3-47da-b5e9-966085c05731"),
-                Name = "Cosmos"
-            };
+           //Act,Assert
+           using (var assertContext = new CMContext(options))
+           {
+               var sut = new BarServices(assertContext);
+               var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO);
 
-            var cocktail = new Cocktail
-            {
-                Id = Guid.Parse("42b312f9-09c9-435a-a82a-3b4d1f027234"),
-                Name = "Manhattan",
-            };
+               Assert.AreEqual(1, assertContext.BarCocktails.Count());
+               Assert.IsInstanceOfType(result, typeof(BarDTO));
+           }
 
-            var barCocktail = new BarCocktail
-            {
-                BarId = bar.Id,
-                CocktailId = cocktail.Id
-            };
-
-            var cocktailDTO = new CocktailDTO
-            {
-                Id = cocktail.Id,
-                Name = cocktail.Name,
-
-            };
-
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Bars.AddAsync(bar);
-                await arrangeContext.Cocktails.AddAsync(cocktail);
-                await arrangeContext.BarCocktails.AddAsync(barCocktail);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-
-            //Act,Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new BarServices(assertContext);
-
-                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO));
-                
-            }
-
-        }
+       }
     }
 
 }

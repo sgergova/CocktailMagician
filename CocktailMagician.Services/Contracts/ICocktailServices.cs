@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services.Contracts
 {
-   public interface ICocktailServices
+    public interface ICocktailServices
     {
         Task<CocktailDTO> GetCocktail(Guid id);
-        Task<ICollection<CocktailDTO>> GetAllCocktails(string name, ICollection<CocktailIngredient> ingredients
-            , int? rating);
+        Task<ICollection<CocktailDTO>> GetAllCocktails(string name, ICollection<CocktailIngredient> ingredients, int? rating);
         Task<CocktailDTO> CreateCocktail(CocktailDTO barDTO);
         Task<CocktailDTO> UpdateCocktail(CocktailDTO barDTO);
         Task<CocktailDTO> DeleteCocktail(Guid id);
-    }
+        Task<CocktailDTO> RemoveIngredientFromCocktail(Guid cocktailId, Guid ingredientId);
+        Task<CocktailDTO> AddIngredientToCocktail(Guid cocktailId, Guid ingredientId);
+        Task<ICollection<CocktailDTO>> SearchByAlcohol(string criteria);
+        
+    };
 }

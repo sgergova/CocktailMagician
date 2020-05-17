@@ -19,13 +19,14 @@ namespace CocktailMagician.Tests.BarServicesTests
             //Arrange
             var options = Utils.GetOptions(nameof(GetBar_Returns_Correct_When_Params_Are_Valid));
 
+
             var bar = new Bar
             {
                 Id = Guid.Parse("cda3e6b5-c77c-4682-a7ff-73987919a059"),
                 Name = "Cosmos",
                 Address = "Sofia",
                 Rating = 2,
-
+                Country = new Country { Name = "Bulgaria"}
             };
 
             using (var arrangeContext = new CMContext(options))
@@ -41,9 +42,9 @@ namespace CocktailMagician.Tests.BarServicesTests
                 var sut = new BarServices(assertContext);
                 var result = await sut.GetBar(bar.Id);
 
-                Assert.AreEqual(result.Name, bar.Name);
-                Assert.AreEqual(result.Address, bar.Address);
-                Assert.AreEqual(result.Rating, bar.Rating);
+                Assert.AreEqual(bar.Name, result.Name);
+                Assert.AreEqual(bar.Address, result.Address);
+                Assert.AreEqual(bar.Rating, result.Rating);
                 Assert.IsInstanceOfType(result, typeof(BarDTO));
             }
         }

@@ -8,9 +8,9 @@ using System.Text;
 namespace CocktailMagician.Data.Configuration
 {
     
-    public class BarStarConfig : IEntityTypeConfiguration<BarStar>
+    public class BarStarConfig : IEntityTypeConfiguration<BarRating>
     {
-        public void Configure(EntityTypeBuilder<BarStar> builder)
+        public void Configure(EntityTypeBuilder<BarRating> builder)
         {
             builder.HasKey(bs=>new { bs.BarId, bs.UserId});
 

@@ -9,7 +9,7 @@ namespace CocktailMagician.Services.Contracts
     public interface IBarServices
     {
         Task<BarDTO> GetBar(Guid id);
-        Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address);
+        Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address, string country);
         Task<BarDTO> CreateBar(BarDTO barDTO);
         Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO);
         Task<BarDTO> DeleteBar(Guid id);

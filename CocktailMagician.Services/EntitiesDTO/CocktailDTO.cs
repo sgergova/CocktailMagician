@@ -11,9 +11,9 @@ namespace CocktailMagician.Services.EntitiesDTO
         public string Name { get; set; }
         public double Rating { get; set; }
         public double AlcoholPercentage { get; set; }
-        public ICollection<CocktailIngredient> Ingredients { get; set; }
-        public ICollection<BarCocktail> Bars { get; set; }
-        public ICollection<BarStar> Stars { get; set; }
+        public ICollection<CocktailIngredientDTO> Ingredients { get; set; }
+        public ICollection<BarCocktailDTO> Bars { get; set; }
+        public ICollection<BarRating> Stars { get; set; }
         public ICollection<CocktailComment> Comments { get; set; }
         public bool IsAlcoholic { get; set; }
         public string ImageURL { get; set; }

@@ -18,7 +18,7 @@ namespace CocktailMagician.Services.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                CocktailIngredients = entity.CocktailIngredients,
+                CocktailIngredients = entity.CocktailIngredients.GetDTOs(),
                 Description = entity.Description,
                 Quantity = entity.Quantity,
                 Rating = entity.Rating,
@@ -38,7 +38,7 @@ namespace CocktailMagician.Services.Mappers
             {
                 Id = ingredientDTO.Id,
                 Name = ingredientDTO.Name,
-                CocktailIngredients = ingredientDTO.CocktailIngredients,
+                CocktailIngredients = ingredientDTO.CocktailIngredients.GetEntities(),
                 Description = ingredientDTO.Name,
                 Quantity = ingredientDTO.Quantity,
                 Rating = ingredientDTO.Rating,

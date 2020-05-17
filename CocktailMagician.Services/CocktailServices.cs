@@ -77,10 +77,10 @@ namespace CocktailMagician.Services
             {
                 Id = cocktailDTO.Id,
                 AlcoholPercentage = cocktailDTO.AlcoholPercentage,
-                Bars = cocktailDTO.Bars,
+                Bars = cocktailDTO.GetEntity().Bars,
                 Comments = cocktailDTO.Comments,
                 ImageURL = cocktailDTO.ImageURL,
-                CocktailIngredients = cocktailDTO.Ingredients,
+                CocktailIngredients = cocktailDTO.Ingredients.GetEntities(),
                 IsAlcoholic = cocktailDTO.IsAlcoholic,
                 Name = cocktailDTO.Name,
                 Rating = cocktailDTO.Rating,
@@ -95,7 +95,79 @@ namespace CocktailMagician.Services
 
         }
 
+        public async Task<CocktailDTO> AddIngredientToCocktail(Guid cocktailId, Guid ingredientId)
+        {
+            var cocktail = await this.context.Cocktails
+                                             .Where(c=>c.IsDeleted == false)
+                                             .FirstOrDefaultAsync(c => c.Id == cocktailId);
 
+            var ingredient = await this.context.Ingredients
+                                           .Where(c => c.IsDeleted == false)
+                                           .FirstOrDefaultAsync(c => c.Id == ingredientId);
+
+            var cocktailIngredient = await this.context.CocktailIngredients
+                                                 .FirstOrDefaultAsync(ci=>ci.IngredientId == ingredientId 
+                                                 && ci.CocktailId == cocktailId);
+            if (cocktailIngredient != null)
+            {
+                var newCocktailIngredient = new CocktailIngredient
+                {
+                    CocktailId = cocktail.Id,
+                    IngredientId = ingredientId
+                };
+
+                cocktail.CocktailIngredients.Add(newCocktailIngredient);
+                ingredient.CocktailIngredients.Add(newCocktailIngredient);
+
+                await this.context.CocktailIngredients.AddAsync(newCocktailIngredient);
+                this.context.Cocktails.Update(cocktail);
+                this.context.Ingredients.Update(ingredient);
+                await this.context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new InvalidOperationException($"{ingredient} is already part of {cocktail}");
+            }
+
+            return cocktail.GetDTO();
+
+        }
+        public async Task<ICollection<CocktailDTO>> SearchByAlcohol(string criteria)
+        {
+            if (criteria == null)
+                throw new ArgumentNullException("You should enter your criteria");
+            
+            var cocktails = this.context.Cocktails
+                                            .Where(c=>c.IsDeleted == false)
+                                            .AsQueryable();
+
+          
+            if (criteria == "non-alcoholic")
+                cocktails = cocktails.Where(c => c.IsAlcoholic == false);
+
+            if (criteria == "alcoholic")
+                cocktails = cocktails.Where(c => c.IsAlcoholic == true);
+           
+
+
+            var cocktailsToReturn = await cocktails.ToListAsync();
+            return cocktailsToReturn.GetDTOs();
+        }
+
+
+        public async Task<ICollection<CocktailDTO>> SearchByIngredient(string ingredient)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+        public async Task<CocktailDTO> RemoveIngredientFromCocktail(Guid cocktailId, Guid ingredientId)
+        {
+            throw new NotImplementedException();
+
+        }
 
         public async Task<CocktailDTO> UpdateCocktail(CocktailDTO cocktailToUpdate)
         {
@@ -143,5 +215,7 @@ namespace CocktailMagician.Services
 
             return cocktails;
         }
+
+      
     }
 }

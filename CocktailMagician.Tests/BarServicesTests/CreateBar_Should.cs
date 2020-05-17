@@ -21,17 +21,29 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var options = Utils.GetOptions(nameof(CreateBar_Return_Correct_When_Params_AreValid));
 
+
+            var country = new Country { Id = Guid.Parse("295afbfe-5410-49db-b5b1-161b1ce8fd3c"), Name = "USA" };
             var bar = new BarDTO
             {
                 Id = Guid.NewGuid(),
-                Name = "Cosmos"
+                Name = "Cosmos",
+                CountryId = country.Id, 
+                CountryName = country.Name
             };
+
+            using (var arrangeContext = new CMContext(options))
+            {
+                await arrangeContext.Countries.AddAsync(country);
+                await arrangeContext.SaveChangesAsync();
+            }
 
             //Act,Assert
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
                 var result = await sut.CreateBar(bar);
+
+
                 Assert.AreEqual(1, assertContext.Bars.Count());
                 Assert.AreEqual(bar.Name, result.Name);
                 Assert.IsInstanceOfType(result, typeof(BarDTO));

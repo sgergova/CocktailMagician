@@ -16,7 +16,7 @@ namespace CocktailMagician.Web.Models
         public int Rating { get; set; }
         public string ImageURL { get; set; }
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
-        public ICollection<BarStar> Stars { get; set; }
+        public ICollection<BarRating> Stars { get; set; }
         public ICollection<BarCommentDTO> Comments { get; set; }
     }
 }

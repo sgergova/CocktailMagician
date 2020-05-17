@@ -18,7 +18,7 @@ namespace CocktailMagician.Web.Controllers
        [HttpGet]
         public async Task<IActionResult> ListBars()
         {
-            var list = await barServices.GetAllBars(null, 0, null);
+            var list = await barServices.GetAllBars(null, 0, null, null);
             var barVMList = list.GetViewModels();
             return View(barVMList);
         }

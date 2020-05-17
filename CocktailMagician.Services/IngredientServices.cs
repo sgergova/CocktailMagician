@@ -32,6 +32,20 @@ namespace CocktailMagician.Services
             return entity.GetDTO();
 
         }
+
+        public async Task<IngredientDTO> GetIngredient(string name)
+        {
+            if (name == null)
+                throw new ArgumentNullException("The name cannot be null");
+
+
+            var entity = await GetAllQueryable()
+                                        .FirstOrDefaultAsync(b => b.Name == name);
+
+
+            return entity.GetDTO();
+
+        }
         public async Task<ICollection<IngredientDTO>> GetAllIngredients(string name)
         {
             var entities =  GetAllQueryable();
@@ -58,7 +72,7 @@ namespace CocktailMagician.Services
             var ingredient = new Ingredient
             {
                 Name = ingredientDTO.Name,
-                CocktailIngredients = ingredientDTO.CocktailIngredients,
+                CocktailIngredients = ingredientDTO.CocktailIngredients.GetEntities(),
                 Description = ingredientDTO.Description,
                 Quantity = ingredientDTO.Quantity,
                 CreatedOn = DateTime.UtcNow,
@@ -80,7 +94,7 @@ namespace CocktailMagician.Services
             var ingredient = ingredientToUpdate.GetEntity();
 
             ingredient.Name = ingredientDTO.Name;
-            ingredient.CocktailIngredients = ingredientDTO.CocktailIngredients;
+            ingredient.CocktailIngredients = ingredientDTO.GetEntity().CocktailIngredients;
             ingredient.Quantity = ingredientDTO.Quantity;
             ingredient.Description = ingredientDTO.Description;
             ingredient.ModifiedOn = DateTime.UtcNow;
