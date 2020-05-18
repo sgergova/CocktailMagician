@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CocktailMagician.Data.Entities;
 using CocktailMagician.DataBase.AppContext;
 using CocktailMagician.Services;
+using CocktailMagician.Services.EntitiesDTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CocktailMagician.Tests.BarServicesTests
@@ -240,6 +241,51 @@ namespace CocktailMagician.Tests.BarServicesTests
                 var result = await sut.GetAllBars(null, 0, null, "Bulgaria");
 
                 Assert.AreEqual(1, result.Count);
+            }
+        }
+
+        [TestMethod]
+        public async Task GetBars_Returns_Correct_Instance()
+        {
+            //Arrange
+
+            var options = Utils.GetOptions(nameof(GetBars_Returns_Correct_Instance));
+
+            var bar = new Bar
+            {
+                Id = Guid.Parse("fabec5dc-1282-48d8-a768-cf78b17e390c"),
+                Name = "Manhattan",
+                Country = new Country
+                {
+                    Id = Guid.Parse("45080ff0-0cd8-4786-ad3c-9a3becdaf90c"),
+                    Name = "Bulgaria",
+                }
+            };
+
+            var bar2 = new Bar
+            {
+                Id = Guid.Parse("c7d91283-7399-45f2-a185-598da9780480"),
+                Name = "The Cocktail Bar",
+                Country = new Country
+                {
+                    Id = Guid.Parse("58abfbca-9e8c-4e98-8925-08eac637a513"),
+                    Name = "Bulgaria",
+                }
+            };
+
+            using (var arrangeContext = new CMContext(options))
+            {
+                await arrangeContext.AddRangeAsync(bar, bar2);
+                await arrangeContext.SaveChangesAsync();
+            }
+
+            //Act, Assert
+            using (var assertContext = new CMContext(options))
+            {
+                var sut = new BarServices(assertContext);
+                var result = await sut.GetAllBars(null, 0, null, "Bulgaria");
+
+                Assert.IsInstanceOfType(result, typeof(ICollection<BarDTO>));
             }
         }
     }

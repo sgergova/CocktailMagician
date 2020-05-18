@@ -19,8 +19,9 @@ namespace CocktailMagician.Data.Entities
         public int Quantity { get; set; }
         public int Rating { get; set; }
         public bool IsAlcoholic { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.Date)]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
         [DataType(DataType.Date)]

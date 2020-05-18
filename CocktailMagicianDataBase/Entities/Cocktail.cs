@@ -22,8 +22,9 @@ namespace CocktailMagician.Data.Entities
         public bool IsAlcoholic { get; set;  }
         [Url]
         public string ImageURL { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.Date)]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
         [DataType(DataType.Date)]

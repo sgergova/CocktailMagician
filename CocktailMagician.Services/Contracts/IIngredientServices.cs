@@ -14,5 +14,7 @@ namespace CocktailMagician.Services.Contracts
         Task<IngredientDTO> CreateIngredient(IngredientDTO barDTO);
         Task<IngredientDTO> UpdateIngredient(IngredientDTO barDTO);
         Task<IngredientDTO> DeleteIngredient(Guid id);
+        Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(string cocktailName);
+        Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(Guid cocktailId);
     }
 }

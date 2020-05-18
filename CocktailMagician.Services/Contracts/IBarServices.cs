@@ -9,9 +9,11 @@ namespace CocktailMagician.Services.Contracts
     public interface IBarServices
     {
         Task<BarDTO> GetBar(Guid id);
+        Task<BarDTO> GetBar(string barName);
         Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address, string country);
         Task<BarDTO> CreateBar(BarDTO barDTO);
         Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO);
+        Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId);
         Task<BarDTO> DeleteBar(Guid id);
         Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail);
         Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId);

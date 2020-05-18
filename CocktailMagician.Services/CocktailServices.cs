@@ -155,18 +155,32 @@ namespace CocktailMagician.Services
         }
 
 
-        public async Task<ICollection<CocktailDTO>> SearchByIngredient(string ingredient)
-        {
-            throw new NotImplementedException();
-        }
-
-
+       
 
 
         public async Task<CocktailDTO> RemoveIngredientFromCocktail(Guid cocktailId, Guid ingredientId)
         {
-            throw new NotImplementedException();
+            var ingredient = await this.context.CocktailIngredients
+                                               .Where(i=>i.IsDeleted == false)
+                                               .FirstOrDefaultAsync(i => i.Id == ingredientId);
 
+            var cocktail = await GetCocktailsQueryable()
+                                          .FirstOrDefaultAsync(c => c.Id == cocktailId);
+
+            var cocktailIngredient = await this.context.CocktailIngredients
+                                       .FirstOrDefaultAsync(ci => ci.IngredientId == ingredientId && ci.CocktailId == cocktailId)
+                                       ?? throw new ArgumentNullException();
+
+
+            cocktailIngredient.ModifiedOn = DateTime.UtcNow;
+            cocktail.CocktailIngredients.Remove(cocktailIngredient);
+
+
+            this.context.Cocktails.Update(cocktail);
+            this.context.CocktailIngredients.Update(cocktailIngredient);
+            await this.context.SaveChangesAsync();
+
+            return cocktail.GetDTO();
         }
 
         public async Task<CocktailDTO> UpdateCocktail(CocktailDTO cocktailToUpdate)

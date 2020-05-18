@@ -74,6 +74,7 @@ namespace CocktailMagician.Data.Seeder
                 {
                     Id = Guid.NewGuid(),
                     Name = ingredientName,
+                    CreatedOn = DateTime.UtcNow,
                 };
                 counter++;
                 ingredients.Add(ingredient);
@@ -100,7 +101,9 @@ namespace CocktailMagician.Data.Seeder
                     Id = Guid.NewGuid(),
                     Name = item["Cocktail"],
                     AlcoholPercentage = Math.Round(alcohol, 1),
-                    ImageURL = image
+                    ImageURL = image,
+                    CreatedOn = DateTime.UtcNow,
+
                 };
                 counter++;
                 cocktails.Add(cocktail);
@@ -122,6 +125,7 @@ namespace CocktailMagician.Data.Seeder
                 {
                     Id = Guid.NewGuid(),
                     Name = countryName,
+                    CreatedOn = DateTime.UtcNow,
                 };
                 counter++;
                 countries.Add(country);
@@ -146,7 +150,7 @@ namespace CocktailMagician.Data.Seeder
                     Name = rawIngredient["Bar"],
                     BarImageURL = rawIngredient["BarImageURL"],
                     CountryId = country.Id,
-
+                    CreatedOn = DateTime.UtcNow,
                 };
                 counter++;
                 bars.Add(bar);

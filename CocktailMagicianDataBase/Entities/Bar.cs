@@ -21,7 +21,7 @@ namespace CocktailMagician.Data.Entities
         [Url]
         public string BarImageURL { get; set; }
         [DataType(DataType.Date)]
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         [DataType(DataType.Date)]
         public DateTime? ModifiedOn { get; set; }
         [DataType(DataType.Date)]

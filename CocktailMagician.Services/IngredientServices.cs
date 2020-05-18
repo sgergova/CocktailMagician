@@ -19,6 +19,12 @@ namespace CocktailMagician.Services
         {
             this.context = context;
         }
+
+        /// <summary>
+        /// Checks by given ID if ingredient is available in the database.
+        /// </summary>
+        /// <param name="id">Id of the ingredient</param>
+        /// <returns>IngredientDTO</returns>
         public async Task<IngredientDTO> GetIngredient(Guid id)
         {
             if (id == null)
@@ -33,6 +39,11 @@ namespace CocktailMagician.Services
 
         }
 
+        /// <summary>
+        /// Checks by given name if ingredient is available in the database.
+        /// </summary>
+        /// <param name="name">The name of the ingredient</param>
+        /// <returns>IngredientDTO</returns>
         public async Task<IngredientDTO> GetIngredient(string name)
         {
             if (name == null)
@@ -46,6 +57,12 @@ namespace CocktailMagician.Services
             return entity.GetDTO();
 
         }
+
+        /// <summary>
+        /// Checks by given name and returns all the ingredient that contains the search criteria.
+        /// </summary>
+        /// <param name="name">The name of the ingredient</param>
+        /// <returns><ICollection<IngredientDTO>></returns>
         public async Task<ICollection<IngredientDTO>> GetAllIngredients(string name)
         {
             var entities =  GetAllQueryable();
@@ -53,7 +70,6 @@ namespace CocktailMagician.Services
             if (name!=null)
             {
                 entities = entities.Where(i => i.Name.ToLower().Contains(name.ToLower()));
-
             }
 
             var ingredient = await entities.ToListAsync();
@@ -61,6 +77,11 @@ namespace CocktailMagician.Services
             return ingredient.GetDTOs();
         }
 
+        /// <summary>
+        /// Adds new ingredient to the database after checking if it does not exists already.
+        /// </summary>
+        /// <param name="ingredientDTO">This is the newly created ingredient object</param>
+        /// <returns>IngredientDTO</returns>
         public async Task<IngredientDTO> CreateIngredient(IngredientDTO ingredientDTO)
         {
             if (this.context.Bars.Any(b => b.Name == ingredientDTO.Name))
@@ -85,6 +106,12 @@ namespace CocktailMagician.Services
 
         }
 
+        /// <summary>
+        /// Checks in the database if given ingredient is available and if it exists updates it with given one.
+        /// If the param is not valid throws exception. 
+        /// </summary>
+        /// <param name="ingredientDTO">The updates that should be done</param>
+        /// <returns>The updated IngredientDTO</returns>
         public async Task<IngredientDTO> UpdateIngredient(IngredientDTO ingredientDTO)
         {
             if (ingredientDTO.Id == null)
@@ -106,6 +133,12 @@ namespace CocktailMagician.Services
 
         }
 
+        /// <summary>
+        /// Checks in the database if given ingredient is available and if it exists delete it.
+        /// If ID is not valid throws exception. 
+        /// </summary>
+        /// <param name="id">The ID of the ingredient that should be deleted</param>
+        /// <returns>IngredientDTO</returns>
         public async Task<IngredientDTO> DeleteIngredient(Guid id)
         {
             var ingredientsToDelete = await GetAllQueryable()
@@ -129,6 +162,37 @@ namespace CocktailMagician.Services
 
             return ingredientsToDelete.GetDTO();
         }
+        /// <summary>
+        /// Checks in the database for given cocktail's name.
+        /// </summary>
+        /// <param name="cocktailName">The cocktail that should search for</param>
+        /// <returns>A list of cocktails that contain the ingredient</returns>
+        public async Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(string cocktailName)
+        {
+            var cocktails = await this.context.CocktailIngredients
+                                              .Where(i => i.Cocktail.Name == cocktailName)
+                                              .ToListAsync()
+                                              ?? throw new ArgumentNullException("The name cannot be null");
+
+            return cocktails.GetDTOs();
+        }
+
+        /// <summary>
+        /// Checks in the database for given cocktail's ID.
+        /// </summary>
+        /// <param name="cocktailId">The cocktail that should search for</param>
+        /// <returns>A list of cocktails that contain the ingredient</returns>
+        public async Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(Guid cocktailId)
+        {
+            var cocktails = await this.context.CocktailIngredients
+                                              .Where(i => i.Cocktail.Id == cocktailId)
+                                              .ToListAsync()
+                                              ?? throw new ArgumentNullException("The name cannot be null");
+
+            return cocktails.GetDTOs();
+        }
+
+
 
         private IQueryable<Ingredient> GetAllQueryable()
         {

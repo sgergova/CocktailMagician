@@ -14,9 +14,9 @@ namespace CocktailMagician.Data.Entities
         [StringLength(30, ErrorMessage = "The 'country's name cannot be more than 30 characters")]
         public string Name { get; set; }
         public ICollection<Bar> Bars { get; set; } = new List<Bar>();
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DataType(DataType.Date)]
-        public DateTime CreatedOn { get; set; }
-        [DataType(DataType.Date)]
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
         public DateTime ModifiedOn { get; set; }
         [DataType(DataType.Date)]
         public DateTime DeletedOn { get; set; }
