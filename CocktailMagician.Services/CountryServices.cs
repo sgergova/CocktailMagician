@@ -102,6 +102,18 @@ namespace CocktailMagician.Services
 
             return countriesToReturn.GetDTOs();
         }
+        public async Task<ICollection<CountryDTO>> GetAllCountries()
+        {
+            var countries = this.context.Countries
+                                        .Where(c => c.IsDeleted == false).AsQueryable();
+
+
+          
+
+            var countriesToReturn = await countries.ToListAsync();
+
+            return countriesToReturn.GetDTOs();
+        }
 
 
         /// <summary>

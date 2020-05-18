@@ -36,20 +36,20 @@
                     </div>
                     <div class="modal-body mx-3">
                         <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right"  style="color:black" for="orangeForm-name">Your name</label>
                             <i class="fas fa-user prefix grey-text"></i>
                             <input type="text" id="orangeForm-name" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
                         </div>
                         <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right"style="color:black" for="orangeForm-email">Your email</label>
                             <i class="fas fa-envelope prefix grey-text"></i>
                             <input type="email" id="orangeForm-email" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
                         </div>
 
                         <div class="md-form mb-4">
+                            <label data-error="wrong" data-success="right" style="color:black" for="orangeForm-pass">Your password</label>
                             <i class="fas fa-lock prefix grey-text"></i>
                             <input type="password" id="orangeForm-pass" class="form-control validate">
-                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
                         </div>
 
                     </div>
@@ -65,7 +65,6 @@
         </button>
 
 
-        @*@await Html.PartialAsync("LoginSpinButton")*@
         <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -78,13 +77,13 @@
                     </div>
                     <div class="modal-body mx-3">
                         <div class="md-form mb-5">
-                            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                            <label style="color:black" data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
                             <i class="fas fa-envelope prefix grey-text"></i>
                             <input type="email" id="defaultForm-email" class="form-control validate">
                         </div>
 
                         <div class="md-form mb-4">
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                            <label data-error="wrong" style="color:black" data-success="right" for="defaultForm-pass">Your password</label>
                             <i class="fas fa-lock prefix grey-text"></i>
                             <input type="password" id="defaultForm-pass" class="form-control validate">
                         </div>
@@ -109,6 +108,7 @@
         </main>
     </div>
 
+      
     @*<footer class="border-top footer text-muted" style="border-top: none;">
         <div class="container">
             &copy; 2020 - CocktailMagician - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

@@ -32,12 +32,22 @@ namespace CocktailMagician
             services.AddScoped<IBarServices, BarServices>();
             services.AddScoped<IIngredientServices, IngredientServices>();
             services.AddScoped<ICocktailServices, CocktailServices>();
+            services.AddScoped<ICountryServices, CountryServices>();
 
-           
+
             services.AddIdentity<User, Role>(option => option.SignIn.RequireConfirmedAccount = false)
               .AddEntityFrameworkStores<CMContext>()
               .AddDefaultTokenProviders();
-            
+            services.Configure<IdentityOptions>(option =>
+            {
+                option.Password.RequireDigit = false;
+                option.Password.RequireNonAlphanumeric = false;
+                option.Password.RequireUppercase = false;
+                option.Password.RequireLowercase = false;
+                option.Password.RequiredLength = 5;
+                option.Password.RequiredUniqueChars = 0;
+            });
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

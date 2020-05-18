@@ -29,7 +29,7 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBar(Guid id)
         {
             var entity = await GetAllBarsQueryable()
-                                        .Include(b => b.Country)
+                                        .Include(b=>b.Country)
                                         .FirstOrDefaultAsync(e => e.Id == id)
                                         ?? throw new ArgumentNullException("The ID of the bar cannot be null");
 
@@ -49,7 +49,7 @@ namespace CocktailMagician.Services
                 throw new ArgumentNullException("The name cannot be null.");
 
             var bar = await GetAllBarsQueryable()
-                                     .Include(b => b.Country)
+                                     .Include(b=>b.Country)  
                                      .FirstOrDefaultAsync(b => b.Name.ToLower().Contains(barName.ToLower()))
                                      ?? throw new ArgumentNullException();
 
@@ -65,13 +65,12 @@ namespace CocktailMagician.Services
         /// <param name="name">Name of the Bar</param>
         /// <param name="rating">Rating of the Bar</param>
         /// <param name="address">Address of the Bar</param>
-        /// <param name="country">Country of the Bar</param>
         /// <returns>ICollection<BarDTO></BarDTO></returns>
         public async Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address, string country)
         {
             var bars = this.context.Bars
-                                   .Include(b => b.Country)
-                                   .Where(b => b.IsDeleted == false);
+                                   .Include(b=>b.Country)
+                                   .Where(b=>b.IsDeleted == false);
             var barsToReturn = new List<Bar>();
 
             if (name != null)
@@ -86,10 +85,11 @@ namespace CocktailMagician.Services
             if (country != null)
                 bars = bars.Where(b => b.Country.Name == country);
 
-            barsToReturn = await bars.ToListAsync();
+             barsToReturn = await bars.Include(b => b.Country)
+                                       .ToListAsync();
 
             var barsDTO = barsToReturn.GetDTOs();
-
+            
             return barsDTO;
         }
 
@@ -99,9 +99,7 @@ namespace CocktailMagician.Services
             {
                 "name" => bars.OrderBy(b => b.Name),
                 "name_desc" => bars.OrderByDescending(b => b.Name),
-                "address" => bars.OrderBy(b => b.Address),
-                "cocktail" => bars.OrderBy(b => b.BarCocktails),
-                "country" => bars.OrderBy(b => b.Country),
+                "cocktail" => bars.OrderBy(b => b.BarCocktails.Count),
 
                 _ => throw new InvalidOperationException("Invalid criteria to search for")
             };
@@ -137,7 +135,6 @@ namespace CocktailMagician.Services
                 BarCocktails = barDTO.BarCocktails,
                 BarImageURL = barDTO.ImageURL,
                 CountryId = country.Id,
-                Country = country,
                 CreatedOn = DateTime.UtcNow
             };
 
@@ -159,22 +156,21 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail)
         {
             var bar = await GetAllBarsQueryable()
-                                 .Include(b => b.Country) 
+                                 .Include(b=>b.Country)
                                  .FirstOrDefaultAsync(b => b.Id == barId)
                                  ?? throw new ArgumentNullException();
 
 
             var cocktailToAdd = await this.context.Cocktails
                                                    .Where(c => c.IsDeleted == false)
-                                                   .FirstOrDefaultAsync(c => c.Id == cocktail.Id)
-                                                   ?? throw new ArgumentNullException();
-
+                                                   .FirstOrDefaultAsync(c=>c.Id == cocktail.Id);
+                                        
 
             var barCocktail = await this.context.BarCocktails
                                             .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktail.Id);
 
             if (barCocktail != null)
-                throw new InvalidOperationException($"{cocktail} is already listed on {bar}");
+                throw new InvalidOperationException($"The cocktail is already listed on {bar}");
 
 
             if (barCocktail == null)
@@ -191,7 +187,7 @@ namespace CocktailMagician.Services
             }
             else
             {
-                throw new InvalidOperationException($"{cocktailToAdd} is already in {bar}.");
+                throw new InvalidOperationException("This cocktail is already in this bar.");
             }
 
             return bar.GetDTO();
@@ -209,32 +205,24 @@ namespace CocktailMagician.Services
         {
 
             var bar = await GetAllBarsQueryable()
-                            .Include(b => b.Country)
-                            .FirstOrDefaultAsync(b => b.Id == barId)
-                            ?? throw new ArgumentNullException("The Id of bar cannot be null");
+                            .FirstOrDefaultAsync(b => b.Id == barId);
 
             var cocktail = await this.context.Cocktails
-                                             .FirstOrDefaultAsync(c => c.Id == cocktailId)
-                                             ?? throw new ArgumentNullException("The Id of bar cannot be null");
-
+                                             .FirstOrDefaultAsync(c => c.Id == cocktailId);
 
             var barCocktail = await this.context.BarCocktails
-                                                .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktailId);
+                                                .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktailId)
+                                                ?? throw new ArgumentNullException();
 
-            if (barCocktail != null)
-            {
-                barCocktail.IsListed = false;
-                barCocktail.ModifiedOn = DateTime.UtcNow;
-                bar.BarCocktails.Remove(barCocktail);
-                cocktail.Bars.Remove(barCocktail);
 
-                this.context.Update(barCocktail);
-                await this.context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new InvalidOperationException($"{cocktail} was not found at {bar}");
-            }
+            barCocktail.IsListed = false;
+            barCocktail.ModifiedOn = DateTime.UtcNow;
+            bar.BarCocktails.Remove(barCocktail);
+            cocktail.Bars.Remove(barCocktail);
+
+
+            this.context.Update(barCocktail);
+            await this.context.SaveChangesAsync();
 
             return bar.GetDTO();
         }
@@ -292,7 +280,6 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
 
         }
-
         /// <summary>
         /// Searchs in the database if given bar is available and if it exists delete it.
         /// If ID is not valid throws exception. 
@@ -302,52 +289,34 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> DeleteBar(Guid id)
         {
             var barToDelete = await GetAllBarsQueryable()
-                                   .Include(b => b.Country)
-                                   .FirstOrDefaultAsync(b => b.Id == id)
-                                   ?? throw new ArgumentNullException();
+                                 .Include(b => b.BarCocktails)
+                                 .FirstOrDefaultAsync(b => b.Id == id)
+                                 ?? throw new ArgumentNullException();
 
-            var barCocktails = AvailabilityAtBar(barToDelete.Id).Result.GetEntities();
 
-            barToDelete.IsDeleted = true;
-            barToDelete.DeletedOn = DateTime.UtcNow;
-
-            if (barCocktails.Count != 0)
+            if (barToDelete.BarCocktails.Any(c => c.IsDeleted == true))
             {
-                foreach (var barCocktail in barCocktails)
-                {
-                    barToDelete.BarCocktails.Remove(barCocktail);
-                }
+                barToDelete.IsDeleted = true;
+                barToDelete.DeletedOn = DateTime.UtcNow;
+                context.Bars.Update(barToDelete);
+                await context.SaveChangesAsync();
             }
-           
-
-            context.Bars.Update(barToDelete);
-            await context.SaveChangesAsync();
-
+            else
+            {
+                throw new InvalidOperationException($"Cannot delete {barToDelete}" +
+                    $"There are cocktails available.");
+            }
 
             return barToDelete.GetDTO();
         }
-        /// <summary>
-        /// Checks by given Id of bar how many cocktails are listed in it.
-        /// </summary>
-        /// <param name="barToDeleteId">Id of the bar</param>
-        /// <returns>ICollection of the available cocktails in that bar</returns>
-        public async Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId)
-        {
-            var barCocktailsAvailable = await this.context.BarCocktails
-                                                    .Where(bc => bc.BarId == barToDeleteId)
-                                                    .Where(bc=>bc.IsListed == true)
-                                                    .ToListAsync();
 
 
-            return barCocktailsAvailable.GetDTOs();
-        }
 
         private IQueryable<Bar> GetAllBarsQueryable()
         {
             var entities = this.context.Bars
                                        .Where(b => b.IsDeleted == false)
                                        ?? throw new ArgumentNullException("The value cannot be null");
-
 
             return entities;
         }

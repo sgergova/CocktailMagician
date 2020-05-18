@@ -15,6 +15,8 @@ namespace CocktailMagician.Web.Models
         public string Phone { get; set; }
         public int Rating { get; set; }
         public string ImageURL { get; set; }
+        public Guid CountryId { get; set; }
+        public string CountryName { get; set; }
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<BarRating> Stars { get; set; }
         public ICollection<BarCommentDTO> Comments { get; set; }
