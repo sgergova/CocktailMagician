@@ -120,7 +120,7 @@ namespace CocktailMagician.Services
             if (barDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
-          
+
             var country = await this.context.Countries
                                        .Where(c => c.IsDeleted == false)
                                        .FirstOrDefaultAsync(c => c.Id == barDTO.CountryId || c.Name == barDTO.CountryName)
@@ -135,7 +135,6 @@ namespace CocktailMagician.Services
                 BarCocktails = barDTO.BarCocktails,
                 BarImageURL = barDTO.ImageURL,
                 CountryId = country.Id,
-                Country = country,
                 CreatedOn = DateTime.UtcNow
             };
 

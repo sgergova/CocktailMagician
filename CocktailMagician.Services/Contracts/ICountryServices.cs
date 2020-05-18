@@ -12,6 +12,7 @@ namespace CocktailMagician.Services.Contracts
         Task<CountryDTO> GetCountry(string name);
         Task<CountryDTO> GetCountry(Guid id);
         Task<ICollection<CountryDTO>> GetAllCountries(string name);
+        Task<ICollection<CountryDTO>> GetAllCountries();
         Task<CountryDTO> UpdateCountry(Guid id, CountryDTO countryDTO);
         Task<CountryDTO> DeleteCountry(Guid id);
         Task<CountryDTO> AddBarToCountry(Guid countryId, Guid barId);

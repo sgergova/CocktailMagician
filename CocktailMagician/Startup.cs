@@ -32,8 +32,9 @@ namespace CocktailMagician
             services.AddScoped<IBarServices, BarServices>();
             services.AddScoped<IIngredientServices, IngredientServices>();
             services.AddScoped<ICocktailServices, CocktailServices>();
+            services.AddScoped<ICountryServices, CountryServices>();
 
-           
+
             services.AddIdentity<User, Role>(option => option.SignIn.RequireConfirmedAccount = false)
               .AddEntityFrameworkStores<CMContext>()
               .AddDefaultTokenProviders();

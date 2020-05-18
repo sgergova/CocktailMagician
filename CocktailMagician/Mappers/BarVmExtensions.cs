@@ -47,8 +47,8 @@ namespace CocktailMagician.Web.Mappers
                 Phone = item.Phone,
                 Rating = item.Rating,
                 ImageURL = item.ImageURL,
-                BarCocktails = item.BarCocktails.GetEntities(),
-                Comments = item.Comments.GetEntities(),
+                CountryId = item.CountryId,
+                CountryName = item.CountryName
             };
         }
         public static ICollection<BarDTO> GetDtoFromVMs(this ICollection<BarViewModel> items)

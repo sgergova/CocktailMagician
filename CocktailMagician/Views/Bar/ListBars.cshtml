@@ -4,62 +4,62 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table id="dtBasicExample"class="table" width="100%">
-    <thead>
-        <tr>
 
-            <th>
-                Image
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                Cocktails
-            </th>
 
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+
+     
+
+
+    <table id="dtBasicExample" class="table" width="100%">
+        <thead>
             <tr>
 
-                <td>
-                    <img src="@item.ImageURL" alt="Generic placeholder image" width="140" height="100">
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @item.BarCocktails.Count
-                </td>
+                <th>
+                    Image
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>
+                    Cocktails
+                </th>
 
             </tr>
-        }
-    </tbody>
-</table>
-<script>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
 
-$(document).ready(function () {
-  $('#dtBasicExample').DataTable();
-  $('.dataTables_length').addClass('bs-select');
-});
-</script>
+                    <td>
+                        <img src="@item.ImageURL" alt="Generic placeholder image" width="140" height="100">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @item.BarCocktails.Count
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <a class="button"  data-toggle="modal" data-target="#modalCreateBar">Create New</a>
+        <partial model="new BarViewModel()" name="_CreateBarModal"/>
+    </p>
+

@@ -1,0 +1,75 @@
+﻿@model CocktailMagician.Web.Models.BarViewModel
+@*<div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Address" class="control-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageURL" class="control-label"></label>
+        <input asp-for="ImageURL" class="form-control" />
+        <span asp-validation-for="ImageURL" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>*@
+<div class="modal fade" id="modalCreateBar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Create Bar</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-controller="Bar" asp-action="CreateBar" >
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label">Adderss</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <label asp-for="Phone" class="control-label">Phone</label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="md-form mb-4">
+                            <label asp-for="CountryName" class="control-label">Country Name</label>
+                            @Html.DropDownListFor(model => model.CountryName, new SelectList(ViewBag.CountryList, "Name", "Name"), "")
+                            <span asp-validation-for="CountryName" class="text-danger"></span>
+                        </div>
+                        <div class="md-form mb-4">
+                            <label asp-for="ImageURL" class="control-label">ImageURL</label>
+                            <input asp-for="ImageURL" class="form-control" />
+                            <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button asp-controller="Bar" asp-action="CreateBar" class="btn btn-deep-orange">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
