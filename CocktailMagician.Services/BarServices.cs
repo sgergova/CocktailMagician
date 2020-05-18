@@ -99,9 +99,7 @@ namespace CocktailMagician.Services
             {
                 "name" => bars.OrderBy(b => b.Name),
                 "name_desc" => bars.OrderByDescending(b => b.Name),
-                "address" => bars.OrderBy(b => b.Address),
-                "cocktail" => bars.OrderBy(b => b.BarCocktails),
-                "country" => bars.OrderBy(b=>b.Country),
+                "cocktail" => bars.OrderBy(b => b.BarCocktails.Count),
 
                 _ => throw new InvalidOperationException("Invalid criteria to search for")
             };
