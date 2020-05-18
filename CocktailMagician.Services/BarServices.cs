@@ -320,5 +320,10 @@ namespace CocktailMagician.Services
 
             return entities;
         }
+
+        public Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
