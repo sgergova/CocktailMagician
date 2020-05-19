@@ -53,7 +53,6 @@ namespace CocktailMagician.Services.Mappers
                 Comments = barDTO.Comments,
                 BarImageURL = barDTO.ImageURL,
                 CountryId = barDTO.CountryId,
-                Country = barDTO.GetEntity().Country
             };
 
             return bar;
