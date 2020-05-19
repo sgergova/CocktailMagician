@@ -22,19 +22,10 @@ namespace CocktailMagician.Services
 
         public async Task<CocktailDTO> GetCocktail(Guid id)
         {
-            if (id == null)
-            {
-                throw new ArgumentNullException("The ID cannot be null");
-            }
-
 
             var entity = await GetCocktailsQueryable()
-                .Include(c => c.CocktailIngredients)
-                .Include(c => c.Bars)
-                .Include(c => c.Comments)
-                .Include(c => c.Stars)
-                .FirstOrDefaultAsync(b => b.Id == id);
-
+                                       .FirstOrDefaultAsync(b => b.Id == id)
+                                       ?? throw new ArgumentNullException();
 
             return entity.GetDTO();
 

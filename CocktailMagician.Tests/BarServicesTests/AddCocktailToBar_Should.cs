@@ -115,9 +115,9 @@ namespace CocktailMagician.Tests.BarServicesTests
                 var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO);
 
                 Assert.AreEqual(1, assertContext.BarCocktails.Count());
+                Assert.AreEqual(1, result.BarCocktails.Count());
                 Assert.IsInstanceOfType(result, typeof(BarDTO));
             }
-
         }
 
         [TestMethod]
@@ -156,7 +156,7 @@ namespace CocktailMagician.Tests.BarServicesTests
                 Id = Guid.Parse("ca28a84e-1885-4d1b-aee9-3ab4f9ade0f7"),
                 BarId = bar.Id,
                 CocktailId = cocktail.Id
-        };
+            };
 
             using (var arrangeContext = new CMContext(options))
             {
@@ -174,7 +174,6 @@ namespace CocktailMagician.Tests.BarServicesTests
 
                 await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO));
             }
-
         }
     }
 
