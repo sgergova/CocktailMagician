@@ -208,29 +208,29 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar = new Bar
             {
-                Id = Guid.Parse("828d338a-e243-41d1-949c-45cc1b09f7f0"),
+                Id = Guid.NewGuid(),
                 Name = "Manhattan",
                 Country = new Country
                 {
-                    Id = Guid.Parse("81e8b436-c542-4eaa-8a3c-f7335aa885d3"),
+                    Id = Guid.NewGuid(),
                     Name = "Bulgaria",
                 }
             };
 
             var bar2 = new Bar
             {
-                Id = Guid.Parse("691cd199-fc90-4b80-971a-c53b218af997"),
+                Id = Guid.NewGuid(),
                 Name = "The Cocktail Bar",
                 Country = new Country
                 {
-                    Id = Guid.Parse("dfa61a0a-35f6-4645-8251-30bbc1ab9f06"),
+                    Id = Guid.NewGuid(),
                     Name = "Germany",
                 }
             };
 
             using (var arrangeContext = new CMContext(options))
             {
-                await arrangeContext.AddRangeAsync(bar, bar2);
+                await arrangeContext.Bars.AddRangeAsync(bar, bar2);
                 await arrangeContext.SaveChangesAsync();
             }
 

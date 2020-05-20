@@ -21,7 +21,11 @@ namespace CocktailMagician.Services.Mappers
                 Bar = barCocktail.Bar,
                 CocktailId = barCocktail.CocktailId,
                 IsListed = barCocktail.IsListed,
-                IsDeleted = barCocktail.IsDeleted
+                IsDeleted = barCocktail.IsDeleted,
+                DeletedOn = barCocktail.DeletedOn,
+                ListedOn = barCocktail.ListedOn,
+                UnlistedOn = barCocktail.UnlistedOn,
+                ModifiedOn = barCocktail.ModifiedOn
             };
         }
 
@@ -29,25 +33,6 @@ namespace CocktailMagician.Services.Mappers
         public static ICollection<BarCocktailDTO> GetDTOs(this ICollection<BarCocktail> barCocktails)
         {
             return barCocktails.Select(GetDTO).ToList();
-        }
-        public static BarCocktail GetEntity(this BarCocktailDTO barCocktailDTO)
-        {
-            if (barCocktailDTO == null)
-                throw new ArgumentNullException();
-
-            return new BarCocktail
-            {
-                BarId = barCocktailDTO.BarId,
-                Bar = barCocktailDTO.Bar,
-                CocktailId = barCocktailDTO.CocktailId,
-                IsListed = barCocktailDTO.IsListed,
-                IsDeleted = barCocktailDTO.IsDeleted
-            };
-        }
-
-        public static ICollection<BarCocktail> GetEntities(this ICollection<BarCocktailDTO> barCocktailDTOs)
-        {
-            return barCocktailDTOs.Select(GetEntity).ToList();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace CocktailMagician.Data.Entities
         [Key]
         public Guid Id { get; set; }
         [Required]
+        [MinLength(3, ErrorMessage = "The name should be at least 3 characters")]
         [StringLength(40, ErrorMessage = "The ingredient's name cannot be more than 40 characters")]
         public string Name { get; set; }
         [StringLength(100, ErrorMessage = "The ingredient's description cannot be more than 300 characters")]

@@ -29,25 +29,5 @@ namespace CocktailMagician.Services.Mappers
         {
             return entities.Select(GetDTO).ToList();
         }
-        public static Country GetEntity(this CountryDTO countryDTO)
-        {
-            if (countryDTO == null)
-                throw new ArgumentNullException();
-
-            return new Country
-            {
-                Id = countryDTO.Id,
-                Name = countryDTO.Name,
-                Bars = countryDTO.Bars.GetEntities(),
-                IsDeleted = countryDTO.IsDeleted,
-                DeletedOn = countryDTO.DeletedOn,
-                ModifiedOn = countryDTO.ModifiedOn
-            };
-        }
-
-        public static ICollection<Country> GetEntities(this ICollection<CountryDTO> countryDTOs)
-        {
-            return countryDTOs.Select(GetEntity).ToList();
-        }
     }
 }

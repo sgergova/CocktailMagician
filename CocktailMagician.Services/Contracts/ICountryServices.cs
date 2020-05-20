@@ -8,10 +8,8 @@ namespace CocktailMagician.Services.Contracts
 {
     public interface ICountryServices
     {
-         Task<CountryDTO> CreateCountry(CountryDTO countryDTO);
+        Task<CountryDTO> CreateCountry(CountryDTO countryDTO);
         Task<CountryDTO> GetCountry(string name);
-        Task<CountryDTO> GetCountry(Guid id);
-        Task<ICollection<CountryDTO>> GetAllCountries(string name);
         Task<ICollection<CountryDTO>> GetAllCountries();
         Task<CountryDTO> UpdateCountry(Guid id, CountryDTO countryDTO);
         Task<ICollection<BarDTO>> BarsAvailable(Guid countryId);
