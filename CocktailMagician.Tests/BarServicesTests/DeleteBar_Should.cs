@@ -14,24 +14,6 @@ namespace CocktailMagician.Tests.BarServicesTests
    public class DeleteBar_Should
     {
         [TestMethod]
-        public async Task DeleteBar_Throws_When_BarNotFound()
-        {
-            //Arrange 
-            var options = Utils.GetOptions(nameof(DeleteBar_Throws_When_BarNotFound));
-
-            var id = Guid.Parse("acce59ad-4010-449a-9a1c-2b8021c3deff");
-
-
-            //Act,Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new BarServices(assertContext);
-
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(()=>sut.DeleteBar(id));
-            }
-        }
-
-        [TestMethod]
         public async Task DeleteBar_Should_Delete_Correct()
         {
             //Arrange 
@@ -66,6 +48,24 @@ namespace CocktailMagician.Tests.BarServicesTests
                 Assert.AreEqual(0, assertContext.Bars.Count());
             }
         }
+        [TestMethod]
+        public async Task DeleteBar_Throws_When_BarNotFound()
+        {
+            //Arrange 
+            var options = Utils.GetOptions(nameof(DeleteBar_Throws_When_BarNotFound));
+
+            var id = Guid.Parse("acce59ad-4010-449a-9a1c-2b8021c3deff");
+
+
+            //Act,Assert
+            using (var assertContext = new CMContext(options))
+            {
+                var sut = new BarServices(assertContext);
+
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(()=>sut.DeleteBar(id));
+            }
+        }
+       
     }
 }
 //public async Task<BarDTO> DeleteBar(Guid id)

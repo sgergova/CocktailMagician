@@ -27,7 +27,6 @@ namespace CocktailMagician.Services.Mappers
                 CountryId = bar.CountryId,
                 CountryName = bar.Country.Name,
                 IsDeleted = bar.IsDeleted
-                
             };
             return dto;
         }
@@ -35,32 +34,6 @@ namespace CocktailMagician.Services.Mappers
         public static ICollection<BarDTO> GetDTOs(this ICollection<Bar> bars)
         {
             return bars.Select(GetDTO).ToList();
-        }
-
-        public static Bar GetEntity(this BarDTO barDTO)
-        {
-            if (barDTO == null)
-                throw new ArgumentNullException();
-
-            var bar = new Bar
-            {
-                Id = barDTO.Id,
-                Name = barDTO.Name,
-                Address = barDTO.Address,
-                Phone = barDTO.Phone,
-                Rating = barDTO.Rating,
-                BarCocktails = barDTO.BarCocktails,
-                Comments = barDTO.Comments,
-                BarImageURL = barDTO.ImageURL,
-                CountryId = barDTO.CountryId,
-            };
-
-            return bar;
-        }
-
-        public static ICollection<Bar> GetEntities(this ICollection<BarDTO> barDTOs)
-        {
-            return barDTOs.Select(GetEntity).ToList();
         }
     }
 }

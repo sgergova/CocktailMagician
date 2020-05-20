@@ -37,7 +37,6 @@ namespace CocktailMagician.Services
             var country = new Country
             {
                 Name = countryDTO.Name,
-                Bars = countryDTO.Bars.GetEntities(),
                 CreatedOn = DateTime.UtcNow,
             };
 
@@ -45,9 +44,7 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             return country.GetDTO();
-
         }
-
         /// <summary>
         /// Checks by given name if country is available in the database.
         /// </summary>
@@ -55,67 +52,23 @@ namespace CocktailMagician.Services
         /// <returns>CountryDTO</returns>
         public async Task<CountryDTO> GetCountry(string name)
         {
-            var country = await this.context.Countries
-                                           .Where(c => c.IsDeleted == false)
+            var country = await GetCountriesQuerable()
                                            .FirstOrDefaultAsync(c => c.Name == name)
                                            ?? throw new ArgumentNullException("Country was not found");
 
-
             return country.GetDTO();
         }
-
-        /// <summary>
-        /// Checks by given ID if country is available in the database.
-        /// </summary>
-        /// <param name="Id">Id of the country that should be found</param>
-        /// <returns>CountryDTO</returns>
-        public async Task<CountryDTO> GetCountry(Guid id)
-        {
-            var country = await this.context.Countries
-                                           .Where(c => c.IsDeleted == false)
-                                           .FirstOrDefaultAsync(c => c.Id == id)
-                                           ?? throw new ArgumentNullException("Country was not found");
-
-
-            return country.GetDTO();
-        }
-
-
         /// <summary>
         /// Checks by given name if country is available in the database.
         /// </summary>
-        /// <param name="name">Name of the countries that should be found</param>
         /// <returns>List of CountryDTO</returns>
-        public async Task<ICollection<CountryDTO>> GetAllCountries(string name)
-        {
-            var countries = this.context.Countries
-                                        .Where(c => c.IsDeleted == false).AsQueryable();
-
-
-            if (name != null)
-            {
-                countries = countries.Where(c => c.Name.ToLower().Contains(name.ToLower()))
-                                        ?? throw new ArgumentNullException("Country was not found");
-            }
-
-            var countriesToReturn = await countries.ToListAsync();
-
-            return countriesToReturn.GetDTOs();
-        }
         public async Task<ICollection<CountryDTO>> GetAllCountries()
         {
-            var countries = this.context.Countries
-                                        .Where(c => c.IsDeleted == false).AsQueryable();
+            var countries = await GetCountriesQuerable()
+                                              .ToListAsync();
 
-
-          
-
-            var countriesToReturn = await countries.ToListAsync();
-
-            return countriesToReturn.GetDTOs();
+            return countries.GetDTOs();
         }
-
-
         /// <summary>
         /// Checks in the database if given country is available and if it exists updates it with given one.
         /// If the param is not valid throws exception. 
@@ -125,8 +78,9 @@ namespace CocktailMagician.Services
         /// <returns>The updated CountryDTO</returns>
         public async Task<CountryDTO> UpdateCountry(Guid id, CountryDTO countryDTO)
         {
-            var countryToUpdate = await this.context.Countries.Where(c => c.IsDeleted == false)
-                                               .FirstOrDefaultAsync(c => c.Id == id);
+            var countryToUpdate = await GetCountriesQuerable()
+                                               .FirstOrDefaultAsync(c => c.Id == id)
+                                               ?? throw new ArgumentNullException() ;
 
             countryToUpdate.Name = countryDTO.Name;
             countryToUpdate.ModifiedOn = countryDTO.ModifiedOn;
@@ -136,8 +90,6 @@ namespace CocktailMagician.Services
 
             return countryToUpdate.GetDTO();
         }
-
-
         /// <summary>
         /// Checks by given ID in the database if it's is available and if it exists delete it.
         /// If ID is not valid throws exception. 
@@ -146,10 +98,11 @@ namespace CocktailMagician.Services
         /// <returns>CountryDTO</returns>
         public async Task<CountryDTO> DeleteCountry(Guid id)
         {
-            var countryToDelete = this.context.Countries.Find(id)
-                                                         ?? throw new ArgumentNullException();
+            var countryToDelete = await GetCountriesQuerable()
+                                               .FirstOrDefaultAsync(c => c.Id == id)
+                                               ?? throw new ArgumentNullException();
 
-            var barsAvailable = BarsAvailable(countryToDelete.Id).Result.GetEntities();
+            var barsAvailable = await BarsAvailableEntities(countryToDelete.Id);
 
             countryToDelete.IsDeleted = true;
             countryToDelete.DeletedOn = DateTime.UtcNow;
@@ -161,14 +114,11 @@ namespace CocktailMagician.Services
                     countryToDelete.Bars.Remove(bar);
                 }
             }
-
             context.Countries.Update(countryToDelete);
             await context.SaveChangesAsync();
 
-
             return countryToDelete.GetDTO();
         }
-
         /// <summary>
         /// Checks by given Id of country how many bars are available in the current country.
         /// </summary>
@@ -176,15 +126,10 @@ namespace CocktailMagician.Services
         /// <returns>ICollection of the available bars in that country</returns>
         public async Task<ICollection<BarDTO>> BarsAvailable(Guid countryId)
         {
-            var bars = await this.context.Bars
-                                         .Where(b => b.IsDeleted == false)
-                                         .Where(b => b.CountryId == countryId)
-                                         .ToListAsync();
+            var bars = await BarsAvailableEntities(countryId);
 
             return bars.GetDTOs();
         }
-
-
         /// <summary>
         /// Adds given bar to certain country.
         /// </summary>
@@ -193,13 +138,13 @@ namespace CocktailMagician.Services
         /// <returns>CountryDTO</returns>
         public async Task<CountryDTO> AddBarToCountry(Guid countryId, Guid barId)
         {
-            var country = await this.context.Countries
-                                            .Where(c => c.IsDeleted == false)
-                                            .FirstOrDefaultAsync(c => c.Id == countryId);
+            var country = await GetCountriesQuerable()
+                                            .FirstOrDefaultAsync(c => c.Id == countryId)
+                                            ?? throw new ArgumentNullException();
 
             var bar = await this.context.Bars
-                                   .Include(b => b.CountryId)
-                                   .FirstOrDefaultAsync(c => c.Id == barId);
+                                         .FirstOrDefaultAsync(c => c.Id == barId)
+                                            ?? throw new ArgumentNullException();
 
             if (bar.CountryId == countryId)
                 throw new InvalidOperationException("This bar is already existing in this country.");
@@ -215,18 +160,16 @@ namespace CocktailMagician.Services
             return country.GetDTO();
 
         }
-
-
         //TODO Fix the issue 
         public async Task<CountryDTO> RemoveBarFromCountry(Guid countryId, Guid barId)
         {
-            var country = await this.context.Countries
-                                            .Where(c => c.IsDeleted == false)
-                                            .FirstOrDefaultAsync(c => c.Id == countryId);
+            var country = await GetCountriesQuerable()
+                                            .FirstOrDefaultAsync(c => c.Id == countryId)
+                                            ?? throw new ArgumentNullException();
 
             var bar = await this.context.Bars
-                                   .Include(b => b.CountryId)
-                                   .FirstOrDefaultAsync(c => c.Id == barId);
+                                   .FirstOrDefaultAsync(c => c.Id == barId)
+                                   ?? throw new ArgumentNullException();
 
             if (bar.CountryId == countryId)
             {
@@ -239,11 +182,26 @@ namespace CocktailMagician.Services
             {
                 throw new InvalidOperationException("The bar or/and the country was not found!"); 
             }
-
-
             return country.GetDTO();
+        }
+        private IQueryable<Country> GetCountriesQuerable()
+        {
+            var countries = this.context.Countries
+                                        .Where(c => c.IsDeleted == false)
+                                        ?? throw new ArgumentNullException("Value cannot be null");
 
+            return countries;
         }
 
+        private async Task<ICollection<Bar>> BarsAvailableEntities(Guid countryId)
+        {
+            var bars = await this.context.Bars
+                                         .Where(b => b.IsDeleted == false)
+                                         .Include(b=>b.Country)
+                                         .Where(b => b.CountryId == countryId)
+                                         .ToListAsync();
+
+            return bars;
+        }
     }
 }

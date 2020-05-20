@@ -3,11 +3,10 @@ using CocktailMagician.Services.EntitiesDTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CocktailMagician.Services.Mappers
 {
-   public static class IngredientExtensions
+    public static class IngredientExtensions
     {
         public static IngredientDTO GetDTO(this Ingredient entity)
         {
@@ -28,28 +27,6 @@ namespace CocktailMagician.Services.Mappers
         public static ICollection<IngredientDTO> GetDTOs(this ICollection<Ingredient> entities)
         {
             return entities.Select(GetDTO).ToList();
-        }
-        public static Ingredient GetEntity(this IngredientDTO ingredientDTO)
-        {
-            if (ingredientDTO == null)
-                throw new ArgumentNullException();
-
-            return new Ingredient
-            {
-                Id = ingredientDTO.Id,
-                Name = ingredientDTO.Name,
-                CocktailIngredients = ingredientDTO.CocktailIngredients.GetEntities(),
-                Description = ingredientDTO.Name,
-                Quantity = ingredientDTO.Quantity,
-                Rating = ingredientDTO.Rating,
-                IsDeleted = ingredientDTO.IsDeleted,
-                IsAlcoholic = ingredientDTO.IsAlcoholic
-            };
-        }
-
-        public static ICollection<Ingredient> GetEntities(this ICollection<IngredientDTO> ingredientDTOs)
-        {
-            return ingredientDTOs.Select(GetEntity).ToList();
         }
     }
 }

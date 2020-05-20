@@ -11,11 +11,11 @@ namespace CocktailMagician.Services.Contracts
     {
         Task<CocktailDTO> GetCocktail(Guid id);
         Task<ICollection<CocktailDTO>> GetAllCocktails(string name, ICollection<CocktailIngredient> ingredients, int? rating);
-        Task<CocktailDTO> CreateCocktail(CocktailDTO barDTO);
-        Task<CocktailDTO> UpdateCocktail(CocktailDTO barDTO);
+        Task<CocktailDTO> CreateCocktail(CocktailDTO cocktailDTO);
+        Task<CocktailDTO> UpdateCocktail(Guid id, CocktailDTO cocktailDTO);
         Task<CocktailDTO> DeleteCocktail(Guid id);
-        Task<CocktailDTO> RemoveIngredientFromCocktail(Guid cocktailId, Guid ingredientId);
-        Task<CocktailDTO> AddIngredientToCocktail(Guid cocktailId, Guid ingredientId);
+        Task<CocktailDTO> RemoveIngredientFromCocktail(string cocktailName, string ingredientName);
+        Task<CocktailDTO> AddIngredientToCocktail(string cocktailName, string ingredientName);
         Task<ICollection<CocktailDTO>> SearchByAlcohol(string criteria);
         
     };

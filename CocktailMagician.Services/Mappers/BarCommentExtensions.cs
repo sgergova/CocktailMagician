@@ -33,28 +33,5 @@ namespace CocktailMagician.Services.Mappers
         {
             return barComments.Select(GetDTO).ToList();
         }
-        public static BarComment GetEntity(this BarCommentDTO item)
-        {
-            if (item == null)
-                throw new ArgumentNullException();
-
-            return new BarComment
-            {
-                BarId = item.BarId,
-                Bar = item.Bar,
-                IsDeleted = item.IsDeleted,
-                Comments = item.Comments,
-                CreatedOn = item.CreatedOn,
-                DeletedOn = item.DeletedOn,
-                ModifiedOn = item.ModifiedOn,
-                User = item.User,
-                UserId = item.UserId
-            };
-        }
-
-        public static ICollection<BarComment> GetEntities(this ICollection<BarCommentDTO> barCommentsDTOs)
-        {
-            return barCommentsDTOs.Select(GetEntity).ToList();
-        }
     }
 }

@@ -34,11 +34,8 @@ namespace CocktailMagician.Services
             var entity = await GetAllQueryable()
                                         .FirstOrDefaultAsync(b => b.Id == id);
 
-
             return entity.GetDTO();
-
         }
-
         /// <summary>
         /// Checks by given name if ingredient is available in the database.
         /// </summary>
@@ -49,15 +46,11 @@ namespace CocktailMagician.Services
             if (name == null)
                 throw new ArgumentNullException("The name cannot be null");
 
-
             var entity = await GetAllQueryable()
                                         .FirstOrDefaultAsync(b => b.Name == name);
 
-
             return entity.GetDTO();
-
         }
-
         /// <summary>
         /// Checks by given name and returns all the ingredient that contains the search criteria.
         /// </summary>
@@ -71,7 +64,6 @@ namespace CocktailMagician.Services
             {
                 entities = entities.Where(i => i.Name.ToLower().Contains(name.ToLower()));
             }
-
             var ingredient = await entities.ToListAsync();
 
             return ingredient.GetDTOs();
@@ -93,7 +85,6 @@ namespace CocktailMagician.Services
             var ingredient = new Ingredient
             {
                 Name = ingredientDTO.Name,
-                CocktailIngredients = ingredientDTO.CocktailIngredients.GetEntities(),
                 Description = ingredientDTO.Description,
                 Quantity = ingredientDTO.Quantity,
                 CreatedOn = DateTime.UtcNow,
@@ -103,9 +94,7 @@ namespace CocktailMagician.Services
             await context.SaveChangesAsync();
 
             return ingredient.GetDTO();
-
         }
-
         /// <summary>
         /// Checks in the database if given ingredient is available and if it exists updates it with given one.
         /// If the param is not valid throws exception. 
@@ -117,11 +106,12 @@ namespace CocktailMagician.Services
             if (ingredientDTO.Id == null)
                 throw new ArgumentNullException("Value cannot be null.");
 
-            var ingredientToUpdate = await GetIngredient(ingredientDTO.Id);
-            var ingredient = ingredientToUpdate.GetEntity();
+            var ingredientToUpdate = await this.context.Ingredients
+                                                        .Where(i=>i.IsDeleted == false)
+                                                        .FirstOrDefaultAsync(i=>i.Id == ingredientDTO.Id);
+            var ingredient = ingredientToUpdate;
 
             ingredient.Name = ingredientDTO.Name;
-            ingredient.CocktailIngredients = ingredientDTO.GetEntity().CocktailIngredients;
             ingredient.Quantity = ingredientDTO.Quantity;
             ingredient.Description = ingredientDTO.Description;
             ingredient.ModifiedOn = DateTime.UtcNow;
@@ -130,7 +120,6 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             return ingredient.GetDTO();
-
         }
 
         /// <summary>
@@ -146,7 +135,6 @@ namespace CocktailMagician.Services
                                  .FirstOrDefaultAsync(b => b.Id == id)
                                  ?? throw new ArgumentNullException();
 
-
             if (ingredientsToDelete.CocktailIngredients.Any(c => c.IsDeleted == true))
             {
                 ingredientsToDelete.IsDeleted = true;
@@ -159,7 +147,6 @@ namespace CocktailMagician.Services
                 throw new InvalidOperationException($"Cannot delete {ingredientsToDelete}" +
                     $"There are cocktails available.");
             }
-
             return ingredientsToDelete.GetDTO();
         }
         /// <summary>
@@ -191,8 +178,6 @@ namespace CocktailMagician.Services
 
             return cocktails.GetDTOs();
         }
-
-
 
         private IQueryable<Ingredient> GetAllQueryable()
         {

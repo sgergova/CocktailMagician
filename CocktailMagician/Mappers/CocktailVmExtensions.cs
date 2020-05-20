@@ -51,7 +51,6 @@ namespace CocktailMagician.Web.Mappers
                 Name = item.Name,
                 Rating = item.Rating,
                 Bars = item.Bars,
-                Comments = item.Comments.GetEntities(),
                 Ingredients = item.Ingredients,
                 Stars = item.Stars,
             };

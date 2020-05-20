@@ -58,7 +58,7 @@ namespace CocktailMagician.Services
 
 
         /// <summary>
-        /// Sorts the bars of a sequence in according to given parameters.
+        /// Orders found sequence of bars according to given parameters.
         /// </summary>
         /// <param name="name">Name of the Bar</param>
         /// <param name="rating">Rating of the Bar</param>
@@ -103,7 +103,6 @@ namespace CocktailMagician.Services
             };
         }
 
-
         /// <summary>
         /// Adds the new bar to the database after checking if it does not exists already.
         /// </summary>
@@ -124,7 +123,6 @@ namespace CocktailMagician.Services
                                        .FirstOrDefaultAsync(c => c.Id == barDTO.CountryId || c.Name == barDTO.CountryName)
                                         ?? throw new ArgumentNullException("Country was not found");
 
-
             var bar = new Bar
             {
                 Name = barDTO.Name,
@@ -142,8 +140,6 @@ namespace CocktailMagician.Services
 
             return bar.GetDTO();
         }
-
-
         /// <summary>
         /// Checks in the database if given cocktail's ID and bar's ID are valid and if yes adds current cocktail to the bar.
         /// If some of the params is not valid throws exception.
@@ -164,13 +160,11 @@ namespace CocktailMagician.Services
                                                    .FirstOrDefaultAsync(c => c.Id == cocktail.Id)
                                                    ?? throw new ArgumentNullException();
 
-
             var barCocktail = await this.context.BarCocktails
                                             .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktail.Id);
 
             if (barCocktail != null)
                 throw new InvalidOperationException($"{cocktail} is already listed on {bar}");
-
 
             if (barCocktail == null)
             {
@@ -191,8 +185,6 @@ namespace CocktailMagician.Services
 
             return bar.GetDTO();
         }
-
-
         /// <summary>
         ///Check in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
         /// If some of the params is not valid throws exception. 
@@ -210,7 +202,6 @@ namespace CocktailMagician.Services
             var cocktail = await this.context.Cocktails
                                              .FirstOrDefaultAsync(c => c.Id == cocktailId)
                                              ?? throw new ArgumentNullException("The Id of bar cannot be null");
-
 
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktailId);
@@ -232,7 +223,6 @@ namespace CocktailMagician.Services
 
             return bar.GetDTO();
         }
-
         /// <summary>
         ///Searchs in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
         /// If some of the params is not valid throws exception. 
@@ -242,7 +232,6 @@ namespace CocktailMagician.Services
         /// <returns>BarDTO</returns>
         public async Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId)
         {
-
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.Id == barCocktailId)
                                                 ?? throw new ArgumentNullException();
@@ -274,7 +263,6 @@ namespace CocktailMagician.Services
                                                 .FirstOrDefaultAsync(b => b.Id == id)
                                                 ?? throw new ArgumentNullException();
 
-
             barToUpdate.Name = barDTO.Name;
             barToUpdate.Address = barDTO.Address;
             barToUpdate.Phone = barDTO.Phone;
@@ -286,7 +274,6 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             return barToUpdate.GetDTO();
-
         }
 
         /// <summary>
@@ -303,13 +290,12 @@ namespace CocktailMagician.Services
 
             var country = barToDelete.Country;
 
-            var barCocktails = AvailabilityAtBar(barToDelete.Id).Result.GetEntities();
+            var barCocktails = await AvailabilityAtBarEntities(barToDelete.Id);
 
             barToDelete.IsDeleted = true;
             country.Bars.Remove(barToDelete);
             country.ModifiedOn = DateTime.UtcNow;
             barToDelete.DeletedOn = DateTime.UtcNow;
-
 
             if (barCocktails.Count != 0)
             {
@@ -318,12 +304,9 @@ namespace CocktailMagician.Services
                     barToDelete.BarCocktails.Remove(barCocktail);
                 }
             }
-
-
             context.Bars.Update(barToDelete);
             context.Countries.Update(country);
             await context.SaveChangesAsync();
-
 
             return true;
         }
@@ -334,13 +317,21 @@ namespace CocktailMagician.Services
         /// <returns>ICollection of the available cocktails in that bar</returns>
         public async Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId)
         {
+            var barCocktailsAvailable = await AvailabilityAtBarEntities(barToDeleteId);
+
+
+            return barCocktailsAvailable.GetDTOs();
+        }
+
+        private async Task<ICollection<BarCocktail>> AvailabilityAtBarEntities(Guid barToDeleteId)
+        {
             var barCocktailsAvailable = await this.context.BarCocktails
                                                     .Where(bc => bc.BarId == barToDeleteId)
                                                     .Where(bc => bc.IsListed == true)
                                                     .ToListAsync();
 
 
-            return barCocktailsAvailable.GetDTOs();
+            return barCocktailsAvailable;
         }
 
         private IQueryable<Bar> GetAllBarsQueryable()
@@ -349,7 +340,6 @@ namespace CocktailMagician.Services
                                         .Include(b => b.Country)
                                        .Where(b => b.IsDeleted == false)
                                        ?? throw new ArgumentNullException("The value cannot be null");
-
 
             return entities;
         }
