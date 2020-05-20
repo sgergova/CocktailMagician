@@ -21,6 +21,11 @@ namespace CocktailMagician.Services.Mappers
                 Description = entity.Description,
                 Quantity = entity.Quantity,
                 Rating = entity.Rating,
+                IsDeleted = entity.IsDeleted,
+                ModifiedOn = entity.ModifiedOn,
+                IsAlcoholic = entity.IsAlcoholic,
+                DeletedOn = entity.DeletedOn,
+                
             };
         }
 

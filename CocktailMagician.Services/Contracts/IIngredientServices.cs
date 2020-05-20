@@ -12,9 +12,10 @@ namespace CocktailMagician.Services.Contracts
         Task<IngredientDTO> GetIngredient(string name);
         Task<ICollection<IngredientDTO>> GetAllIngredients(string name);
         Task<IngredientDTO> CreateIngredient(IngredientDTO barDTO);
-        Task<IngredientDTO> UpdateIngredient(IngredientDTO barDTO);
+        Task<IngredientDTO> UpdateIngredient(Guid id, IngredientDTO ingredientDTO);
         Task<IngredientDTO> DeleteIngredient(Guid id);
         Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(string cocktailName);
         Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(Guid cocktailId);
+        Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId);
     }
 }
