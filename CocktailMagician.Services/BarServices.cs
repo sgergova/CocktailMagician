@@ -46,7 +46,7 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBar(string barName)
         {
             if (barName == null)
-                throw new ArgumentNullException(Messages.BarIDNull);
+                throw new ArgumentNullException(Messages.NullEntityId);
 
             var bar = await GetAllBarsQueryable()
                                      .FirstOrDefaultAsync(b => b.Name.ToLower().Contains(barName.ToLower()))
