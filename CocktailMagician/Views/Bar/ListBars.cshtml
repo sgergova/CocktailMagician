@@ -53,11 +53,13 @@
                     <td>
                         @item.BarCocktails.Count
                     </td>
-
+                  <td>
+                      <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">Details</a>
+                 </td>
                 </tr>
-            }
-        </tbody>
-    </table>
+        }
+            </tbody>
+        </table>
     <p>
         <a class="button"  data-toggle="modal" data-target="#modalCreateBar">Create New</a>
         <partial model="new BarViewModel()" name="_CreateBarModal"/>

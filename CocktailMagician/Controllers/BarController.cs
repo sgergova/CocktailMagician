@@ -36,5 +36,14 @@ namespace CocktailMagician.Web.Controllers
 
             return RedirectToAction("ListBars","Bar");
         }
+        [HttpGet]
+        public async Task<IActionResult> BarDetails(Guid id)
+        {
+            var bar = await barServices.GetBar(id);
+            var barVM =  bar.GetViewModel();
+            return View(barVM);
+        }
+
+
     }
 }
