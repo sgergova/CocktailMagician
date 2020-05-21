@@ -59,6 +59,19 @@ namespace CocktailMagician.Services
             return country.GetDTO();
         }
         /// <summary>
+        /// Checks by given id if country is available in the database.
+        /// </summary>
+        /// <param id="id">Name of the country that should be found</param>
+        /// <returns>CountryDTO</returns>
+        public async Task<CountryDTO> GetCountry(Guid id)
+        {
+            var country = await GetCountriesQuerable()
+                                           .FirstOrDefaultAsync(c => c.Id == id)
+                                           ?? throw new ArgumentNullException("Country was not found");
+
+            return country.GetDTO();
+        }
+        /// <summary>
         /// Checks by given name if country is available in the database.
         /// </summary>
         /// <returns>List of CountryDTO</returns>

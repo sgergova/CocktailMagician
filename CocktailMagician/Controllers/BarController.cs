@@ -22,6 +22,11 @@ namespace CocktailMagician.Web.Controllers
         public async Task<IActionResult> ListBars()
         {
             var list = await barServices.GetAllBars(null, 0, null, null);
+            foreach (var item in list)
+            {
+               var country = await countryServices.GetCountry(item.CountryId);
+                item.CountryName = country.Name;
+            }
             var barVMList = list.GetViewModels();
             var countryList = await countryServices.GetAllCountries();
             ViewBag.CountryList = countryList;
