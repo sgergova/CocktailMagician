@@ -18,13 +18,13 @@ namespace CocktailMagician.Services.Mappers
             {
                 BarId = item.BarId,
                 Bar = item.Bar,
+                User = item.User,
+                UserId = item.UserId,
                 IsDeleted = item.IsDeleted,
                 Comments = item.Comments,
                 CreatedOn = item.CreatedOn,
                 DeletedOn = item.DeletedOn,
                 ModifiedOn = item.ModifiedOn,
-                User = item.User,
-                UserId = item.UserId
             };
         }
 
@@ -32,6 +32,26 @@ namespace CocktailMagician.Services.Mappers
         public static ICollection<BarCommentDTO> GetDTOs(this ICollection<BarComment> barComments)
         {
             return barComments.Select(GetDTO).ToList();
+        }
+
+        public static BarComment GetEntity(this BarCommentDTO item)
+        {
+            if (item == null)
+                throw new ArgumentNullException();
+
+            return new BarComment
+            {
+                BarId = item.BarId,
+                Bar = item.Bar,
+                User = item.User,
+                UserId = item.UserId,
+                Comments = item.Comments,
+                CreatedOn = item.CreatedOn,
+            };
+        }
+        public static ICollection<BarComment> GetEntities(this ICollection<BarCommentDTO> barComments)
+        {
+            return barComments.Select(GetEntity).ToList();
         }
     }
 }

@@ -18,10 +18,10 @@ namespace CocktailMagician.Services.Mappers
             {
                 Id = item.Id,
                 AlcoholPercentage = item.AlcoholPercentage,
-                Bars = item.Bars.GetDTOs(),
+                Bars = item.Bars?.GetDTOs(),
                 Comments = item.Comments,
                 ImageURL = item.ImageURL,
-                Ingredients = item.CocktailIngredients.GetDTOs(),
+                Ingredients = item.CocktailIngredients?.GetDTOs(),
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
                 Rating = item.Rating,
@@ -35,5 +35,31 @@ namespace CocktailMagician.Services.Mappers
         {
             return items.Select(GetDTO).ToList();
         }
+
+        public static Cocktail GetEntity(this CocktailDTO item)
+        {
+            if (item == null)
+                throw new ArgumentNullException();
+
+            return new Cocktail
+            {
+                Id = item.Id,
+                AlcoholPercentage = item.AlcoholPercentage,
+                Bars = item.Bars?.GetEntities(),
+                Comments = item.Comments,
+                ImageURL = item.ImageURL,
+                CocktailIngredients = item.Ingredients?.GetEntities(),
+                IsAlcoholic = item.IsAlcoholic,
+                Name = item.Name,
+                Rating = item.Rating,
+                CreatedOn = DateTime.UtcNow
+            };
+        }
+
+        public static ICollection<Cocktail> GetEntities(this ICollection<CocktailDTO> items)
+        {
+            return items.Select(GetEntity).ToList();
+        }
     }
+
 }

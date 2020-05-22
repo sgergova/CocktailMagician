@@ -82,13 +82,7 @@ namespace CocktailMagician.Services
             if (ingredientDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
-            var ingredient = new Ingredient
-            {
-                Name = ingredientDTO.Name,
-                Description = ingredientDTO.Description,
-                Quantity = ingredientDTO.Quantity,
-                CreatedOn = DateTime.UtcNow,
-            };
+            var ingredient = ingredientDTO.GetEntity();
 
             await context.Ingredients.AddAsync(ingredient);
             await context.SaveChangesAsync();

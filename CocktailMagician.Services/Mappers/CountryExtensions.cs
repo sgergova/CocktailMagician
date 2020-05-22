@@ -18,7 +18,7 @@ namespace CocktailMagician.Services.Mappers
             {
                 Id = country.Id,
                 Name = country.Name,
-                Bars = country.Bars.GetDTOs(),
+                Bars = country.Bars?.GetDTOs(),
                 IsDeleted = country.IsDeleted,
                 DeletedOn = country.DeletedOn,
                 ModifiedOn = country.ModifiedOn
@@ -28,6 +28,27 @@ namespace CocktailMagician.Services.Mappers
         public static ICollection<CountryDTO> GetDTOs(this ICollection<Country> entities)
         {
             return entities.Select(GetDTO).ToList();
+        }
+
+        public static Country GetEntity(this CountryDTO country)
+        {
+            if (country == null)
+                throw new ArgumentNullException("Entity not found");
+
+            return new Country
+            {
+                Id = country.Id,
+                Name = country.Name,
+                Bars = country.Bars?.GetEntities(),
+                IsDeleted = country.IsDeleted,
+                DeletedOn = country.DeletedOn,
+                ModifiedOn = country.ModifiedOn
+            };
+        }
+
+        public static ICollection<Country> GetEntities(this ICollection<CountryDTO> entities)
+        {
+            return entities.Select(GetEntity).ToList();
         }
     }
 }

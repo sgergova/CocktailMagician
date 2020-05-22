@@ -13,9 +13,9 @@ namespace CocktailMagician.Services.EntitiesDTO
         public int Rating { get; set; }
         public Guid CountryId { get; set; }
         public string CountryName { get; set; }
-        public ICollection<BarCocktail> BarCocktails { get; set; }
+        public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<BarRating> Stars { get; set; }
-        public ICollection<BarComment> Comments { get; set; }
+        public ICollection<BarCommentDTO> Comments { get; set; }
         public string ImageURL { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime? ModifiedOn { get; set; }

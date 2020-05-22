@@ -25,8 +25,8 @@ namespace CocktailMagician.Web.Mappers
                 Phone = item.Phone,
                 Rating = item.Rating,
                 ImageURL = item.ImageURL,
-                BarCocktails = item.BarCocktails.GetDTOs(),
-                Comments = item.Comments.GetDTOs(),
+                BarCocktails = item.BarCocktails,
+                Comments = item.Comments,
             };
         }
         public static ICollection<BarViewModel> GetViewModels(this ICollection<BarDTO> items)

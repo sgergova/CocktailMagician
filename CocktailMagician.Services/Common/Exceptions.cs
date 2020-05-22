@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CocktailMagician.Services.CommonMessages
 {
-    public static class Messages
+    public static class Exceptions
     {
         public const string NullEntityId = "Given Id was not found";
         public const string NameExists = "This name already exists!";
