@@ -19,8 +19,8 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\CocktailMagician.Data\CocktailMagician.Data.csproj" />
     <ProjectReference Include="..\CocktailMagician.Services\CocktailMagician.Services.csproj" />
-    <ProjectReference Include="..\CocktailMagicianDataBase\CocktailMagician.Data.csproj" />
   </ItemGroup>
 
 

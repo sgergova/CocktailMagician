@@ -1,10 +1,13 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,14 +32,27 @@ namespace CocktailMagician.Services
 
         }
 
-        public Task<CocktailCommentsDTO> DeleteComment(Guid commentId)
+        public async Task<CocktailCommentsDTO> DeleteComment(Guid commentId)
         {
-            throw new NotImplementedException();
+            var comment = await this.context.CocktailComments
+                                            .FirstOrDefaultAsync(cc=>cc.IsDeleted == false && cc.CocktailId == commentId)
+                                            ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+            comment.IsDeleted = true;
+            comment.DeletedOn = DateTime.UtcNow;
+
+            this.context.CocktailComments.Update(comment);
+            await this.context.SaveChangesAsync();
+
+            return comment.GetDTO();
         }
 
-        public Task<ICollection<CocktailCommentsDTO>> GetAllCommentsOfUser(Guid? id, string username)
+        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsOfUser(Guid? id, string username)
         {
-            throw new NotImplementedException();
+            var comments = await this.context.CocktailComments
+                                     .Where(cc => cc.IsDeleted == false && cc.UserId == id || cc.User.Name == username)
+                                     .ToListAsync();
+
+            return comments.GetDTOs();
         }
     }
 }
