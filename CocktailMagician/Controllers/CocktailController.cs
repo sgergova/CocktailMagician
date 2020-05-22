@@ -13,9 +13,11 @@ namespace CocktailMagician.Web.Controllers
     public class CocktailController : Controller
     {
         private readonly ICocktailServices cocktailServices;
-        public CocktailController(ICocktailServices cocktailServices)
+        private readonly IIngredientServices ingredientServices;
+        public CocktailController(ICocktailServices cocktailServices,IIngredientServices ingredientServices)
         {
             this.cocktailServices = cocktailServices;
+            this.ingredientServices = ingredientServices;
         }
         [HttpGet]
         public async Task<IActionResult>  ListCocktails()
@@ -31,6 +33,7 @@ namespace CocktailMagician.Web.Controllers
         {
             var country = await cocktailServices.CreateCocktail(cocktail.GetDtoFromVM());
             
+           // ViewBag.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
 
             return RedirectToAction("ListCocktails", "Cocktail");
         }
