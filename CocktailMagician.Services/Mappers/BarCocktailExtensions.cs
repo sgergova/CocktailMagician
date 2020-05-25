@@ -34,5 +34,25 @@ namespace CocktailMagician.Services.Mappers
         {
             return barCocktails.Select(GetDTO).ToList();
         }
+
+        public static BarCocktail GetEntity(this BarCocktailDTO barCocktail)
+        {
+            if (barCocktail == null)
+                throw new ArgumentNullException();
+
+            return new BarCocktail
+            {
+                BarId = barCocktail.BarId,
+                Bar = barCocktail.Bar,
+                CocktailId = barCocktail.CocktailId,
+                IsListed = barCocktail.IsListed,
+                CreatedOn = barCocktail.CreatedOn
+            };
+        }
+
+        public static ICollection<BarCocktail> GetEntities(this ICollection<BarCocktailDTO> barCocktails)
+        {
+            return barCocktails.Select(GetEntity).ToList();
+        }
     }
 }

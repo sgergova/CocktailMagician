@@ -1,4 +1,4 @@
-﻿using CocktailMagician.DataBase.AppContext;
+﻿using CocktailMagician.Data.AppContext;
 using Microsoft.EntityFrameworkCore;
 
 namespace CocktailMagician.Tests

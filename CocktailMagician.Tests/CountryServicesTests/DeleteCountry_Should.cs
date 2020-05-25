@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services;
 using CocktailMagician.Services.EntitiesDTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,33 +13,6 @@ namespace CocktailMagician.Tests.CountryServicesTests
     [TestClass]
     public class DeleteCountry_Should
     {
-        [TestMethod]
-        public async Task DeleteCountry_ShouldDelete_BarCocktails()
-        {
-            //Arrange
-            var options = Utils.GetOptions(nameof(DeleteCountry_ShouldDelete_BarCocktails));
-
-            var bar = new Bar { Id = Guid.NewGuid(), Name = "Cosmos" };
-            var country = new Country { Id = Guid.NewGuid(), Name = "Germany" , };
-            country.Bars.Add(bar);
-
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Countries.AddAsync(country);
-                await arrangeContext.Bars.AddAsync(bar);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-            //Act, Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new CountryServices(assertContext);
-                var result = await sut.DeleteCountry(country.Id);
-
-                Assert.AreEqual(0, result.Bars.Count);
-            }
-        }
-
         [TestMethod]
         public async Task DeleteCountry_ShouldDelete_Correct()
         {

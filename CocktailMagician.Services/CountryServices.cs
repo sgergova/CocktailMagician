@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -18,9 +19,8 @@ namespace CocktailMagician.Services
 
         public CountryServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
-
         /// <summary>
         /// Adds new country to the database after checking if it does not exists already.
         /// </summary>
@@ -34,11 +34,7 @@ namespace CocktailMagician.Services
             if (countryDTO.Name == null)
                 throw new ArgumentNullException("The name of the country is mandatory!");
 
-            var country = new Country
-            {
-                Name = countryDTO.Name,
-                CreatedOn = DateTime.UtcNow,
-            };
+            var country = countryDTO.GetEntity();
 
             await this.context.Countries.AddAsync(country);
             await this.context.SaveChangesAsync();
@@ -124,7 +120,8 @@ namespace CocktailMagician.Services
             {
                 foreach (var bar in barsAvailable)
                 {
-                    countryToDelete.Bars.Remove(bar);
+                    bar.IsDeleted = true;
+                    bar.DeletedOn = DateTime.UtcNow;
                 }
             }
             context.Countries.Update(countryToDelete);
@@ -158,9 +155,9 @@ namespace CocktailMagician.Services
             var bar = await this.context.Bars
                                          .FirstOrDefaultAsync(c => c.Id == barId)
                                             ?? throw new ArgumentNullException();
-
+           
             if (bar.CountryId == countryId)
-                throw new InvalidOperationException("This bar is already existing in this country.");
+                throw new InvalidOperationException(Exceptions.AlreadyListed);
 
             country.Bars.Add(bar);
             bar.Country = country;
@@ -171,7 +168,6 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             return country.GetDTO();
-
         }
         //TODO Fix the issue 
         public async Task<CountryDTO> RemoveBarFromCountry(Guid countryId, Guid barId)
@@ -205,7 +201,6 @@ namespace CocktailMagician.Services
 
             return countries;
         }
-
         private async Task<ICollection<Bar>> BarsAvailableEntities(Guid countryId)
         {
             var bars = await this.context.Bars

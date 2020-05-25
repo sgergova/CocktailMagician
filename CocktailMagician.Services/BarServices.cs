@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
@@ -31,13 +31,11 @@ namespace CocktailMagician.Services
         {
             var entity = await GetAllBarsQueryable()
                                         .FirstOrDefaultAsync(e => e.Id == id)
-                                        ?? throw new ArgumentNullException(Messages.NullEntityId);
+                                        ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             return entity.GetDTO();
 
         }
-
-
         /// <summary>
         /// Searches if given name of bar exists in the database and if its not found throws an exception.
         /// </summary>
@@ -46,18 +44,16 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBar(string barName)
         {
             if (barName == null)
-                throw new ArgumentNullException(Messages.NullEntityId);
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var bar = await GetAllBarsQueryable()
                                      .FirstOrDefaultAsync(b => b.Name.ToLower().Contains(barName.ToLower()))
-                                     ?? throw new ArgumentNullException(Messages.NullEntityId);
+                                     ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
 
             return bar.GetDTO();
 
         }
-
-
         /// <summary>
         /// Orders found sequence of bars according to given parameters.
         /// </summary>
@@ -100,7 +96,7 @@ namespace CocktailMagician.Services
                 "cocktail" => bars.OrderBy(b => b.BarCocktails),
                 "country" => bars.OrderBy(b => b.Country),
 
-                _ => throw new InvalidOperationException(Messages.InvalidSearchCriteria)
+                _ => throw new InvalidOperationException(Exceptions.InvalidSearchCriteria)
             };
         }
 
@@ -113,28 +109,17 @@ namespace CocktailMagician.Services
         {
 
             if (this.context.Bars.Any(b => b.Name == barDTO.Name))
-                throw new ArgumentException(Messages.NameExists);
+                throw new ArgumentException(Exceptions.NameExists);
 
             if (barDTO.Name == null)
-                throw new ArgumentNullException(Messages.MissingName);
-
+                throw new ArgumentNullException(Exceptions.MissingName);
 
             var country = await this.context.Countries
                                        .Where(c => c.IsDeleted == false)
                                        .FirstOrDefaultAsync(c => c.Id == barDTO.CountryId || c.Name == barDTO.CountryName)
-                                        ?? throw new ArgumentNullException(Messages.EntityNotFound);
+                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
-            var bar = new Bar
-            {
-                Name = barDTO.Name,
-                Address = barDTO.Address,
-                Phone = barDTO.Phone,
-                BarCocktails = barDTO.BarCocktails,
-                BarImageURL = barDTO.ImageURL,
-                CountryId = country.Id,
-                Country = country,
-                CreatedOn = DateTime.UtcNow
-            };
+            var bar = barDTO.GetEntity();
 
             await context.Bars.AddAsync(bar);
             await context.SaveChangesAsync();
@@ -153,19 +138,18 @@ namespace CocktailMagician.Services
         {
             var bar = await GetAllBarsQueryable()
                                  .FirstOrDefaultAsync(b => b.Id == barId)
-                                 ?? throw new ArgumentNullException(Messages.NullEntityId);
-
+                                 ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var cocktailToAdd = await this.context.Cocktails
                                                    .Where(c => c.IsDeleted == false)
                                                    .FirstOrDefaultAsync(c => c.Id == cocktail.Id)
-                                                   ?? throw new ArgumentNullException(Messages.NullEntityId);
+                                                   ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var barCocktail = await this.context.BarCocktails
                                             .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktail.Id);
 
             if (barCocktail != null)
-                throw new InvalidOperationException(Messages.AlreadyListed);
+                throw new InvalidOperationException(Exceptions.AlreadyListed);
 
             if (barCocktail == null)
             {
@@ -181,7 +165,7 @@ namespace CocktailMagician.Services
             }
             else
             {
-                throw new InvalidOperationException(Messages.AlreadyListed);
+                throw new InvalidOperationException(Exceptions.AlreadyListed);
             }
 
             return bar.GetDTO();
@@ -195,14 +179,13 @@ namespace CocktailMagician.Services
         /// <returns>BarDTO</returns>
         public async Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId)
         {
-
             var bar = await GetAllBarsQueryable()
                             .FirstOrDefaultAsync(b => b.Id == barId)
-                            ?? throw new ArgumentNullException(Messages.NullEntityId);
+                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var cocktail = await this.context.Cocktails
                                              .FirstOrDefaultAsync(c => c.Id == cocktailId)
-                                             ?? throw new ArgumentNullException(Messages.NullEntityId);
+                                             ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktailId);
@@ -219,7 +202,7 @@ namespace CocktailMagician.Services
             }
             else
             {
-                throw new InvalidOperationException(Messages.AlreadyListed);
+                throw new InvalidOperationException(Exceptions.AlreadyListed);
             }
 
             return bar.GetDTO();
@@ -235,7 +218,7 @@ namespace CocktailMagician.Services
         {
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.Id == barCocktailId)
-                                                ?? throw new ArgumentNullException(Messages.NullEntityId);
+                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
             var bar = barCocktail.Bar;
             var cocktail = barCocktail.Cocktail;
 
@@ -262,7 +245,7 @@ namespace CocktailMagician.Services
         {
             var barToUpdate = await GetAllBarsQueryable()
                                                 .FirstOrDefaultAsync(b => b.Id == id)
-                                                ?? throw new ArgumentNullException(Messages.AlreadyListed);
+                                                ?? throw new ArgumentNullException(Exceptions.AlreadyListed);
 
             barToUpdate.Name = barDTO.Name;
             barToUpdate.Address = barDTO.Address;
@@ -287,7 +270,7 @@ namespace CocktailMagician.Services
         {
             var barToDelete = await GetAllBarsQueryable()
                                    .FirstOrDefaultAsync(b => b.Id == id)
-                                   ?? throw new ArgumentNullException(Messages.AlreadyListed);
+                                   ?? throw new ArgumentNullException(Exceptions.AlreadyListed);
 
             var country = barToDelete.Country;
 
@@ -302,7 +285,8 @@ namespace CocktailMagician.Services
             {
                 foreach (var barCocktail in barCocktails)
                 {
-                    barToDelete.BarCocktails.Remove(barCocktail);
+                    barCocktail.IsDeleted = true;
+                    barCocktail.DeletedOn = DateTime.UtcNow;
                 }
             }
             context.Bars.Update(barToDelete);
@@ -331,7 +315,6 @@ namespace CocktailMagician.Services
                                                     .Where(bc => bc.IsListed == true)
                                                     .ToListAsync();
 
-
             return barCocktailsAvailable;
         }
 
@@ -340,7 +323,7 @@ namespace CocktailMagician.Services
             var entities = this.context.Bars
                                         .Include(b => b.Country)
                                        .Where(b => b.IsDeleted == false)
-                                       ?? throw new ArgumentNullException(Messages.EntityNotFound);
+                                       ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return entities;
         }

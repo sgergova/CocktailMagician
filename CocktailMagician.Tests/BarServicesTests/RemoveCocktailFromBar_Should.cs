@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services;
 using CocktailMagician.Services.EntitiesDTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,6 +13,7 @@ namespace CocktailMagician.Tests.BarServicesTests
     [TestClass]
     public class RemoveCocktailFromBar_Should
     {
+        //TODO
         [TestMethod]
         public async Task RemoveCocktailFromBar_Throws_When_BarNotFound()
         {

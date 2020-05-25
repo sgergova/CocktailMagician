@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -17,9 +17,8 @@ namespace CocktailMagician.Services
 
         public CocktailServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
-
         /// <summary>
         /// Checks if given ID of cocktail exists in the database and if its not found throws an exception.
         /// </summary>
@@ -34,7 +33,6 @@ namespace CocktailMagician.Services
 
             return entity.GetDTO();
         }
-
         /// <summary>
         /// Orders found sequence of cocktails according to given parameters.
         /// </summary>
@@ -65,7 +63,6 @@ namespace CocktailMagician.Services
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
-
         /// <summary>
         /// Adds the new cocktail to the database after checking if it does not exists already.
         /// </summary>
@@ -79,16 +76,7 @@ namespace CocktailMagician.Services
             if (cocktailDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
-            var cocktail = new Cocktail
-            {
-                Id = cocktailDTO.Id,
-                AlcoholPercentage = cocktailDTO.AlcoholPercentage,
-                Comments = cocktailDTO.Comments,
-                ImageURL = cocktailDTO.ImageURL,
-                IsAlcoholic = cocktailDTO.IsAlcoholic,
-                Name = cocktailDTO.Name,
-                CreatedOn = DateTime.UtcNow
-            };
+            var cocktail = cocktailDTO.GetEntity();
 
             await context.Cocktails.AddAsync(cocktail);
             await context.SaveChangesAsync();
@@ -124,7 +112,6 @@ namespace CocktailMagician.Services
                     CocktailId = cocktail.Id,
                     IngredientId = ingredient.Id
                 };
-
                 cocktail.CocktailIngredients.Add(newCocktailIngredient);
                 ingredient.CocktailIngredients.Add(newCocktailIngredient);
 
@@ -140,7 +127,6 @@ namespace CocktailMagician.Services
 
             return cocktail.GetDTO();
         }
-
         /// <summary>
         /// Filters the cocktails according to user's input and returns alcoholic or non-alcoholic cocktails
         /// </summary>
@@ -161,7 +147,6 @@ namespace CocktailMagician.Services
 
             if (criteria == "alcoholic")
                 cocktails = cocktails.Where(c => c.IsAlcoholic == true);
-
 
             var cocktailsToReturn = await cocktails.ToListAsync();
             return cocktailsToReturn.GetDTOs();
@@ -214,7 +199,6 @@ namespace CocktailMagician.Services
             cocktail.ImageURL = cocktailToUpdate.ImageURL;
             cocktail.ModifiedOn = DateTime.UtcNow;
 
-
             this.context.Cocktails.Update(cocktail);
             await this.context.SaveChangesAsync();
 
@@ -237,10 +221,10 @@ namespace CocktailMagician.Services
             {
                 foreach (var barCocktail in barCocktails)
                 {
-                    cocktailToDelete.Bars.Remove(barCocktail);
+                    barCocktail.IsDeleted = true;
+                    barCocktail.DeletedOn = DateTime.UtcNow;
                 }
             }
-
             cocktailToDelete.IsDeleted = true;
             cocktailToDelete.DeletedOn = DateTime.UtcNow;
 
@@ -261,8 +245,6 @@ namespace CocktailMagician.Services
 
             return barCocktails.GetDTOs();
         }
-
-
         private async Task<ICollection<BarCocktail>> AvailabilityAtBarsEntities(Guid cocktalId)
         {
             var barCocktails = await this.context.BarCocktails
@@ -280,7 +262,5 @@ namespace CocktailMagician.Services
 
             return cocktails;
         }
-
-
     }
 }

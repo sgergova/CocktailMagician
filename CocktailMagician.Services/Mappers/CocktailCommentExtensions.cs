@@ -29,6 +29,27 @@ namespace CocktailMagician.Services.Mappers
         {
             return cocktailComments.Select(GetDTO).ToList();
         }
+
+         public static CocktailComment GetEntity(this CocktailCommentsDTO item)
+        {
+            if (item == null)
+                throw new ArgumentNullException();
+
+            return new CocktailComment
+            {
+                Comments = item.Comments,
+                User = item.User,
+                UserId = item.UserId,
+                Cocktail = item.Cocktail,
+                CocktailId = item.CocktailId,
+            };
+        }
+
+
+        public static ICollection<CocktailComment> GetEntities(this ICollection<CocktailCommentsDTO> cocktailComments)
+        {
+            return cocktailComments.Select(GetEntity).ToList();
+        }
     }
 }
 

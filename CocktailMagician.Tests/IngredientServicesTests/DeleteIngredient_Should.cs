@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services;
 using CocktailMagician.Services.EntitiesDTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -35,33 +35,6 @@ namespace CocktailMagician.Tests.IngredientServicesTests
 
                 Assert.AreEqual(true, result.IsDeleted);
                 Assert.IsInstanceOfType(result, typeof(IngredientDTO));
-            }
-        }
-
-        [TestMethod]
-        public async Task DeleteIngredient_Should_Delete_CocktailIngredients()
-        {
-            //Arrange 
-            var options = Utils.GetOptions(nameof(DeleteIngredient_Should_Delete_CocktailIngredients));
-
-            var cocktail = new Cocktail { Id = Guid.NewGuid(), Name = "Cuba Libre" };
-            var ingredient = new Ingredient { Id = Guid.NewGuid(), Name = "Rum", Description = "Alcoholic spirit" };
-            var cocktailIngredient = new CocktailIngredient {CocktailId = cocktail.Id, IngredientId = ingredient.Id };
-
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Ingredients.AddAsync(ingredient);
-                await arrangeContext.Cocktails.AddAsync(cocktail);
-                await arrangeContext.CocktailIngredients.AddAsync(cocktailIngredient);
-                await arrangeContext.SaveChangesAsync();
-            }
-            //Act, Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new IngredientServices(assertContext);
-                var result = await sut.DeleteIngredient(ingredient.Id);
-
-                Assert.AreEqual(0, result.CocktailIngredients.Count);
             }
         }
 

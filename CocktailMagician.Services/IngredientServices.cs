@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -17,7 +17,7 @@ namespace CocktailMagician.Services
 
         public IngredientServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         /// <summary>
@@ -82,13 +82,7 @@ namespace CocktailMagician.Services
             if (ingredientDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
 
-            var ingredient = new Ingredient
-            {
-                Name = ingredientDTO.Name,
-                Description = ingredientDTO.Description,
-                Quantity = ingredientDTO.Quantity,
-                CreatedOn = DateTime.UtcNow,
-            };
+            var ingredient = ingredientDTO.GetEntity();
 
             await context.Ingredients.AddAsync(ingredient);
             await context.SaveChangesAsync();
@@ -136,7 +130,8 @@ namespace CocktailMagician.Services
             {
                 foreach (var cocktailIngredient in cocktailsIngredients)
                 {
-                    ingredientToDelete.CocktailIngredients.Remove(cocktailIngredient);
+                    cocktailIngredient.IsDeleted = true;
+                    cocktailIngredient.DeletedOn = DateTime.UtcNow;
                 }
             }
             ingredientToDelete.IsDeleted = true;

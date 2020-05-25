@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CocktailMagician.Web", "CocktailMagician\CocktailMagician.Web.csproj", "{ED337A9D-967A-481E-B6D4-10700564AD19}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CocktailMagician.Data", "CocktailMagicianDataBase\CocktailMagician.Data.csproj", "{ECD6EC0A-23A0-4327-90FE-CEF1AE3B522C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CocktailMagician.Services", "CocktailMagician.Services\CocktailMagician.Services.csproj", "{80F9BC09-32C9-497E-81A5-5B0C4BF1C5A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CocktailMagician.Tests", "CocktailMagician.Tests\CocktailMagician.Tests.csproj", "{98D3D965-48F0-411B-926F-70C41C8FDF33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CocktailMagician.Tests", "CocktailMagician.Tests\CocktailMagician.Tests.csproj", "{98D3D965-48F0-411B-926F-70C41C8FDF33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CocktailMagician.Web", "CocktailMagician.Web\CocktailMagician.Web.csproj", "{DE1BB51D-2B1B-47E2-A6C7-27EAC87C1863}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CocktailMagician.Data", "CocktailMagician.Data\CocktailMagician.Data.csproj", "{35EE49CD-3D9B-4C13-B52A-D4FC6EFC0651}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED337A9D-967A-481E-B6D4-10700564AD19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED337A9D-967A-481E-B6D4-10700564AD19}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED337A9D-967A-481E-B6D4-10700564AD19}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED337A9D-967A-481E-B6D4-10700564AD19}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ECD6EC0A-23A0-4327-90FE-CEF1AE3B522C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECD6EC0A-23A0-4327-90FE-CEF1AE3B522C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECD6EC0A-23A0-4327-90FE-CEF1AE3B522C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECD6EC0A-23A0-4327-90FE-CEF1AE3B522C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{80F9BC09-32C9-497E-81A5-5B0C4BF1C5A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{80F9BC09-32C9-497E-81A5-5B0C4BF1C5A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80F9BC09-32C9-497E-81A5-5B0C4BF1C5A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +25,14 @@ Global
 		{98D3D965-48F0-411B-926F-70C41C8FDF33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98D3D965-48F0-411B-926F-70C41C8FDF33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98D3D965-48F0-411B-926F-70C41C8FDF33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1BB51D-2B1B-47E2-A6C7-27EAC87C1863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1BB51D-2B1B-47E2-A6C7-27EAC87C1863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1BB51D-2B1B-47E2-A6C7-27EAC87C1863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1BB51D-2B1B-47E2-A6C7-27EAC87C1863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35EE49CD-3D9B-4C13-B52A-D4FC6EFC0651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35EE49CD-3D9B-4C13-B52A-D4FC6EFC0651}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35EE49CD-3D9B-4C13-B52A-D4FC6EFC0651}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35EE49CD-3D9B-4C13-B52A-D4FC6EFC0651}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

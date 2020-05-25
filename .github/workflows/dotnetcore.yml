@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: cd CocktailMagician; dotnet restore
+      run: cd CocktailMagician.Web; dotnet restore
     - name: Build
-      run: cd CocktailMagician; dotnet build --configuration Release --no-restore
+      run: cd CocktailMagician.Web; dotnet build --configuration Release --no-restore
     - name: Test
-      run: cd CocktailMagician; dotnet test --no-restore --verbosity normal
+      run: cd CocktailMagician.Web; dotnet test --no-restore --verbosity normal
