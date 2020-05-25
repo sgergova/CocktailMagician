@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
@@ -19,13 +19,14 @@ namespace CocktailMagician.Services
 
         public BarCommentsServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         public async Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, string username)
         {
             var comments = await this.context.BarComments
-                                      .Where(bc=>bc. IsDeleted == false && bc.UserId == id || bc.User.Name == username)
+                                      .Include(bc=>bc.Bar)
+                                      .Where(bc=>bc. IsDeleted == false && bc.UserId == id || bc.User.UserName == username)
                                       .ToListAsync();
 
             return comments.GetDTOs();
@@ -42,10 +43,8 @@ namespace CocktailMagician.Services
 
         public async Task<BarCommentDTO> DeleteComment(Guid barCommentId)
         {
-            var comment = await this.context.BarComments
-                                            .Include(bc => bc.User)
-                                            .FirstOrDefaultAsync(bc => bc.IsDeleted == false && bc.Id == barCommentId)
-                                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+            var comment = await GetBarCommentsQuerable()
+                                            .FirstOrDefaultAsync(bc=>bc.Id == barCommentId);
 
             comment.IsDeleted = true;
             comment.DeletedOn = DateTime.UtcNow;
@@ -55,6 +54,28 @@ namespace CocktailMagician.Services
             return comment.GetDTO();
         }
 
-       
+        public async Task<BarCommentDTO> EditComment(Guid barCommentId, string updates)
+        {
+            var comment = await GetBarCommentsQuerable()
+                                           .FirstOrDefaultAsync(bc => bc.Id == barCommentId);
+
+            comment.Comments = updates;
+            comment.ModifiedOn = DateTime.UtcNow;
+
+            this.context.BarComments.Update(comment);
+            await this.context.SaveChangesAsync();
+
+            return comment.GetDTO();
+        }
+
+        private IQueryable<BarComment> GetBarCommentsQuerable ()
+        {
+            var comments = this.context.BarComments
+                                            .Include(bc => bc.User)
+                                            .Where(bc => bc.IsDeleted == false)
+                                            ?? throw new ArgumentNullException();
+
+            return comments;
+        }
     }
 }

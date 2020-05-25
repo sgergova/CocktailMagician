@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -17,7 +17,7 @@ namespace CocktailMagician.Services
 
         public CocktailServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
         /// <summary>
         /// Checks if given ID of cocktail exists in the database and if its not found throws an exception.
@@ -221,7 +221,8 @@ namespace CocktailMagician.Services
             {
                 foreach (var barCocktail in barCocktails)
                 {
-                    cocktailToDelete.Bars.Remove(barCocktail);
+                    barCocktail.IsDeleted = true;
+                    barCocktail.DeletedOn = DateTime.UtcNow;
                 }
             }
             cocktailToDelete.IsDeleted = true;

@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services;
 using CocktailMagician.Services.EntitiesDTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

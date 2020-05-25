@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
@@ -19,7 +19,7 @@ namespace CocktailMagician.Services
 
         public CountryServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
         /// <summary>
         /// Adds new country to the database after checking if it does not exists already.
@@ -120,7 +120,8 @@ namespace CocktailMagician.Services
             {
                 foreach (var bar in barsAvailable)
                 {
-                    countryToDelete.Bars.Remove(bar);
+                    bar.IsDeleted = true;
+                    bar.DeletedOn = DateTime.UtcNow;
                 }
             }
             context.Countries.Update(countryToDelete);

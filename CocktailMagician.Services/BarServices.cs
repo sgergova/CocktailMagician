@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
@@ -36,8 +36,6 @@ namespace CocktailMagician.Services
             return entity.GetDTO();
 
         }
-
-
         /// <summary>
         /// Searches if given name of bar exists in the database and if its not found throws an exception.
         /// </summary>
@@ -56,8 +54,6 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
 
         }
-
-
         /// <summary>
         /// Orders found sequence of bars according to given parameters.
         /// </summary>
@@ -118,7 +114,6 @@ namespace CocktailMagician.Services
             if (barDTO.Name == null)
                 throw new ArgumentNullException(Exceptions.MissingName);
 
-
             var country = await this.context.Countries
                                        .Where(c => c.IsDeleted == false)
                                        .FirstOrDefaultAsync(c => c.Id == barDTO.CountryId || c.Name == barDTO.CountryName)
@@ -144,7 +139,6 @@ namespace CocktailMagician.Services
             var bar = await GetAllBarsQueryable()
                                  .FirstOrDefaultAsync(b => b.Id == barId)
                                  ?? throw new ArgumentNullException(Exceptions.NullEntityId);
-
 
             var cocktailToAdd = await this.context.Cocktails
                                                    .Where(c => c.IsDeleted == false)
@@ -185,7 +179,6 @@ namespace CocktailMagician.Services
         /// <returns>BarDTO</returns>
         public async Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId)
         {
-
             var bar = await GetAllBarsQueryable()
                             .FirstOrDefaultAsync(b => b.Id == barId)
                             ?? throw new ArgumentNullException(Exceptions.NullEntityId);
@@ -292,7 +285,8 @@ namespace CocktailMagician.Services
             {
                 foreach (var barCocktail in barCocktails)
                 {
-                    barToDelete.BarCocktails.Remove(barCocktail);
+                    barCocktail.IsDeleted = true;
+                    barCocktail.DeletedOn = DateTime.UtcNow;
                 }
             }
             context.Bars.Update(barToDelete);

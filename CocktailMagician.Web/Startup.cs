@@ -5,10 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Data.Entities;
 using CocktailMagician.Services;
 using CocktailMagician.Services.Contracts;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace CocktailMagician
 {
@@ -35,9 +37,13 @@ namespace CocktailMagician
             services.AddScoped<ICountryServices, CountryServices>();
 
 
-            services.AddIdentity<User, Role>(option => option.SignIn.RequireConfirmedAccount = false)
+            services.AddDefaultIdentity<User>()
+              .AddRoles<Role>()
               .AddEntityFrameworkStores<CMContext>()
+              .AddDefaultUI()
               .AddDefaultTokenProviders();
+
+
             services.Configure<IdentityOptions>(option =>
             {
                 option.Password.RequireDigit = false;
@@ -47,6 +53,13 @@ namespace CocktailMagician
                 option.Password.RequiredLength = 5;
                 option.Password.RequiredUniqueChars = 0;
             });
+
+            //services.AddAuthentication().AddGoogle(o =>
+            //    {
+            //        o.ClientId = Configuration["Google:ClientId"];
+            //        o.ClientSecret = Configuration["Google:ClientSecret"];
+            //    });
+
 
             services.AddControllersWithViews();
             services.AddRazorPages();

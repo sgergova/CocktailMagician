@@ -1,5 +1,5 @@
 ﻿using CocktailMagician.Data.Entities;
-using CocktailMagician.DataBase.AppContext;
+using CocktailMagician.Data.AppContext;
 using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
@@ -19,7 +19,7 @@ namespace CocktailMagician.Services
 
         public CocktailCommentServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
         public async Task<CocktailCommentsDTO> CreateComment(CocktailCommentsDTO comment)
         {
@@ -49,7 +49,7 @@ namespace CocktailMagician.Services
         public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsOfUser(Guid? id, string username)
         {
             var comments = await this.context.CocktailComments
-                                     .Where(cc => cc.IsDeleted == false && cc.UserId == id || cc.User.Name == username)
+                                     .Where(cc => cc.IsDeleted == false && cc.UserId == id || cc.User.UserName == username)
                                      .ToListAsync();
 
             return comments.GetDTOs();

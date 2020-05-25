@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using CocktailMagician.Data.Seeder;
 
-namespace CocktailMagician.DataBase.AppContext
+namespace CocktailMagician.Data.AppContext
 {
     public class CMContext : IdentityDbContext<User,Role,Guid>
     {
@@ -23,7 +23,7 @@ namespace CocktailMagician.DataBase.AppContext
         public DbSet<CocktailIngredient> CocktailIngredients { get; set; }
         public DbSet<CocktailRating> CocktailStars { get; set; }
         public DbSet<Country> Countries { get; set; }
-
+        public DbSet<UserProfilePicture> UserPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
