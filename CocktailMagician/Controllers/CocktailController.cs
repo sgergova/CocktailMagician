@@ -7,6 +7,7 @@ using CocktailMagician.Services.Contracts;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -24,16 +25,18 @@ namespace CocktailMagician.Web.Controllers
         {
             var list = await cocktailServices.GetAllCocktails(null,null,null);
             var cocktailViewModels = list.GetViewModels();
-           
-           
+            var ingredients = await ingredientServices.GetAllIngredients(null);
+            ViewBag.Ingredients = new MultiSelectList(ingredients, "Id", "Name");
+            ViewBag.Ing = ingredients;
+
+
             return View(cocktailViewModels);
         }
         [HttpPost]
         public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktail)
         {
             var country = await cocktailServices.CreateCocktail(cocktail.GetDtoFromVM());
-            
-           // ViewBag.Categories = new MultiSelectList(categories, "CategoryID", "CategoryName");
+
 
             return RedirectToAction("ListCocktails", "Cocktail");
         }
