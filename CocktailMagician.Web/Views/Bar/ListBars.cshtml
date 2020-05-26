@@ -4,41 +4,34 @@
     ViewData["Title"] = "List";
 }
 
+<table id="table_id" class="table" width="100%">
+    <thead>
+        <tr>
 
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Cocktails
+            </th>
 
-
-
-     
-
-
-    <table id="dtBasicExample" class="table" width="100%">
-        <thead>
-            <tr>
-
-                <th>
-                    Image
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Phone)
-                </th>
-                <th>
-                    Country
-                </th>
-                <th>
-                    Cocktails
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
             <tr>
 
                 <td>
@@ -64,10 +57,10 @@
                 </td>
             </tr>
         }
-            </tbody>
-        </table>
-    <p>
-        <a class="button"  data-toggle="modal" data-target="#modalCreateBar">Create New</a>
-        <partial model="new BarViewModel()" name="_CreateBarModal"/>
-    </p>
+    </tbody>
+</table>
+<p>
+    <a class="button" data-toggle="modal" data-target="#modalCreateBar">Create New</a>
+    <partial model="new BarViewModel()" name="_CreateBarModal" />
+</p>
 

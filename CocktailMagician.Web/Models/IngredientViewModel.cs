@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CocktailMagician.Services.EntitiesDTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,5 +14,10 @@ namespace CocktailMagician.Web.Models
         public int Quantity { get; set; }
         public int Rating { get; set; }
         public bool IsAlcoholic { get; set; }
+
+        internal IngredientDTO GetDTOFromVM()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

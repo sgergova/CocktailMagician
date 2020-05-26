@@ -21,9 +21,20 @@ namespace CocktailMagician.Web.Controllers
             this.ingredientServices = ingredientServices;
         }
         [HttpGet]
-        public async Task<IActionResult>  ListCocktails()
+        public async Task<IActionResult>  ListCocktails(string searchOption,string searcher)
         {
             var list = await cocktailServices.GetAllCocktails(null,null,null);
+            if (searchOption==null)
+            {
+                list = await cocktailServices.GetAllCocktails(null, null, null);
+            }
+            else
+            {
+                if (searchOption=="name")
+                {
+                    list = await cocktailServices.GetAllCocktails(searcher, null, null);
+                }
+            }
             var cocktailViewModels = list.GetViewModels();
             var ingredients = await ingredientServices.GetAllIngredients(null);
             ViewBag.Ingredients = new MultiSelectList(ingredients, "Id", "Name");
@@ -32,13 +43,16 @@ namespace CocktailMagician.Web.Controllers
 
             return View(cocktailViewModels);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktail)
+        
+        [HttpGet]
+        public async Task<IActionResult> CocktailDetails(Guid id)
         {
-            var country = await cocktailServices.CreateCocktail(cocktail.GetDtoFromVM());
-
-
-            return RedirectToAction("ListCocktails", "Cocktail");
+            var cocktail = await cocktailServices.GetCocktail(id);
+            var cocktailVM = cocktail.GetViewModel();
+            return View(cocktailVM);
         }
+        
+
+
     }
 }
