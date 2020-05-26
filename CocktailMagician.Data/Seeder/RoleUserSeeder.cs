@@ -26,7 +26,7 @@ namespace CocktailMagician.Data.Seeder
                 UserName = "admin@abv.bg",
                 NormalizedUserName = "ADMIN@ABV.BG",
                 SecurityStamp = "15CLJEKQCTLPRXMVXXNSWXZH6R6KJRRU"
-            };
+            }; 
             user1.PasswordHash = hasher.HashPassword(user1, "admin");
             
             var user2 = new User
@@ -49,27 +49,27 @@ namespace CocktailMagician.Data.Seeder
                 UserName = "CRAWLER@ABV.BG",
                 SecurityStamp = "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN"
             };
-            user2.PasswordHash = hasher.HashPassword(user2, "crawler");
+            user3.PasswordHash = hasher.HashPassword(user3, "crawler");
 
-            builder.Entity<User>().HasData(user1, user2);
+            builder.Entity<User>().HasData(user1, user2, user3);
 
             builder.Entity<IdentityUserRole<Guid>>().HasData(
                 new IdentityUserRole<Guid>
                 {
                     RoleId = Guid.Parse("c611672d-5da5-43d3-bbbf-e897e4456cb9"),
-                    UserId = Guid.Parse("5874617e-289f-4eb2-94ee-20b52faf67fa")
+                    UserId = user1.Id
                 });
             builder.Entity<IdentityUserRole<Guid>>().HasData(
                 new IdentityUserRole<Guid>
                 {
                     RoleId = Guid.Parse("f476e48e-0586-4f40-92b2-2279ce6f6db7"),
-                    UserId = Guid.Parse("baf374a9-0e81-4656-b0bb-16fe10985320")
+                    UserId = user2.Id
                 });
             builder.Entity<IdentityUserRole<Guid>>().HasData(
                new IdentityUserRole<Guid>
                {
                    RoleId = Guid.Parse("01bc7e12-c30b-47d1-a0a0-b146bb93ccdb"),
-                   UserId = Guid.Parse("4734cf2f-fcb8-461b-88dc-06152e89bc97")
+                   UserId = user3.Id
                });
         }
     }

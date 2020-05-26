@@ -21,9 +21,20 @@ namespace CocktailMagician.Web.Controllers
             this.ingredientServices = ingredientServices;
         }
         [HttpGet]
-        public async Task<IActionResult>  ListCocktails()
+        public async Task<IActionResult>  ListCocktails(string searchOption,string searcher)
         {
             var list = await cocktailServices.GetAllCocktails(null,null,null);
+            if (searchOption==null)
+            {
+                list = await cocktailServices.GetAllCocktails(null, null, null);
+            }
+            else
+            {
+                if (searchOption=="name")
+                {
+                    list = await cocktailServices.GetAllCocktails(searcher, null, null);
+                }
+            }
             var cocktailViewModels = list.GetViewModels();
             var ingredients = await ingredientServices.GetAllIngredients(null);
             ViewBag.Ingredients = new MultiSelectList(ingredients, "Id", "Name");
@@ -32,14 +43,7 @@ namespace CocktailMagician.Web.Controllers
 
             return View(cocktailViewModels);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktail)
-        {
-            var country = await cocktailServices.CreateCocktail(cocktail.GetDtoFromVM());
-
-
-            return RedirectToAction("ListCocktails", "Cocktail");
-        }
+        
         [HttpGet]
         public async Task<IActionResult> CocktailDetails(Guid id)
         {
@@ -47,31 +51,7 @@ namespace CocktailMagician.Web.Controllers
             var cocktailVM = cocktail.GetViewModel();
             return View(cocktailVM);
         }
-        [HttpPost]
-        public async Task<IActionResult> DeleteCocktail(Guid id)
-        {
-            await cocktailServices.DeleteCocktail(id);
-
-
-            return RedirectToAction("ListCocktails", "Cocktail");
-        }
-        [HttpGet]
-        public async Task<IActionResult> UpdateBar(Guid id)
-        {
-            var cocktailToUpdate = await cocktailServices.GetCocktail(id);
-            var cocktailToUpdateVM = cocktailToUpdate.GetViewModel();
-
-            return View(cocktailToUpdateVM);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UpdateBar(CocktailViewModel updatedCocktail)
-        {
-            var cocktailDTO = updatedCocktail.GetDtoFromVM();
-            await cocktailServices.UpdateCocktail(cocktailDTO.Id, cocktailDTO);
-
-            return RedirectToAction("ListCocktails", "Cocktail");
-        }
-
+        
 
 
     }

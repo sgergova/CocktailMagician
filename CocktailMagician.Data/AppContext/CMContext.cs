@@ -37,6 +37,8 @@ namespace CocktailMagician.Data.AppContext
             builder.ApplyConfiguration(new CocktailIngredientConfig());
             builder.ApplyConfiguration(new CocktailStarConfig());
             builder.ApplyConfiguration(new CountryConfig());
+            builder.ApplyConfiguration(new UserConfig());
+            //builder.ApplyConfiguration(new RoleConfig());
 
             builder.Seeder();
             builder.RoleUserStaticSeeder();

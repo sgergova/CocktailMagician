@@ -19,9 +19,33 @@ namespace CocktailMagician.Web.Controllers
             this.countryServices = countryServices;
         }
         [HttpGet]
-        public async Task<IActionResult> ListBars()
+        public async Task<IActionResult> ListBars(string SearcType,string searcher)
         {
             var list = await barServices.GetAllBars(null, 0, null, null);
+            if (searcher==null)
+            {
+             list = await barServices.GetAllBars(null, 0, null, null);
+            }
+            else
+            {
+                if (SearcType=="Name")
+                {
+                     list = await barServices.GetAllBars(searcher, 0, null, null);
+                }
+                else if (SearcType == "Rating")
+                {
+                     list = await barServices.GetAllBars(null, int.Parse(searcher), null, null);
+                }
+                else if (SearcType == "Address")
+                {
+                     list = await barServices.GetAllBars(null, 0, searcher, null);
+                }
+                else if (SearcType == "Country")
+                {
+                    list = await barServices.GetAllBars(null, 0, null, searcher);
+                }
+
+            }
             foreach (var item in list)
             {
                 var country = await countryServices.GetCountry(item.CountryId);
@@ -33,15 +57,7 @@ namespace CocktailMagician.Web.Controllers
             ViewBag.CountryList = countryList;
             return View(barVMList);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateBar(BarViewModel bar)
-        {
-            var country = await countryServices.GetCountry(bar.CountryName);
-            bar.CountryId = country.Id;
-            var createdBar = await barServices.CreateBar(bar.GetDtoFromVM());
-
-            return RedirectToAction("ListBars", "Bar");
-        }
+      
         [HttpGet]
         public async Task<IActionResult> BarDetails(Guid id)
         {
@@ -49,30 +65,6 @@ namespace CocktailMagician.Web.Controllers
             var barVM = bar.GetViewModel();
             return View(barVM);
         }
-        [HttpPost]
-        public async Task<IActionResult> DeleteBar(Guid id)
-        {
-           await barServices.DeleteBar(id);
-
-
-            return RedirectToAction("ListBars", "Bar");
-        }
-        [HttpGet]
-        public async Task<IActionResult> UpdateBar(Guid id)
-        {
-           var barToUpdate= await barServices.GetBar(id);
-            var barToUpdateVM = barToUpdate.GetViewModel();
-
-            return View(barToUpdateVM);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UpdateBar(BarViewModel updatedBar)
-        {
-            var barDTO = updatedBar.GetDtoFromVM();
-            await barServices.UpdateBar(barDTO.Id,barDTO);
-
-            return RedirectToAction("ListBars", "Bar");
-        }
-
+        
     }
 }
