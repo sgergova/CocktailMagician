@@ -31,7 +31,6 @@ namespace CocktailMagician
                 options.UseSqlServer(
                     Configuration.GetConnectionString("MyConnection")));
 
-            services.AddKendo();
             //Register services
             services.AddScoped<IBarServices, BarServices>();
             services.AddScoped<IIngredientServices, IngredientServices>();
