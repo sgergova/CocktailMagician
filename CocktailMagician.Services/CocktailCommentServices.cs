@@ -21,15 +21,23 @@ namespace CocktailMagician.Services
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
+
         public async Task<CocktailCommentsDTO> CreateComment(CocktailCommentsDTO comment)
         {
+            var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == comment.UserId)
+                                                ?? throw new ArgumentNullException();
+
+            var cocktail = await this.context.Cocktails.FirstOrDefaultAsync(c=>c.Id == comment.CocktailId)
+                                                ?? throw new ArgumentNullException();
+
             var newCocktailComment = comment.GetEntity();
 
+            this.context.Users.Update(user);
+            this.context.Cocktails.Update(cocktail);
             await this.context.CocktailComments.AddAsync(newCocktailComment);
             await this.context.SaveChangesAsync();
 
             return newCocktailComment.GetDTO();
-
         }
 
         public async Task<CocktailCommentsDTO> DeleteComment(Guid commentId)
@@ -50,6 +58,15 @@ namespace CocktailMagician.Services
         {
             var comments = await this.context.CocktailComments
                                      .Where(cc => cc.IsDeleted == false && cc.UserId == id || cc.User.UserName == username)
+                                     .ToListAsync();
+
+            return comments.GetDTOs();
+        }
+
+        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id, string cocktailName)
+        {
+            var comments = await this.context.CocktailComments
+                                     .Where(cc => cc.IsDeleted == false && cc.CocktailId == id || cc.Cocktail.Name == cocktailName)
                                      .ToListAsync();
 
             return comments.GetDTOs();

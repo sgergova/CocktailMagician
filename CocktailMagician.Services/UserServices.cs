@@ -41,10 +41,6 @@ namespace CocktailMagician.Services
 
             return user.GetDTO();
         }
-
-        public async Task<UserDTO> DeleteUser(UserDTO user)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
