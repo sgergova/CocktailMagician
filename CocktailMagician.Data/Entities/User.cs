@@ -7,7 +7,7 @@ namespace CocktailMagician.Data.Entities
 {
     public class User : IdentityUser<Guid> 
     {
-        public UserProfilePicture UserPhoto { get; set; }
+        public string UserPhoto { get; set; }
         public ICollection<Cocktail> Cocktails { get; set; } = new List<Cocktail>();
         public ICollection<Bar> Bars { get; set; } = new List<Bar>();
         public ICollection<BarComment> BarComments { get; set; } = new List<BarComment>();

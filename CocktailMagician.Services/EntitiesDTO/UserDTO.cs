@@ -11,7 +11,7 @@ namespace CocktailMagician.Services.EntitiesDTO
         public string UserName { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
-        public UserProfilePicture ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
         public ICollection<Cocktail> Cocktails { get; set; }
         public ICollection<Bar> Bars { get; set; }
         public ICollection<BarComment> BarComments { get; set; }

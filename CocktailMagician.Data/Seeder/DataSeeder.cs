@@ -14,19 +14,19 @@ namespace CocktailMagician.Data.Seeder
         private const string data = @"data.csv";
         public static void Seeder(this ModelBuilder builder)
         {
-            //var rawIngredients = ReadRawData();
+            var rawIngredients = ReadRawData();
 
-            //var ingredients = CreateIngredients(rawIngredients);
-            //builder.Entity<Ingredient>().HasData(ingredients);
+            var ingredients = CreateIngredients(rawIngredients);
+            builder.Entity<Ingredient>().HasData(ingredients);
 
-            //var cocktails = CreateCocktails(rawIngredients);
-            //builder.Entity<Cocktail>().HasData(cocktails);
+            var cocktails = CreateCocktails(rawIngredients);
+            builder.Entity<Cocktail>().HasData(cocktails);
 
-            //var countries = CreateCountries(rawIngredients);
-            //builder.Entity<Country>().HasData(countries);
+            var countries = CreateCountries(rawIngredients);
+            builder.Entity<Country>().HasData(countries);
 
-            //var bars = CreateBars(rawIngredients, countries);
-            //builder.Entity<Bar>().HasData(bars);
+            var bars = CreateBars(rawIngredients, countries);
+            builder.Entity<Bar>().HasData(bars);
         }
 
         private static List<Dictionary<string, string>> ReadRawData()
@@ -50,7 +50,8 @@ namespace CocktailMagician.Data.Seeder
                     ingredientRawData.Add("Bar", fields[4]);
                     ingredientRawData.Add("BarImageURL", fields[5]);
                     ingredientRawData.Add("Country", fields[6]);
-
+                    ingredientRawData.Add("Address", fields[7]);
+                    ingredientRawData.Add("Phone", fields[8]);
 
                     ingredients.Add(ingredientRawData);
                 }
@@ -82,7 +83,7 @@ namespace CocktailMagician.Data.Seeder
 
         private static List<Cocktail> CreateCocktails(List<Dictionary<string, string>> rawIngredients)
         {
-            //  var cocktailName = GetUniqueNames(rawIngredients, "Cocktail");
+              var cocktailName = GetUniqueNames(rawIngredients, "Cocktail");
 
             var cocktails = new List<Cocktail>();
             var counter = 1;
@@ -146,6 +147,8 @@ namespace CocktailMagician.Data.Seeder
                     Id = Guid.NewGuid(),
                     Name = rawIngredient["Bar"],
                     BarImageURL = rawIngredient["BarImageURL"],
+                    Address = rawIngredient["Address"],
+                    Phone = rawIngredient["Phone"],
                     CountryId = country.Id,
                     CreatedOn = DateTime.UtcNow,
                 };
