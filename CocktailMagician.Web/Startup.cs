@@ -11,6 +11,7 @@ using CocktailMagician.Services;
 using CocktailMagician.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using CocktailMagician.Web.Middleware;
 
 namespace CocktailMagician
 {
@@ -54,11 +55,11 @@ namespace CocktailMagician
                 option.Password.RequiredUniqueChars = 0;
             });
 
-            //services.AddAuthentication().AddGoogle(o =>
-            //    {
-            //        o.ClientId = Configuration["Google:ClientId"];
-            //        o.ClientSecret = Configuration["Google:ClientSecret"];
-            //    });
+            services.AddAuthentication().AddGoogle(o =>
+                {
+                    o.ClientId = Configuration["Google:ClientId"];
+                    o.ClientSecret = Configuration["Google:ClientSecret"];
+                });
 
 
             services.AddControllersWithViews();
@@ -83,6 +84,9 @@ namespace CocktailMagician
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseMiddleware<PageNotFound>();
+
 
             app.UseAuthentication();
             app.UseAuthorization();

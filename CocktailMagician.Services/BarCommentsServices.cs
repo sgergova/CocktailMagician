@@ -1,6 +1,6 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.Data.AppContext;
-using CocktailMagician.Services.CommonMessages;
+
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
@@ -33,8 +32,16 @@ namespace CocktailMagician.Services
         }
         public async Task<BarCommentDTO> CreateComment(BarCommentDTO barComment)
         {
+            var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == barComment.UserId)
+                                               ?? throw new ArgumentNullException();
+
+            var bar = await this.context.Bars.FirstOrDefaultAsync(b=>b.Id == barComment.BarId)
+                                               ?? throw new ArgumentNullException();
+
             var newBarComment = barComment.GetEntity();
-            
+
+            this.context.Bars.Update(bar);
+            this.context.Users.Update(user);
             await this.context.BarComments.AddAsync(newBarComment);
             await this.context.SaveChangesAsync();
 
@@ -66,6 +73,15 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             return comment.GetDTO();
+        }
+
+        public async Task<ICollection<BarCommentDTO>> GetAllCommentsForBar(Guid? id, string barName)
+        {
+            var barComments = await GetBarCommentsQuerable()
+                                            .Where(b=>b.BarId == id || b.Bar.Name == barName)
+                                            .ToListAsync();
+
+            return barComments.GetDTOs();
         }
 
         private IQueryable<BarComment> GetBarCommentsQuerable ()
