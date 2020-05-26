@@ -16,6 +16,7 @@ namespace CocktailMagician.Web.Models
         public bool IsAlcoholic { get; set; }
         public string ImageURL { get; set; }
         public ICollection<CocktailIngredientDTO> Ingredients { get; set; }
+        public ICollection<IngredientDTO> IngredientsForCocktail { get; set; }
         public ICollection<BarCocktailDTO> Bars { get; set; }
         public ICollection<BarRating> Stars { get; set; }
         public ICollection<CocktailCommentsDTO> Comments { get; set; }

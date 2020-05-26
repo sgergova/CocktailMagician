@@ -1,8 +1,12 @@
 ﻿@model CocktailMagician.Web.Models.CocktailViewModel
- @*public string Name { get; set; }
-        public double AlcoholPercentage { get; set; }
-        public bool IsAlcoholic { get; set; }
-        public string ImageURL { get; set; }*@
+@*<head>
+        <link href="~/lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
+    </head>*@
+<head>
+    <link rel="stylesheet" href="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/dist/tokenize2.min.css">
+    <link rel="stylesheet" href="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/tokenize2.css">
+
+</head>
 
 <div class="modal fade" id="modalCreateCocktail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -31,8 +35,8 @@
                         <div class="md-form mb-4">
                             Is it alchoholic:
                             <label asp-for="IsAlcoholic" class="switch">
-                                <input  asp-for="IsAlcoholic" type="checkbox">
-                                <span  asp-validation-for="IsAlcoholic"class="slider"></span>
+                                <input asp-for="IsAlcoholic" type="checkbox">
+                                <span asp-validation-for="IsAlcoholic" class="slider"></span>
                             </label>
                         </div>
                         @*ingredients to do*@
@@ -40,6 +44,17 @@
                             <label asp-for="ImageURL" class="control-label">ImageURL</label>
                             <input asp-for="ImageURL" class="form-control" />
                             <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            Select Ingredients
+                            <select class="demo" multiple >
+                                @foreach (var item in ViewBag.Ing)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+
+
                         </div>
 
                     </div>
@@ -51,4 +66,24 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/dist/tokenize2.min.js"></script>
+    <script src="tokenize2.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>$('.demo').tokenize2();
+</script>
+
+}
+
+
+
+
+@*<select asp-for="IngredientsForCocktail" id="Id" multiple="multiple" name="Id" size="8">
+        @foreach (var item in ViewBag.Ing)
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>*@
+
 
