@@ -86,6 +86,8 @@ namespace CocktailMagician.Services
             return barsDTO;
         }
 
+    
+
         public IQueryable<Bar> OrderBar(IQueryable<Bar> bars, string orderBy)
         {
             return orderBy switch
