@@ -40,5 +40,39 @@ namespace CocktailMagician.Web.Controllers
 
             return RedirectToAction("ListCocktails", "Cocktail");
         }
+        [HttpGet]
+        public async Task<IActionResult> CocktailDetails(Guid id)
+        {
+            var cocktail = await cocktailServices.GetCocktail(id);
+            var cocktailVM = cocktail.GetViewModel();
+            return View(cocktailVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteCocktail(Guid id)
+        {
+            await cocktailServices.DeleteCocktail(id);
+
+
+            return RedirectToAction("ListCocktails", "Cocktail");
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateBar(Guid id)
+        {
+            var cocktailToUpdate = await cocktailServices.GetCocktail(id);
+            var cocktailToUpdateVM = cocktailToUpdate.GetViewModel();
+
+            return View(cocktailToUpdateVM);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateBar(CocktailViewModel updatedCocktail)
+        {
+            var cocktailDTO = updatedCocktail.GetDtoFromVM();
+            await cocktailServices.UpdateCocktail(cocktailDTO.Id, cocktailDTO);
+
+            return RedirectToAction("ListCocktails", "Cocktail");
+        }
+
+
+
     }
 }

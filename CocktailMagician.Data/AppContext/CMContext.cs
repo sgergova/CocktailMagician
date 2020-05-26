@@ -39,6 +39,7 @@ namespace CocktailMagician.Data.AppContext
             builder.ApplyConfiguration(new CountryConfig());
 
             builder.Seeder();
+            builder.RoleUserStaticSeeder();
             base.OnModelCreating(builder);
         }
     }
