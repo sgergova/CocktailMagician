@@ -86,8 +86,6 @@ namespace CocktailMagician.Services
             return barsDTO;
         }
 
-    
-
         public IQueryable<Bar> OrderBar(IQueryable<Bar> bars, string orderBy)
         {
             return orderBy switch
@@ -296,6 +294,78 @@ namespace CocktailMagician.Services
             await context.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<ICollection<BarDTO>> GetIndexPageBeers(string orderBy, int currentPage)
+        {
+
+            IQueryable<Bar> bars = this.context.Bars
+                                               .Include(b => b.Country)
+                                               .Include(b => b.BarCocktails)
+                                               .Include(b=>b.Comments)
+                                                   .ThenInclude(c => c.User)
+                                               .Where(b=>b.IsDeleted == false);
+
+            bars = OrderBar(bars, orderBy);
+
+            if (currentPage == 1)
+            {
+                bars = bars.Take(10);
+            }
+            else
+            {
+                bars = bars.Skip((currentPage - 1) * 10)
+                           .Take(10);
+            }
+            var results = await bars.ToListAsync();
+           
+            return results.GetDTOs();
+        }
+        public async Task<ICollection<BarDTO>> GetAdminIndexPageBeers(string orderBy, int currentPage)
+        {
+
+            IQueryable<Bar> bars = this.context.Bars
+                                                     .Include(b => b.Country)
+                                                     .Include(b => b.BarCocktails)
+                                                     .Include(b => b.Comments)
+                                                       .ThenInclude(c => c.User)
+                                                     .Where(b => b.IsDeleted == false);
+
+            bars = OrderBar(bars, orderBy);
+            if (currentPage == 1)
+                bars = bars.Take(10);
+
+            else
+            {
+                bars = bars.Skip((currentPage - 1) * 10)
+                           .Take(10);
+            }
+            var results = await bars.ToListAsync();
+
+          
+            return results.GetDTOs();
+        }
+        public int GetTotalPages(int itemsPerPage, string searchCriteria, string type)
+        {
+            double barsCount = 0;
+            if (searchCriteria != null)
+            {
+                if (type == "Name")
+                {
+                    barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
+                }
+                else if (type == "Country")
+                {
+                    barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Country.Name.Contains(searchCriteria)).Count() / itemsPerPage);
+                }
+            }
+            else
+            {
+                barsCount = this.context.Bars.Count();
+            }
+            var countInt = (int)barsCount;
+
+            return countInt;
         }
         /// <summary>
         /// Checks by given Id of bar how many cocktails are listed in it.

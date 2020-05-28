@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.Services.EntitiesDTO;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace CocktailMagician.Web.Models
         public string ImageURL { get; set; }
         public Guid CountryId { get; set; }
         public string CountryName { get; set; }
+        public IFormFile Image { get; set; }
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<BarRating> Stars { get; set; }
         public ICollection<BarCommentDTO> Comments { get; set; }

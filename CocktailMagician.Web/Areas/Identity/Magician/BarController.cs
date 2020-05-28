@@ -7,6 +7,7 @@ using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace CocktailMagician.Web.Areas.Magician
 {
@@ -17,11 +18,17 @@ namespace CocktailMagician.Web.Areas.Magician
         private readonly IBarServices barServices;
         private readonly ICountryServices countryServices;
         private readonly ICocktailServices cocktailServices;
-        public BarController(IBarServices barServices, ICountryServices countryServices,ICocktailServices cocktailServices)
+        private readonly IUploadImagesServices uploadImagesServices;
+        private readonly IToastNotification toastNotification;
+
+        public BarController(IBarServices barServices, ICountryServices countryServices,ICocktailServices cocktailServices,
+                                                       IUploadImagesServices uploadImagesServices, IToastNotification toastNotification)
         {
             this.barServices = barServices;
             this.countryServices = countryServices;
             this.cocktailServices = cocktailServices;
+            this.uploadImagesServices = uploadImagesServices;
+            this.toastNotification = toastNotification;
         }
         [HttpPost]
         public async Task<IActionResult> DeleteBar(Guid id)
@@ -50,11 +57,26 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> CreateBar(BarViewModel bar)
         {
-            var country = await countryServices.GetCountry(bar.CountryName);
-            bar.CountryId = country.Id;
-            var createdBar = await barServices.CreateBar(bar.GetDtoFromVM());
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var country = await countryServices.GetCountry(bar.CountryName);
+                    bar.CountryId = country.Id;
 
-            return RedirectToAction("ListBars", "Bar");
+                    var image = await uploadImagesServices.UploadImage(bar.Image);
+                    bar.ImageURL = image;
+                    var createdBar = await barServices.CreateBar(bar.GetDtoFromVM());
+
+                    return RedirectToAction("ListBars", "Bar");
+                }
+                catch (Exception)
+                {
+                    this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
+                }
+            }
+            return NoContent();
+            
         }
         [HttpPost]
         public async Task<IActionResult> AddCocktailToBar(Guid barId , Guid cocktailId)
