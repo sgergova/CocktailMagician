@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.Services.EntitiesDTO;
+using CocktailMagician.Web.Models.WebPagination;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Web.Models
 {
-    public class BarViewModel
+    public class BarViewModel : IPagination<BarViewModel>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -22,5 +23,24 @@ namespace CocktailMagician.Web.Models
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<BarRating> Stars { get; set; }
         public ICollection<BarCommentDTO> Comments { get; set; }
+        public ICollection<BarViewModel> items { get;  set; }
+        public int currentPage { get;  set; }
+        public int TotalPages { get;  set; }
+
+        public bool hasNext
+        {
+            get
+            {
+                return currentPage < TotalPages;
+            }
+        }
+        public bool hasPrev
+        {
+            get
+            {
+                return currentPage > 1;
+            }
+        }
+
     }
 }

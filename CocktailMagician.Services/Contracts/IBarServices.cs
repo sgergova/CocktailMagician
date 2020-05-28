@@ -18,8 +18,7 @@ namespace CocktailMagician.Services.Contracts
         Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail);
         Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId);
         Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId);
-        Task<ICollection<BarDTO>> GetIndexPageBeers(string orderBy, int currentPage);
-        Task<ICollection<BarDTO>> GetAdminIndexPageBeers(string orderBy, int currentPage);
-        int GetTotalPages(int itemsPerPage, string searchCriteria, string type);
+        Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria);
+        int GetCount(int itemsPerPage, string searchCriteria, string type);
     }
 }

@@ -61,7 +61,7 @@ namespace CocktailMagician.Services
         /// <param name="rating">Rating of the Bar</param>
         /// <param name="address">Address of the Bar</param>
         /// <param name="country">Country of the Bar</param>
-        /// <returns>ICollection<BarDTO></BarDTO></returns>
+        /// <returns>ICollection<BarDTO></returns>
         public async Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address, string country)
         {
             var bars = GetAllBarsQueryable();
@@ -90,13 +90,15 @@ namespace CocktailMagician.Services
         {
             return orderBy switch
             {
-                "name" => bars.OrderBy(b => b.Name),
-                "name_desc" => bars.OrderByDescending(b => b.Name),
-                "address" => bars.OrderBy(b => b.Address),
-                "cocktail" => bars.OrderBy(b => b.BarCocktails),
-                "country" => bars.OrderBy(b => b.Country),
+            "name" => bars.OrderBy(b => b.Name),
+            "name_desc" => bars.OrderByDescending(b => b.Name),
+            "address" => bars.OrderBy(b => b.Address),
+            "cocktail" => bars.OrderBy(b => b.BarCocktails),
+            "country" => bars.OrderBy(b => b.Country),
 
-                _ => throw new InvalidOperationException(Exceptions.InvalidSearchCriteria)
+            null => bars.OrderBy(b => b.Name)
+
+
             };
         }
 
@@ -296,7 +298,7 @@ namespace CocktailMagician.Services
             return true;
         }
 
-        public async Task<ICollection<BarDTO>> GetIndexPageBeers(string orderBy, int currentPage)
+        public async Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria)
         {
 
             IQueryable<Bar> bars = this.context.Bars
@@ -321,31 +323,8 @@ namespace CocktailMagician.Services
            
             return results.GetDTOs();
         }
-        public async Task<ICollection<BarDTO>> GetAdminIndexPageBeers(string orderBy, int currentPage)
-        {
-
-            IQueryable<Bar> bars = this.context.Bars
-                                                     .Include(b => b.Country)
-                                                     .Include(b => b.BarCocktails)
-                                                     .Include(b => b.Comments)
-                                                       .ThenInclude(c => c.User)
-                                                     .Where(b => b.IsDeleted == false);
-
-            bars = OrderBar(bars, orderBy);
-            if (currentPage == 1)
-                bars = bars.Take(10);
-
-            else
-            {
-                bars = bars.Skip((currentPage - 1) * 10)
-                           .Take(10);
-            }
-            var results = await bars.ToListAsync();
-
-          
-            return results.GetDTOs();
-        }
-        public int GetTotalPages(int itemsPerPage, string searchCriteria, string type)
+       
+        public int GetCount(int itemsPerPage, string searchCriteria, string type)
         {
             double barsCount = 0;
             if (searchCriteria != null)
