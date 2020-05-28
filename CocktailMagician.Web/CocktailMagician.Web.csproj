@@ -5,6 +5,13 @@
     <UserSecretsId>aspnet-CocktailMagician-4D6F9AE5-154D-49C2-B867-85C4F2873652</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Views\ButtonsPartial\**" />
+    <Content Remove="Views\ButtonsPartial\**" />
+    <EmbeddedResource Remove="Views\ButtonsPartial\**" />
+    <None Remove="Views\ButtonsPartial\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="3.1.4" />
@@ -30,7 +37,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Crawler\" />
-    <Folder Include="Views\ButtonsPartial\" />
   </ItemGroup>
 
 

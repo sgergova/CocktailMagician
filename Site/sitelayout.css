@@ -1,0 +1,54 @@
+.main_menu{
+line-height: 26px;
+-webkit-font-smoothing: antialiased;
+font-family: 'Amiri', sans-serif;
+color: #a3a3a3;
+font-size: 15px;
+font-weight: 400;
+display: none!important;
+position: absolute;
+top: 0;
+left: 50%;
+z-index: 100;
+text-align: left;
+}
+
+#menu_menu{
+line-height: 26px;
+-webkit-font-smoothing: antialiased;
+font-family: 'Amiri', sans-serif;
+color: #a3a3a3;
+font-size: 15px;
+font-weight: 400;
+text-align: left;
+background: 0 0;
+border: 0;
+vertical-align: baseline;
+outline: 0;
+list-style: none;
+margin: 0;
+padding: 0;
+left: -50%;
+position: relative;
+}
+.menu_item{
+line-height: 26px;
+-webkit-font-smoothing: antialiased;
+font-family: 'Amiri', sans-serif;
+color: #a3a3a3;
+font-size: 15px;
+font-weight: 400;
+list-style: none;
+background: 0 0;
+border: 0;
+vertical-align: baseline;
+outline: 0;
+position: relative;
+display: inline-block;
+float: left;
+padding: 0;
+margin: 0;
+background-repeat: no-repeat;
+background-position: right;
+}
+

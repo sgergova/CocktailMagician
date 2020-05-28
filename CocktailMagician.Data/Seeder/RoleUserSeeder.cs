@@ -32,10 +32,10 @@ namespace CocktailMagician.Data.Seeder
             var user2 = new User
             {
                 Id = Guid.Parse("baf374a9-0e81-4656-b0bb-16fe10985320"),
-                NormalizedEmail = "magician@abv.bg",
-                NormalizedUserName = "MAGICIAN@ABV.BG",
                 Email = "magician@abv.bg",
+                NormalizedEmail = "magician@abv.bg",
                 UserName = "MAGICIAN@ABV.BG",
+                NormalizedUserName = "MAGICIAN@ABV.BG",
                 SecurityStamp = "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN"
             };
             user2.PasswordHash = hasher.HashPassword(user2, "magician");
@@ -43,10 +43,10 @@ namespace CocktailMagician.Data.Seeder
             var user3 = new User
             {
                 Id = Guid.Parse("4734cf2f-fcb8-461b-88dc-06152e89bc97"),
-                NormalizedEmail = "crawler@abv.bg",
-                NormalizedUserName = "CRAWLER@ABV.BG",
                 Email = "crawler@abv.bg",
+                NormalizedEmail = "crawler@abv.bg",
                 UserName = "CRAWLER@ABV.BG",
+                NormalizedUserName = "CRAWLER@ABV.BG",
                 SecurityStamp = "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN"
             };
             user3.PasswordHash = hasher.HashPassword(user3, "crawler");
