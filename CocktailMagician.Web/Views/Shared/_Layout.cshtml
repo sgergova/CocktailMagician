@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Button3Dclick.css" />
+    <link rel="stylesheet" href="~/css/ff0cf.css" />
+    <link rel="stylesheet" href="~/css/55c9c.css" />
+    <link rel="stylesheet" href="~/css/swiper.min.css">
+
     <meta charset="utf-8" />
 
     <link href="https://kendo.cdn.telerik.com/2020.2.513/styles/kendo.bootstrap-v4.min.css" rel="stylesheet" type="text/css" />
@@ -19,43 +23,88 @@
     <script src="https://kendo.cdn.telerik.com/2020.2.513/js/kendo.aspnetmvc.min.js"></script>
 
 </head>
-<body>
+<body style="background-color:black; margin-top:-25px;">
+
+
+
     <header>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <div class="dropdown">
-            <button class="dropbtn" style="color:black; padding: 0;
-                 border: none;
-                 background: none;">
-                <img src="~/Images/49826159-a4-size-vertical-cafe-menu-white-background-with-retro-ribbon-and-border.jpg" style=" width:70px; height:70px; background: none;" />
-            </button>
-            <div class="dropdown-content">
-                <a asp-controller="Home" asp-action="Index">Home</a>
-                <a asp-controller="Bar" asp-action="ListBars">Show All Bars</a>
-                <a asp-controller="Cocktail" asp-action="ListCocktails">Show All Cocktails</a>
+        <nav class="main_menu drop_down center">
+            <ul id="menu-menu" class="">
+                <li id="nav-menu-item-85" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home  narrow">
+                    <a asp-controller="Bar" asp-action="ListBars" class=""><i class="menu_icon blank fa"></i><span>Bars<span class="underline_dash"></span></span><span class="plus"></span></a>
+                <li id="nav-menu-item-236" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                    <a asp-controller="Cocktail" asp-action="ListCocktails" class=""><i class="menu_icon blank fa"></i><span>Cocktails<span class="underline_dash"></span></span><span class="plus"></span></a>
+                </li>
+                <li id="nav-menu-item-237" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                    <a asp-controller="Ingredient" asp-action="ListIngredients" class=""><i class="menu_icon blank fa"></i><span>Ingredients<span class="underline_dash"></span></span><span class="plus"></span></a>
+                </li>
+                <li id="nav-menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                    <a asp-controller="Home" asp-action="Index" class=""><i class="menu_icon blank fa"></i><span>Home<span class="underline_dash"></span></span><span class="plus"></span></a>
+                </li>
 
-            </div>
+                <partial name="_LoginPartial" />
+            </ul>
 
-        </div>
-  
-      
-        <partial name="_LoginPartial" />
-
+        </nav>
     </header>
-    <div class="container">
+
+
+
+    @{ var controller = Url.ActionContext.RouteData.Values["controller"];
+        var action = Url.ActionContext.RouteData.Values["action"];
+    }
+
+
+    @if (!((string)controller == "Home" && (string)action == "Index"))
+    {
+
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    else
+    {
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
 
 
-    @*<footer class="border-top footer text-muted" style="border-top: none;">
-            <div class="container">
-                &copy; 2020 - CocktailMagician - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
+    }
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/swiper.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+                @*@if (SignInManager.IsSignedIn(User))
+                {
+                    <li id="nav-menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage" class=""><i class="menu_icon blank fa"></i><span>Hello @User.Identity.Name!<span class="underline_dash"></span></span><span class="plus"></span></a>
+                    </li>
+
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                        </form>
+                    </li>
+                    <li id="nav-menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                        <a asp-area="Identity" asp-page="/Account/Login" class=""><i class="menu_icon blank fa"></i><span>Home<span class="underline_dash"></span></span><span class="plus"></span></a>
+                    </li>
+                }
+                else
+                {
+                    <li id="nav-menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                        <a asp-area="Identity" asp-page="/Account/Register" class=""><i class="menu_icon blank fa"></i><span>Home<span class="underline_dash"></span></span><span class="plus"></span></a>
+                    </li>
+
+                    <li id="nav-menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page  narrow">
+                        <a asp-area="Identity" asp-page="/Account/Login" class=""><i class="menu_icon blank fa"></i><span>Home<span class="underline_dash"></span></span><span class="plus"></span></a>
+                    </li>
+
+                }*@
