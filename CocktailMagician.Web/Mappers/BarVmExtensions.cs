@@ -27,6 +27,8 @@ namespace CocktailMagician.Web.Mappers
                 ImageURL = item.ImageURL,
                 BarCocktails = item.BarCocktails,
                 Comments = item.Comments,
+                CountryId = item.CountryId,
+                CountryName = item.CountryName
             };
         }
         public static ICollection<BarViewModel> GetViewModels(this ICollection<BarDTO> items)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Services.Contracts;
+using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,45 +20,29 @@ namespace CocktailMagician.Web.Controllers
             this.countryServices = countryServices;
         }
         [HttpGet]
-        public async Task<IActionResult> ListBars(string SearcType,string searcher)
+        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, string searchCriteria, string type)
         {
-            var list = await barServices.GetAllBars(null, 0, null, null);
-            if (searcher==null)
-            {
-             list = await barServices.GetAllBars(null, 0, null, null);
-            }
-            else
-            {
-                if (SearcType=="Name")
-                {
-                     list = await barServices.GetAllBars(searcher, 0, null, null);
-                }
-                else if (SearcType == "Rating")
-                {
-                     list = await barServices.GetAllBars(null, int.Parse(searcher), null, null);
-                }
-                else if (SearcType == "Address")
-                {
-                     list = await barServices.GetAllBars(null, 0, searcher, null);
-                }
-                else if (SearcType == "Country")
-                {
-                    list = await barServices.GetAllBars(null, 0, null, searcher);
-                }
+            ViewData["CurrentSort"] = orderBy;
+            ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
+            ViewData["SearchParm"] = searchCriteria;
+            ICollection<BarDTO> bars = new List<BarDTO>();
 
-            }
-            foreach (var item in list)
-            {
-                var country = await countryServices.GetCountry(item.CountryId);
-                item.CountryName = country.Name;
-            }
-            var barVMList = list.GetViewModels();
-         
+            bars = await this.barServices.GetIndexPageBars(orderBy, currentPage ?? 1, searchCriteria);
+
             var countryList = await countryServices.GetAllCountries();
             ViewBag.CountryList = countryList;
-            return View(barVMList);
+
+            var barsViewModel = bars.GetViewModels();
+            var paged = new BarViewModel()
+            {
+                currentPage = currentPage ?? 1,
+                items = barsViewModel,
+                TotalPages = this.barServices.GetCount(10, searchCriteria, type)
+            };
+
+            return View(paged);
         }
-      
+
         [HttpGet]
         public async Task<IActionResult> BarDetails(Guid id)
         {
@@ -65,6 +50,6 @@ namespace CocktailMagician.Web.Controllers
             var barVM = bar.GetViewModel();
             return View(barVM);
         }
-        
+
     }
 }

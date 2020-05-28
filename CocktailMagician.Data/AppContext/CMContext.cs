@@ -18,10 +18,10 @@ namespace CocktailMagician.Data.AppContext
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<BarCocktail> BarCocktails { get; set; }
         public DbSet<BarComment> BarComments { get; set; }
-        public DbSet<BarRating> BarStars { get; set; }
+        public DbSet<BarRating> BarRatings { get; set; }
         public DbSet<CocktailComment> CocktailComments { get; set; }
         public DbSet<CocktailIngredient> CocktailIngredients { get; set; }
-        public DbSet<CocktailRating> CocktailStars { get; set; }
+        public DbSet<CocktailRating> CocktailRatings { get; set; }
         public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -32,15 +32,15 @@ namespace CocktailMagician.Data.AppContext
             builder.ApplyConfiguration(new CocktailCommentConfig());
             builder.ApplyConfiguration(new CocktailConfig());
             builder.ApplyConfiguration(new IngredientConfig());
-            builder.ApplyConfiguration(new BarStarConfig());
+            builder.ApplyConfiguration(new BarRatingConfig());
             builder.ApplyConfiguration(new CocktailIngredientConfig());
-            builder.ApplyConfiguration(new CocktailStarConfig());
+            builder.ApplyConfiguration(new CocktailRatingConfig());
             builder.ApplyConfiguration(new CountryConfig());
             builder.ApplyConfiguration(new UserConfig());
-            //builder.ApplyConfiguration(new RoleConfig());
 
-            builder.Seeder();
             builder.RoleUserStaticSeeder();
+            builder.Seeder();
+
             base.OnModelCreating(builder);
         }
     }

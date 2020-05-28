@@ -1,10 +1,12 @@
-﻿@model IEnumerable<CocktailMagician.Web.Models.BarViewModel>
+﻿@model BarViewModel
 
 @{
     ViewData["Title"] = "List";
 }
+<link rel="stylesheet" href="~/css/Button3Dclick.css" />
 
-<table id="table_id" class="table" width="100%">
+
+<table id="table_id" class="table-hover" width="100%">
     <thead>
         <tr>
 
@@ -26,11 +28,10 @@
             <th>
                 Cocktails
             </th>
-
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.items)
         {
             <tr>
 
@@ -63,4 +64,24 @@
     <a class="button" data-toggle="modal" data-target="#modalCreateBar">Create New</a>
     <partial model="new BarViewModel()" name="_CreateBarModal" />
 </p>
+@{
+    var hasPrev = !Model.hasPrev ? "disabled" : "";
+    var hasNext = !Model.hasNext ? "disabled" : "";
+}
 
+<a asp-action="ListBars"
+   asp-route-orderBy="@ViewData["CurrentSort"]"
+   asp-route-currentPage=@(Model.currentPage-1)
+   asp-route-searchCriteria="@ViewData["SearchParm"]"
+   asp-route-type="@ViewData["Type"]"
+   class="btn btn-primary @hasPrev" id="pagination">
+    Prev
+</a>
+<a asp-action="ListBars"
+   asp-route-orderBy="@ViewData["CurrentSort"]"
+   asp-route-currentPage=@(Model.currentPage + 1)
+   asp-route-searchCriteria="@ViewData["SearchParm"]"
+   asp-route-type="@ViewData["Type"]"
+   class="btn btn-primary @hasNext" id="pagination">
+    Next
+</a>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CocktailMagician.Web.Models.CocktailViewModel>
+﻿@model CocktailViewModel
 
 @{
     ViewData["Title"] = "ListCocktails";
@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table-hover">
     <thead>
         <tr>
 
@@ -29,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.items)
         {
             <tr>
 
@@ -52,4 +52,21 @@
 </table>
 <a class="button" data-toggle="modal" data-target="#modalCreateCocktail">Create New</a>
 <partial model="new CocktailViewModel()" name="_CreateCocktailModal" />
-   
+
+
+<a asp-action="ListCocktails"
+   asp-route-orderBy="@ViewData["CurrentSort"]"
+   asp-route-currentPage=@(Model.currentPage-1)
+   asp-route-searchCriteria="@ViewData["SearchParm"]"
+   asp-route-type="@ViewData["Type"]"
+   class="btn btn-primary @Model.hasPrev" id="pagination">
+    Prev
+</a>
+<a asp-action="ListCocktails"
+   asp-route-orderBy="@ViewData["CurrentSort"]"
+   asp-route-currentPage=@(Model.currentPage + 1)
+   asp-route-searchCriteria="@ViewData["SearchParm"]"
+   asp-route-type="@ViewData["Type"]"
+   class="btn btn-primary @Model.hasNext" id="pagination">
+    Next
+</a>

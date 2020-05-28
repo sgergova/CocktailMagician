@@ -10,7 +10,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-controller="Bar" asp-action="CreateBar" >
+            <form asp-controller="Bar" asp-action="CreateBar" enctype="multipart/form-data" method="post" >
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <div class="form-group">
@@ -34,10 +34,10 @@
                             @Html.DropDownListFor(model => model.CountryName, new SelectList(ViewBag.CountryList, "Name", "Name"), "")
                             <span asp-validation-for="CountryName" class="text-danger"></span>
                         </div>
-                        <div class="md-form mb-4">
-                            <label asp-for="ImageURL" class="control-label">ImageURL</label>
-                            <input asp-for="ImageURL" class="form-control" />
-                            <span asp-validation-for="ImageURL" class="text-danger"></span>
+                        <div class="custom-file form-group">
+                            <input asp-for="Image" type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*">
+                            <label class="custom-file-label" for="customFileLang">Upload image</label>
+                            <span asp-validation-for="Image" class="text-danger"></span>
                         </div>
 
                     </div>

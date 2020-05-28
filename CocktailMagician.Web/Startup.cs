@@ -87,7 +87,6 @@ namespace CocktailMagician
 
             //app.UseMiddleware<PageNotFound>();
 
-
             app.UseAuthentication();
             app.UseAuthorization();
 
