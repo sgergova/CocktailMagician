@@ -8,7 +8,7 @@ using System.Text;
 namespace CocktailMagician.Data.Configuration
 {
     
-    public class BarStarConfig : IEntityTypeConfiguration<BarRating>
+    public class BarRatingConfig : IEntityTypeConfiguration<BarRating>
     {
         public void Configure(EntityTypeBuilder<BarRating> builder)
         {
@@ -20,7 +20,7 @@ namespace CocktailMagician.Data.Configuration
 
 
             builder.HasOne(bs => bs.Bar)
-                .WithMany(b => b.Stars)
+                .WithMany(b => b.BarRating)
                 .HasForeignKey(bs => bs.BarId);
         }
     }

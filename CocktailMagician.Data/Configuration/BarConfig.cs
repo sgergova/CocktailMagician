@@ -19,7 +19,7 @@ namespace CocktailMagician.Data.Configuration
                 .WithOne(bc => bc.Bar)
                 .HasForeignKey(bc=>bc.BarId);
 
-            builder.HasMany(b => b.Stars)
+            builder.HasMany(b => b.BarRating)
                 .WithOne(s => s.Bar)
                 .HasForeignKey(s => s.BarId);
 

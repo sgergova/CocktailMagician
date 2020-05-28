@@ -90,18 +90,15 @@ namespace CocktailMagician.Services
         {
             return orderBy switch
             {
-            "name" => bars.OrderBy(b => b.Name),
-            "name_desc" => bars.OrderByDescending(b => b.Name),
-            "address" => bars.OrderBy(b => b.Address),
-            "cocktail" => bars.OrderBy(b => b.BarCocktails),
-            "country" => bars.OrderBy(b => b.Country),
+                "name" => bars.OrderBy(b => b.Name),
+                "name_desc" => bars.OrderByDescending(b => b.Name),
+                "address" => bars.OrderBy(b => b.Address),
+                "cocktail" => bars.OrderBy(b => b.BarCocktails),
+                "country" => bars.OrderBy(b => b.Country),
 
-            null => bars.OrderBy(b => b.Name)
-
-
+                _=> bars.OrderBy(b => b.Name)
             };
         }
-
         /// <summary>
         /// Adds the new bar to the database after checking if it does not exists already.
         /// </summary>
@@ -304,9 +301,9 @@ namespace CocktailMagician.Services
             IQueryable<Bar> bars = this.context.Bars
                                                .Include(b => b.Country)
                                                .Include(b => b.BarCocktails)
-                                               .Include(b=>b.Comments)
+                                               .Include(b => b.Comments)
                                                    .ThenInclude(c => c.User)
-                                               .Where(b=>b.IsDeleted == false);
+                                               .Where(b => b.IsDeleted == false);
 
             bars = OrderBar(bars, orderBy);
 
@@ -314,16 +311,17 @@ namespace CocktailMagician.Services
             {
                 bars = bars.Take(10);
             }
-            else
+            else if (currentPage > 1)
             {
                 bars = bars.Skip((currentPage - 1) * 10)
                            .Take(10);
             }
+         
             var results = await bars.ToListAsync();
-           
+
             return results.GetDTOs();
         }
-       
+
         public int GetCount(int itemsPerPage, string searchCriteria, string type)
         {
             double barsCount = 0;

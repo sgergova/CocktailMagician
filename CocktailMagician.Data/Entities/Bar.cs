@@ -16,7 +16,7 @@ namespace CocktailMagician.Data.Entities
         public Guid CountryId { get; set; }
         public Country Country { get; set; }
         public ICollection<BarCocktail> BarCocktails { get; set; } = new List<BarCocktail>();
-        public ICollection<BarRating> Stars { get; set; } = new List<BarRating>();
+        public ICollection<BarRating> BarRating { get; set; } = new List<BarRating>();
         public ICollection<BarComment> Comments { get; set; } = new List<BarComment>();
         [Url]
         public string BarImageURL { get; set; }

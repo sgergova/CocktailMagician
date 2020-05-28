@@ -19,7 +19,7 @@ namespace CocktailMagician.Data.Entities
         public ICollection<CocktailIngredient> CocktailIngredients { get; set; } = new List<CocktailIngredient>();
         public ICollection<BarCocktail> Bars { get; set; } = new List<BarCocktail>();
         public ICollection<CocktailComment> Comments { get; set; } = new List<CocktailComment>();
-        public ICollection<CocktailRating> Stars { get; set; } = new List<CocktailRating>();
+        public ICollection<CocktailRating> CocktailRatings { get; set; } = new List<CocktailRating>();
         public bool IsAlcoholic { get; set;  }
         [Url]
         public string ImageURL { get; set; }

@@ -21,7 +21,7 @@ namespace CocktailMagician.Data.Configuration
                 .WithOne(bc => bc.Cocktail)
                 .HasForeignKey(bc => bc.CocktailId);
 
-            builder.HasMany(c => c.Stars)
+            builder.HasMany(c => c.CocktailRatings)
                 .WithOne(s => s.Cocktail)
                 .HasForeignKey(s => s.CocktailId);
 
