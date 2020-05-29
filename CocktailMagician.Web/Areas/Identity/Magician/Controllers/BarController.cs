@@ -9,8 +9,8 @@ using NToastNotify;
 
 namespace CocktailMagician.Web.Areas.Magician
 {
-    [Area("MEMBER2")]
-    [Authorize(Roles = "MEMBER")]
+    [Area("Magician")]
+    [Authorize(Roles = "Magician")]
     public class BarController : Controller
     {
         private readonly IBarServices barServices;

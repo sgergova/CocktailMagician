@@ -37,6 +37,7 @@ namespace CocktailMagician
             services.AddScoped<IIngredientServices, IngredientServices>();
             services.AddScoped<ICocktailServices, CocktailServices>();
             services.AddScoped<ICountryServices, CountryServices>();
+            services.AddScoped<IUploadImagesServices, UploadImagesServices>();
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
@@ -99,6 +100,9 @@ namespace CocktailMagician
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

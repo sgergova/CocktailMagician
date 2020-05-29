@@ -70,7 +70,10 @@
 <p>
     @if (User.IsInRole("Magician"))
     {
-    <p>
+    <p style="position:relative;top: 51px;
+    left:1000px;
+    right: 0px;
+    bottom: 0px;">
         <a class="button" data-toggle="modal" data-target="#modalCreateBar">Create New</a>
         <partial model="new BarViewModel()" name="_CreateBarModal" />
     </p>
