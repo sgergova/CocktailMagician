@@ -27,6 +27,8 @@ namespace CocktailMagician.Web.Models
         public int currentPage { get;  set; }
         public int TotalPages { get;  set; }
 
+        public string SearchCriteria { get; set; }
+
         public bool hasNext
         {
             get

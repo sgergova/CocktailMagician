@@ -10,7 +10,7 @@ namespace CocktailMagician.Services.Contracts
     {
         Task<BarDTO> GetBar(Guid id);
         Task<BarDTO> GetBar(string barName);
-        Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address, string country);
+        Task<ICollection<BarDTO>> GetAllBars(string search);
         Task<BarDTO> CreateBar(BarDTO barDTO);
         Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO);
         Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId);
@@ -19,7 +19,7 @@ namespace CocktailMagician.Services.Contracts
         Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId);
         Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId);
         Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria);
-        int GetCount(int itemsPerPage, string searchCriteria, string type);
+        int GetCount(int itemsPerPage, string searchCriteria);
         Task<ICollection<BarDTO>> GetTopThreeBars();
     }
 }

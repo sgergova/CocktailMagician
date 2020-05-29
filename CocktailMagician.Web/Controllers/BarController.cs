@@ -22,8 +22,9 @@ namespace CocktailMagician.Web.Controllers
             this.toast = toast;
         }
         [HttpGet]
-        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, string searchCriteria, string type)
+        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, BarViewModel model)
         {
+            var searchCriteria = model.SearchCriteria;
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
@@ -35,11 +36,12 @@ namespace CocktailMagician.Web.Controllers
             ViewBag.CountryList = countryList;
 
             var barsViewModel = bars.GetViewModels();
+          
             var paged = new BarViewModel()
             {
                 currentPage = currentPage ?? 1,
                 items = barsViewModel,
-                TotalPages = this.barServices.GetCount(10, searchCriteria, type)
+                TotalPages = this.barServices.GetCount(10, searchCriteria)
             };
 
             return View(paged);

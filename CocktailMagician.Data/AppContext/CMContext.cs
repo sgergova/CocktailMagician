@@ -38,8 +38,8 @@ namespace CocktailMagician.Data.AppContext
             builder.ApplyConfiguration(new CountryConfig());
             builder.ApplyConfiguration(new UserConfig());
 
-            builder.RoleUserStaticSeeder();
             builder.Seeder();
+            builder.RoleUserStaticSeeder();
 
             base.OnModelCreating(builder);
         }
