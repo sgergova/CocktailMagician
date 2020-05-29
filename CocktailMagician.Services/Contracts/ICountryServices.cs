@@ -17,5 +17,6 @@ namespace CocktailMagician.Services.Contracts
         Task<CountryDTO> DeleteCountry(Guid id);
         Task<CountryDTO> AddBarToCountry(Guid countryId, Guid barId);
         Task<CountryDTO> RemoveBarFromCountry(Guid countryId, Guid barId);
+
     }
 }

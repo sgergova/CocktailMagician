@@ -13,7 +13,7 @@
         <input type="submit" value="Search" class="btn btn-primary" />
     </div>
 </form>
-<table id="table_id" class="table-hover" width="100%" style="margin-top:150px">
+<table id="table_id" class="table-hover" width="100%" style="margin-top:100px">
     <thead>
         <tr>
 
@@ -40,28 +40,38 @@
     <tbody>
         @foreach (var item in Model.items)
         {
+
             <tr>
 
                 <td>
-                    <img src="@item.ImageURL" alt="Generic placeholder image" width="140" height="100">
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        <img src="@item.ImageURL" alt="Generic placeholder image" width="140" height="100">
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                       @item.Name
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address)
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                       @item.Address
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.Phone
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CountryName)
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.CountryName
+                    </a>
                 </td>
                 <td>
-                    @item.BarCocktails.Count
-                </td>
-                <td>
-                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">Details</a>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.BarCocktails.Count
+                    </a>
                 </td>
             </tr>
         }
@@ -70,7 +80,7 @@
 <p>
     @if (User.IsInRole("Magician"))
     {
-    <p style="position:relative;top: 51px;
+    <p style="position:relative;top: 24px;
     left:1000px;
     right: 0px;
     bottom: 0px;">
@@ -89,7 +99,7 @@
        asp-route-currentPage=@(Model.currentPage-1)
        asp-route-searchCriteria="@ViewData["SearchParm"]"
        asp-route-type="@ViewData["Type"]"
-       class="btn btn-primary @hasPrev" id="pagination">
+       class="button  @hasPrev" id="pagination">
         Prev
     </a>
     <a asp-action="ListBars"
@@ -97,6 +107,6 @@
        asp-route-currentPage=@(Model.currentPage + 1)
        asp-route-searchCriteria="@ViewData["SearchParm"]"
        asp-route-type="@ViewData["Type"]"
-       class="btn btn-primary @hasNext" id="pagination">
+       class="button  @hasNext" id="pagination">
         Next
     </a>

@@ -89,8 +89,8 @@ namespace CocktailMagician.Services
                                           .Where(b => b.IsDeleted == false);
 
             var topThree = await bars.Take(3).ToListAsync();
-
-            return topThree.GetDTOs();
+            var topThreeDTO = topThree.GetDTOs();
+            return topThreeDTO;
         }
 
         public IQueryable<Bar> OrderBar(IQueryable<Bar> bars, string orderBy)

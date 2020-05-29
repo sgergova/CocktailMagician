@@ -59,7 +59,7 @@ namespace CocktailMagician.Web.Areas.Magician
                     bar.ImageURL = image;
                     var createdBar = await barServices.CreateBar(bar.GetDtoFromVM());
 
-                    return RedirectToAction("ListBars", "Bar");
+                    return RedirectToAction("ListBars", "Bar", new { Area=""});
                 }
                 catch (Exception)
                 {

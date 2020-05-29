@@ -52,7 +52,7 @@ namespace CocktailMagician.Web.Areas.Magician
             var cocktail = await cocktailServices.CreateCocktail(cocktailVM.GetDtoFromVM());
 
 
-            return RedirectToAction("ListCocktails", "Cocktail");
+            return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }
         [HttpPost]
         public async Task<IActionResult> AddIngredient(Guid cocktailId ,Guid ingredientId )

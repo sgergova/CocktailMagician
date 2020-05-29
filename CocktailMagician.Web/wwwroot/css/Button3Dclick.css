@@ -1,14 +1,20 @@
-﻿.button {
+﻿a:not([href]):not([tabindex]) {
+    color:black;
+    text-decoration: none;
+}
+
+
+.button {
     padding: 15px 25px;
     font-size: 24px;
     text-align: center;
     cursor: pointer;
     outline: none;
-    color: #fff;
-    background-color: blue;
+    color:black;
+    background-color: darkorange;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
+  
     position: relative;
     top: 10px;
     margin-right: 10px;
@@ -31,11 +37,10 @@
     text-align: center;
     cursor: pointer;
     outline: none;
-    color: #fff;
-    background-color: blue;
+    color: black;
+    background-color: darkorange;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
     position: relative;
     top: 10px;
     margin-right: 10px;

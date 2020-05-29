@@ -24,10 +24,6 @@
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
                     </div>
 
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button class="btn btn-default">Login</button>
-                    </div>
-
                     <div class="form-group">
                         <div class="checkbox">
                             <label asp-for="Input.RememberMe">
@@ -40,15 +36,15 @@
                         <button type="submit" class="btn btn-primary">Log in</button>
                     </div>
                     <div class="form-group">
-                        <p>
+                        @*<p>
                             <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                        </p>
+                        </p>*@
                         <p>
                             <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                         </p>
-                        <p>
+                        @*<p>
                             <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                        </p>
+                        </p>*@
                     </div>
                 </form>
             </section>

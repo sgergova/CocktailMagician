@@ -1,4 +1,4 @@
-﻿
+﻿@model HomeViewModel
 
 <partial name="_SwipePartial" />
 @section Scripts{
@@ -17,4 +17,8 @@
         });
     </script>
 }
-
+<div class="row">
+    <partial name="_TopThreeBars" model="@Model.TopThreebars" />
+    <div class="col-3"></div>
+    <partial name="_TopThreeCocktails" model="@Model.TopThreeCocktails" />
+</div>

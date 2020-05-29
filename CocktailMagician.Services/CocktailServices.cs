@@ -64,6 +64,14 @@ namespace CocktailMagician.Services
             return returnCocktails.GetDTOs();
         }
 
+        public async Task<ICollection<CocktailDTO>> GetAllCocktails()
+        {
+            var cocktails = GetCocktailsQueryable();
+
+           
+            var returnCocktails = await cocktails.ToListAsync();
+            return returnCocktails.GetDTOs();
+        }
         public async Task<ICollection<CocktailDTO>> GetTopThreeCocktails()
         {
             var cocktails = this.context.Cocktails

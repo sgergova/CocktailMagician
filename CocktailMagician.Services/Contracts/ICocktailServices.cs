@@ -22,5 +22,6 @@ namespace CocktailMagician.Services.Contracts
 
         Task<ICollection<CocktailDTO>> GetIndexPageCocktails(string orderBy, int currentPage, string searchCriteria);
 
+        Task<ICollection<CocktailDTO>> GetAllCocktails();
     };
 }
