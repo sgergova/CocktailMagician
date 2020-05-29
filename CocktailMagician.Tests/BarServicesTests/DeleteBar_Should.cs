@@ -42,10 +42,9 @@ namespace CocktailMagician.Tests.BarServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
-                var result = sut.DeleteBar(bar.Id);
+                var result = await sut.DeleteBar(bar.Id);
 
-                Assert.AreEqual(true, result.Result);
-                Assert.AreEqual(0, assertContext.Bars.Count());
+                Assert.AreEqual(true, result.IsDeleted);
             }
         }
         [TestMethod]

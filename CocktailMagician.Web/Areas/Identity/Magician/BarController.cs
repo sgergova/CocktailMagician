@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Web.Mappers;
@@ -21,7 +19,7 @@ namespace CocktailMagician.Web.Areas.Magician
         private readonly IUploadImagesServices uploadImagesServices;
         private readonly IToastNotification toastNotification;
 
-        public BarController(IBarServices barServices, ICountryServices countryServices,ICocktailServices cocktailServices,
+        public BarController(IBarServices barServices, ICountryServices countryServices, ICocktailServices cocktailServices,
                                                        IUploadImagesServices uploadImagesServices, IToastNotification toastNotification)
         {
             this.barServices = barServices;
@@ -30,14 +28,7 @@ namespace CocktailMagician.Web.Areas.Magician
             this.uploadImagesServices = uploadImagesServices;
             this.toastNotification = toastNotification;
         }
-        [HttpPost]
-        public async Task<IActionResult> DeleteBar(Guid id)
-        {
-            await barServices.DeleteBar(id);
 
-
-            return RedirectToAction("ListBars", "Bar");
-        }
         [HttpGet]
         public async Task<IActionResult> UpdateBar(Guid id)
         {
@@ -73,15 +64,18 @@ namespace CocktailMagician.Web.Areas.Magician
                 catch (Exception)
                 {
                     this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
+                    return RedirectToAction("ListBars");
                 }
             }
             return NoContent();
-            
         }
+
+
+
         [HttpPost]
-        public async Task<IActionResult> AddCocktailToBar(Guid barId , Guid cocktailId)
+        public async Task<IActionResult> AddCocktailToBar(Guid barId, Guid cocktailId)
         {
-          var cocktail= await cocktailServices.GetCocktail(cocktailId);
+            var cocktail = await cocktailServices.GetCocktail(cocktailId);
             await barServices.AddCocktailToBar(barId, cocktail);
             return RedirectToAction("ListBars", "Bar");
         }
@@ -93,5 +87,28 @@ namespace CocktailMagician.Web.Areas.Magician
             return RedirectToAction("ListBars", "Bar");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteBar(Guid id)
+        {
+
+            if (id == null)
+                return NotFound();
+
+            try
+            {
+                var barToDelete = await barServices.DeleteBar(id);
+                this.toastNotification.AddSuccessToastMessage($"{barToDelete.Name} was deleted successfully!");
+
+                return RedirectToAction("ListBars", "Bar");
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
     }
 }

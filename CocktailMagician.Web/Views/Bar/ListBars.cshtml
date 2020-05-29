@@ -61,27 +61,32 @@
     </tbody>
 </table>
 <p>
-    <a class="button" data-toggle="modal" data-target="#modalCreateBar">Create New</a>
-    <partial model="new BarViewModel()" name="_CreateBarModal" />
-</p>
-@{
-    var hasPrev = !Model.hasPrev ? "disabled" : "";
-    var hasNext = !Model.hasNext ? "disabled" : "";
-}
+    @if (User.IsInRole("Magician"))
+    {
+    <p>
+        <a class="button" data-toggle="modal" data-target="#modalCreateBar">Create New</a>
+        <partial model="new BarViewModel()" name="_CreateBarModal" />
+    </p>
 
-<a asp-action="ListBars"
-   asp-route-orderBy="@ViewData["CurrentSort"]"
-   asp-route-currentPage=@(Model.currentPage-1)
-   asp-route-searchCriteria="@ViewData["SearchParm"]"
-   asp-route-type="@ViewData["Type"]"
-   class="btn btn-primary @hasPrev" id="pagination">
-    Prev
-</a>
-<a asp-action="ListBars"
-   asp-route-orderBy="@ViewData["CurrentSort"]"
-   asp-route-currentPage=@(Model.currentPage + 1)
-   asp-route-searchCriteria="@ViewData["SearchParm"]"
-   asp-route-type="@ViewData["Type"]"
-   class="btn btn-primary @hasNext" id="pagination">
-    Next
-</a>
+}
+    @{
+        var hasPrev = !Model.hasPrev ? "disabled" : "";
+        var hasNext = !Model.hasNext ? "disabled" : "";
+    }
+
+    <a asp-action="ListBars"
+       asp-route-orderBy="@ViewData["CurrentSort"]"
+       asp-route-currentPage=@(Model.currentPage-1)
+       asp-route-searchCriteria="@ViewData["SearchParm"]"
+       asp-route-type="@ViewData["Type"]"
+       class="btn btn-primary @hasPrev" id="pagination">
+        Prev
+    </a>
+    <a asp-action="ListBars"
+       asp-route-orderBy="@ViewData["CurrentSort"]"
+       asp-route-currentPage=@(Model.currentPage + 1)
+       asp-route-searchCriteria="@ViewData["SearchParm"]"
+       asp-route-type="@ViewData["Type"]"
+       class="btn btn-primary @hasNext" id="pagination">
+        Next
+    </a>

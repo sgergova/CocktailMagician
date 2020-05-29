@@ -86,6 +86,17 @@ namespace CocktailMagician.Services
             return barsDTO;
         }
 
+        public async Task<ICollection<BarDTO>> GetTopThreeBars()
+        {
+            var bars =  this.context.Bars
+                                          .Include(b => b.BarRating)
+                                          .Where(b => b.IsDeleted == false);
+
+            var topThree = await bars.Take(3).ToListAsync();
+
+            return topThree.GetDTOs();
+        }
+
         public IQueryable<Bar> OrderBar(IQueryable<Bar> bars, string orderBy)
         {
             return orderBy switch
@@ -96,7 +107,7 @@ namespace CocktailMagician.Services
                 "cocktail" => bars.OrderBy(b => b.BarCocktails),
                 "country" => bars.OrderBy(b => b.Country),
 
-                _=> bars.OrderBy(b => b.Name)
+                _ => bars.OrderBy(b => b.Name)
             };
         }
         /// <summary>
@@ -265,7 +276,7 @@ namespace CocktailMagician.Services
         /// </summary>
         /// <param name="id">The ID of bar that should be deleted</param>
         /// <returns>BarDTO</returns>
-        public async Task<bool> DeleteBar(Guid id)
+        public async Task<BarDTO> DeleteBar(Guid id)
         {
             var barToDelete = await GetAllBarsQueryable()
                                    .FirstOrDefaultAsync(b => b.Id == id)
@@ -276,7 +287,6 @@ namespace CocktailMagician.Services
             var barCocktails = await AvailabilityAtBarEntities(barToDelete.Id);
 
             barToDelete.IsDeleted = true;
-            country.Bars.Remove(barToDelete);
             country.ModifiedOn = DateTime.UtcNow;
             barToDelete.DeletedOn = DateTime.UtcNow;
 
@@ -286,18 +296,18 @@ namespace CocktailMagician.Services
                 {
                     barCocktail.IsDeleted = true;
                     barCocktail.DeletedOn = DateTime.UtcNow;
+                    context.BarCocktails.Update(barCocktail);
                 }
             }
             context.Bars.Update(barToDelete);
             context.Countries.Update(country);
             await context.SaveChangesAsync();
 
-            return true;
+            return barToDelete.GetDTO();
         }
 
         public async Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria)
         {
-
             IQueryable<Bar> bars = this.context.Bars
                                                .Include(b => b.Country)
                                                .Include(b => b.BarCocktails)
@@ -306,18 +316,10 @@ namespace CocktailMagician.Services
                                                .Where(b => b.IsDeleted == false);
 
             bars = OrderBar(bars, orderBy);
+            bars = currentPage == 1 ? bars = bars.Take(10) : bars = bars.Skip((currentPage - 1) * 10).Take(10);
 
-            if (currentPage == 1)
-            {
-                bars = bars.Take(10);
-            }
-            else if (currentPage > 1)
-            {
-                bars = bars.Skip((currentPage - 1) * 10)
-                           .Take(10);
-            }
-         
             var results = await bars.ToListAsync();
+
 
             return results.GetDTOs();
         }

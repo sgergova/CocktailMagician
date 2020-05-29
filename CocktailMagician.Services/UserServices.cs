@@ -41,6 +41,6 @@ namespace CocktailMagician.Services
 
             return user.GetDTO();
         }
-       
+
     }
 }

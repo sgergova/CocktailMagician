@@ -14,11 +14,12 @@ namespace CocktailMagician.Services.Contracts
         Task<BarDTO> CreateBar(BarDTO barDTO);
         Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO);
         Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId);
-        Task<bool> DeleteBar(Guid id);
+        Task<BarDTO> DeleteBar(Guid id);
         Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail);
         Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId);
         Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId);
         Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria);
         int GetCount(int itemsPerPage, string searchCriteria, string type);
+        Task<ICollection<BarDTO>> GetTopThreeBars();
     }
 }

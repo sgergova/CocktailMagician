@@ -63,6 +63,17 @@ namespace CocktailMagician.Services
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
+
+        public async Task<ICollection<CocktailDTO>> GetTopThreeCocktails()
+        {
+            var cocktails = this.context.Cocktails
+                                    .Include(c => c.CocktailRatings)
+                                    .Where(b => b.IsDeleted == false);
+
+            var topThree = await cocktails.Take(3).ToListAsync();
+
+            return topThree.GetDTOs();
+        }
         /// <summary>
         /// Adds the new cocktail to the database after checking if it does not exists already.
         /// </summary>
@@ -244,16 +255,8 @@ namespace CocktailMagician.Services
                                                .Where(b => b.IsDeleted == false);
 
             cocktails = OrderCocktail(cocktails, orderBy);
+            cocktails = currentPage == 1 ? cocktails = cocktails.Take(10) : cocktails = cocktails.Skip((currentPage - 1) * 10).Take(10);
 
-            if (currentPage == 1)
-            {
-                cocktails = cocktails.Take(10);
-            }
-            else
-            {
-                cocktails = cocktails.Skip((currentPage - 1) * 10)
-                           .Take(10);
-            }
             var results = await cocktails.ToListAsync();
 
             return results.GetDTOs();
@@ -287,7 +290,7 @@ namespace CocktailMagician.Services
                 "bar" => cocktails.OrderBy(c => c.Bars),
                 "ingredient" => cocktails.OrderBy(c => c.CocktailIngredients),
 
-                null => cocktails.OrderBy(c => c.Name)
+                 _=> cocktails.OrderBy(c => c.Name)
             };
         }
         /// <summary>

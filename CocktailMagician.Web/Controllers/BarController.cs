@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -14,10 +14,12 @@ namespace CocktailMagician.Web.Controllers
     {
         private readonly IBarServices barServices;
         private readonly ICountryServices countryServices;
-        public BarController(IBarServices barServices, ICountryServices countryServices)
+        private readonly IToastNotification toast;
+        public BarController(IBarServices barServices, ICountryServices countryServices, IToastNotification toast)
         {
             this.barServices = barServices;
             this.countryServices = countryServices;
+            this.toast = toast;
         }
         [HttpGet]
         public async Task<IActionResult> ListBars(string orderBy, int? currentPage, string searchCriteria, string type)
@@ -46,10 +48,20 @@ namespace CocktailMagician.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> BarDetails(Guid id)
         {
-            var bar = await barServices.GetBar(id);
-            var barVM = bar.GetViewModel();
-            return View(barVM);
-        }
+            if (id == null)
+                return NotFound();
 
+            try
+            {
+                var bar = await barServices.GetBar(id);
+                var barVM = bar.GetViewModel();
+                return View(barVM);
+            }
+            catch (Exception)
+            {
+                this.toast.AddErrorToastMessage("Something went wrong");
+                return RedirectToAction(nameof(ListBars));
+            }
+        }
     }
 }

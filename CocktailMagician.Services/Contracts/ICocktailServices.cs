@@ -18,6 +18,7 @@ namespace CocktailMagician.Services.Contracts
         Task<CocktailDTO> AddIngredientToCocktail(string cocktailName, string ingredientName);
         Task<ICollection<CocktailDTO>> SearchByAlcohol(string criteria);
         int GetCount(int itemsPerPage, string searchCriteria, string type);
+        Task<ICollection<CocktailDTO>> GetTopThreeCocktails();
 
         Task<ICollection<CocktailDTO>> GetIndexPageCocktails(string orderBy, int currentPage, string searchCriteria);
 

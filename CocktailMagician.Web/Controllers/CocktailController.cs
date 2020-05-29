@@ -9,6 +9,7 @@ using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace CocktailMagician.Web.Controllers
 {
@@ -16,10 +17,13 @@ namespace CocktailMagician.Web.Controllers
     {
         private readonly ICocktailServices cocktailServices;
         private readonly IIngredientServices ingredientServices;
-        public CocktailController(ICocktailServices cocktailServices,IIngredientServices ingredientServices)
+        private readonly IToastNotification toast;
+
+        public CocktailController(ICocktailServices cocktailServices,IIngredientServices ingredientServices, IToastNotification toast)
         {
             this.cocktailServices = cocktailServices;
             this.ingredientServices = ingredientServices;
+            this.toast = toast;
         }
         [HttpGet]
         public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, string searchCriteria, string type)
@@ -50,12 +54,20 @@ namespace CocktailMagician.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CocktailDetails(Guid id)
         {
-            var cocktail = await cocktailServices.GetCocktail(id);
-            var cocktailVM = cocktail.GetViewModel();
-            return View(cocktailVM);
+            if (id == null)
+                return NotFound();
+
+            try
+            {
+                var cocktail = await cocktailServices.GetCocktail(id);
+                var cocktailVM = cocktail.GetViewModel();
+                return View(cocktailVM);
+            }
+            catch (Exception)
+            {
+                this.toast.AddErrorToastMessage("Something went wrong");
+                return RedirectToAction("ListBars");
+            }
         }
-        
-
-
     }
 }

@@ -12,6 +12,7 @@ using CocktailMagician.Services.Contracts;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using CocktailMagician.Web.Middleware;
+using NToastNotify;
 
 namespace CocktailMagician
 {
@@ -37,6 +38,11 @@ namespace CocktailMagician
             services.AddScoped<ICocktailServices, CocktailServices>();
             services.AddScoped<ICountryServices, CountryServices>();
 
+            services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                PositionClass = ToastPositions.TopCenter
+            });
+
 
             services.AddDefaultIdentity<User>()
               .AddRoles<Role>()
@@ -55,6 +61,7 @@ namespace CocktailMagician
                 option.Password.RequiredUniqueChars = 0;
             });
 
+            
             services.AddAuthentication().AddGoogle(o =>
                 {
                     o.ClientId = Configuration["Google:ClientId"];
