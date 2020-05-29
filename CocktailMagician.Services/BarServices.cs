@@ -62,22 +62,18 @@ namespace CocktailMagician.Services
         /// <param name="address">Address of the Bar</param>
         /// <param name="country">Country of the Bar</param>
         /// <returns>ICollection<BarDTO></returns>
-        public async Task<ICollection<BarDTO>> GetAllBars(string name, int? rating, string address, string country)
+        public async Task<ICollection<BarDTO>> GetAllBars(string search)
         {
             var bars = GetAllBarsQueryable();
             var barsToReturn = new List<Bar>();
 
-            if (name != null)
-                bars = bars.Where(b => b.Name.ToLower().Contains(name.ToLower()));
+            if (search!=null)
+            {
 
-            if (address != null)
-                bars = bars.Where(b => b.Address.ToLower().Contains(address.ToLower()));
+                bars = bars.Where(b => b.Name.ToLower().Contains(search.ToLower())||b.Rating==int.Parse(search)||b.Address.ToLower().Contains(search.ToLower()));
+            }
 
-            if (rating != 0)
-                bars = bars.Where(b => b.Rating == rating);
-
-            if (country != null)
-                bars = bars.Where(b => b.Country.Name == country);
+           
 
             barsToReturn = await bars.ToListAsync();
 
@@ -314,29 +310,34 @@ namespace CocktailMagician.Services
                                                .Include(b => b.Comments)
                                                    .ThenInclude(c => c.User)
                                                .Where(b => b.IsDeleted == false);
+            if (searchCriteria!=null)
+            {
+
+            bars = bars.Where(b => b.Name.Contains(searchCriteria)||b.Country.Name.Contains(searchCriteria));
+            }
 
             bars = OrderBar(bars, orderBy);
             bars = currentPage == 1 ? bars = bars.Take(10) : bars = bars.Skip((currentPage - 1) * 10).Take(10);
-
+            
             var results = await bars.ToListAsync();
 
 
             return results.GetDTOs();
         }
 
-        public int GetCount(int itemsPerPage, string searchCriteria, string type)
+        public int GetCount(int itemsPerPage, string searchCriteria)
         {
             double barsCount = 0;
             if (searchCriteria != null)
             {
-                if (type == "Name")
-                {
-                    barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-                }
-                else if (type == "Country")
-                {
+                //if (type == "Name")
+                //{
+                //    barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
+                //}
+                //else if (type == "Country")
+                //{
                     barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Country.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-                }
+                
             }
             else
             {

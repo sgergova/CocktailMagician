@@ -1,12 +1,19 @@
 ﻿@model BarViewModel
 
-@{
+@*@{
     ViewData["Title"] = "List";
-}
+}*@
 <link rel="stylesheet" href="~/css/Button3Dclick.css" />
 
-
-<table id="table_id" class="table-hover" width="100%">
+<form style="margin-top:100px">
+   
+    <label asp-for="SearchCriteria">Search keyword:</label>
+    <input asp-for="SearchCriteria" />
+    <div class="form-group">
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </div>
+</form>
+<table id="table_id" class="table-hover" width="100%" style="margin-top:150px">
     <thead>
         <tr>
 
