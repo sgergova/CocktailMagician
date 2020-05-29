@@ -1,5 +1,11 @@
 ﻿@model CocktailMagician.Web.Models.BarViewModel
 
+    <style>
+
+        .modal-backdrop {
+            z-index: -1;
+        }
+    </style>
 <div class="modal fade" id="modalCreateBar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -10,7 +16,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-controller="Bar" asp-action="CreateBar" enctype="multipart/form-data" method="post" >
+            <form asp-area="Magician" asp-controller="Bar" asp-action="CreateBar" enctype="multipart/form-data" method="post" >
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <div class="form-group">
@@ -42,7 +48,7 @@
 
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button asp-controller="Bar" asp-action="CreateBar" class="btn btn-deep-orange">Create</button>
+                        <button asp-area="Magician" asp-controller="Bar" asp-action="CreateBar" class="btn btn-deep-orange">Create</button>
                     </div>
                 </div>
             </form>

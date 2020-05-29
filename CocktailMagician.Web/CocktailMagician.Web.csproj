@@ -38,7 +38,8 @@
 
 
   <ItemGroup>
-    <Folder Include="Areas\Identity\Crawler\" />
+    <Folder Include="Areas\Identity\Crawler\Controllers\" />
+    <Folder Include="Areas\Identity\Crawler\Views\" />
   </ItemGroup>
 
 
