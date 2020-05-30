@@ -57,10 +57,7 @@ namespace CocktailMagician.Services
         /// <summary>
         /// Orders found sequence of bars according to given parameters.
         /// </summary>
-        /// <param name="name">Name of the Bar</param>
-        /// <param name="rating">Rating of the Bar</param>
-        /// <param name="address">Address of the Bar</param>
-        /// <param name="country">Country of the Bar</param>
+        /// <param name="search">The criteria to search for</param>
         /// <returns>ICollection<BarDTO></returns>
         public async Task<ICollection<BarDTO>> GetAllBars(string search)
         {
@@ -69,8 +66,7 @@ namespace CocktailMagician.Services
 
             if (search!=null)
             {
-
-                bars = bars.Where(b => b.Name.ToLower().Contains(search.ToLower())||b.Rating==int.Parse(search)||b.Address.ToLower().Contains(search.ToLower()));
+                bars = bars.Where(b => b.Name.ToLower().Contains(search.ToLower())||b.Address.ToLower().Contains(search.ToLower()));
             }
 
            
