@@ -61,14 +61,18 @@ namespace CocktailMagician.Services
             try
             {
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
+                var folder = System.IO.Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images");
                 fileName = Guid.NewGuid().ToString() + extension; //Create a new Name 
                                                                   //for the file due to security reasons.
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+                var path = Path.Combine(folder, fileName);
+                string location = $"/images/{fileName}";
+
 
                 using (var bits = new FileStream(path, FileMode.Create))
                 {
                     await file.CopyToAsync(bits);
                 }
+                fileName = location;
             }
             catch (Exception e)
             {
