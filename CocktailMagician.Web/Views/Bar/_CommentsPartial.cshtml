@@ -1,0 +1,27 @@
+﻿@model BarCommentViewModel
+
+
+<form>
+
+
+    <textarea rows="4" cols="50" asp-for="Comment">
+
+
+
+
+    </textarea>
+
+    <button  class="button" type="submit"  asp-area="Crawler" asp-controller="Bar" asp-action="CommentOnBar" asp-route-id="@Model.BarId" >Submit</button>
+
+
+</form>
+
+
+
+
+
+
+
+
+
+

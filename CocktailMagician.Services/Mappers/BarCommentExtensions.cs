@@ -17,8 +17,6 @@ namespace CocktailMagician.Services.Mappers
             return new BarCommentDTO
             {
                 BarId = item.BarId,
-                Bar = item.Bar,
-                User = item.User,
                 UserId = item.UserId,
                 IsDeleted = item.IsDeleted,
                 Comments = item.Comments,
@@ -42,8 +40,6 @@ namespace CocktailMagician.Services.Mappers
             return new BarComment
             {
                 BarId = item.BarId,
-                Bar = item.Bar,
-                User = item.User,
                 UserId = item.UserId,
                 Comments = item.Comments,
                 CreatedOn = item.CreatedOn,
