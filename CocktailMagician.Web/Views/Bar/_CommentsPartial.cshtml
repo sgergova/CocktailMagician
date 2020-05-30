@@ -2,17 +2,11 @@
 
 
 <form>
-
-
-    <textarea rows="4" cols="50" asp-for="Comment">
-
-
-
-
+    @*<h5>Leave a comment...</h5>*@
+    <textarea rows="4" cols="50" asp-for="Comment" placeholder="Leave a comment...">
     </textarea>
 
-    <button  class="button" type="submit"  asp-area="Crawler" asp-controller="Bar" asp-action="CommentOnBar" asp-route-id="@Model.BarId" >Submit</button>
-
+    <button  class="button" style="position:relative; top:-27px;" type="submit"  asp-area="Crawler" asp-controller="Bar" asp-action="CommentOnBar" asp-route-id="@Model.BarId" >Submit</button>
 
 </form>
 

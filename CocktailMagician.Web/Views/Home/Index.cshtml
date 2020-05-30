@@ -1,4 +1,7 @@
 ﻿@model HomeViewModel
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:400,900,900i" rel="stylesheet">
+
 
 <partial name="_SwipePartial" />
 @section Scripts{
@@ -16,9 +19,19 @@
             },
         });
     </script>
+
+   
+     
 }
 <div class="row">
     <partial name="_TopThreeBars" model="@Model.TopThreebars" />
     <div class="col-3"></div>
     <partial name="_TopThreeCocktails" model="@Model.TopThreeCocktails" />
 </div>
+
+
+
+<!-- Back to top button -->
+<a id="button"></a>
+
+
