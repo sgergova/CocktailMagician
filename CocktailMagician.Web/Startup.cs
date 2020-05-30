@@ -39,6 +39,9 @@ namespace CocktailMagician
             services.AddScoped<ICountryServices, CountryServices>();
             services.AddScoped<IUploadImagesServices, UploadImagesServices>();
             services.AddScoped<IBarCommentsServices, BarCommentsServices>();
+            services.AddScoped<IBarRatingServices, BarRatingServices>();
+            services.AddScoped<ICocktailCommentServices, CocktailCommentServices>();
+            services.AddScoped<ICocktailRatingServices, CoktailRatingServices>();
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {

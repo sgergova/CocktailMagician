@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.AppContext;
 using CocktailMagician.Data.Entities;
+using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-   public class BarRatingServices
+   public class BarRatingServices:IBarRatingServices
     {
         private readonly CMContext context;
 

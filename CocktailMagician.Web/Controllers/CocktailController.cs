@@ -26,9 +26,9 @@ namespace CocktailMagician.Web.Controllers
             this.toast = toast;
         }
         [HttpGet]
-        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, string searchCriteria, string type)
+        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, CocktailViewModel model)
         {
-
+            var searchCriteria = model.SearchCriteria;
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
@@ -45,7 +45,7 @@ namespace CocktailMagician.Web.Controllers
             {
                 currentPage = currentPage ?? 1,
                 items = barsViewModel,
-                TotalPages = this.cocktailServices.GetCount(10, searchCriteria, type)
+                TotalPages = this.cocktailServices.GetCount(10, searchCriteria)
             };
 
             return View(paged);
@@ -61,6 +61,7 @@ namespace CocktailMagician.Web.Controllers
             {
                 var cocktail = await cocktailServices.GetCocktail(id);
                 var cocktailVM = cocktail.GetViewModel();
+               
                 return View(cocktailVM);
             }
             catch (Exception)

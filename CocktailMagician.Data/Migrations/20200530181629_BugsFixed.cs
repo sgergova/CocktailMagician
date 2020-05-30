@@ -3,449 +3,607 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CocktailMagician.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class BugsFixed : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("02023021-7e81-4941-a8d2-4fc33590f2c4"));
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUsers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    UserPhoto = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("07869b06-b74f-4652-91a5-9d8e0eaed288"));
 
-            migrationBuilder.CreateTable(
-                name: "Countries",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: false),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Countries", x => x.Id);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("11b8511f-936b-4f90-9c3d-d76f445129c5"));
 
-            migrationBuilder.CreateTable(
-                name: "Ingredients",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 40, nullable: false),
-                    Description = table.Column<string>(maxLength: 100, nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
-                    IsAlcoholic = table.Column<bool>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Ingredients", x => x.Id);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("185222b5-45f9-4777-a7bc-d71d31929b15"));
 
-            migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<Guid>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("18f574da-94db-42fe-abc5-4a1bfc244270"));
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<Guid>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("225f0468-42c4-4612-9dba-2ccd1b7bc83f"));
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("3284c2da-51e5-47b8-8b6c-095b803f46d2"));
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    RoleId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "AspNetRoles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("4e685008-0a8b-4262-9bc7-82acc23e4a77"));
 
-            migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
-                    Value = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
-                    table.ForeignKey(
-                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("4f21d388-d018-41be-9cf4-85822f148d75"));
 
-            migrationBuilder.CreateTable(
-                name: "Cocktails",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 30, nullable: false),
-                    Rating = table.Column<double>(nullable: false),
-                    AlcoholPercentage = table.Column<double>(nullable: false),
-                    IsAlcoholic = table.Column<bool>(nullable: false),
-                    ImageURL = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cocktails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Cocktails_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("5fd19100-8d44-4167-8ed0-c029adc4883c"));
 
-            migrationBuilder.CreateTable(
-                name: "Bars",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    Phone = table.Column<string>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
-                    CountryId = table.Column<Guid>(nullable: false),
-                    BarImageURL = table.Column<string>(nullable: true),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    UserId = table.Column<Guid>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Bars", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bars_Countries_CountryId",
-                        column: x => x.CountryId,
-                        principalTable: "Countries",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Bars_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("65ee9998-f59f-436d-9cd8-d82bd07fd044"));
 
-            migrationBuilder.CreateTable(
-                name: "CocktailComments",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    CocktailId = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    Comments = table.Column<string>(maxLength: 500, nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CocktailComments", x => new { x.CocktailId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_CocktailComments_Cocktails_CocktailId",
-                        column: x => x.CocktailId,
-                        principalTable: "Cocktails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CocktailComments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("68a95b21-18e2-4f27-8031-853f019a4acf"));
 
-            migrationBuilder.CreateTable(
-                name: "CocktailIngredients",
-                columns: table => new
-                {
-                    CocktailId = table.Column<Guid>(nullable: false),
-                    IngredientId = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CocktailIngredients", x => new { x.CocktailId, x.IngredientId });
-                    table.ForeignKey(
-                        name: "FK_CocktailIngredients_Cocktails_CocktailId",
-                        column: x => x.CocktailId,
-                        principalTable: "Cocktails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CocktailIngredients_Ingredients_IngredientId",
-                        column: x => x.IngredientId,
-                        principalTable: "Ingredients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("6b3d7f6c-0eba-4678-965c-5b2939ff7995"));
 
-            migrationBuilder.CreateTable(
-                name: "CocktailRatings",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    CocktailId = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    Vote = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CocktailRatings", x => new { x.CocktailId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_CocktailRatings_Cocktails_CocktailId",
-                        column: x => x.CocktailId,
-                        principalTable: "Cocktails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CocktailRatings_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("78191da4-2d4a-4b2d-bdc7-140d5dfa0729"));
 
-            migrationBuilder.CreateTable(
-                name: "BarCocktails",
-                columns: table => new
-                {
-                    BarId = table.Column<Guid>(nullable: false),
-                    CocktailId = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    IsListed = table.Column<bool>(nullable: false),
-                    ListedOn = table.Column<DateTime>(nullable: false),
-                    UnlistedOn = table.Column<DateTime>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BarCocktails", x => new { x.BarId, x.CocktailId });
-                    table.ForeignKey(
-                        name: "FK_BarCocktails_Bars_BarId",
-                        column: x => x.BarId,
-                        principalTable: "Bars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BarCocktails_Cocktails_CocktailId",
-                        column: x => x.CocktailId,
-                        principalTable: "Cocktails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("8316949c-5913-4b48-bf66-279e2b3d58c9"));
 
-            migrationBuilder.CreateTable(
-                name: "BarComments",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    BarId = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    Comments = table.Column<string>(maxLength: 500, nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BarComments", x => new { x.UserId, x.BarId });
-                    table.ForeignKey(
-                        name: "FK_BarComments_Bars_BarId",
-                        column: x => x.BarId,
-                        principalTable: "Bars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BarComments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("88d460df-756e-42ed-930c-5ae7fab8d721"));
 
-            migrationBuilder.CreateTable(
-                name: "BarRatings",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(nullable: false),
-                    BarId = table.Column<Guid>(nullable: false),
-                    Id = table.Column<Guid>(nullable: false),
-                    Vote = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BarRatings", x => new { x.BarId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_BarRatings_Bars_BarId",
-                        column: x => x.BarId,
-                        principalTable: "Bars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BarRatings_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("894c4305-519c-4471-b5e7-bc8c686abab1"));
 
-            migrationBuilder.InsertData(
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("96f9515a-3061-4259-8dc8-d701ae10458b"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("996c4768-1731-4a4d-9d93-209db8764078"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("9a8700da-6105-4c8e-8a3c-eebe0f64552b"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("abec7768-05f9-4227-b268-0a517a92aa4d"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("b1151c1b-8c95-4a83-ad89-7cc1013264d0"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("b9988a7c-fec4-4fda-a40b-11d7f4de379e"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("c16870ca-f72f-4b42-ad5c-8a0abdb67464"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("cc07de3a-850f-4da6-ba04-3a6f0ed7bb6e"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("cc644dad-918f-4745-8496-26e08e571b1e"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("d0561021-c518-4c29-bd7e-52896eea7bcf"));
+
+            migrationBuilder.DeleteData(
+                table: "Bars",
+                keyColumn: "Id",
+                keyValue: new Guid("f25438cf-abcb-40ba-a823-ceadf095114e"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("18318f04-3b02-4803-b499-86a852ee87f4"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("196556f5-7a6d-45ca-a974-266c9e7b7535"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("1d068c49-f492-4177-b09a-b74eef2a9283"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("2114a475-366e-4d74-b1ed-413436eef019"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("24010530-18f4-41ee-9357-daa628b6ad2b"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("3f7554a9-9425-431f-8c41-735085ce0e1d"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("45126164-0ee0-4803-8cf3-1f6df79d6088"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("47d3cffa-1e4a-4d55-8943-ed8273a8ac15"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("5c85b6e3-b762-47d2-9685-3e681c48882d"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("5c9f41d4-a8c5-4e75-8689-2e616bbca2e3"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("6979cd15-1cf7-490d-bca8-3d5eec19b190"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("7696edab-a112-4ede-bd29-faece6e42c22"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("7d96f193-7b26-4ef3-932c-dcb0c392497a"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("9708ed85-0c43-43a9-b26f-61ad6839ecf7"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("a0b7d6fc-ec55-438e-baa6-28817ae10639"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("a68a838a-0b48-48c1-9d1d-3289126f2249"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("b0aab0a2-bc8a-4b97-9764-d75d38fa0588"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("c33c9dcd-5667-4591-b0a6-c5a52bdf6929"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("c4277d5e-e403-460c-ba33-e067f2e67c25"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("c7427fb1-0615-4292-a43d-87cbd7f65b27"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("c8ef69ba-03d9-4aaa-abf0-05a10f62aec8"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("d375c1dc-6dab-4fdc-a10f-4c258b33abf4"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("e4665999-f9de-4548-a84a-3f7061d5e110"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("e4743f82-678a-4806-bfb6-f8afba5462dc"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("e70f1f3a-aec0-433f-918b-ef482d515ffb"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("f0262cc8-c281-4700-8df7-fa3db0246c81"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("f2bb4b0a-cc20-41f2-a196-8f48ebab136e"));
+
+            migrationBuilder.DeleteData(
+                table: "Cocktails",
+                keyColumn: "Id",
+                keyValue: new Guid("f502b46e-a4f1-4f59-b510-89b73ab19884"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("1a441d2b-1fa8-45fb-b22e-cafc5f10d243"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("1f58d88f-5d33-41a8-a959-6a3628537209"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("23c962de-a093-4f87-b8ea-dba05e6bb46c"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("2eac126e-5856-4593-8a8e-d20ad1c83882"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("332d47d4-0fcb-4653-9347-9a833fd19c73"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("3dcc9bec-4f9f-4585-95bd-bf81848602d5"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("3e2ac263-08fe-4a21-b8f2-ee9ed94129c5"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("3f148195-eb63-466e-8cd3-11b40a8bdadf"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("5697efa1-d42a-4841-96d7-29dbb7c4458a"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("5d90b87f-9977-4229-b9b9-5da2b9491f00"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("5ec83e69-78f2-49cc-a6fc-597822f5a3ba"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("7beffb57-16b9-4d4f-bcbe-aa0100a48616"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("80408ad5-b4f6-452d-8d71-145990eda1a2"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("82a85f66-2382-4e0e-9b3c-660c0cb1a598"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("88b3f4be-3249-40ce-b7f7-7352a1eb20a2"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("8f5287fd-16af-45d1-ad41-ced1a2bdad95"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("9aa3369a-abe9-4e83-bd51-9c07ccf636d9"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("b839c1dd-d8a2-4c27-bbe8-e29a61e6d132"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("b905b752-337c-419a-a2aa-8021b60a6656"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("bf1ae328-be44-4505-b39d-5648cc2b4ace"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("d25158c1-cc2c-4003-a662-f83d1b54d3de"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("d6f6c1e6-b17c-42db-b0ec-ed7372b24c7b"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("d83eee68-52da-48d8-a4b5-575e1fbc8269"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("e60ceafa-bfea-4bb8-9994-e8289ab067a0"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("e829051b-731c-49dc-b042-90f75727fcd8"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("f2f78a88-fd9c-4e46-b181-6de2c51fb304"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("f72e80c5-fae9-4743-baaa-7d27bff7b308"));
+
+            migrationBuilder.DeleteData(
+                table: "Ingredients",
+                keyColumn: "Id",
+                keyValue: new Guid("f7c2ba57-1cea-4e1f-88c1-5b8285cf71d3"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("3a12cf75-ed3d-4c9b-8d97-950f599d448e"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("4f22c01a-9d0e-40f0-b8fb-5dac3e6ca26b"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("673a66a4-90bc-436e-8b7d-df0e0c5afde2"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("6ef12378-4b01-4307-836c-cb6e6fd6e627"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("71777afc-e19f-482b-884f-f8beb1864d3e"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("85482ea4-271e-4bd9-8d7a-ddc5003806fc"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("982172f7-0b3d-4acc-b092-385ef514ac04"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("9f56e970-20fb-4284-8302-614dc81496b0"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("b1968897-ac64-4010-a2e0-04897300ce9c"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("ddcf1bb3-5ac1-4358-8741-be8c58be1506"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("e535bcdf-f4ba-4897-9677-653671253b66"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("e7558d0f-9bc2-48cb-8c13-a7433741b924"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("eeef9066-4245-4f07-947b-f9fdb662f903"));
+
+            migrationBuilder.DeleteData(
+                table: "Countries",
+                keyColumn: "Id",
+                keyValue: new Guid("f3074417-e084-424f-8b77-ac26f7118bd2"));
+
+            migrationBuilder.DropColumn(
+                name: "Vote",
+                table: "BarRatings");
+
+            migrationBuilder.AddColumn<int>(
+                name: "Rating",
+                table: "BarRatings",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.UpdateData(
                 table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { new Guid("01bc7e12-c30b-47d1-a0a0-b146bb93ccdb"), "a4688da0-18d4-4723-adba-c76c119ea26e", "Crawler", "CRAWLER" },
-                    { new Guid("f476e48e-0586-4f40-92b2-2279ce6f6db7"), "385fa6ba-83db-4e3d-8b81-c31cd532f5ae", "Magician", "MEMBER" },
-                    { new Guid("c611672d-5da5-43d3-bbbf-e897e4456cb9"), "31dd7f7d-5c9d-4829-9f5c-6ba93a599155", "Admin", "ADMIN" }
-                });
+                keyColumn: "Id",
+                keyValue: new Guid("01bc7e12-c30b-47d1-a0a0-b146bb93ccdb"),
+                column: "ConcurrencyStamp",
+                value: "ffda97a7-dfcc-4d7e-a271-7d4f072ded06");
 
-            migrationBuilder.InsertData(
+            migrationBuilder.UpdateData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: new Guid("c611672d-5da5-43d3-bbbf-e897e4456cb9"),
+                column: "ConcurrencyStamp",
+                value: "26ea202b-e19c-4a05-b697-a700699d7195");
+
+            migrationBuilder.UpdateData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: new Guid("f476e48e-0586-4f40-92b2-2279ce6f6db7"),
+                column: "ConcurrencyStamp",
+                value: "8859e52e-7892-40ed-8756-d9222a41c20b");
+
+            migrationBuilder.UpdateData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "CreatedOn", "DeletedOn", "Email", "EmailConfirmed", "IsDeleted", "LockoutEnabled", "LockoutEnd", "ModifiedOn", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "UserPhoto" },
-                values: new object[,]
-                {
-                    { new Guid("4734cf2f-fcb8-461b-88dc-06152e89bc97"), 0, "01b2188a-a2d1-4842-9653-617b76afb9c8", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "crawler@abv.bg", false, false, false, null, null, "crawler@abv.bg", "CRAWLER@ABV.BG", "AQAAAAEAACcQAAAAECDDrlBPMkr379/BApNMebNp27KXR7H9W0Pxpua4u0qlOeeScWh+BRMIfRJDDA0EkQ==", null, false, "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN", false, "CRAWLER@ABV.BG", null },
-                    { new Guid("5874617e-289f-4eb2-94ee-20b52faf67fa"), 0, "98348f6b-3a3d-4b41-8b5c-f83a6e7d3ff4", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "admin@abv.bg", false, false, false, null, null, "ADMIN@ABV.BG", "ADMIN@ABV.BG", "AQAAAAEAACcQAAAAEBnKv6fu6RX4c/F9QPww0K0OFHBfYBi4NfmY39LSX5bGylAPgQeMqKbD5mkHk4lw7g==", null, false, "15CLJEKQCTLPRXMVXXNSWXZH6R6KJRRU", false, "admin@abv.bg", null },
-                    { new Guid("baf374a9-0e81-4656-b0bb-16fe10985320"), 0, "ea3bfcf5-51a9-4d22-8cc9-721eb91724d2", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "magician@abv.bg", false, false, false, null, null, "magician@abv.bg", "MAGICIAN@ABV.BG", "AQAAAAEAACcQAAAAEP8hmG5MfHG/RgJva/6Gk1jjFQd55gFQuhnbVZEJ6Lx0pVQwlGxqhZsWdul67zCn8w==", null, false, "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN", false, "MAGICIAN@ABV.BG", null }
-                });
+                keyColumn: "Id",
+                keyValue: new Guid("4734cf2f-fcb8-461b-88dc-06152e89bc97"),
+                columns: new[] { "ConcurrencyStamp", "PasswordHash" },
+                values: new object[] { "b670d0e5-9842-4d1b-99f2-ddfb8de967d9", "AQAAAAEAACcQAAAAEGNcCAshvPAe1kbaS+FQvE2FCGXI7T67iXa6g4UZCFQB5IFM4mzfnvXKhuPOSq9eyQ==" });
+
+            migrationBuilder.UpdateData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("5874617e-289f-4eb2-94ee-20b52faf67fa"),
+                columns: new[] { "ConcurrencyStamp", "PasswordHash" },
+                values: new object[] { "9ab1df9e-499b-4407-964b-b220aabd4b99", "AQAAAAEAACcQAAAAED5vmOtaA9qYbn8r6Y+Xi6BcoE5z2PGb0qD+3lrwNCuaQF368jLBxSirc6J0SYN8Eg==" });
+
+            migrationBuilder.UpdateData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("baf374a9-0e81-4656-b0bb-16fe10985320"),
+                columns: new[] { "ConcurrencyStamp", "PasswordHash" },
+                values: new object[] { "72c44e72-acc3-44f6-977d-5d73219bc646", "AQAAAAEAACcQAAAAEL759HzU2lkb0ShHesQqfUDM8Z/guTdj2/FrKMm8P6kNYef5MqnVd+jGDuRzFK+o9Q==" });
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropColumn(
+                name: "Rating",
+                table: "BarRatings");
+
+            migrationBuilder.AddColumn<bool>(
+                name: "Vote",
+                table: "BarRatings",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.UpdateData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: new Guid("01bc7e12-c30b-47d1-a0a0-b146bb93ccdb"),
+                column: "ConcurrencyStamp",
+                value: "a4688da0-18d4-4723-adba-c76c119ea26e");
+
+            migrationBuilder.UpdateData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: new Guid("c611672d-5da5-43d3-bbbf-e897e4456cb9"),
+                column: "ConcurrencyStamp",
+                value: "31dd7f7d-5c9d-4829-9f5c-6ba93a599155");
+
+            migrationBuilder.UpdateData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: new Guid("f476e48e-0586-4f40-92b2-2279ce6f6db7"),
+                column: "ConcurrencyStamp",
+                value: "385fa6ba-83db-4e3d-8b81-c31cd532f5ae");
+
+            migrationBuilder.UpdateData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("4734cf2f-fcb8-461b-88dc-06152e89bc97"),
+                columns: new[] { "ConcurrencyStamp", "PasswordHash" },
+                values: new object[] { "01b2188a-a2d1-4842-9653-617b76afb9c8", "AQAAAAEAACcQAAAAECDDrlBPMkr379/BApNMebNp27KXR7H9W0Pxpua4u0qlOeeScWh+BRMIfRJDDA0EkQ==" });
+
+            migrationBuilder.UpdateData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("5874617e-289f-4eb2-94ee-20b52faf67fa"),
+                columns: new[] { "ConcurrencyStamp", "PasswordHash" },
+                values: new object[] { "98348f6b-3a3d-4b41-8b5c-f83a6e7d3ff4", "AQAAAAEAACcQAAAAEBnKv6fu6RX4c/F9QPww0K0OFHBfYBi4NfmY39LSX5bGylAPgQeMqKbD5mkHk4lw7g==" });
+
+            migrationBuilder.UpdateData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: new Guid("baf374a9-0e81-4656-b0bb-16fe10985320"),
+                columns: new[] { "ConcurrencyStamp", "PasswordHash" },
+                values: new object[] { "ea3bfcf5-51a9-4d22-8cc9-721eb91724d2", "AQAAAAEAACcQAAAAEP8hmG5MfHG/RgJva/6Gk1jjFQd55gFQuhnbVZEJ6Lx0pVQwlGxqhZsWdul67zCn8w==" });
 
             migrationBuilder.InsertData(
                 table: "Cocktails",
@@ -539,22 +697,11 @@ namespace CocktailMagician.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "UserId", "RoleId" },
-                values: new object[,]
-                {
-                    { new Guid("4734cf2f-fcb8-461b-88dc-06152e89bc97"), new Guid("01bc7e12-c30b-47d1-a0a0-b146bb93ccdb") },
-                    { new Guid("5874617e-289f-4eb2-94ee-20b52faf67fa"), new Guid("c611672d-5da5-43d3-bbbf-e897e4456cb9") },
-                    { new Guid("baf374a9-0e81-4656-b0bb-16fe10985320"), new Guid("f476e48e-0586-4f40-92b2-2279ce6f6db7") }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Bars",
                 columns: new[] { "Id", "Address", "BarImageURL", "CountryId", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name", "Phone", "Rating", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("96f9515a-3061-4259-8dc8-d701ae10458b"), "304 BRUNSWICK ST", "https://www.worldsbestbars.com/wp-content/uploads/2018/05/bar_640_480_Black-Pearl_54b7d78180c89_5579556b49c71.jpg", new Guid("ddcf1bb3-5ac1-4358-8741-be8c58be1506"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2343), null, false, null, "Black Pearl", "+61 2 8624 3131", 0, null },
-                    { new Guid("65ee9998-f59f-436d-9cd8-d82bd07fd044"), "Storgata 27 Oslo", "https://www.thespiritsbusiness.com/content/http:/www.thespiritsbusiness.com/media/2015/11/Top-six-Europe-bars-to-visit-in-2016.jpg", new Guid("6ef12378-4b01-4307-836c-cb6e6fd6e627"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2240), null, false, null, "Himkok", "+47 22 42 22 02", 0, null },
+                    { new Guid("c16870ca-f72f-4b42-ad5c-8a0abdb67464"), "The Savoy Strand London WC2R 0EZ", "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/i/l/p12602-15475381735c3d8efdc738b.jpg?tr=tr:n-large", new Guid("e7558d0f-9bc2-48cb-8c13-a7433741b924"), new DateTime(2020, 5, 29, 14, 20, 30, 845, DateTimeKind.Utc).AddTicks(9197), null, false, null, "American Bar", "+ 44 (0)20 7836 4343", 0, null },
                     { new Guid("9a8700da-6105-4c8e-8a3c-eebe0f64552b"), "Av. �lvaro Obreg�n 106 Cuauht�moc", "https://i.vivit-tours.com/img/other/58/food-tour-roma-norte-mexico-citys-hippest-hood.jpg", new Guid("eeef9066-4245-4f07-947b-f9fdb662f903"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1960), null, false, null, "Licorera Limantour", "01 55 5264 4122", 0, null },
                     { new Guid("cc07de3a-850f-4da6-ba04-3a6f0ed7bb6e"), "500 Arguello Street Redwood City", "https://images.squarespace-cdn.com/content/v1/5a0bb36d6f4ca3bf77c236b1/1523588347811-6GO1NX5NIL150ZVGA1YV/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/_GU89474.jpg?format=1000w", new Guid("71777afc-e19f-482b-884f-f8beb1864d3e"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1896), null, false, null, "High Five", "(844) 464-4445", 0, null },
                     { new Guid("cc644dad-918f-4745-8496-26e08e571b1e"), "52 Rue de Saintonge Paris", "https://wordpress.zarkov.de/wp-content/uploads/2019/09/20190908_03-Candelaria-11-Backboard-Ecke-1038x576.jpg", new Guid("673a66a4-90bc-436e-8b7d-df0e0c5afde2"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2179), null, false, null, "Candelaria", "+34 910 00 61", 0, null },
@@ -566,6 +713,7 @@ namespace CocktailMagician.Data.Migrations
                     { new Guid("5fd19100-8d44-4167-8ed0-c029adc4883c"), "37 Aberdeen Street Central", "https://www.worlds50bestbars.com/filestore/jpg/TheOldManS-WORLD-2019-003.jpg", new Guid("4f22c01a-9d0e-40f0-b8fb-5dac3e6ca26b"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1282), null, false, null, "The Old Man", "85227031899", 0, null },
                     { new Guid("894c4305-519c-4471-b5e7-bc8c686abab1"), "7 Ann Siang Hill", "https://media.timeout.com/images/101805101/1024/576/image.jpg", new Guid("85482ea4-271e-4bd9-8d7a-ddc5003806fc"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2384), null, false, null, "Operation Dagger", "+39 06 2348 8666", 0, null },
                     { new Guid("11b8511f-936b-4f90-9c3d-d76f445129c5"), "Parkview Square", "https://www.traveller.com.au/content/dam/images/h/1/c/8/y/p/image.related.articleLeadwide.620x349.h1c8s1.png/1552972222305.jpg", new Guid("85482ea4-271e-4bd9-8d7a-ddc5003806fc"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2003), null, false, null, "Atlas", "+65 6396 4466", 0, null },
+                    { new Guid("d0561021-c518-4c29-bd7e-52896eea7bcf"), "1 Cuscaden Road 249715", "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/i/l/p12602-15475381735c3d8efdc738b.jpg?tr=tr:n-xlarge", new Guid("85482ea4-271e-4bd9-8d7a-ddc5003806fc"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1157), null, false, null, "Manhattan", "+65 6725 3377", 0, null },
                     { new Guid("abec7768-05f9-4227-b268-0a517a92aa4d"), "Piazza di S. Martino Ai Monti 8 00154 Roma RM", "https://www.puntarellarossa.it/wp/wp-content/uploads/2018/09/drink-kong-pat--850x566.jpg", new Guid("9f56e970-20fb-4284-8302-614dc81496b0"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1111), null, false, null, "Drink Kong", "+39 06 2348 8666", 0, null },
                     { new Guid("78191da4-2d4a-4b2d-bdc7-140d5dfa0729"), "2727 Indian Creek Dr. Miami Beach", "https://media.cntraveler.com/photos/5a70f846e2c45625a77b0834/master/w_767,c_limit/Broken-Shaker__2018FreehandLA_BrokenShaker4_WonhoFrankLee.jpg", new Guid("3a12cf75-ed3d-4c9b-8d97-950f599d448e"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2125), null, false, null, "Broken Shaker", "305-531-2727", 0, null },
                     { new Guid("185222b5-45f9-4777-a7bc-d71d31929b15"), "79-81 MacDougal St New York", "https://www.worldsbestbars.com/wp-content/uploads/2018/05/dante-cocktail-bar-001.jpg", new Guid("3a12cf75-ed3d-4c9b-8d97-950f599d448e"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2044), null, false, null, "Dante", "01 55 5264 4122", 0, null },
@@ -579,147 +727,9 @@ namespace CocktailMagician.Data.Migrations
                     { new Guid("f25438cf-abcb-40ba-a823-ceadf095114e"), "Soho, London", "https://media.timeout.com/images/103972748/1024/576/image.jpg", new Guid("e7558d0f-9bc2-48cb-8c13-a7433741b924"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1683), null, false, null, "Bar Termini", "+44 20 7622 4004", 0, null },
                     { new Guid("4e685008-0a8b-4262-9bc7-82acc23e4a77"), "20 Upper Ground South Bank London SE1 9PD", "https://static.standard.co.uk/s3fs-public/thumbnails/image/2018/04/20/17/dandelyan-london.jpg?w968", new Guid("e7558d0f-9bc2-48cb-8c13-a7433741b924"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1476), null, false, null, "Dandelyan", "+44 (0)20 7314 3419", 0, null },
                     { new Guid("88d460df-756e-42ed-930c-5ae7fab8d721"), "The Connaught Carlos Place Mayfair London", "https://iwillmakeualist.files.wordpress.com/2017/07/img_6198.jpg", new Guid("e7558d0f-9bc2-48cb-8c13-a7433741b924"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1194), null, false, null, "Connaught Bar", "+44 (0)20 7314 3419", 0, null },
-                    { new Guid("d0561021-c518-4c29-bd7e-52896eea7bcf"), "1 Cuscaden Road 249715", "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/i/l/p12602-15475381735c3d8efdc738b.jpg?tr=tr:n-xlarge", new Guid("85482ea4-271e-4bd9-8d7a-ddc5003806fc"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(1157), null, false, null, "Manhattan", "+65 6725 3377", 0, null },
-                    { new Guid("c16870ca-f72f-4b42-ad5c-8a0abdb67464"), "The Savoy Strand London WC2R 0EZ", "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/i/l/p12602-15475381735c3d8efdc738b.jpg?tr=tr:n-large", new Guid("e7558d0f-9bc2-48cb-8c13-a7433741b924"), new DateTime(2020, 5, 29, 14, 20, 30, 845, DateTimeKind.Utc).AddTicks(9197), null, false, null, "American Bar", "+ 44 (0)20 7836 4343", 0, null }
+                    { new Guid("65ee9998-f59f-436d-9cd8-d82bd07fd044"), "Storgata 27 Oslo", "https://www.thespiritsbusiness.com/content/http:/www.thespiritsbusiness.com/media/2015/11/Top-six-Europe-bars-to-visit-in-2016.jpg", new Guid("6ef12378-4b01-4307-836c-cb6e6fd6e627"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2240), null, false, null, "Himkok", "+47 22 42 22 02", 0, null },
+                    { new Guid("96f9515a-3061-4259-8dc8-d701ae10458b"), "304 BRUNSWICK ST", "https://www.worldsbestbars.com/wp-content/uploads/2018/05/bar_640_480_Black-Pearl_54b7d78180c89_5579556b49c71.jpg", new Guid("ddcf1bb3-5ac1-4358-8741-be8c58be1506"), new DateTime(2020, 5, 29, 14, 20, 30, 846, DateTimeKind.Utc).AddTicks(2343), null, false, null, "Black Pearl", "+61 2 8624 3131", 0, null }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetRoleClaims_RoleId",
-                table: "AspNetRoleClaims",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "RoleNameIndex",
-                table: "AspNetRoles",
-                column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserClaims_UserId",
-                table: "AspNetUserClaims",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserLogins_UserId",
-                table: "AspNetUserLogins",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_RoleId",
-                table: "AspNetUserRoles",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "EmailIndex",
-                table: "AspNetUsers",
-                column: "NormalizedEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "UserNameIndex",
-                table: "AspNetUsers",
-                column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BarCocktails_CocktailId",
-                table: "BarCocktails",
-                column: "CocktailId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BarComments_BarId",
-                table: "BarComments",
-                column: "BarId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BarRatings_UserId",
-                table: "BarRatings",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bars_CountryId",
-                table: "Bars",
-                column: "CountryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bars_UserId",
-                table: "Bars",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CocktailComments_UserId",
-                table: "CocktailComments",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CocktailIngredients_IngredientId",
-                table: "CocktailIngredients",
-                column: "IngredientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CocktailRatings_UserId",
-                table: "CocktailRatings",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Cocktails_UserId",
-                table: "Cocktails",
-                column: "UserId");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "BarCocktails");
-
-            migrationBuilder.DropTable(
-                name: "BarComments");
-
-            migrationBuilder.DropTable(
-                name: "BarRatings");
-
-            migrationBuilder.DropTable(
-                name: "CocktailComments");
-
-            migrationBuilder.DropTable(
-                name: "CocktailIngredients");
-
-            migrationBuilder.DropTable(
-                name: "CocktailRatings");
-
-            migrationBuilder.DropTable(
-                name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Bars");
-
-            migrationBuilder.DropTable(
-                name: "Ingredients");
-
-            migrationBuilder.DropTable(
-                name: "Cocktails");
-
-            migrationBuilder.DropTable(
-                name: "Countries");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }

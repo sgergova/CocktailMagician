@@ -19,13 +19,13 @@ namespace CocktailMagician.Web.Areas.Magician
         {
             this.ingredientServices = ingredientServices;
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateIngredient(IngredientViewModel ingredient)
-        {
-            var ingredientToCreate = await ingredientServices.CreateIngredient(ingredient.GetDTOFromVM());
+        //[HttpPost]
+        //public async Task<IActionResult> CreateIngredient(IngredientViewModel ingredient)
+        //{
+        //    var ingredientToCreate = await ingredientServices.CreateIngredient(ingredient)./*GetDTOFromVM());*/
 
-            return RedirectToAction("ListIngredients", "Ingredient");
-        }
+        //    return RedirectToAction("ListIngredients", "Ingredient");
+        //}
         [HttpPost]
         public async Task<IActionResult> DeleteIngredient(Guid id)
         {
@@ -42,14 +42,14 @@ namespace CocktailMagician.Web.Areas.Magician
 
             return View(ingredientToUpdateVM);
         }
-        [HttpPost]
-        public async Task<IActionResult> UpdateBar(IngredientViewModel updatedIngredient)
-        {
-            var ingredientDTO = updatedIngredient.GetDtoFromVM();
-            await ingredientServices.UpdateIngredient(ingredientDTO.Id, ingredientDTO);
+        //[HttpPost]
+        //public async Task<IActionResult> UpdateBar(IngredientViewModel updatedIngredient)
+        //{
+        //    var ingredientDTO = updatedIngredient.GetDtoFromVM();
+        //    await ingredientServices.UpdateIngredient(ingredientDTO.Id, ingredientDTO);
 
-            return RedirectToAction("ListIngredients", "Ingredient");
-        }
+        //    return RedirectToAction("ListIngredients", "Ingredient");
+        //}
 
     }
 }

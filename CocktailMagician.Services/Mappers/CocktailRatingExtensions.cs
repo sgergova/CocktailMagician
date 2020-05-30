@@ -20,7 +20,7 @@ namespace CocktailMagician.Services.Mappers
                 CocktailId = rating.CocktailId,
                 User = rating.User,
                 UserId = rating.UserId,
-                Vote = rating.Vote,
+                Rating = rating.Rating,
             };
         }
         public static ICollection<CocktailRatingDTO> GetDTOs(this ICollection<CocktailRating> ratings)
@@ -39,7 +39,7 @@ namespace CocktailMagician.Services.Mappers
                 CocktailId = rating.CocktailId,
                 User = rating.User,
                 UserId = rating.UserId,
-                Vote = rating.Vote,
+                Rating = rating.Rating,
             };
         }
 

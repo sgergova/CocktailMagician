@@ -11,7 +11,7 @@ namespace CocktailMagician.Data.Entities
         public User User { get; set; }
         public Guid CocktailId { get; set; }
         public Cocktail Cocktail { get; set; }
-        public bool Vote { get; set; }
+        public int Rating { get; set; }
 
     }
 }

@@ -1,46 +1,109 @@
 ﻿@model CocktailMagician.Web.Models.CocktailViewModel
 
-@{
-    ViewData["Title"] = "CocktailDetails";
-}
 
-<h1>Cocktail Details</h1>
+<link rel="stylesheet" href="~/css/Rating.css" />
 
 <div>
-    <h4>@Model.Name</h4>
+    <h3 style="position:relative; top:50px;left:150px">@Model.Name</h3>
     <hr />
-    <dl class="row">
-        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AlcoholPercentage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AlcoholPercentage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsAlcoholic)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsAlcoholic)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImageURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ImageURL)
-        </dd>
-    </dl>
+
+    <div class="col-md-5 order-md-1">
+        <img style="position:relative;top:15px;width:600px; height:500px;" src=@Model.ImageURL alt="Generic placeholder image">
+    </div>
+    <div class="col-md-7 order-md-2" style="        position: relative;
+        left: 600px;
+        top: -300px;
+">
+        <p class="lead"><h4 style="color:#b58900">AlcoholPercentage: </h4> <h6>@Model.AlcoholPercentage</h6></p>
+        <p class="lead">
+            <h4 style="color:#b58900">Ingredients: </h4>
+            @foreach (var item in Model.Ingredients)
+            {
+
+                <h6>@item.Ingredient.Name</h6>
+            }
+        </p>
+    </div>
+
 </div>
 
+
+@if (User.IsInRole("Magician"))
+{
+
+    <a class="button" style="position:relative; top:-300px;left:620px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Cocktail" asp-action="DeleteCocktail" asp-route-id="@Model.Id">Delete</a>
+}
+@if (User.IsInRole("Crawler"))
+{
+    <form id="rating" style="position: relative;top: -141px;
+    left: 16px;"
+          method="post"
+          action-xhr="https://amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/set"
+          target="_blank">
+        <fieldset class="rating">
+            @{int rating = 0; }
+            <input name="rating"
+                   type="radio"
+                   id="rating5"
+                   value="5"
+                   on="change:rating.submit"
+                   onclick="@rating=5;">
+            <label for="rating5"
+                   title="5 stars">☆</label>
+
+
+            <input name="rating"
+                   type="radio"
+                   id="rating4"
+                   value="4"
+                   on="change:rating.submit"
+                   onclick="@rating=4;">
+            <label for="rating4"
+                   title="4 stars">☆</label>
+
+
+            <input name="rating"
+                   type="radio"
+                   id="rating3"
+                   value="3"
+                   on="change:rating.submit"
+                   onclick="@rating=3;">
+            <label for="rating3"
+                   title="3 stars">☆</label>
+
+
+            <input name="rating"
+                   type="radio"
+                   id="rating2"
+                   value="2"
+                   on="change:rating.submit"
+                   checked="checked" onclick="@rating=2;">
+            <label for="rating2"
+                   title="2 stars">☆</label>
+
+
+            <input name="rating"
+                   type="radio"
+                   id="rating1"
+                   value="1"
+                   on="change:rating.submit"
+                   onclick="@rating=1;">
+            <label for="rating1"
+                   title="1 stars">☆</label>
+
+        </fieldset>
+        <button class="button" onclick="return confirm('Are you sure you want to rate @Model.Name ?');" type="submit" asp-area="Crawler" asp-controller="Cocktail" asp-action="RateCocktail" asp-route-rating="@rating" asp-route-id="@Model.Id">Submit Rating</button>
+
+    </form>
+
+    <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
+    <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
+
+}
+
+@{
+    var partialModel = new CocktailCommentViewModel() { CocktailId = Model.Id };
+
+
+}
+<partial name="_CommentsPartialCocktail" model="@partialModel" />

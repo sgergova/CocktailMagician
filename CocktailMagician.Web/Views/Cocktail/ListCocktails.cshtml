@@ -4,28 +4,29 @@
     ViewData["Title"] = "ListCocktails";
 }
 
-<h1>ListCocktails</h1>
+    <form style="margin-top:100px">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table-hover" style="margin-top:50px">
+        <label asp-for="SearchCriteria">Search keyword:</label>
+        <input asp-for="SearchCriteria" />
+        <div class="form-group">
+            <input type="submit" value="Search" class="button" />
+        </div>
+    </form>
+<table class="table-hover"  style="margin-top:50px;margin-top:100px">
     <thead>
         <tr>
 
-            <th>
+            <th    style=" width: 300px;">
                 Image
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
+            <th     style=" width: 300px;">
+                Name
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AlcoholPercentage)
+            <th     style=" width: 300px;">
+               Alchohol Percentage
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsAlcoholic)
-            </th>
-            <th></th>
+            
+            
         </tr>
     </thead>
     <tbody>
@@ -34,27 +35,32 @@
             <tr>
 
                 <td>
-                    <img src="@item.ImageURL" alt="Generic placeholder image" width="140" height="100">
+                    <a style="color:#b58900" asp-action="CocktailDetails" asp-route-id="@item.Id">
+                        <img src="@item.ImageURL" alt="Generic placeholder image" style=" width:140px; height:100px;" >
+                        </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a style="color:#b58900" asp-action="CocktailDetails" asp-route-id="@item.Id">
+                        @item.Name
+                        </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AlcoholPercentage)
+                    <a style="color:#b58900" asp-action="CocktailDetails" asp-route-id="@item.Id">
+                        @item.AlcoholPercentage
+                        </a>
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsAlcoholic)
-                </td>
+                
 
             </tr>
         }
     </tbody>
 </table>
-<a class="button" data-toggle="modal" data-target="#modalCreateCocktail">Create New</a>
+<a class="button" data-toggle="modal" style="position: relative;top: 18px;left: 848px;" data-target="#modalCreateCocktail">Create New</a>
 <partial model="new CocktailViewModel()" name="_CreateCocktailModal" />
 
 
-<a asp-action="ListCocktails"
+<a style="    position: relative;
+    left: -113px;" asp-action="ListCocktails"
    asp-route-orderBy="@ViewData["CurrentSort"]"
    asp-route-currentPage=@(Model.currentPage-1)
    asp-route-searchCriteria="@ViewData["SearchParm"]"
@@ -62,7 +68,8 @@
    class="btn btn-primary @Model.hasPrev" id="pagination">
     Prev
 </a>
-<a asp-action="ListCocktails"
+<a style="    position: relative;
+    left: -113px;"asp-action="ListCocktails"
    asp-route-orderBy="@ViewData["CurrentSort"]"
    asp-route-currentPage=@(Model.currentPage + 1)
    asp-route-searchCriteria="@ViewData["SearchParm"]"

@@ -12,6 +12,6 @@ namespace CocktailMagician.Services.EntitiesDTO
         public User User { get; set; }
         public Guid BarId { get; set; }
         public Bar Bar { get; set; }
-        public bool Vote { get; set; }
+        public int Rating { get; set; }
     }
 }

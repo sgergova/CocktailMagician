@@ -261,6 +261,11 @@ namespace CocktailMagician.Services
                                                .Include(b => b.Comments)
                                                    .ThenInclude(c => c.User)
                                                .Where(b => b.IsDeleted == false);
+            if (searchCriteria != null)
+            {
+
+                cocktails = cocktails.Where(b => b.Name.Contains(searchCriteria));
+            }
 
             cocktails = OrderCocktail(cocktails, orderBy);
             cocktails = currentPage == 1 ? cocktails = cocktails.Take(10) : cocktails = cocktails.Skip((currentPage - 1) * 10).Take(10);
@@ -270,15 +275,14 @@ namespace CocktailMagician.Services
             return results.GetDTOs();
         }
 
-        public int GetCount(int itemsPerPage, string searchCriteria, string type)
+        public int GetCount(int itemsPerPage, string searchCriteria)
         {
             double cocktailsCount = 0;
             if (searchCriteria != null)
             {
-                if (type == "Name")
-                {
+               
                     cocktailsCount = Math.Ceiling((double)this.context.Cocktails.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-                }
+                
             }
             else
             {

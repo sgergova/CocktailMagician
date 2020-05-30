@@ -1,0 +1,23 @@
+﻿@model CocktailCommentViewModel
+
+
+<form style=" position: relative;
+        top: -240px;
+        left: 267px;">
+    @*<h5>Leave a comment...</h5>*@
+    <textarea rows="4" cols="50" asp-for="Comment" placeholder="Leave a comment...">
+    </textarea>
+
+    <button class="button" style="position:relative; top:-27px;" type="submit" asp-area="Crawler" asp-controller="Cocktail" asp-action="CommentOnCocktail" asp-route-id="@Model.CocktailId">Submit</button>
+
+</form>
+
+
+
+
+
+
+
+
+
+

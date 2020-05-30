@@ -22,7 +22,7 @@ namespace CocktailMagician.Web.Mappers
                 Name = item.Name,
                 Description = item.Description,
                 Quantity = item.Quantity,
-                Rating = item.Rating,
+               
             };
         }
         public static ICollection<IngredientViewModel> GetViewModels(this ICollection<IngredientDTO> items)
@@ -41,7 +41,7 @@ namespace CocktailMagician.Web.Mappers
                 Name = item.Name,
                 Description = item.Description,
                 Quantity = item.Quantity,
-                Rating = item.Rating,
+
             };
         }
         public static ICollection<IngredientDTO> GetDtoFromVMs(this ICollection<IngredientViewModel> items)

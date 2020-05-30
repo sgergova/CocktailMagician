@@ -21,13 +21,15 @@ namespace CocktailMagician.Web.Areas.Identity.Crawler.Controllers
         private readonly IBarServices barServices;
         private readonly IToastNotification toast;
         private readonly UserManager<User> manager;
+        private readonly IBarRatingServices barRatingServices;
 
-        public BarController(IBarCommentsServices barCommentsServices,IBarServices barServices, IToastNotification toast,UserManager<User> manager)
+        public BarController(IBarCommentsServices barCommentsServices,IBarServices barServices, IToastNotification toast,UserManager<User> manager,IBarRatingServices barRatingServices)
         {
             this.barCommentsServices = barCommentsServices;
             this.barServices = barServices;
             this.toast = toast;
             this.manager = manager;
+            this.barRatingServices = barRatingServices;
         }
     
        public async Task<IActionResult> CommentOnBar(Guid id,BarCommentViewModel viewModel)
@@ -58,6 +60,18 @@ namespace CocktailMagician.Web.Areas.Identity.Crawler.Controllers
                 this.toast.AddErrorToastMessage("Something went wrong");
                 return RedirectToAction("ListBars", "Bar",new {Area="" });
             }
+        }
+        public async Task<IActionResult> RateBar(int rating,Guid id)
+        {
+            var viewModel = new BarRatingViewModel();
+            viewModel.UserId = Guid.Parse(manager.GetUserId(HttpContext.User));
+            viewModel.BarId = id;
+            viewModel.Rating = rating;
+
+            await barRatingServices.CreateRating(viewModel.GetDtoFromVM());
+
+
+            return RedirectToAction("Details", "Bar", id);
         }
     }
 }

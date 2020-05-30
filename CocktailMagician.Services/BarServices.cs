@@ -326,12 +326,7 @@ namespace CocktailMagician.Services
             double barsCount = 0;
             if (searchCriteria != null)
             {
-                //if (type == "Name")
-                //{
-                //    barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-                //}
-                //else if (type == "Country")
-                //{
+                
                     barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Country.Name.Contains(searchCriteria)).Count() / itemsPerPage);
                 
             }

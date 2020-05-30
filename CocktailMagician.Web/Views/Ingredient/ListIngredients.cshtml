@@ -1,0 +1,138 @@
+﻿@model IngredientViewModel
+@*@{
+        ViewData["Title"] = "List";
+    }*@
+@*<link rel="stylesheet" href="~/css/Button3Dclick.css" />
+
+<form style="margin-top:100px">
+
+    <label asp-for="SearchCriteria">Search keyword:</label>
+    <input asp-for="SearchCriteria" />
+    <div class="form-group">
+        <input type="submit" value="Search" class="button" />
+    </div>
+</form>
+<table id="table_id" class="table-hover" width="100%" style="margin-top:100px">
+    <thead>
+        <tr>
+
+            <th>
+                Image
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                Cocktails
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.items)
+        {
+
+            <tr>
+
+                <td>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        <img src="@item.ImageURL" alt="Generic placeholder image" width="140" height="100">
+                    </a>
+                </td>
+                <td>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.Name
+                    </a>
+                </td>
+                <td>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.Address
+                    </a>
+                </td>
+                <td>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.Phone
+                    </a>
+                </td>
+                <td>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.CountryName
+                    </a>
+                </td>
+                <td>
+                    <a style="color:#b58900" asp-action="BarDetails" asp-route-id="@item.Id">
+                        @item.BarCocktails.Count
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<p>
+    @if (User.IsInRole("Magician"))
+    {
+    <p style="position:relative;top: 24px;
+    left:1000px;
+    right: 0px;
+    bottom: 0px;">
+        <a class="button" data-toggle="modal" data-target="#modalCreateBar">Create New</a>
+        <partial model="new BarViewModel()" name="_CreateBarModal" />
+    </p>
+
+}*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Name { get; set; }
+    public string Description { get; set; }
+    public int Quantity { get; set; }
+    public bool IsAlcoholic { get; set;
+
