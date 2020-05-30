@@ -23,10 +23,10 @@ namespace CocktailMagician.Web.Models
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<BarRating> Stars { get; set; }
         public ICollection<BarCommentDTO> Comments { get; set; }
-        public ICollection<BarViewModel> items { get;  set; }
-        public int currentPage { get;  set; }
-        public int TotalPages { get;  set; }
-
+        public ICollection<BarViewModel> items { get; set; }
+        public int currentPage { get; set; }
+        public int TotalPages { get; set; }
+        public BarCommentViewModel  BarComment{get;set;}
         public string SearchCriteria { get; set; }
 
         public bool hasNext

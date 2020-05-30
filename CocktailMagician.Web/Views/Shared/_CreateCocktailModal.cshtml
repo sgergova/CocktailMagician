@@ -7,12 +7,14 @@
 <head>
     <link rel="stylesheet" href="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/dist/tokenize2.min.css">
     <link rel="stylesheet" href="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/tokenize2.css">
+    <link rel="stylesheet" href="~/css/multi.min.css">
+
 
 </head>
 <style>
     .modal-backdrop {
-  z-index: -1;
-}
+        z-index: -1;
+    }
 </style>
 <div class="modal fade" id="modalCreateCocktail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
@@ -51,18 +53,18 @@
                             <input asp-for="ImageURL" class="form-control" />
                             <span asp-validation-for="ImageURL" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            Select Ingredients
-                            <select class="demo" multiple >
+                        <div class="row">
+
+                            <select multiple="multiple" name="Programming-Languages" id="example">
                                 @foreach (var item in ViewBag.Ing)
                                 {
                                     <option value="@item.Id">@item.Name</option>
                                 }
                             </select>
+                            <script>$('#example').multi();</script>
 
 
                         </div>
-
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <button asp-controller="Cocktail" asp-action="CreateCocktail" class="btn btn-deep-orange">Create</button>
@@ -74,11 +76,15 @@
 </div>
 
 @section Scripts{
-    <script src="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/dist/tokenize2.min.js"></script>
-    <script src="tokenize2.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script>$('.demo').tokenize2();
-</script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous">
+
+    </script>
+
+    <script src="~/js/multi.min.js"></script>
+  
+
 
 }
 

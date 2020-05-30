@@ -37,12 +37,13 @@ namespace CocktailMagician
             services.AddScoped<IIngredientServices, IngredientServices>();
             services.AddScoped<ICocktailServices, CocktailServices>();
             services.AddScoped<ICountryServices, CountryServices>();
-            services.AddTransient<IUploadImagesServices, UploadImagesServices>();
+            services.AddScoped<IUploadImagesServices, UploadImagesServices>();
+            services.AddScoped<IBarCommentsServices, BarCommentsServices>();
 
             services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
                 PositionClass = ToastPositions.TopCenter
-            }) ;
+            });
 
 
             services.AddDefaultIdentity<User>()
