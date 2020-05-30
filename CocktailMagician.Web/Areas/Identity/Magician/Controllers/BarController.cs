@@ -104,11 +104,8 @@ namespace CocktailMagician.Web.Areas.Magician
             }
             catch (Exception)
             {
-
                 throw;
             }
-
-
         }
     }
 }

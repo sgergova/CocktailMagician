@@ -18,6 +18,15 @@
 
 </div>
 
+
+@if (User.IsInRole("Magician"))
+{
+    <button class="button" style="     position: relative;
+    top: -307px;
+    left: 620px;">Delete</button>
+    
+
+}
 @{
     var partialModel = new BarCommentViewModel() { BarId = Model.Id };
 
