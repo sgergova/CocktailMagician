@@ -87,7 +87,7 @@ namespace CocktailMagician.Web.Areas.Magician
             return RedirectToAction("ListBars", "Bar");
         }
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<IActionResult> DeleteBar(Guid id)
         {
 
@@ -99,7 +99,7 @@ namespace CocktailMagician.Web.Areas.Magician
                 var barToDelete = await barServices.DeleteBar(id);
                 this.toastNotification.AddSuccessToastMessage($"{barToDelete.Name} was deleted successfully!");
 
-                return RedirectToAction("ListBars", "Bar");
+                return RedirectToAction("ListBars", "Bar",new { Area="" });
 
             }
             catch (Exception)
