@@ -22,7 +22,7 @@ namespace CocktailMagician.Web.Models
         public IFormFile Image { get; set; }
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<BarRating> Ratings { get; set; }
-        public ICollection<BarCommentDTO> Comments { get; set; }
+        public ICollection<BarCommentViewModel> Comments { get; set; }
         public ICollection<BarViewModel> items { get; set; }
         public int currentPage { get; set; }
         public int TotalPages { get; set; }

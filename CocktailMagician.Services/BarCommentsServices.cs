@@ -21,11 +21,11 @@ namespace CocktailMagician.Services
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, string username)
+        public async Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, Guid? barId)
         {
             var comments = await this.context.BarComments
                                       .Include(bc=>bc.Bar)
-                                      .Where(bc=>bc. IsDeleted == false && bc.UserId == id || bc.User.UserName == username)
+                                      .Where(bc=>bc. IsDeleted == false && bc.UserId == id && bc.BarId == barId)
                                       .ToListAsync();
 
             return comments.GetDTOs();

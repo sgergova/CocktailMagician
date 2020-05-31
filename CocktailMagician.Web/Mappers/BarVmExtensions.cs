@@ -26,7 +26,7 @@ namespace CocktailMagician.Web.Mappers
                 Rating = item.Rating,
                 ImageURL = item.ImageURL,
                 BarCocktails = item.BarCocktails,
-                Comments = item.Comments,
+                Comments = item.Comments.GetViewModels(),
                 CountryId = item.CountryId,
                 CountryName = item.CountryName
             };

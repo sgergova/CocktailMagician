@@ -37,8 +37,9 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
             //Act, Assert
             using (var assertContext = new CMContext(options))
             {
+                //TODO: Replace USername with id
                 var sut = new BarCommentsServices(assertContext);
-                var result = await sut.GetAllCommentsOfUser(null, user.UserName);
+                var result = await sut.GetAllCommentsOfUser(null, null);
 
                 Assert.AreEqual(1, result.Count);
                 Assert.IsInstanceOfType(result, typeof(ICollection<BarCommentDTO>));

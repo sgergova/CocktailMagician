@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CocktailMagician.Data.Entities;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 
@@ -15,11 +17,16 @@ namespace CocktailMagician.Web.Controllers
         private readonly IBarServices barServices;
         private readonly ICountryServices countryServices;
         private readonly IToastNotification toast;
-        public BarController(IBarServices barServices, ICountryServices countryServices, IToastNotification toast)
+        private readonly UserManager<User> manager;
+        private readonly IBarCommentsServices barCommentsServices;
+
+        public BarController(IBarServices barServices, ICountryServices countryServices, IToastNotification toast, UserManager<User> manager,IBarCommentsServices barCommentsServices)
         {
             this.barServices = barServices;
             this.countryServices = countryServices;
             this.toast = toast;
+            this.manager = manager;
+            this.barCommentsServices = barCommentsServices;
         }
         [HttpGet]
         public async Task<IActionResult> ListBars(string orderBy, int? currentPage, BarViewModel model)
@@ -55,8 +62,11 @@ namespace CocktailMagician.Web.Controllers
 
             try
             {
+                var userId = Guid.Parse(manager.GetUserId(HttpContext.User));
                 var bar = await barServices.GetBar(id);
                 var barVM = bar.GetViewModel();
+                var comments = await barCommentsServices.GetAllCommentsOfUser(userId, id);
+                barVM.Comments = comments.GetViewModels();
                 return View(barVM);
             }
             catch (Exception)

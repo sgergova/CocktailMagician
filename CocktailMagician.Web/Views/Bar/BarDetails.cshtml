@@ -100,7 +100,15 @@
 <partial name="_CommentsPartial" model="@partialModel" />
 }  
 
+@foreach (var item in Model.Comments)
+{
+<p style="color:aliceblue">
+    
+    @item.Comment
 
+</p>
+
+}
 
 
 
