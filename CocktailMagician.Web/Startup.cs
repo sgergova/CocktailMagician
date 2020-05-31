@@ -9,9 +9,6 @@ using CocktailMagician.Data.AppContext;
 using CocktailMagician.Data.Entities;
 using CocktailMagician.Services;
 using CocktailMagician.Services.Contracts;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.Google;
-using CocktailMagician.Web.Middleware;
 using NToastNotify;
 
 namespace CocktailMagician
