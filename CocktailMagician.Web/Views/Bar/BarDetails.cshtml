@@ -92,14 +92,13 @@
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 
 
-}
 
-@{
     var partialModel = new BarCommentViewModel() { BarId = Model.Id };
 
 
-}
+
 <partial name="_CommentsPartial" model="@partialModel" />
+}  
 
 
 

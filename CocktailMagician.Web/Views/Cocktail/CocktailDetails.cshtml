@@ -33,7 +33,7 @@
 
     <a class="button" style="position:relative; top:-300px;left:620px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Cocktail" asp-action="DeleteCocktail" asp-route-id="@Model.Id">Delete</a>
 }
-@if (User.IsInRole("Crawler"))
+@if (User.IsInRole("Crawler"))  
 {
     <form id="rating" style="position: relative;top: -141px;
     left: 16px;"
@@ -99,11 +99,10 @@
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 
-}
+   
+      var partialModel = new CocktailCommentViewModel() { CocktailId = Model.Id };
 
-@{
-    var partialModel = new CocktailCommentViewModel() { CocktailId = Model.Id };
-
-
-}
 <partial name="_CommentsPartialCocktail" model="@partialModel" />
+
+}
+

@@ -14,19 +14,19 @@ namespace CocktailMagician.Data.Seeder
         private const string data = @"data.csv";
         public static void Seeder(this ModelBuilder builder)
         {
-            var rawIngredients = ReadRawData();
+            //var rawIngredients = ReadRawData();
 
-            var ingredients = CreateIngredients(rawIngredients);
-            builder.Entity<Ingredient>().HasData(ingredients);
+            //var ingredients = CreateIngredients(rawIngredients);
+            //builder.Entity<Ingredient>().HasData(ingredients);
 
-            var cocktails = CreateCocktails(rawIngredients);
-            builder.Entity<Cocktail>().HasData(cocktails);
+            //var cocktails = CreateCocktails(rawIngredients);
+            //builder.Entity<Cocktail>().HasData(cocktails);
 
-            var countries = CreateCountries(rawIngredients);
-            builder.Entity<Country>().HasData(countries);
+            //var countries = CreateCountries(rawIngredients);
+            //builder.Entity<Country>().HasData(countries);
 
-            var bars = CreateBars(rawIngredients, countries);
-            builder.Entity<Bar>().HasData(bars);
+            //var bars = CreateBars(rawIngredients, countries);
+            //builder.Entity<Bar>().HasData(bars);
         }
 
         private static List<Dictionary<string, string>> ReadRawData()
