@@ -8,8 +8,9 @@ namespace CocktailMagician.Services.Contracts
 {
    public interface IBarCommentsServices
     {
-        Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, string username);
+        Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, Guid? barId);
         Task<BarCommentDTO> CreateComment(BarCommentDTO barComment);
         Task<BarCommentDTO> DeleteComment(Guid barCommentId);
+        Task<ICollection<BarCommentDTO>> GetAllCommentsOfBar(Guid? barId);
     }
 }

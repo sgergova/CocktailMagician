@@ -18,6 +18,7 @@ namespace CocktailMagician.Services.Mappers
             {
                 BarId = item.BarId,
                 UserId = item.UserId,
+                User = item.User,
                 IsDeleted = item.IsDeleted,
                 Comments = item.Comments,
                 CreatedOn = item.CreatedOn,

@@ -161,14 +161,61 @@ namespace CocktailMagician.Services
         /// </summary>
         /// <param name="cocktailId">The cocktail that should search for</param>
         /// <returns>A list of cocktails that contain the ingredient</returns>
-        public async Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(Guid cocktailId)
+        public async Task<ICollection<CocktailIngredientDTO>> GetCocktailIngredients(Guid cocktailId)
         {
-            var cocktails = await this.context.CocktailIngredients
+            var cocktailIngr = await this.context.CocktailIngredients
                                               .Where(i => i.Cocktail.Id == cocktailId)
+                                              .Include(i=>i.Cocktail)
+                                              .Include(i=>i.Ingredient)
                                               .ToListAsync()
                                               ?? throw new ArgumentNullException("The name cannot be null");
 
-            return cocktails.GetDTOs();
+            return cocktailIngr.GetDTOs();
+        }
+        public IQueryable<Ingredient> OrderIngredient(IQueryable<Ingredient> ingredients, string orderBy)
+        {
+            return orderBy switch
+            {
+                "name" => ingredients.OrderBy(b => b.Name),
+               
+
+                _ => ingredients.OrderBy(b => b.Name)
+            };
+        }
+        public async Task<ICollection<IngredientDTO>> GetIndexPageIngredients(string orderBy, int currentPage, string searchCriteria)
+        {
+            IQueryable<Ingredient> ingredients = this.context.Ingredients
+                                               .Where(i => i.IsDeleted == false);
+            if (searchCriteria != null)
+            {
+
+                ingredients = ingredients.Where(b => b.Name.Contains(searchCriteria));
+            }
+
+            ingredients = OrderIngredient(ingredients, orderBy);
+            ingredients = currentPage == 1 ? ingredients = ingredients.Take(10) : ingredients = ingredients.Skip((currentPage - 1) * 10).Take(10);
+
+            var results = await ingredients.ToListAsync();
+
+
+            return results.GetDTOs();
+        }
+        public int GetCount(int itemsPerPage, string searchCriteria)
+        {
+            double ingredientCount = 0;
+            if (searchCriteria != null)
+            {
+
+                ingredientCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
+
+            }
+            else
+            {
+                ingredientCount = this.context.Bars.Count();
+            }
+            var countInt = (int)ingredientCount;
+
+            return countInt;
         }
 
         public async Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId)

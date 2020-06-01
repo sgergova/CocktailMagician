@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Web.Models
 {
-    public class IngredientViewModel:IPagination<CocktailViewModel>
+    public class IngredientViewModel:IPagination<IngredientViewModel>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -15,8 +15,23 @@ namespace CocktailMagician.Web.Models
         public int Quantity { get; set; }
         public bool IsAlcoholic { get; set; }
         public string SearchCriteria { get; set; }
-        public ICollection<CocktailViewModel> items { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int currentPage { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int TotalPages { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICollection<IngredientViewModel> items { get; set; }
+        public int currentPage { get; set; }
+        public int TotalPages { get; set; }
+        public bool hasNext
+        {
+            get
+            {
+                return currentPage < TotalPages;
+            }
+        }
+        public bool hasPrev
+        {
+            get
+            {
+                return currentPage > 1;
+            }
+        }
     }
 }
+

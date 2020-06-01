@@ -1,27 +1,18 @@
 ﻿@model CocktailMagician.Web.Models.CocktailViewModel
-@*<head>
-        <link href="~/lou-multi-select-57fb8d3/css/multi-select.css" media="screen" rel="stylesheet" type="text/css">
-    </head>*@
 
 
-<head>
-    <link rel="stylesheet" href="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/dist/tokenize2.min.css">
-    <link rel="stylesheet" href="~/Dynamic-Autocomplete-Tag-Input-Plugin-For-jQuery-Tokenize2/tokenize2.css">
-    <link rel="stylesheet" href="~/css/multi.min.css">
 
-
-</head>
 <style>
     .modal-backdrop {
         z-index: -1;
     }
+
 </style>
 <div class="modal fade" id="modalCreateCocktail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Create Cocktail</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -35,17 +26,17 @@
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="AlcoholPercentage" class="control-label">AlcoholPercentage</label>
+                            AlcoholPercentage
                             <input asp-for="AlcoholPercentage" class="form-control" />
                             <span asp-validation-for="AlcoholPercentage" class="text-danger"></span>
                         </div>
 
                         <div class="md-form mb-4">
                             Is it alchoholic:
-                            <label asp-for="IsAlcoholic" class="switch">
+                            
                                 <input asp-for="IsAlcoholic" type="checkbox">
                                 <span asp-validation-for="IsAlcoholic" class="slider"></span>
-                            </label>
+                           
                         </div>
                         @*ingredients to do*@
                         <div class="md-form mb-4">
@@ -53,21 +44,16 @@
                             <input asp-for="ImageURL" class="form-control" />
                             <span asp-validation-for="ImageURL" class="text-danger"></span>
                         </div>
-                        <div class="row">
+                        <div class="md-form mb-4">
+                            <select asp-for="@Model.IngredientNames" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.IngredientsToChoose">
+                                <option selected hidden disabled value="">Choose Ingredients</option>
 
-                            <select multiple="multiple" name="Programming-Languages" id="example">
-                                @foreach (var item in ViewBag.Ing)
-                                {
-                                    <option value="@item.Id">@item.Name</option>
-                                }
                             </select>
-                            <script>$('#example').multi();</script>
-
-
                         </div>
+                      
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button asp-controller="Cocktail" asp-action="CreateCocktail" class="btn btn-deep-orange">Create</button>
+                        <button asp-area="Magician"  asp-controller="Cocktail" asp-action="CreateCocktail" class="btn btn-deep-orange">Create</button>
                     </div>
                 </div>
             </form>
@@ -75,27 +61,7 @@
     </div>
 </div>
 
-@section Scripts{
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous">
-
-    </script>
-
-    <script src="~/js/multi.min.js"></script>
-  
 
 
-}
-
-
-
-
-@*<select asp-for="IngredientsForCocktail" id="Id" multiple="multiple" name="Id" size="8">
-        @foreach (var item in ViewBag.Ing)
-        {
-            <option value="@item.Id">@item.Name</option>
-        }
-    </select>*@
 
 

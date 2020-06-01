@@ -27,81 +27,97 @@
 }
 @if (User.IsInRole("Crawler"))
 {
-<form id="rating" style="position: relative;
+    <form id="rating" style="position: relative;
     top: -282px;"
-      method="post"
-      action-xhr="https://amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/set"
-      target="_blank">
-    <fieldset class="rating">
-        @{int rating = 0; }
-        <input name="rating"
-               type="radio"
-               id="rating5"
-               value="5"
-               on="change:rating.submit"
-               onclick="@rating=5;">
-        <label for="rating5"
-               title="5 stars">☆</label>
+          method="post"
+          action-xhr="https://amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/set"
+          target="_blank">
+        <fieldset class="rating">
+            @{int rating = 0; }
+            <input name="rating"
+                   type="radio"
+                   id="rating5"
+                   value="5"
+                   on="change:rating.submit"
+                   onclick="@rating=5;">
+            <label for="rating5"
+                   title="5 stars">☆</label>
 
 
-        <input name="rating"
-               type="radio"
-               id="rating4"
-               value="4"
-               on="change:rating.submit"
-               onclick="@rating=4;">
-        <label for="rating4"
-               title="4 stars">☆</label>
+            <input name="rating"
+                   type="radio"
+                   id="rating4"
+                   value="4"
+                   on="change:rating.submit"
+                   onclick="@rating=4;">
+            <label for="rating4"
+                   title="4 stars">☆</label>
 
 
-        <input name="rating"
-               type="radio"
-               id="rating3"
-               value="3"
-               on="change:rating.submit"
-               onclick="@rating=3;">
-        <label for="rating3"
-               title="3 stars">☆</label>
+            <input name="rating"
+                   type="radio"
+                   id="rating3"
+                   value="3"
+                   on="change:rating.submit"
+                   onclick="@rating=3;">
+            <label for="rating3"
+                   title="3 stars">☆</label>
 
 
-        <input name="rating"
-               type="radio"
-               id="rating2"
-               value="2"
-               on="change:rating.submit"
-               checked="checked" onclick="@rating=2;">
-        <label for="rating2"
-               title="2 stars">☆</label>
+            <input name="rating"
+                   type="radio"
+                   id="rating2"
+                   value="2"
+                   on="change:rating.submit"
+                   checked="checked" onclick="@rating=2;">
+            <label for="rating2"
+                   title="2 stars">☆</label>
 
 
-        <input name="rating"
-               type="radio"
-               id="rating1"
-               value="1"
-               on="change:rating.submit"
-               onclick="@rating=1;">
-        <label for="rating1"
-               title="1 stars">☆</label>
+            <input name="rating"
+                   type="radio"
+                   id="rating1"
+                   value="1"
+                   on="change:rating.submit"
+                   onclick="@rating=1;">
+            <label for="rating1"
+                   title="1 stars">☆</label>
 
-    </fieldset>
-    <button class="button" onclick="return confirm('Are you sure you want to rate @Model.Name ?');" type="submit" asp-area="Crawler" asp-controller="Bar" asp-action="RateBar" asp-route-rating="@rating"asp-route-id="@Model.Id" >Submit Rating</button>
+        </fieldset>
+        <button class="button" onclick="return confirm('Are you sure you want to rate @Model.Name ?');" type="submit" asp-area="Crawler" asp-controller="Bar" asp-action="RateBar" asp-route-rating="@rating" asp-route-id="@Model.Id">Submit Rating</button>
 
-</form>
+    </form>
 
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 
 
-}
 
-@{
     var partialModel = new BarCommentViewModel() { BarId = Model.Id };
 
 
+
+    <partial name="_CommentsPartial" model="@partialModel" />
 }
-<partial name="_CommentsPartial" model="@partialModel" />
 
+@foreach (var item in Model.Comments)
+{
+    <style>
+        #rcorners2 {
+            border-radius: 25px;
+            border: 2px solid #eda215;
+            padding: 20px;
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+    <div style="position: relative;
+    top: -200px;">
+        <p>@item.Name</p>
+        <p id="rcorners2">@item.Comment</p>
+    </div>
 
+}
 
 
 

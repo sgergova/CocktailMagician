@@ -15,14 +15,7 @@
         top: -300px;
 ">
         <p class="lead"><h4 style="color:#b58900">AlcoholPercentage: </h4> <h6>@Model.AlcoholPercentage</h6></p>
-        <p class="lead">
-            <h4 style="color:#b58900">Ingredients: </h4>
-            @foreach (var item in Model.Ingredients)
-            {
 
-                <h6>@item.Ingredient.Name</h6>
-            }
-        </p>
     </div>
 
 </div>
@@ -99,11 +92,28 @@
     <script async custom-element="amp-form" src="https://cdn.ampproject.org/v0/amp-form-0.1.js"></script>
     <script async custom-template="amp-mustache" src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"></script>
 
-}
 
-@{
     var partialModel = new CocktailCommentViewModel() { CocktailId = Model.Id };
 
+    <partial name="_CommentsPartialCocktail" model="@partialModel" />
 
 }
-<partial name="_CommentsPartialCocktail" model="@partialModel" />
+
+<div>
+    <p>Ingredients:</p>
+
+    @foreach (var item in Model.Ingredients)
+    {
+
+        <p>@item.Ingredient.Name</p>
+
+    }
+
+</div>
+@if (User.IsInRole("Magician"))
+{
+<a class="button" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
+<partial model="new CocktailViewModel() { Name = Model.Name,
+    IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
+
+}

@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace CocktailMagician.Services.EntitiesDTO
 {
@@ -17,6 +18,7 @@ namespace CocktailMagician.Services.EntitiesDTO
         public DateTime? ModifiedOn { get; set; }
         public DateTime? DeletedOn { get; set; }
         public bool IsDeleted { get; set; }
+       
 
     }
 }

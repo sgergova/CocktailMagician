@@ -53,6 +53,8 @@ namespace CocktailMagician.Web.Areas.Identity.Crawler.Controllers
             {
                 var bar = await barServices.GetBar(id);
                 var barVM = bar.GetViewModel();
+
+              
                 return View(barVM);
             }
             catch (Exception)

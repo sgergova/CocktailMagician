@@ -12,7 +12,7 @@ namespace CocktailMagician.Data.Configuration
 
         public void Configure(EntityTypeBuilder<BarComment> builder)
         {
-            builder.HasKey(bc => new { bc.UserId, bc.BarId});
+            builder.HasKey(bc => new { bc.UserId, bc.BarId, bc.Id});
 
             builder.HasOne(bc => bc.User)
                  .WithMany(u => u.BarComments)
