@@ -28,9 +28,8 @@ namespace CocktailMagician.Web.Controllers
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
-            ICollection<BarDTO> bars = new List<BarDTO>();
 
-            bars = await this.barServices.GetIndexPageBars(orderBy, currentPage ?? 1, searchCriteria);
+            var bars = await this.barServices.GetIndexPageBars(orderBy, currentPage ?? 1, searchCriteria);
 
             var countryList = await countryServices.GetAllCountries();
             ViewBag.CountryList = countryList;

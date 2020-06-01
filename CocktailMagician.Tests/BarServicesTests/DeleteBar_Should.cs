@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace CocktailMagician.Tests.BarServicesTests
 {
     [TestClass]
-   public class DeleteBar_Should
+    public class DeleteBar_Should
     {
         [TestMethod]
         public async Task DeleteBar_Should_Delete_Correct()
@@ -21,12 +21,12 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var country = new Country
             {
-                Id = Guid.Parse("1fc5a0a8-5bf3-4dcd-bd17-64ee24933c73"),
+                Id = Guid.NewGuid(),
                 Name = "Bulagria",
             };
             var bar = new Bar
             {
-                Id = Guid.Parse("0377d7f6-f14b-4e46-8617-c153f20a58f3"),
+                Id = Guid.NewGuid(),
                 Name = "Cosmos",
                 CountryId = country.Id
             };
@@ -61,36 +61,8 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(()=>sut.DeleteBar(id));
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.DeleteBar(id));
             }
         }
-       
     }
 }
-//public async Task<BarDTO> DeleteBar(Guid id)
-//{
-//    var barToDelete = await GetAllBarsQueryable()
-//                           .Include(b => b.Country)
-//                           .FirstOrDefaultAsync(b => b.Id == id)
-//                           ?? throw new ArgumentNullException();
-
-//    var barCocktails = AvailabilityAtBar(barToDelete.Id).Result.GetEntities();
-
-//    barToDelete.IsDeleted = true;
-//    barToDelete.DeletedOn = DateTime.UtcNow;
-
-//    if (barCocktails.Count != 0)
-//    {
-//        foreach (var barCocktail in barCocktails)
-//        {
-//            barToDelete.BarCocktails.Remove(barCocktail);
-//        }
-//    }
-
-
-//    context.Bars.Update(barToDelete);
-//    await context.SaveChangesAsync();
-
-
-//    return barToDelete.GetDTO();
-//}

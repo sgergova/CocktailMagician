@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CocktailMagician.Data.Entities
 {
-    public class BarComment  //EntitiesDetails
+    public class BarComment 
     {
         public Guid Id { get; set; }
-
         [Required]
         [StringLength(500, ErrorMessage = "The comment cannot be more than 500 characters.")]
         public string Comments { get; set; }
