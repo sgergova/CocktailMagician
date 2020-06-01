@@ -49,20 +49,24 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktailVM)
         {
+
+
+
+
+
             var cocktail = await cocktailServices.CreateCocktail(cocktailVM.GetDtoFromVM());
 
 
             return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }
         [HttpPost]
-        public async Task<IActionResult> AddIngredient(Guid cocktailId ,Guid ingredientId )
+        public async Task<IActionResult> AddIngredients(CocktailViewModel model)
         {
-            var ingredient = await ingredientServices.GetIngredient(ingredientId);
-            var cocktail = await cocktailServices.GetCocktail(cocktailId);
+            
 
-            await cocktailServices.AddIngredientToCocktail(cocktail.Name, ingredient.Name);
+            await cocktailServices.AddIngredientsToCocktail(model.Name, model.IngredientNames.ToList());
 
-            return RedirectToAction("ListCocktails", "Cocktail");
+            return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }
         [HttpPost]
         public async Task<IActionResult> RemoveIngredient(Guid cocktailId, Guid ingredientId)
@@ -74,5 +78,6 @@ namespace CocktailMagician.Web.Areas.Magician
 
             return RedirectToAction("ListCocktails", "Cocktail");
         }
+       
     }
 }

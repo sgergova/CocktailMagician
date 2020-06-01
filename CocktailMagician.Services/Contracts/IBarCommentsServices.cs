@@ -11,5 +11,6 @@ namespace CocktailMagician.Services.Contracts
         Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, Guid? barId);
         Task<BarCommentDTO> CreateComment(BarCommentDTO barComment);
         Task<BarCommentDTO> DeleteComment(Guid barCommentId);
+        Task<ICollection<BarCommentDTO>> GetAllCommentsOfBar(Guid? barId);
     }
 }

@@ -30,6 +30,16 @@ namespace CocktailMagician.Services
 
             return comments.GetDTOs();
         }
+        public async Task<ICollection<BarCommentDTO>> GetAllCommentsOfBar(Guid? barId)
+        {
+            var comments = await this.context.BarComments
+                                      .Include(bc => bc.Bar)
+                                      .Include(bc=>bc.User)
+                                      .Where(bc => bc.IsDeleted == false && bc.BarId == barId)
+                                      .ToListAsync();
+
+            return comments.GetDTOs();
+        }
         public async Task<BarCommentDTO> CreateComment(BarCommentDTO barComment)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == barComment.UserId)

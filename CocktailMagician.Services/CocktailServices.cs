@@ -94,11 +94,18 @@ namespace CocktailMagician.Services
 
             if (cocktailDTO.Name == null)
                 throw new ArgumentNullException("The name is mandatory");
-
+           
             var cocktail = cocktailDTO.GetEntity();
-
             await context.Cocktails.AddAsync(cocktail);
             await context.SaveChangesAsync();
+
+            foreach (var item in cocktailDTO.IngredientNames)
+            {
+
+               await AddIngredientToCocktail(cocktail.Name, item);
+
+            }
+            
 
             return cocktail.GetDTO();
         }
@@ -131,8 +138,7 @@ namespace CocktailMagician.Services
                     CocktailId = cocktail.Id,
                     IngredientId = ingredient.Id
                 };
-                cocktail.CocktailIngredients.Add(newCocktailIngredient);
-                ingredient.CocktailIngredients.Add(newCocktailIngredient);
+               
 
                 await this.context.CocktailIngredients.AddAsync(newCocktailIngredient);
                 this.context.Cocktails.Update(cocktail);
@@ -143,6 +149,46 @@ namespace CocktailMagician.Services
             {
                 throw new InvalidOperationException($"{ingredient} is already part of {cocktail}");
             }
+
+            return cocktail.GetDTO();
+        }
+        public async Task<CocktailDTO> AddIngredientsToCocktail(string cocktailName, List<string> ingredientName)
+        {
+            var cocktail = await this.context.Cocktails
+                                             .Where(c => c.IsDeleted == false)
+                                             .FirstOrDefaultAsync(c => c.Name == cocktailName)
+                                             ?? throw new ArgumentNullException("Cocktail not found");
+            //var ingredient = new List<Ingredient>();
+
+            foreach (var item in ingredientName)
+            {
+
+                var ing = await this.context.Ingredients
+                                                 .Where(c => c.IsDeleted == false)
+                                                 .FirstOrDefaultAsync(i => i.Name == item)
+                                                   ?? throw new ArgumentNullException("Ingredient not found");
+                var newCocktailIngredient = new CocktailIngredient
+                {
+                    CocktailId = cocktail.Id,
+                    IngredientId = ing.Id
+                };
+
+
+                await this.context.CocktailIngredients.AddAsync(newCocktailIngredient);
+                this.context.Cocktails.Update(cocktail);
+                this.context.Ingredients.Update(ing);
+                await this.context.SaveChangesAsync();
+            }
+            //var cocktailIngredient = await this.context.CocktailIngredients
+            //                                     .FirstOrDefaultAsync(ci => ci.Cocktail.Name == cocktailName
+            //                                     && ci.Ingredient.Name == ingredientName);
+
+
+
+            //else
+            //{
+            //    throw new InvalidOperationException($"{ingredient} is already part of {cocktail}");
+            //}
 
             return cocktail.GetDTO();
         }

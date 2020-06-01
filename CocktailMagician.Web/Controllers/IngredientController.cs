@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Services.Contracts;
+using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +19,28 @@ namespace CocktailMagician.Web.Controllers
         }
 
       
-        public async Task<IActionResult> ListIngredients()
+        public async Task<IActionResult> ListIngredients(string orderBy, int? currentPage, IngredientViewModel model)
         {
-            var list = await ingredientServices.GetAllIngredients(null);
-            var ingredientsViewModels = list.GetViewModels();
-          
-            return View(ingredientsViewModels);
+            var searchCriteria = model.SearchCriteria;
+            ViewData["CurrentSort"] = orderBy;
+            ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
+            ViewData["SearchParm"] = searchCriteria;
+            ICollection<IngredientDTO> ingredients = new List<IngredientDTO>();
+
+            ingredients = await this.ingredientServices.GetIndexPageIngredients(orderBy, currentPage??1, searchCriteria);
+
+           
+
+            var ingViewModels = ingredients.GetViewModels();
+
+            var paged = new IngredientViewModel()
+            {
+                currentPage = currentPage ?? 1,
+                items = ingViewModels,
+                TotalPages = this.ingredientServices.GetCount(10, searchCriteria)
+            };
+
+            return View(paged);
         }
         [HttpGet]
         public async Task<IActionResult> IngredientDetails(Guid id)

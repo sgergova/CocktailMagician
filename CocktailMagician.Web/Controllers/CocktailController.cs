@@ -37,12 +37,11 @@ namespace CocktailMagician.Web.Controllers
             bars = await this.cocktailServices.GetIndexPageCocktails(orderBy, currentPage ?? 1, searchCriteria);
 
             var ingredients = await ingredientServices.GetAllIngredients(null);
-            ViewBag.Ingredients = new MultiSelectList(ingredients, "Id", "Name");
-            ViewBag.Ing = ingredients; 
 
             var barsViewModel = bars.GetViewModels();
             var paged = new CocktailViewModel()
             {
+                IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList(),
                 currentPage = currentPage ?? 1,
                 items = barsViewModel,
                 TotalPages = this.cocktailServices.GetCount(10, searchCriteria)
@@ -54,6 +53,7 @@ namespace CocktailMagician.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> CocktailDetails(Guid id)
         {
+            var ingredients = await ingredientServices.GetAllIngredients(null);
             if (id == null)
                 return NotFound();
 
@@ -61,7 +61,8 @@ namespace CocktailMagician.Web.Controllers
             {
                 var cocktail = await cocktailServices.GetCocktail(id);
                 var cocktailVM = cocktail.GetViewModel();
-               
+                cocktailVM.IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList();
+                cocktailVM.Ingredients = await ingredientServices.GetCocktailIngredients(id);
                 return View(cocktailVM);
             }
             catch (Exception)

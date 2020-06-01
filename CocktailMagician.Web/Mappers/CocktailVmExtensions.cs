@@ -53,6 +53,7 @@ namespace CocktailMagician.Web.Mappers
                 Bars = item.Bars,
                 Ingredients = item.Ingredients,
                 Stars = item.Stars,
+                IngredientNames = item.IngredientNames
             };
         }
         public static ICollection<CocktailDTO> GetDtoFromVMs(this ICollection<CocktailViewModel> items)

@@ -1,6 +1,8 @@
-﻿using CocktailMagician.Services.EntitiesDTO;
+﻿using CocktailMagician.Data.Entities;
+using CocktailMagician.Services.EntitiesDTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +17,13 @@ namespace CocktailMagician.Services.Contracts
         Task<IngredientDTO> UpdateIngredient(Guid id, IngredientDTO ingredientDTO);
         Task<IngredientDTO> DeleteIngredient(Guid id);
         Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(string cocktailName);
-        Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(Guid cocktailId);
+        Task<ICollection<CocktailIngredientDTO>> GetCocktailIngredients(Guid cocktailId);
         Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId);
+        IQueryable<Ingredient> OrderIngredient(IQueryable<Ingredient> ingredients, string orderBy);
+
+        Task<ICollection<IngredientDTO>> GetIndexPageIngredients(string orderBy, int currentPage, string searchCriteria);
+
+        int GetCount(int itemsPerPage, string searchCriteria);
+       
     }
 }
