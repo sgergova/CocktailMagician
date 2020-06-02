@@ -11,7 +11,7 @@ namespace CocktailMagician.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<CocktailRating> builder)
         {
-            builder.HasKey(cs=> new { cs.CocktailId, cs.UserId});
+            builder.HasKey(cs=> new { cs.CocktailId, cs.UserId , cs.Id});
 
             builder.HasOne(cs => cs.User)
                    .WithMany(u => u.CocktailRatings)

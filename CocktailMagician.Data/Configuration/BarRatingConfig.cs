@@ -12,7 +12,7 @@ namespace CocktailMagician.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<BarRating> builder)
         {
-            builder.HasKey(bs=>new { bs.BarId, bs.UserId});
+            builder.HasKey(bs=>new { bs.BarId, bs.UserId, bs.Id });
 
             builder.HasOne(bs => bs.User)
                   .WithMany(u => u.BarRatings)

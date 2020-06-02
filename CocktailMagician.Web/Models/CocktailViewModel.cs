@@ -24,7 +24,7 @@ namespace CocktailMagician.Web.Models
         public ICollection<IngredientDTO> IngredientsForCocktail { get; set; }
         public ICollection<BarCocktailDTO> Bars { get; set; }
         public ICollection<BarRating> Stars { get; set; }
-        public ICollection<CocktailCommentsDTO> Comments { get; set; }
+        public ICollection<CocktailCommentViewModel> Comments { get; set; }
         public ICollection<CocktailViewModel> items { get; set; }
         public int currentPage { get; set; }
         public int TotalPages { get; set; }

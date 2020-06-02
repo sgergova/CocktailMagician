@@ -63,10 +63,11 @@ namespace CocktailMagician.Services
             return comments.GetDTOs();
         }
 
-        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id, string cocktailName)
+        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id)
         {
             var comments = await this.context.CocktailComments
-                                     .Where(cc => cc.IsDeleted == false && cc.CocktailId == id || cc.Cocktail.Name == cocktailName)
+                                     .Where(cc => cc.IsDeleted == false && cc.CocktailId == id)
+                                     .Include(cc => cc.User)
                                      .ToListAsync();
 
             return comments.GetDTOs();

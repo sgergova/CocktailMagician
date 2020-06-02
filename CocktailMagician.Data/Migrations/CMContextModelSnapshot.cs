@@ -69,11 +69,11 @@ namespace CocktailMagician.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e561eed1-dbdc-42ec-9a84-209846814c98"),
+                            Id = new Guid("eecd02ee-ba09-40d8-80ae-a6b248ea851a"),
                             Address = "The Savoy Strand London WC2R 0EZ",
                             BarImageURL = "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/i/l/p12602-15475381735c3d8efdc738b.jpg?tr=tr:n-large",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(588),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(7075),
                             IsDeleted = false,
                             Name = "American Bar",
                             Phone = "+ 44 (0)20 7836 4343",
@@ -81,11 +81,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a2ea549d-77c9-44e1-9e80-8db615ff0bb4"),
+                            Id = new Guid("2f56118a-2dea-4e60-ba5d-00eca10b24e2"),
                             Address = "1170 BROADWAY & 28TH STREET NEW YORK",
                             BarImageURL = "https://www.theworlds50best.com/discovery/filestore/jpg/NoMadBar-NewYork-USA-03.jpg",
-                            CountryId = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2114),
+                            CountryId = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8150),
                             IsDeleted = false,
                             Name = "The NoMad",
                             Phone = "(347) 472-5660",
@@ -93,11 +93,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("98f9d023-ed0b-4d12-8e9a-0efd458c2676"),
+                            Id = new Guid("1fb6fe3c-4c09-45fc-ae9e-de3663ec77a8"),
                             Address = "Piazza di S. Martino Ai Monti 8 00154 Roma RM",
                             BarImageURL = "https://www.puntarellarossa.it/wp/wp-content/uploads/2018/09/drink-kong-pat--850x566.jpg",
-                            CountryId = new Guid("ca1279d2-b2e1-4a61-9d1e-1b2e91c7e18a"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2202),
+                            CountryId = new Guid("0868b356-3bdc-4bcc-a1da-bda6fc74a642"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8195),
                             IsDeleted = false,
                             Name = "Drink Kong",
                             Phone = "+39 06 2348 8666",
@@ -105,11 +105,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6d844b26-a521-4653-bafd-1f46313b42df"),
+                            Id = new Guid("17e03795-e88c-4a59-b3f0-7f46d3e40bf4"),
                             Address = "1 Cuscaden Road 249715",
                             BarImageURL = "https://im1.dineout.co.in/images/uploads/restaurant/sharpen/1/i/l/p12602-15475381735c3d8efdc738b.jpg?tr=tr:n-xlarge",
-                            CountryId = new Guid("51ab7158-df3d-4ba9-8903-938ba1a39792"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2241),
+                            CountryId = new Guid("de599ce4-cccf-4cff-99ec-26ec18fe6ea0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8215),
                             IsDeleted = false,
                             Name = "Manhattan",
                             Phone = "+65 6725 3377",
@@ -117,11 +117,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("30d90f76-d31b-4afa-9b13-1f3fd636bf16"),
+                            Id = new Guid("afc6d89b-e32e-4886-b435-028356563d05"),
                             Address = "The Connaught Carlos Place Mayfair London",
                             BarImageURL = "https://iwillmakeualist.files.wordpress.com/2017/07/img_6198.jpg",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2275),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8232),
                             IsDeleted = false,
                             Name = "Connaught Bar",
                             Phone = "+44 (0)20 7314 3419",
@@ -129,11 +129,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7cdf62ba-56ba-4bd2-aa21-c612f18c8e4a"),
+                            Id = new Guid("9d4ba1a7-f746-4db1-bfce-c9d89fcfa537"),
                             Address = "37 Aberdeen Street Central",
                             BarImageURL = "https://www.worlds50bestbars.com/filestore/jpg/TheOldManS-WORLD-2019-003.jpg",
-                            CountryId = new Guid("bca3c23e-141b-409c-b1e7-d72c535bfe74"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2324),
+                            CountryId = new Guid("f3d5b2fa-c787-408a-9ace-f65ec7b344a5"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8259),
                             IsDeleted = false,
                             Name = "The Old Man",
                             Phone = "85227031899",
@@ -141,11 +141,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f5c847eb-3cab-4b32-bb90-86dc6b2e40dd"),
+                            Id = new Guid("a2a42bdd-68f1-44ae-9d36-3d23cfac566e"),
                             Address = "Calle Echegaray 21 28014 Madrid",
                             BarImageURL = "https://www.thespiritsbusiness.com/content/http://www.thespiritsbusiness.com/media/2017/11/European-bars.jpg",
-                            CountryId = new Guid("47e048ab-0b58-4ff3-83e0-65a414f48868"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2398),
+                            CountryId = new Guid("0f5c000c-803e-4574-8e2e-a90116c1fbd0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8285),
                             IsDeleted = false,
                             Name = "Salmon Guru",
                             Phone = "+34 910 00 61",
@@ -153,11 +153,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b6dc84a5-4433-4801-bb72-b0ebc89175e7"),
+                            Id = new Guid("ad4d5a27-2b76-4d55-bace-c0e1d2953ccd"),
                             Address = "531 Hudson St New York",
                             BarImageURL = "https://wswd-wordpress-production.s3.amazonaws.com/content/uploads/2018/08/28140308/Katana-Kitten-NYC-West-Village-bar.jpg",
-                            CountryId = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2435),
+                            CountryId = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8303),
                             IsDeleted = false,
                             Name = "Katana Kitten",
                             Phone = "+44 (0)20 7314 3419",
@@ -165,11 +165,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("def98cea-8f65-4b69-a242-354f6b0a7933"),
+                            Id = new Guid("a8f0f45f-b6e1-4974-9281-e3bd51636d92"),
                             Address = "Paceville Main Staircase St Julian's",
                             BarImageURL = "https://media-cdn.tripadvisor.com/media/photo-s/12/a2/9f/4c/good-food-drinks-and.jpg",
-                            CountryId = new Guid("86218876-43fa-418e-9568-be8433226a78"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2477),
+                            CountryId = new Guid("3629d4d1-cc0e-4f3b-b8d0-8671c1e0807b"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8337),
                             IsDeleted = false,
                             Name = "Native",
                             Phone = "+356 2138 0635",
@@ -177,11 +177,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0a9c5951-9c7c-4f71-854a-e481aecdde0d"),
+                            Id = new Guid("a31cca53-c3de-433e-a3da-a793c4895e2d"),
                             Address = "20 Upper Ground South Bank London SE1 9PD",
                             BarImageURL = "https://static.standard.co.uk/s3fs-public/thumbnails/image/2018/04/20/17/dandelyan-london.jpg?w968",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2514),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8362),
                             IsDeleted = false,
                             Name = "Dandelyan",
                             Phone = "+44 (0)20 7314 3419",
@@ -189,11 +189,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("990c4e5c-ce4a-4ae4-b03b-fe13261b5c1d"),
+                            Id = new Guid("c5fc684e-7f9a-4b6b-bf7a-a0e17d211e78"),
                             Address = "",
                             BarImageURL = "https://www.thespiritsbusiness.com/content/http://www.thespiritsbusiness.com/media/2018/01/Dead-Rabbit.jpg",
-                            CountryId = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2556),
+                            CountryId = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8379),
                             IsDeleted = false,
                             Name = "The Dead Rabbit",
                             Phone = "+ 44 (0)20 7836 4343",
@@ -201,11 +201,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4d0ebc47-26bd-4d19-af13-231d5d295fe6"),
+                            Id = new Guid("db551b2b-5c91-477e-b53b-d19eaae2409d"),
                             Address = "Praxitelous 30 Athens",
                             BarImageURL = "https://www.thegreekfoundation.com/wp-content/uploads/2015/07/3b-1000x666.jpg",
-                            CountryId = new Guid("65b2d477-44ac-4e82-89f6-5e62034388ae"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2599),
+                            CountryId = new Guid("b57c06f4-b52e-4cab-81c3-76b82863809e"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8403),
                             IsDeleted = false,
                             Name = "The Clumsies",
                             Phone = "+30 21 0323 2682",
@@ -213,11 +213,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("97e75c36-2296-4e64-8444-dce7bd134a38"),
+                            Id = new Guid("7ee714dc-ea36-439f-a51f-0c440a512382"),
                             Address = "134 Eldridge Street New York",
                             BarImageURL = "https://cdn.vox-cdn.com/thumbor/VJquLyS0TlbhkQfJENqnPg45tyo=/21x0:228x155/920x613/filters:focal(21x0:228x155):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/38982652/2013_3_Attaboy2.0.jpg",
-                            CountryId = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2634),
+                            CountryId = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8438),
                             IsDeleted = false,
                             Name = "Attaboy",
                             Phone = "+36 1 792 2222",
@@ -225,11 +225,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7729a015-9554-4b79-9ed8-18ca57ea72e4"),
+                            Id = new Guid("899c2c70-f5d4-4b28-9c58-667a34ab8767"),
                             Address = "Soho, London",
                             BarImageURL = "https://media.timeout.com/images/103972748/1024/576/image.jpg",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2666),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8454),
                             IsDeleted = false,
                             Name = "Bar Termini",
                             Phone = "+44 20 7622 4004",
@@ -237,11 +237,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("994e3d77-c9fb-4200-b7c3-e5b2c67447de"),
+                            Id = new Guid("99529729-dfe6-42c7-bc14-55821fb839e5"),
                             Address = "579 Fuxing Zhong Lu",
                             BarImageURL = "http://www.smartshanghai.com/uploads/venues/thumbs/thumb_1553153257.jpg",
-                            CountryId = new Guid("b8fa399b-55bd-4933-980e-2825a8d89cbc"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2714),
+                            CountryId = new Guid("319027e9-f9c8-4b72-8045-9a1747e6d322"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8478),
                             IsDeleted = false,
                             Name = "Speak Low",
                             Phone = "6416 0133",
@@ -249,11 +249,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e77244c6-01ff-489a-b264-3b5254ce6f90"),
+                            Id = new Guid("12852b95-4684-4c6a-b98f-1d592bcad779"),
                             Address = "60 Rue Charlot Paris",
                             BarImageURL = "https://savourexperience.com/wp-content/uploads/2016/05/little-red-door-parallax-01-the-parisianist.jpg",
-                            CountryId = new Guid("29c5a8c4-c2d1-42a1-a25a-12815ac06b95"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2762),
+                            CountryId = new Guid("82113657-35b2-4cea-bc1e-8d1c6dfb46a2"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8501),
                             IsDeleted = false,
                             Name = "Little Red Door",
                             Phone = "+33 1 42 71 19 32",
@@ -261,11 +261,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("38381eb2-4a78-4076-89af-93f53c6b902b"),
+                            Id = new Guid("b69474be-9179-47cc-b480-3d75667eda02"),
                             Address = "8-9 Hoxton Square London",
                             BarImageURL = "https://www.top50cocktailbars.com/wp-content/uploads/2019/06/HappinessForgets3.jpg",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2794),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8525),
                             IsDeleted = false,
                             Name = "Happiness Forgets",
                             Phone = "+44 (0) 20 7613 0325",
@@ -273,11 +273,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0d753639-41c2-440a-a4de-a71f07c15e47"),
+                            Id = new Guid("c6bf9f49-d000-4ccd-9cd4-e2b94121c7d8"),
                             Address = "500 Arguello Street Redwood City",
                             BarImageURL = "https://images.squarespace-cdn.com/content/v1/5a0bb36d6f4ca3bf77c236b1/1523588347811-6GO1NX5NIL150ZVGA1YV/ke17ZwdGBToddI8pDm48kLkXF2pIyv_F2eUT9F60jBl7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0iyqMbMesKd95J-X4EagrgU9L3Sa3U8cogeb0tjXbfawd0urKshkc5MgdBeJmALQKw/_GU89474.jpg?format=1000w",
-                            CountryId = new Guid("90c6a441-6972-4cb1-8d14-fed3e28b0cfc"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2844),
+                            CountryId = new Guid("767e624a-39bb-41a0-b8b1-073b84b3898c"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8554),
                             IsDeleted = false,
                             Name = "High Five",
                             Phone = "(844) 464-4445",
@@ -285,11 +285,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6a74e4ef-9679-4e6d-ae68-02cde3851844"),
+                            Id = new Guid("e065caa9-1f26-4e23-b473-7e13ece79584"),
                             Address = "Av. �lvaro Obreg�n 106 Cuauht�moc",
                             BarImageURL = "https://i.vivit-tours.com/img/other/58/food-tour-roma-norte-mexico-citys-hippest-hood.jpg",
-                            CountryId = new Guid("74ec97f5-0ebe-4a49-b2e1-b65842aa9aaa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2898),
+                            CountryId = new Guid("d863d2c7-6e7b-42e1-ac9b-b0608df4dd17"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8581),
                             IsDeleted = false,
                             Name = "Licorera Limantour",
                             Phone = "01 55 5264 4122",
@@ -297,11 +297,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("427e3fb5-16df-4179-ae49-f5715ad899d7"),
+                            Id = new Guid("ba23039b-8b9a-4110-8a5e-5de116fe5e25"),
                             Address = "Parkview Square",
                             BarImageURL = "https://www.traveller.com.au/content/dam/images/h/1/c/8/y/p/image.related.articleLeadwide.620x349.h1c8s1.png/1552972222305.jpg",
-                            CountryId = new Guid("51ab7158-df3d-4ba9-8903-938ba1a39792"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2935),
+                            CountryId = new Guid("de599ce4-cccf-4cff-99ec-26ec18fe6ea0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8601),
                             IsDeleted = false,
                             Name = "Atlas",
                             Phone = "+65 6396 4466",
@@ -309,11 +309,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cd83948b-befb-4e7b-80ad-d8fc7efd2b5b"),
+                            Id = new Guid("fa7f3784-9467-4d22-928e-09f0a955ec90"),
                             Address = "79-81 MacDougal St New York",
                             BarImageURL = "https://www.worldsbestbars.com/wp-content/uploads/2018/05/dante-cocktail-bar-001.jpg",
-                            CountryId = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2966),
+                            CountryId = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8621),
                             IsDeleted = false,
                             Name = "Dante",
                             Phone = "01 55 5264 4122",
@@ -321,11 +321,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3ef22c9e-b67c-4bd2-8bdc-a6124242cddf"),
+                            Id = new Guid("090417db-c8f0-4801-9638-d7b471ad1c92"),
                             Address = "61�63. Meaden, London",
                             BarImageURL = "https://aplo.co/admin/web/uploads/space/oriolebar-1-yes.jpg",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(2999),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8641),
                             IsDeleted = false,
                             Name = "Oriole",
                             Phone = "+44 (0)20 7314 3419",
@@ -333,11 +333,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("47aa2f40-e65a-4fdd-9142-71c853464d59"),
+                            Id = new Guid("36ccc5ad-7803-467a-8852-0ff447c2ddb6"),
                             Address = "2727 Indian Creek Dr. Miami Beach",
                             BarImageURL = "https://media.cntraveler.com/photos/5a70f846e2c45625a77b0834/master/w_767,c_limit/Broken-Shaker__2018FreehandLA_BrokenShaker4_WonhoFrankLee.jpg",
-                            CountryId = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(3033),
+                            CountryId = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8660),
                             IsDeleted = false,
                             Name = "Broken Shaker",
                             Phone = "305-531-2727",
@@ -345,11 +345,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("dc6d6cc4-fd92-4b6b-8a7c-4b8e2d0ba769"),
+                            Id = new Guid("af05b3be-64cd-4ecb-bb9e-c7a4880037fa"),
                             Address = "52 Rue de Saintonge Paris",
                             BarImageURL = "https://wordpress.zarkov.de/wp-content/uploads/2019/09/20190908_03-Candelaria-11-Backboard-Ecke-1038x576.jpg",
-                            CountryId = new Guid("29c5a8c4-c2d1-42a1-a25a-12815ac06b95"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(3080),
+                            CountryId = new Guid("82113657-35b2-4cea-bc1e-8d1c6dfb46a2"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8684),
                             IsDeleted = false,
                             Name = "Candelaria",
                             Phone = "+34 910 00 61",
@@ -357,11 +357,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4edc5870-d8b5-4a11-a348-1a19e1f36679"),
+                            Id = new Guid("ed39d39b-c9fb-4551-8518-d8bc33640989"),
                             Address = "Storgata 27 Oslo",
                             BarImageURL = "https://www.thespiritsbusiness.com/content/http:/www.thespiritsbusiness.com/media/2015/11/Top-six-Europe-bars-to-visit-in-2016.jpg",
-                            CountryId = new Guid("edebaad3-5e2a-401c-9129-856bf329aa47"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(3130),
+                            CountryId = new Guid("6e7f715e-b125-43c1-9bc8-0cd12133b939"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8717),
                             IsDeleted = false,
                             Name = "Himkok",
                             Phone = "+47 22 42 22 02",
@@ -369,11 +369,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("38a8d90f-fe40-476c-a3ae-1e717f627b38"),
+                            Id = new Guid("055ff528-0491-4bb7-a452-714f4fc01cf3"),
                             Address = "Point Square North Dock Dublin",
                             BarImageURL = "https://www.thespiritsbusiness.com/content/http://www.thespiritsbusiness.com/media/2018/02/The-Gibson.jpg",
-                            CountryId = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(3175),
+                            CountryId = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8734),
                             IsDeleted = false,
                             Name = "The Gibson",
                             Phone = "+353 1 681 5000",
@@ -381,11 +381,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7a14f473-0efd-409c-a994-428d8273e74c"),
+                            Id = new Guid("9134fe5f-99a3-429c-bf92-af57051bdfc2"),
                             Address = "304 BRUNSWICK ST",
                             BarImageURL = "https://www.worldsbestbars.com/wp-content/uploads/2018/05/bar_640_480_Black-Pearl_54b7d78180c89_5579556b49c71.jpg",
-                            CountryId = new Guid("878d86e0-bd73-4623-b187-d2f88da18d20"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(3238),
+                            CountryId = new Guid("4b706943-1990-4a65-84c8-4e0aa5e98159"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8765),
                             IsDeleted = false,
                             Name = "Black Pearl",
                             Phone = "+61 2 8624 3131",
@@ -393,11 +393,11 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("15fcbd54-726a-415e-afc7-43895149a6f9"),
+                            Id = new Guid("0d08ea5b-8a75-4218-93db-0c19e1450868"),
                             Address = "7 Ann Siang Hill",
                             BarImageURL = "https://media.timeout.com/images/101805101/1024/576/image.jpg",
-                            CountryId = new Guid("51ab7158-df3d-4ba9-8903-938ba1a39792"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 179, DateTimeKind.Utc).AddTicks(3276),
+                            CountryId = new Guid("de599ce4-cccf-4cff-99ec-26ec18fe6ea0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 931, DateTimeKind.Utc).AddTicks(8787),
                             IsDeleted = false,
                             Name = "Operation Dagger",
                             Phone = "+39 06 2348 8666",
@@ -489,12 +489,13 @@ namespace CocktailMagician.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.HasKey("BarId", "UserId");
+                    b.HasKey("BarId", "UserId", "Id");
 
                     b.HasIndex("UserId");
 
@@ -549,9 +550,9 @@ namespace CocktailMagician.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7743d41f-ccad-4583-86c1-f9cd63a8f5c6"),
+                            Id = new Guid("13a4106f-4b81-4b20-b6df-2db6ccdc42b2"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(1139),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(4447),
                             ImageURL = "https://s3-eu-west-1.amazonaws.com/ballantines.com/prod/DrinkToMarket/1720/hero/1/hero_1988x994.jpeg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -560,9 +561,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d5939674-aeec-45d6-a2b8-653d916b89c1"),
+                            Id = new Guid("c9930d1a-4fc5-44ad-bf5e-9ae0288907ad"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2323),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(5877),
                             ImageURL = "http://saltandwind.com/media/_versions/recipes/americano-cocktail-recipe_v_medium.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -571,9 +572,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c114d45c-10fb-4df8-9855-1a374e5b8640"),
+                            Id = new Guid("ab1c510d-201a-4aef-b72b-f62dd2c85541"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2365),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(5966),
                             ImageURL = "https://unsobered.com/wp-content/uploads/2019/04/Caipiroska01-696x364.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -582,9 +583,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6acb3337-6d22-4301-b361-cf1a968654ae"),
+                            Id = new Guid("ae7683a5-5156-4629-9db1-2306c732b6ae"),
                             AlcoholPercentage = 3.5,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2382),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(5994),
                             ImageURL = "https://files2.hungryforever.com/wp-content/uploads/2018/03/23125131/caipirinha-cocktail.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -593,9 +594,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ce5aa57d-66e2-48c9-bce3-a5f4441ee9e2"),
+                            Id = new Guid("1aee6437-07ce-426b-a7ec-35064a3de9c0"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2421),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6019),
                             ImageURL = "https://www.bbcgoodfood.com/sites/default/files/styles/recipe/public/recipe/recipe-image/2018/08/bramble.jpg?itok=vmHp8xTV",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -604,9 +605,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f13b2fea-1a2c-4cd5-9cc2-6d5ba719ec9f"),
+                            Id = new Guid("071200ec-248f-4b84-a7d8-46705357095b"),
                             AlcoholPercentage = 3.5,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2445),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6056),
                             ImageURL = "https://mixthatdrink.com/wp-content/uploads/2009/03/black-russian-drink-1024x1536.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -615,9 +616,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1bf814c8-9cbb-42a0-b03f-3c676ea0c4ec"),
+                            Id = new Guid("68b7f54f-80db-4971-b3ad-55ad1f8131c5"),
                             AlcoholPercentage = 16.0,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2462),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6084),
                             ImageURL = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-190816-white-russian-0119-landscape-pf-1568744178.jpg?crop=0.668xw:1.00xh;0.241xw,0&resize=980:*",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -626,9 +627,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("89951d3d-8ff5-46af-8e01-d3622220c6e6"),
+                            Id = new Guid("bc0ae567-d03f-4dab-879d-c1da00b98749"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2476),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6109),
                             ImageURL = "https://dujour.com/wp-content/uploads/8297551ed0cc-500x600.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -637,9 +638,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("15346bd8-34d5-41bd-be75-b8157ca7c92c"),
+                            Id = new Guid("5b3ad3ca-fb71-46d9-b2b8-f9cc03fd9db4"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2489),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6173),
                             ImageURL = "https://media02.stockfood.com/previews/NDY2OTI4NA==/00389107-Campari-Orange.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -648,9 +649,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7dab3d1f-2a94-437d-9817-47aea1b12c0d"),
+                            Id = new Guid("f9b5b0c9-085c-4cad-975c-8b067234f9ce"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2505),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6217),
                             ImageURL = "https://makemeacocktail.com/images/cocktails/6868/400_601_margarita_2_2.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -659,9 +660,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c63607a7-407d-4fba-b7c5-dc6ff998f0fe"),
+                            Id = new Guid("2ca1e393-2991-48e2-9651-f40445fbeb6c"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2521),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6286),
                             ImageURL = "https://www.thespruceeats.com/thmb/AHWO_swapE-OzY_e3-Ufk2YAR2s=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/negroni-cocktail-recipe-759327-6-5b3f965b46e0fb00364f8d61.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -670,9 +671,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5e5c36dd-cabb-4df2-91f8-90cf891eb5b2"),
+                            Id = new Guid("65b7641b-58a7-4936-a884-b322b9ea15b9"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2536),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6336),
                             ImageURL = "https://www.thespruceeats.com/thmb/SZ4ZYUfFLuTxyE7QhutTS_XWgHA=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/dirty-martini-cocktail-recipe-759643-15_preview-5b02f935c064710036ff4c24.jpeg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -681,9 +682,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e6104c75-19a2-4b50-a35d-3cb5f27dd4dc"),
+                            Id = new Guid("26e12457-7e0f-41f2-aa4c-99fb9ed71698"),
                             AlcoholPercentage = 3.5,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2559),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6364),
                             ImageURL = "https://www.spendwithpennies.com/wp-content/uploads/2019/11/Bloody-Mary-SpendWithPennies-4.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -692,9 +693,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d28d0b7b-b3bf-4884-bac6-f6962c3ac312"),
+                            Id = new Guid("db8d68e1-ab43-404c-8f73-2ceb53885cd0"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2574),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6389),
                             ImageURL = "https://stevethebartender.com.au/wp-content/uploads/2014/06/manhattan-cocktail-recipe.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -703,9 +704,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d82d4117-d160-43fd-a714-4a5a66b68676"),
+                            Id = new Guid("61f4ed22-aa70-46fc-affb-d30b127bc1b1"),
                             AlcoholPercentage = 3.3999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2592),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6415),
                             ImageURL = "https://i1.wp.com/abarabove.com/wp-content/uploads/2020/02/P2-SingaporeSling.jpg?w=1080&ssl=1",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -714,9 +715,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1e5f6f12-1750-4ac6-8b64-bd691a4ca3bc"),
+                            Id = new Guid("2aeebac1-10cd-4d74-8750-a55d4bb4199c"),
                             AlcoholPercentage = 3.7999999999999998,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2609),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6447),
                             ImageURL = "https://www.artofdrink.com/wp-content/uploads/2011/02/vesper-martini-750x500.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -725,9 +726,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("265358fa-da70-4289-9f18-e6420b24093e"),
+                            Id = new Guid("e889e7a4-81df-4672-85d8-21d9f954402b"),
                             AlcoholPercentage = 3.7999999999999998,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2626),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6471),
                             ImageURL = "https://www.liquor.com/thmb/VMoOrrQzOV00AY3rgSK6XxOR0EE=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__liquor__2018__09__04153106__mojito-720x720-recipe-a55b114fc99c4a64b38c9ef6d1660e20.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -736,9 +737,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a6845fa2-36dc-4e4c-8592-3813ae310205"),
+                            Id = new Guid("ab15cc3a-922b-44ef-b186-dc3151f0b66d"),
                             AlcoholPercentage = 3.8999999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2643),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6505),
                             ImageURL = "https://253qv1sx4ey389p9wtpp9sj0-wpengine.netdna-ssl.com/wp-content/uploads/2017/12/Classic_Hot_Toddy-700x461.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -747,9 +748,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ed84e87b-6c05-4d6b-9239-ddcef569c800"),
+                            Id = new Guid("cebb5a44-845f-4de4-be03-9ae46efa6f3a"),
                             AlcoholPercentage = 4.0999999999999996,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2663),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6579),
                             ImageURL = "https://cookieandkate.com/images/2017/12/french-75-recipe-2-3-768x1151.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -758,9 +759,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6b4bceea-590b-485a-89b3-2fc82d38dd3d"),
+                            Id = new Guid("92a4c3c7-c499-43c2-bdec-b062b592a42b"),
                             AlcoholPercentage = 4.2000000000000002,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2677),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6636),
                             ImageURL = "https://www.thespruceeats.com/thmb/_Eo444fpQZYRfERGYBBwXZ0jqsw=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/vieux-carre-cocktail-recipe-761512-hero-6438e708bfe14454b9ff17168163b12a.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -769,9 +770,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("180fc34e-dd64-423e-a0a5-cf21d4278832"),
+                            Id = new Guid("70945f52-2334-4af5-8fec-9a88ff82bf8f"),
                             AlcoholPercentage = 4.5,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2697),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6674),
                             ImageURL = "https://noseychef.com/wp-content/uploads/2018/04/hemingwaydaiquiri.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -780,9 +781,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3bb03fb9-4287-4911-939e-b71c6b5084bd"),
+                            Id = new Guid("e13ab61c-067a-466b-8948-f7f516bcccbc"),
                             AlcoholPercentage = 7.2999999999999998,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2713),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6702),
                             ImageURL = "https://www.liquor.com/thmb/OdGMZLH9XqRF1_WzYCg8V_jvX38=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__liquor__2018__05__08113350__bourbon-old-fashioned-720x720-recipe-ade6f7780c304999be3577e565c9bcdd.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -791,9 +792,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f45d87b4-d088-4c6f-9a10-2cf6067c3b64"),
+                            Id = new Guid("de278d80-1a4e-473f-a2f9-1a989f28ece8"),
                             AlcoholPercentage = 7.2000000000000002,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2728),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6729),
                             ImageURL = "https://ik.imagekit.io/0tvlktvw2l3s5/wp-content/uploads/2017/02/DSC_1281-1024x1024.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -802,9 +803,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4b50944f-199b-4070-acb1-8631c0879f6f"),
+                            Id = new Guid("7bf8e482-2391-4788-bf3c-9bc1229a4579"),
                             AlcoholPercentage = 7.4000000000000004,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2745),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6757),
                             ImageURL = "https://media.istockphoto.com/photos/raspberry-sangria-lemonade-or-mojito-picture-id918469144",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -813,9 +814,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f219ce50-1690-40c3-98c9-d457c86177b2"),
+                            Id = new Guid("4263a662-43a7-40e2-af53-c8c2c4140f96"),
                             AlcoholPercentage = 12.699999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2760),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6782),
                             ImageURL = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/easter-cocktails-1583163536.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -824,9 +825,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ade750e8-7c64-4d72-ab8d-f170bf3780dc"),
+                            Id = new Guid("25828379-2861-4390-b9d2-817de8802264"),
                             AlcoholPercentage = 16.0,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2774),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6808),
                             ImageURL = "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/orange-raspberry-mimosa-1557496595.jpg?crop=0.668xw:1.00xh;0.189xw,0.00255xh&resize=768:*",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -835,9 +836,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8474cde4-5178-45c9-9c3c-7951793602cb"),
+                            Id = new Guid("ba4430c5-fcff-4a35-b6ae-e28f0573939f"),
                             AlcoholPercentage = 12.699999999999999,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2822),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6851),
                             ImageURL = "https://www.recipetineats.com/wp-content/uploads/2019/09/Tequila-Sunrise.jpg",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -846,9 +847,9 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ef88da36-7250-4a5c-adeb-1216612c2845"),
+                            Id = new Guid("669f27a6-fbc9-4ce6-9754-a4a486a0af69"),
                             AlcoholPercentage = 2.5,
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 175, DateTimeKind.Utc).AddTicks(2836),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 928, DateTimeKind.Utc).AddTicks(6900),
                             ImageURL = "https://allfood.recipes/wp-content/uploads/2019/12/Disney-Dole-Pineapple-Whip-Margarita.jpg Dagger",
                             IsAlcoholic = false,
                             IsDeleted = false,
@@ -865,6 +866,10 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Comments")
                         .IsRequired()
                         .HasColumnType("nvarchar(500)")
@@ -876,16 +881,13 @@ namespace CocktailMagician.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("CocktailId", "UserId");
+                    b.HasKey("CocktailId", "UserId", "Id");
 
                     b.HasIndex("UserId");
 
@@ -931,12 +933,13 @@ namespace CocktailMagician.Data.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.HasKey("CocktailId", "UserId");
+                    b.HasKey("CocktailId", "UserId", "Id");
 
                     b.HasIndex("UserId");
 
@@ -974,8 +977,8 @@ namespace CocktailMagician.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("09911cd0-68ea-47ed-b498-3648fea60cdb"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(3425),
+                            Id = new Guid("e1a14726-8079-45d3-91df-f74d74b187b3"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(5874),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -983,8 +986,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("49e616ce-6a32-4f73-b98e-6d9e42279ffa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4405),
+                            Id = new Guid("3f3ef73f-bad6-4acf-a880-366b91e34ff8"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6854),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -992,8 +995,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ca1279d2-b2e1-4a61-9d1e-1b2e91c7e18a"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4426),
+                            Id = new Guid("0868b356-3bdc-4bcc-a1da-bda6fc74a642"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6871),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1001,8 +1004,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("51ab7158-df3d-4ba9-8903-938ba1a39792"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4431),
+                            Id = new Guid("de599ce4-cccf-4cff-99ec-26ec18fe6ea0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6875),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1010,8 +1013,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("bca3c23e-141b-409c-b1e7-d72c535bfe74"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4435),
+                            Id = new Guid("f3d5b2fa-c787-408a-9ace-f65ec7b344a5"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6879),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1019,8 +1022,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("47e048ab-0b58-4ff3-83e0-65a414f48868"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4444),
+                            Id = new Guid("0f5c000c-803e-4574-8e2e-a90116c1fbd0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6913),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1028,8 +1031,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("86218876-43fa-418e-9568-be8433226a78"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4448),
+                            Id = new Guid("3629d4d1-cc0e-4f3b-b8d0-8671c1e0807b"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6931),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1037,8 +1040,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("65b2d477-44ac-4e82-89f6-5e62034388ae"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4452),
+                            Id = new Guid("b57c06f4-b52e-4cab-81c3-76b82863809e"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6936),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1046,8 +1049,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b8fa399b-55bd-4933-980e-2825a8d89cbc"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4464),
+                            Id = new Guid("319027e9-f9c8-4b72-8045-9a1747e6d322"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6940),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1055,8 +1058,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("29c5a8c4-c2d1-42a1-a25a-12815ac06b95"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4470),
+                            Id = new Guid("82113657-35b2-4cea-bc1e-8d1c6dfb46a2"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6947),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1064,8 +1067,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("90c6a441-6972-4cb1-8d14-fed3e28b0cfc"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4474),
+                            Id = new Guid("767e624a-39bb-41a0-b8b1-073b84b3898c"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6950),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1073,8 +1076,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("74ec97f5-0ebe-4a49-b2e1-b65842aa9aaa"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4477),
+                            Id = new Guid("d863d2c7-6e7b-42e1-ac9b-b0608df4dd17"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6954),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1082,8 +1085,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("edebaad3-5e2a-401c-9129-856bf329aa47"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4481),
+                            Id = new Guid("6e7f715e-b125-43c1-9bc8-0cd12133b939"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6958),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1091,8 +1094,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("878d86e0-bd73-4623-b187-d2f88da18d20"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 176, DateTimeKind.Utc).AddTicks(4485),
+                            Id = new Guid("4b706943-1990-4a65-84c8-4e0aa5e98159"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 929, DateTimeKind.Utc).AddTicks(6962),
                             DeletedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             ModifiedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1144,8 +1147,8 @@ namespace CocktailMagician.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5a8b1896-60b5-46b6-bd93-e3751d9b708e"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(1479),
+                            Id = new Guid("a41700c9-754a-48d7-8626-5a987626a10a"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(2341),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Banana Daiquiri",
@@ -1154,8 +1157,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3f7547e2-e4b7-4469-a04b-1b5eac1fc782"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2706),
+                            Id = new Guid("1ed82320-6b6e-44ad-b40a-8fa5ecbda7d1"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3257),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Banana Juice",
@@ -1164,8 +1167,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ab3202b9-3d1a-4fb9-8be8-373a92da42d8"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2739),
+                            Id = new Guid("2f1e7bc6-3d27-4e8a-bbb7-aa1fed512ebe"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3272),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Vodka",
@@ -1174,8 +1177,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3850c16c-c9c2-435c-ac4f-bde6f4c8e2d0"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2747),
+                            Id = new Guid("7fc6f3ae-5f7e-4d23-b643-199f6a9d1859"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3276),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Orange juice",
@@ -1184,8 +1187,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1bed28a6-1c64-4478-a298-52a6c6462ca8"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2754),
+                            Id = new Guid("bd42e801-6222-4680-95af-38b147b69842"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3280),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Whiskey",
@@ -1194,8 +1197,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cccecd21-2c30-4228-994a-0746c92a4618"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2770),
+                            Id = new Guid("8d1d74c6-0a23-4879-a6ec-07eccc25020f"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3288),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Coffee",
@@ -1204,8 +1207,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2601b6d9-661f-4103-aae0-fce28cf5ed90"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2778),
+                            Id = new Guid("f1c1a2b9-9e99-417e-92e1-c4b20000e463"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3312),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Gin",
@@ -1214,8 +1217,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ec065f01-f9ba-427e-9a24-a5782fb8e427"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2784),
+                            Id = new Guid("65d9ac96-bd64-45ad-989d-9ab8e3823712"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3316),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Campari",
@@ -1224,8 +1227,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d076667e-8d87-44a8-904d-979ff36f5e46"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2804),
+                            Id = new Guid("387e75ff-41b3-481a-92f7-bfae8e16be06"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3320),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Rum",
@@ -1234,8 +1237,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("12002fde-6512-40dd-a331-54f1d724d93e"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2813),
+                            Id = new Guid("f7192fb9-f75c-4550-a7d9-cc56debd8de2"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3326),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Sugar syrup",
@@ -1244,8 +1247,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("90d1c0be-0b24-421c-b59a-25bc4fb45e90"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2820),
+                            Id = new Guid("c73f1c6e-28a1-4693-8d77-b421cc765865"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3330),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Triple sec liqueur",
@@ -1254,8 +1257,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c503cc6e-7072-4b3e-a04f-cc1ca9b83070"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2827),
+                            Id = new Guid("f03cbe09-9ef9-4bf3-a21b-fa4330b35598"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3334),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Dry vermouth",
@@ -1264,8 +1267,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("e4bd6a69-f500-45ab-8591-a6df871d23d1"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2835),
+                            Id = new Guid("080be858-f3cd-46a1-880e-90e8eb842f96"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3337),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Sweet vermouth",
@@ -1274,8 +1277,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b6a5b6d7-350a-4a9b-bf43-ba2bee29024d"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2842),
+                            Id = new Guid("4015d42c-e59e-4369-94a3-c01c97092449"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3355),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Tequila",
@@ -1284,8 +1287,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("05e85c5e-d508-4009-bc2f-6207410f2e43"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2849),
+                            Id = new Guid("d2935f64-cd93-4aea-9fd0-8a29744e70bb"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3365),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Club soda",
@@ -1294,8 +1297,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("ab8c09aa-c7f6-409f-9c70-ff911fc96cec"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2856),
+                            Id = new Guid("f2b104eb-d5ec-486d-852f-155fc4eba40e"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3368),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Cream",
@@ -1304,8 +1307,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0c140fc9-28f8-44a3-8b38-5e31e01ef73b"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2868),
+                            Id = new Guid("27f450ac-4d37-4cbb-842f-6b20cf890165"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3372),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Maraschino liqueur",
@@ -1314,8 +1317,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("491f4025-b3db-433f-b186-261608f84dea"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2881),
+                            Id = new Guid("35015229-2349-4dfb-b632-016da76332f9"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3378),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Brut champagne",
@@ -1324,8 +1327,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("40ff417c-b8f4-48f7-a120-bd01d1266de0"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2888),
+                            Id = new Guid("046de991-bc8f-4cb0-892e-592b707f196d"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3382),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Fresh mint leaves",
@@ -1334,8 +1337,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3af29116-66da-46c1-ab2b-e855c0f47088"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2895),
+                            Id = new Guid("eb5c4eb2-bc4a-4977-aca6-bad4fe8ac2b6"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3385),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Absinthe",
@@ -1344,8 +1347,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5c44fcee-6c43-4c90-8939-30225de1d02e"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2902),
+                            Id = new Guid("04228896-19da-42a4-9c63-9146de20d232"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3389),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Amaretto liqueur",
@@ -1354,8 +1357,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("5ef6ec8e-8e41-49e2-adc8-a30da5520744"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2909),
+                            Id = new Guid("de415bf9-a173-45c9-b127-eb949d3c2fce"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3392),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Milk",
@@ -1364,8 +1367,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("09f5b9b6-90d6-4024-8744-f65e809656b1"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2916),
+                            Id = new Guid("a612a417-7f18-48b4-85ed-f4b8163563f0"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3400),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Cachaca",
@@ -1374,8 +1377,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("82d8b8b0-25e2-4201-8b66-7a6f7c6d39b8"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2924),
+                            Id = new Guid("f72aac33-44d9-417f-b3e9-669f1682ae08"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3403),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Ginger Ale",
@@ -1384,8 +1387,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("78d23a0b-82b9-43ff-b19a-51c1f2f9060f"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2937),
+                            Id = new Guid("5e3697d6-0aa3-4b6b-9128-68d3aa7224cd"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3407),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Lime",
@@ -1394,8 +1397,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("91cc4a21-5ffb-464b-a639-406a7a58ff67"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2944),
+                            Id = new Guid("b56f1f4c-c83e-4de8-9648-f898792a25a6"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3411),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Blue curacao liqueur",
@@ -1404,8 +1407,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2006ecbb-c2e6-487d-a06a-36cbdc612af8"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2951),
+                            Id = new Guid("0029134d-b7c1-4aca-9183-13c5896ff229"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3414),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Coffee liqueur",
@@ -1414,8 +1417,8 @@ namespace CocktailMagician.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("3b4665a8-42c0-4a7f-b2b4-ba53419050ad"),
-                            CreatedOn = new DateTime(2020, 5, 31, 20, 25, 19, 171, DateTimeKind.Utc).AddTicks(2959),
+                            Id = new Guid("00003a2f-9523-4fe4-9982-e21a1416af20"),
+                            CreatedOn = new DateTime(2020, 6, 2, 10, 9, 10, 925, DateTimeKind.Utc).AddTicks(3417),
                             IsAlcoholic = false,
                             IsDeleted = false,
                             Name = "Grapefruit juice",
@@ -1455,21 +1458,21 @@ namespace CocktailMagician.Data.Migrations
                         new
                         {
                             Id = new Guid("c611672d-5da5-43d3-bbbf-e897e4456cb9"),
-                            ConcurrencyStamp = "c42332b5-a814-454b-adbe-2d30d0cdd1e0",
+                            ConcurrencyStamp = "43705388-9de0-48b7-a653-29070b894862",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("f476e48e-0586-4f40-92b2-2279ce6f6db7"),
-                            ConcurrencyStamp = "56efd0cf-10bd-4bed-bbc6-cc42e2ed7f4b",
+                            ConcurrencyStamp = "1d54fd7a-607c-4f75-869b-aa166b63bf69",
                             Name = "Magician",
                             NormalizedName = "MEMBER"
                         },
                         new
                         {
                             Id = new Guid("01bc7e12-c30b-47d1-a0a0-b146bb93ccdb"),
-                            ConcurrencyStamp = "f22171f4-6740-4f4f-89c4-0aaff6d973f5",
+                            ConcurrencyStamp = "90d1283a-aaee-4bf7-b1cb-6e126906d299",
                             Name = "Crawler",
                             NormalizedName = "CRAWLER"
                         });
@@ -1560,7 +1563,7 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = new Guid("5874617e-289f-4eb2-94ee-20b52faf67fa"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fae45dca-9f05-4caa-a9c7-b79d61c112ab",
+                            ConcurrencyStamp = "c07d237c-56c5-4459-bac7-73304b5afeef",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@abv.bg",
                             EmailConfirmed = false,
@@ -1568,7 +1571,7 @@ namespace CocktailMagician.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ABV.BG",
                             NormalizedUserName = "ADMIN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGQWZJEoELZ+9yZxdE5gQlxREtgLSIf6rTo8RqE2RYI8bOGSnBpH885L9psITNRQSA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDQH57bEP7lElssbzamBmymBlAJth/XZV1H/JyiGhGrElUX0U/y5BQ4mcaeMVHfVdA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "15CLJEKQCTLPRXMVXXNSWXZH6R6KJRRU",
                             TwoFactorEnabled = false,
@@ -1578,7 +1581,7 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = new Guid("baf374a9-0e81-4656-b0bb-16fe10985320"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c07ca4a2-810f-46ea-b9ff-8d5cde200db4",
+                            ConcurrencyStamp = "95604fb3-2f7a-4910-a5fd-8bc2f78852a7",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "magician@abv.bg",
                             EmailConfirmed = false,
@@ -1586,7 +1589,7 @@ namespace CocktailMagician.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "magician@abv.bg",
                             NormalizedUserName = "MAGICIAN@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAENwm/EeLgyYES7JVoTcb/cC3hc4MgMU0oLwMhKK4mTiAKdbydbvHT+cRmUgNTfAvpw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENneszuObdah8WO7sLERUBODEjAfATdclzGIew08bzrQcXpGo8OQouvaSeaDTali6A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN",
                             TwoFactorEnabled = false,
@@ -1596,7 +1599,7 @@ namespace CocktailMagician.Data.Migrations
                         {
                             Id = new Guid("4734cf2f-fcb8-461b-88dc-06152e89bc97"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c2a821f-4698-4e20-b108-19a60f8d12c8",
+                            ConcurrencyStamp = "380f9f4e-66ac-4048-8793-e2ba0e7e8c2f",
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "crawler@abv.bg",
                             EmailConfirmed = false,
@@ -1604,7 +1607,7 @@ namespace CocktailMagician.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "crawler@abv.bg",
                             NormalizedUserName = "CRAWLER@ABV.BG",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIT+nDbDCA9OSuuCqj+kS7OjEkommEcRW8i/9fTmvCoIvOMB++93uimCzZj+OT1E5Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA3ysm2jG0lmy0F1u7AD6tpHc0IbElF8pkGYjP1zdi36rBuEXhnZ9ASz4kTkDq/wkw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7I5VNHIJTSZNOT3KDWKNFUV5PVYBHGXN",
                             TwoFactorEnabled = false,

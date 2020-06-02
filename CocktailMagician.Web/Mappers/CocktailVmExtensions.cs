@@ -26,7 +26,7 @@ namespace CocktailMagician.Web.Mappers
                 Name = item.Name,
                 Rating = item.Rating,
                 Bars = item.Bars,
-                Comments = item.Comments.GetDTOs(),
+                Comments = item.Comments.GetViewModels(),
                 Ingredients = item.Ingredients,
                 Stars = item.Stars,
             };

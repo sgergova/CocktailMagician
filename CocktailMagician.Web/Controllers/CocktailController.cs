@@ -18,12 +18,14 @@ namespace CocktailMagician.Web.Controllers
         private readonly ICocktailServices cocktailServices;
         private readonly IIngredientServices ingredientServices;
         private readonly IToastNotification toast;
+        private readonly ICocktailCommentServices cocktailCommentServices;
 
-        public CocktailController(ICocktailServices cocktailServices,IIngredientServices ingredientServices, IToastNotification toast)
+        public CocktailController(ICocktailServices cocktailServices,IIngredientServices ingredientServices, IToastNotification toast,ICocktailCommentServices cocktailCommentServices)
         {
             this.cocktailServices = cocktailServices;
             this.ingredientServices = ingredientServices;
             this.toast = toast;
+            this.cocktailCommentServices = cocktailCommentServices;
         }
         [HttpGet]
         public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, CocktailViewModel model)
@@ -63,6 +65,8 @@ namespace CocktailMagician.Web.Controllers
                 var cocktailVM = cocktail.GetViewModel();
                 cocktailVM.IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList();
                 cocktailVM.Ingredients = await ingredientServices.GetCocktailIngredients(id);
+                var comments = await cocktailCommentServices.GetAllCommentsForCocktail(id);
+                cocktailVM.Comments = comments.GetViewModels();
                 return View(cocktailVM);
             }
             catch (Exception)
