@@ -64,7 +64,7 @@ namespace CocktailMagician.Services
             {
                 entities = entities.Where(i => i.Name.ToLower().Contains(name.ToLower()));
             }
-            var ingredient = await entities.ToListAsync();
+            var ingredient = await entities.OrderBy(e => e.Name).ToListAsync();
 
             return ingredient.GetDTOs();
         }
@@ -192,7 +192,7 @@ namespace CocktailMagician.Services
                 ingredients = ingredients.Where(b => b.Name.Contains(searchCriteria));
             }
 
-            ingredients = OrderIngredient(ingredients, orderBy);
+            //ingredients = OrderIngredient(ingredients, orderBy);
             ingredients = currentPage == 1 ? ingredients = ingredients.Take(10) : ingredients = ingredients.Skip((currentPage - 1) * 10).Take(10);
 
             var results = await ingredients.ToListAsync();

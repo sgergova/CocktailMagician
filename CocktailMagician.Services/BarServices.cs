@@ -30,6 +30,7 @@ namespace CocktailMagician.Services
         public async Task<BarDTO> GetBar(Guid id)
         {
             var entity = await GetAllBarsQueryable()
+                
                                         .FirstOrDefaultAsync(e => e.Id == id)
                                         ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
@@ -76,6 +77,17 @@ namespace CocktailMagician.Services
             var barsDTO = barsToReturn.GetDTOs();
 
             return barsDTO;
+        }
+        public async Task<ICollection<BarCocktailDTO>> GetCocktailsForBar(Guid barId)
+        {
+            var barCocktails = await this.context.BarCocktails
+                                              .Where(b => b.BarId == barId)
+                                              .Include(b => b.Cocktail)
+                                              .Include(b => b.Bar)
+                                              .ToListAsync()
+                                              ?? throw new ArgumentNullException("The name cannot be null");
+
+            return barCocktails.GetDTOs();
         }
 
         public async Task<ICollection<BarDTO>> GetTopThreeBars()
@@ -172,6 +184,47 @@ namespace CocktailMagician.Services
 
             return bar.GetDTO();
         }
+        public async Task<BarDTO> AddCocktailsToBar(string barName, List<string> cocktailNames)
+        {
+            var bar = await this.context.Bars
+                                             .Where(b => b.IsDeleted == false)
+                                             .Include(b=>b.Country)
+                                             .FirstOrDefaultAsync(c => c.Name == barName)
+                                             ?? throw new ArgumentNullException("Bar not found");
+           
+
+            foreach (var item in cocktailNames)
+            {
+
+                var cocktail = await this.context.Cocktails
+                                                 .Where(c => c.IsDeleted == false)
+                                                 .FirstOrDefaultAsync(i => i.Name == item)
+                                                   ?? throw new ArgumentNullException("Cocktail not found");
+                var newBarCocktail = new BarCocktail
+                {
+                    BarId = bar.Id,
+                    CocktailId = cocktail.Id,
+                    
+                };
+
+                try
+                {
+                await this.context.BarCocktails.AddAsync(newBarCocktail);
+                this.context.Cocktails.Update(cocktail);
+                this.context.Bars.Update(bar);
+                await this.context.SaveChangesAsync();
+
+                }
+                catch (Exception)
+                {
+
+                    throw new ArgumentNullException("This bar already has this cocktail.");
+                }
+            }
+            
+
+            return bar.GetDTO();
+        }
         /// <summary>
         ///Check in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
         /// If some of the params is not valid throws exception. 
@@ -220,6 +273,7 @@ namespace CocktailMagician.Services
         {
             var barCocktail = await this.context.BarCocktails
                                                 .FirstOrDefaultAsync(bc => bc.Id == barCocktailId)
+                                                
                                                 ?? throw new ArgumentNullException(Exceptions.NullEntityId);
             var bar = barCocktail.Bar;
             var cocktail = barCocktail.Cocktail;
@@ -365,6 +419,7 @@ namespace CocktailMagician.Services
         {
             var entities = this.context.Bars
                                         .Include(b => b.Country)
+                                        
                                        .Where(b => b.IsDeleted == false)
                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 

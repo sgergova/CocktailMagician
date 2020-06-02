@@ -49,22 +49,17 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktailVM)
         {
-
-
-
-
-
             var cocktail = await cocktailServices.CreateCocktail(cocktailVM.GetDtoFromVM());
 
 
             return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }
         [HttpPost]
-        public async Task<IActionResult> AddIngredients(CocktailViewModel model)
+        public async Task<IActionResult> AddIngredients(CocktailViewModel model,string name)
         {
-            
+           
 
-            await cocktailServices.AddIngredientsToCocktail(model.Name, model.IngredientNames.ToList());
+            await cocktailServices.AddIngredientsToCocktail(name, model.IngredientNames.ToList());
 
             return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }

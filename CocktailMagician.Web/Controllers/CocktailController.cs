@@ -65,6 +65,7 @@ namespace CocktailMagician.Web.Controllers
                 var cocktailVM = cocktail.GetViewModel();
                 cocktailVM.IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList();
                 cocktailVM.Ingredients = await ingredientServices.GetCocktailIngredients(id);
+                cocktailVM.Bars = await cocktailServices.GetBarsForCocktail(id);
                 var comments = await cocktailCommentServices.GetAllCommentsForCocktail(id);
                 cocktailVM.Comments = comments.GetViewModels();
                 return View(cocktailVM);

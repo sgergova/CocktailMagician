@@ -63,6 +63,17 @@ namespace CocktailMagician.Services
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
+        public async Task<ICollection<BarCocktailDTO>> GetBarsForCocktail(Guid cocktailId)
+        {
+            var barCocktails = await this.context.BarCocktails
+                                              .Where(b => b.CocktailId == cocktailId)
+                                              .Include(b => b.Cocktail)
+                                              .Include(b => b.Bar)
+                                              .ToListAsync()
+                                              ?? throw new ArgumentNullException("The name cannot be null");
+
+            return barCocktails.GetDTOs();
+        }
 
         public async Task<ICollection<CocktailDTO>> GetAllCocktails()
         {

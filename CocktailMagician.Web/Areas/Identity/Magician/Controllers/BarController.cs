@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Web.Mappers;
@@ -73,11 +74,12 @@ namespace CocktailMagician.Web.Areas.Magician
 
 
         [HttpPost]
-        public async Task<IActionResult> AddCocktailToBar(Guid barId, Guid cocktailId)
+        public async Task<IActionResult> AddCocktailToBar(BarViewModel model, string name)
         {
-            var cocktail = await cocktailServices.GetCocktail(cocktailId);
-            await barServices.AddCocktailToBar(barId, cocktail);
-            return RedirectToAction("ListBars", "Bar");
+           
+            await barServices.AddCocktailsToBar(name, model.CocktailNames.ToList());
+
+            return RedirectToAction("ListBars", "Bar",new { Area="" });
         }
         [HttpPost]
         public async Task<IActionResult> RemoveCocktailFromBar(Guid barId, Guid cocktailId)

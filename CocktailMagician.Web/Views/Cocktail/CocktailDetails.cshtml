@@ -113,7 +113,9 @@
 </div>
 @if (User.IsInRole("Magician"))
 {
-    <a class="button" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
+    <a class="button" style="position: relative;
+    top: -623px;
+    left: 891px;" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
     <partial model="new CocktailViewModel() { Name = Model.Name,
     IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
 
@@ -139,5 +141,17 @@
             <p id="rcorners2">@item.Comment</p>
         </div>
 
+    }
+</div>
+<div>
+    Bars that offer this cocktail.
+    @foreach (var item in Model.Bars)
+    {
+
+        <div>
+            <a asp-controller="Bar" asp-action="BarDetails" asp-route-id="@item.BarId">
+                <p>@item.Bar.Name</p>
+            </a>
+        </div>
     }
 </div>
