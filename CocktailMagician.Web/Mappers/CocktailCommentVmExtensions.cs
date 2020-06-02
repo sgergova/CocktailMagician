@@ -21,6 +21,7 @@ namespace CocktailMagician.Web.Mappers
                 CocktailId = item.CocktailId,
                 UserId = item.UserId,
                 Comment = item.Comments,
+                 Name = item.User.UserName
 
 
             };

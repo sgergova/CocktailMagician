@@ -99,26 +99,47 @@
 
     <partial name="_CommentsPartial" model="@partialModel" />
 }
-
-@foreach (var item in Model.Comments)
+@if (User.IsInRole("Magician"))
 {
-    <style>
-        #rcorners2 {
-            border-radius: 25px;
-            border: 2px solid #eda215;
-            padding: 20px;
-            width: 300px;
-            height: 100px;
-        }
-    </style>
-    <div style="position: relative;
-    top: -200px;">
-        <p>@item.Name</p>
-        <p id="rcorners2">@item.Comment</p>
-    </div>
+<a class="button" data-toggle="modal" style="" data-target="#modalAddCocktailsToBar">
+    Add cocktails to this bar
+</a>
+    <partial model="new BarViewModel() { Name= Model.Name,
+    CocktailsToChoose = Model.CocktailsToChoose }" name="_AddCocktailsToBar" />
 
 }
+<div style="left: 272px;
+    position: relative;
+    top: -135px;">
+    @foreach (var item in Model.Comments)
+    {
+        <style>
+            #rcorners2 {
+                border-radius: 25px;
+                border: 2px solid #eda215;
+                padding: 20px;
+                width: 300px;
+                height: 100px;
+            }
+        </style>
+        <div style="position: relative;
+    top: -200px;">
+            <p>@item.Name</p>
+            <p id="rcorners2">@item.Comment</p>
+        </div>
 
-
-
+    }
+</div>
+<div >
+    Cocktails offered in this bar.
+    @foreach (var item in Model.BarCocktails)
+    {
+      
+        <div>
+            <a  asp-controller="Cocktail" asp-action="CocktailDetails" asp-route-id="@item.CocktailId">
+                <p>@item.Cocktail.Name</p>
+            </a>
+        </div>
+    }
+</div>
 

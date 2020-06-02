@@ -8,9 +8,10 @@ namespace CocktailMagician.Web.Models
     public class CocktailCommentViewModel
     {
         public Guid UserId { get; set; }
-
+        public string Name { get; set; }
+      
         public Guid CocktailId { get; set; }
-        //[Bind]
+       
         public string Comment { get; set; }
 
     }

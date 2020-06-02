@@ -20,6 +20,7 @@ namespace CocktailMagician.Services.Mappers
                 BarId = barCocktail.BarId,
                 Bar = barCocktail.Bar,
                 CocktailId = barCocktail.CocktailId,
+                Cocktail = barCocktail.Cocktail,
                 IsListed = barCocktail.IsListed,
                 IsDeleted = barCocktail.IsDeleted,
                 DeletedOn = barCocktail.DeletedOn,

@@ -21,11 +21,7 @@ namespace CocktailMagician.Services
         {
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
-        /// <summary>
-        /// Takes the ID of the user and as well of the cocktail and creates new comment. 
-        /// </summary>
-        /// <param name="comment">The data tranfer object of cocktail comment that should be created</param>
-        /// <returns>The created comment as data tranfer object</returns>
+
         public async Task<CocktailCommentsDTO> CreateComment(CocktailCommentsDTO comment)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == comment.UserId)
@@ -43,11 +39,7 @@ namespace CocktailMagician.Services
 
             return newCocktailComment.GetDTO();
         }
-        /// <summary>
-        /// Finds the comment that should be deleted, searching by given ID, if it exists - marks the comment as deleted.
-        /// </summary>
-        /// <param name="CommentId">The ID of comment that should be deleted</param>
-        /// <returns>Data transfer object of deleted comment</returns>
+
         public async Task<CocktailCommentsDTO> DeleteComment(Guid commentId)
         {
             var comment = await this.context.CocktailComments
@@ -61,12 +53,7 @@ namespace CocktailMagician.Services
 
             return comment.GetDTO();
         }
-        /// <summary>
-        /// Provides all the comments for that a current user has made.
-        /// </summary>
-        /// <param name="id">The ID of user</param>
-        /// <param name="barId">The ID of user</param>
-        /// <returns>Sequence of comments</returns>
+
         public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsOfUser(Guid? id, string username)
         {
             var comments = await this.context.CocktailComments
@@ -75,16 +62,12 @@ namespace CocktailMagician.Services
 
             return comments.GetDTOs();
         }
-        /// <summary>
-        /// Provides all the comments for the current cocktail.
-        /// </summary>
-        /// <param name="Id">The ID of cocktail</param>
-        /// <param name="cocktailName">The name of cocktail</param>
-        /// <returns>Sequence of comments</returns>
-        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id, string cocktailName)
+
+        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id)
         {
             var comments = await this.context.CocktailComments
-                                     .Where(cc => cc.IsDeleted == false && cc.CocktailId == id || cc.Cocktail.Name == cocktailName)
+                                     .Where(cc => cc.IsDeleted == false && cc.CocktailId == id)
+                                     .Include(cc => cc.User)
                                      .ToListAsync();
 
             return comments.GetDTOs();

@@ -73,7 +73,7 @@ namespace CocktailMagician.Web.Areas.Identity.Crawler.Controllers
             await barRatingServices.CreateRating(viewModel.GetDtoFromVM());
 
 
-            return RedirectToAction("Details", "Bar", id);
+            return RedirectToAction("ListBars", "Bar", new {Area = "" });
         }
     }
 }

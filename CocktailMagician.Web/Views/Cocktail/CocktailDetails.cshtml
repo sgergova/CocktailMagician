@@ -11,9 +11,8 @@
         <img style="position:relative;top:15px;width:600px; height:500px;" src=@Model.ImageURL alt="Generic placeholder image">
     </div>
     <div class="col-md-7 order-md-2" style="        position: relative;
-        left: 600px;
-        top: -300px;
-">
+    left: 587px;
+    top: -453px;">
         <p class="lead"><h4 style="color:#b58900">AlcoholPercentage: </h4> <h6>@Model.AlcoholPercentage</h6></p>
 
     </div>
@@ -24,11 +23,11 @@
 @if (User.IsInRole("Magician"))
 {
 
-    <a class="button" style="position:relative; top:-300px;left:620px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Cocktail" asp-action="DeleteCocktail" asp-route-id="@Model.Id">Delete</a>
+    <a class="button" style="position: relative; top: -300px; left: 620px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Cocktail" asp-action="DeleteCocktail" asp-route-id="@Model.Id">Delete</a>
 }
 @if (User.IsInRole("Crawler"))
 {
-    <form id="rating" style="position: relative;top: -141px;
+    <form id="rating" style="position: relative;top: -80px;
     left: 16px;"
           method="post"
           action-xhr="https://amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/set"
@@ -99,20 +98,60 @@
 
 }
 
-<div>
-    <p>Ingredients:</p>
+<div style="    position: relative;
+    left: 604px;
+    top: -670px;">
+    <h4 style="color:orange">Ingredients</h4>
 
     @foreach (var item in Model.Ingredients)
     {
 
-        <p>@item.Ingredient.Name</p>
+        <p style="color:orange">@item.Ingredient.Name</p>
 
     }
 
 </div>
 @if (User.IsInRole("Magician"))
 {
-    <a class="button" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
+    <a class="button" style="position: relative;
+    top: -623px;
+    left: 891px;" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
     <partial model="new CocktailViewModel() { Name = Model.Name,
     IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
+
 }
+<div style="    position: relative;
+    left: 271px;">
+
+    @foreach (var item in Model.Comments)
+    {
+        <style>
+
+            #rcorners2 {
+                border-radius: 25px;
+                border: 2px solid #eda215;
+                padding: 20px;
+                width: 300px;
+                height: 100px;
+            }
+        </style>
+        <div style="position: relative;
+    top: -200px;">
+            <p>@item.Name</p>
+            <p id="rcorners2">@item.Comment</p>
+        </div>
+
+    }
+</div>
+<div>
+    Bars that offer this cocktail.
+    @foreach (var item in Model.Bars)
+    {
+
+        <div>
+            <a asp-controller="Bar" asp-action="BarDetails" asp-route-id="@item.BarId">
+                <p>@item.Bar.Name</p>
+            </a>
+        </div>
+    }
+</div>

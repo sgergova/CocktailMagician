@@ -1,5 +1,4 @@
-﻿@*modalAddIngrToCocktail*@
-@model CocktailMagician.Web.Models.CocktailViewModel
+﻿@model CocktailMagician.Web.Models.BarViewModel
 
 
 
@@ -8,7 +7,7 @@
         z-index: -1;
     }
 </style>
-<div class="modal fade" id="modalAddIngrToCocktail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="modalAddCocktailsToBar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -17,33 +16,27 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-controller="Cocktail" asp-action="CreateCocktail">
+            <form asp-area="Magician" asp-controller="Bar" asp-action="AddCocktailToBar">
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                         <br />
                         <br />
                         <br />
-                        
-                        
+
+
                         <div class="md-form mb-4">
-                            <select asp-for="@Model.IngredientNames" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.IngredientsToChoose">
-                                <option selected hidden disabled value="">Choose Ingredients</option>
+                            <select asp-for="@Model.CocktailNames" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.CocktailsToChoose">
+                                <option selected hidden disabled value="">Choose Cocktails</option>
 
                             </select>
                         </div>
 
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button asp-area="Magician" asp-controller="Cocktail" asp-action="AddIngredients" asp-route-name="@Model.Name" class="btn btn-deep-orange">Add</button>
+                        <button asp-area="Magician" asp-controller="Bar" asp-action="AddCocktailToBar" asp-route-name="@Model.Name" class="btn btn-deep-orange">Add</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-
-
-
-
-
