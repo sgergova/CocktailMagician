@@ -7,6 +7,8 @@ using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NToastNotify;
 
 namespace CocktailMagician.Web.Areas.Magician
 {
@@ -16,10 +18,15 @@ namespace CocktailMagician.Web.Areas.Magician
     {
         private readonly ICocktailServices cocktailServices;
         private readonly IIngredientServices ingredientServices;
-        public CocktailController(ICocktailServices cocktailServices, IIngredientServices ingredientServices)
+        private readonly IUploadImagesServices uploadImagesServices;
+        private readonly IToastNotification toast;
+        public CocktailController(ICocktailServices cocktailServices, IIngredientServices ingredientServices, IUploadImagesServices uploadImagesServices,
+                                  IToastNotification toast)
         {
             this.cocktailServices = cocktailServices;
             this.ingredientServices = ingredientServices;
+            this.uploadImagesServices = uploadImagesServices;
+            this.toast = toast;
         }
 
         [HttpPost]
@@ -49,17 +56,29 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktailVM)
         {
-            var cocktail = await cocktailServices.CreateCocktail(cocktailVM.GetDtoFromVM());
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var image = await uploadImagesServices.UploadImage(cocktailVM.Image);
+                    cocktailVM.ImageURL = image;
+                    var cocktail = await cocktailServices.CreateCocktail(cocktailVM.GetDtoFromVM());
 
+                    return RedirectToAction("ListCocktails", "Cocktail", new { Area = "" });
+                }
+                catch (Exception)
+                {
+                    this.toast.AddErrorToastMessage("Ooops... something went wrong");
+                    return RedirectToAction("ListCocktails");
+                }
+            }
+            return NoContent();
 
-            return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }
         [HttpPost]
-        public async Task<IActionResult> AddIngredients(CocktailViewModel model,string name)
+        public async Task<IActionResult> AddIngredients(CocktailViewModel model)
         {
-           
-
-            await cocktailServices.AddIngredientsToCocktail(name, model.IngredientNames.ToList());
+            await cocktailServices.AddIngredientsToCocktail(model.Name, model.IngredientNames.ToList());
 
             return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }

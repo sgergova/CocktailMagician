@@ -4,11 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CocktailMagician.Data.Entities
 {
-    public class BarComment  //EntitiesDetails
+    public class BarComment 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
-
         [Required]
         [StringLength(500, ErrorMessage = "The comment cannot be more than 500 characters.")]
         public string Comments { get; set; }

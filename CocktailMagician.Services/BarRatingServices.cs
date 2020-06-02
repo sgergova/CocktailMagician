@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CocktailMagician.Services
 {
-   public class BarRatingServices:IBarRatingServices
+    public class BarRatingServices : IBarRatingServices
     {
         private readonly CMContext context;
 
@@ -20,7 +20,11 @@ namespace CocktailMagician.Services
         {
             this.context = context;
         }
-         
+        /// <summary>
+        /// Creates a new instance of bar rating.
+        /// </summary>
+        /// <param name="rating">The rating that shoud be created</param>
+        /// <returns>Data transfer object of the created instance of the rating</returns>
         public async Task<BarRatingDTO> CreateRating(BarRatingDTO rating)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == rating.UserId)
@@ -38,15 +42,19 @@ namespace CocktailMagician.Services
 
             return newRating.GetDTO();
         }
-
-        public async Task<BarRatingDTO> GetRatingOfBar(Guid userId, Guid barId)
+        /// <summary>
+        /// Gets all ratings left of given bar.
+        /// </summary>
+        /// <param name="barId">The ID of the bar</param>
+        /// <returns>Sequence of the ratings</returns>
+        public async Task<BarRatingDTO> GetRatingOfBar(Guid barId)
         {
             var barRating = await this.context.BarRatings
                                        .Include(b => b.Bar)
                                        .Include(b => b.User)
-                                       .Where(br => br.BarId == barId && br.UserId == userId)
+                                       .Where(br => br.BarId == barId)
                                        .FirstOrDefaultAsync();
-            
+
             return barRating.GetDTO();
         }
     }

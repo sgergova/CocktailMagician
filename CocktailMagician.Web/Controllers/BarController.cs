@@ -33,15 +33,13 @@ namespace CocktailMagician.Web.Controllers
             this.cocktailServices = cocktailServices;
         }
         [HttpGet]
-        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, BarViewModel model)
+        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, string searchCriteria)
         {
-            var searchCriteria = model.SearchCriteria;
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
-            ICollection<BarDTO> bars = new List<BarDTO>();
 
-            bars = await this.barServices.GetIndexPageBars(orderBy, currentPage ?? 1, searchCriteria);
+            var bars = await this.barServices.GetIndexPageBars(orderBy, currentPage ?? 1, searchCriteria);
 
             var countryList = await countryServices.GetAllCountries();
             ViewBag.CountryList = countryList;

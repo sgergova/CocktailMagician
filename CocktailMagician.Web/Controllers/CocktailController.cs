@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CocktailMagician.Services;
 using CocktailMagician.Services.Contracts;
-using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,24 +25,23 @@ namespace CocktailMagician.Web.Controllers
             this.cocktailCommentServices = cocktailCommentServices;
         }
         [HttpGet]
-        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, CocktailViewModel model)
+        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, string searchCriteria)
         {
-            var searchCriteria = model.SearchCriteria;
+            //var searchCriteria = model.SearchCriteria;
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
-            ICollection<CocktailDTO> bars = new List<CocktailDTO>();
 
-            bars = await this.cocktailServices.GetIndexPageCocktails(orderBy, currentPage ?? 1, searchCriteria);
+            var cocktails = await this.cocktailServices.GetIndexPageCocktails(orderBy, currentPage ?? 1, searchCriteria);
 
             var ingredients = await ingredientServices.GetAllIngredients(null);
 
-            var barsViewModel = bars.GetViewModels();
+            var cocktailViewModel = cocktails.GetViewModels();
             var paged = new CocktailViewModel()
             {
                 IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList(),
                 currentPage = currentPage ?? 1,
-                items = barsViewModel,
+                items = cocktailViewModel,
                 TotalPages = this.cocktailServices.GetCount(10, searchCriteria)
             };
 

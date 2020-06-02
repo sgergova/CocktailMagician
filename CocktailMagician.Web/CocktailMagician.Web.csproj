@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\Magician\Views\**" />
     <Compile Remove="Views\ButtonsPartial\**" />
+    <Content Remove="Areas\Identity\Magician\Views\**" />
     <Content Remove="Views\ButtonsPartial\**" />
+    <EmbeddedResource Remove="Areas\Identity\Magician\Views\**" />
     <EmbeddedResource Remove="Views\ButtonsPartial\**" />
+    <None Remove="Areas\Identity\Magician\Views\**" />
     <None Remove="Views\ButtonsPartial\**" />
   </ItemGroup>
 
@@ -34,12 +38,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CocktailMagician.Data\CocktailMagician.Data.csproj" />
     <ProjectReference Include="..\CocktailMagician.Services\CocktailMagician.Services.csproj" />
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <Folder Include="Areas\Identity\Crawler\Views\" />
-    <Folder Include="Areas\Identity\Magician\Views\" />
   </ItemGroup>
 
 

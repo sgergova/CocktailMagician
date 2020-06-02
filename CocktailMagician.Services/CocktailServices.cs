@@ -46,9 +46,7 @@ namespace CocktailMagician.Services
             var cocktails = GetCocktailsQueryable();
 
             if (name != null)
-            {
                 cocktails = cocktails.Where(c => c.Name.ToLower().Contains(name.ToLower()));
-            }
             if (ingredients != null)
             {
                 foreach (var item in ingredients)
@@ -57,9 +55,8 @@ namespace CocktailMagician.Services
                 }
             }
             if (rating != null)
-            {
                 cocktails = cocktails.Where(c => c.Rating == rating);
-            }
+
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
@@ -325,7 +322,7 @@ namespace CocktailMagician.Services
             }
 
             cocktails = OrderCocktail(cocktails, orderBy);
-            cocktails = currentPage == 1 ? cocktails = cocktails.Take(10) : cocktails = cocktails.Skip((currentPage - 1) * 10).Take(10);
+            cocktails = currentPage == 1 ? cocktails.Take(10) : cocktails.Skip((currentPage - 1) * 10).Take(10);
 
             var results = await cocktails.ToListAsync();
 
@@ -336,11 +333,7 @@ namespace CocktailMagician.Services
         {
             double cocktailsCount = 0;
             if (searchCriteria != null)
-            {
-               
                     cocktailsCount = Math.Ceiling((double)this.context.Cocktails.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-                
-            }
             else
             {
                 cocktailsCount = this.context.Cocktails.Count();
@@ -349,19 +342,7 @@ namespace CocktailMagician.Services
 
             return countInt;
         }
-
-        public IQueryable<Cocktail> OrderCocktail(IQueryable<Cocktail> cocktails, string orderBy)
-        {
-            return orderBy switch
-            {
-                "name" => cocktails.OrderBy(c => c.Name),
-                "name_desc" => cocktails.OrderByDescending(c => c.Name),
-                "bar" => cocktails.OrderBy(c => c.Bars),
-                "ingredient" => cocktails.OrderBy(c => c.CocktailIngredients),
-
-                 _=> cocktails.OrderBy(c => c.Name)
-            };
-        }
+        
         /// <summary>
         /// Seraches in the database how many cocktails are listed in currect bar.
         /// </summary>
@@ -381,6 +362,18 @@ namespace CocktailMagician.Services
                                                  .ToListAsync();
 
             return barCocktails;
+        }
+        private IQueryable<Cocktail> OrderCocktail(IQueryable<Cocktail> cocktails, string orderBy)
+        {
+            return orderBy switch
+            {
+                "name" => cocktails.OrderBy(c => c.Name),
+                "name_desc" => cocktails.OrderByDescending(c => c.Name),
+                "bar" => cocktails.OrderBy(c => c.Bars),
+                "ingredient" => cocktails.OrderBy(c => c.CocktailIngredients),
+
+                _ => cocktails.OrderBy(c => c.Name)
+            };
         }
         private IQueryable<Cocktail> GetCocktailsQueryable()
         {

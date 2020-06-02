@@ -9,6 +9,6 @@ namespace CocktailMagician.Services.Contracts
    public interface ICocktailRatingServices
     {
         Task<CocktailRatingDTO> CreateRating(CocktailRatingDTO rating);
-        Task<CocktailRatingDTO> GetRatingOfBar(Guid userId, Guid barId);
+        Task<CocktailRatingDTO> GetRatingOfCocktail( Guid barId);
     }
 }

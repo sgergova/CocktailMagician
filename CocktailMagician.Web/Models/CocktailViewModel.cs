@@ -1,6 +1,7 @@
 ﻿using CocktailMagician.Data.Entities;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Models.WebPagination;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace CocktailMagician.Web.Models
         public double Rating { get; set; }
         public double AlcoholPercentage { get; set; }
         public bool IsAlcoholic { get; set; }
+        public IFormFile Image { get; set; }
         public string ImageURL { get; set; }
         public ICollection<CocktailIngredientDTO> Ingredients { get; set; }
         public ICollection<string> IngredientNames{ get; set; }
