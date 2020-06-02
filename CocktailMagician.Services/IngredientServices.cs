@@ -217,7 +217,11 @@ namespace CocktailMagician.Services
 
             return countInt;
         }
-
+        /// <summary>
+        /// Finds all the ingredients included in given cocktail.
+        /// </summary>
+        /// <param name="ingredientId">The ID of ingredient that should be found</param>
+        /// <returns>Sequence of all cocktails that include the ingredient</returns>
         public async Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId)
         {
             var cocktailIngredients = await AvailabilityAtCocktailsEntities(ingredientId);
