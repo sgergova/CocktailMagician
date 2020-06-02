@@ -23,9 +23,9 @@ namespace CocktailMagician.Web.Controllers
             this.toast = toast;
         }
         [HttpGet]
-        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, CocktailViewModel model)
+        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, string searchCriteria)
         {
-            var searchCriteria = model.SearchCriteria;
+            //var searchCriteria = model.SearchCriteria;
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;

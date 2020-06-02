@@ -305,7 +305,7 @@ namespace CocktailMagician.Services
                 bars = bars.Where(b => b.Name.Contains(searchCriteria) || b.Country.Name.Contains(searchCriteria));
 
             bars = OrderBar(bars, orderBy);
-            bars = currentPage == 1 ? bars = bars.Take(10) : bars = bars.Skip((currentPage - 1) * 10).Take(10);
+            bars = currentPage == 1 ? bars.Take(10) : bars.Skip((currentPage - 1) * 10).Take(10);
 
             var results = await bars.ToListAsync();
 

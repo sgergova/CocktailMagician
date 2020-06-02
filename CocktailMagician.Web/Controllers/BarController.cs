@@ -29,9 +29,8 @@ namespace CocktailMagician.Web.Controllers
             this.barCommentsServices = barCommentsServices;
         }
         [HttpGet]
-        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, BarViewModel model)
+        public async Task<IActionResult> ListBars(string orderBy, int? currentPage, string searchCriteria)
         {
-            var searchCriteria = model.SearchCriteria;
             ViewData["CurrentSort"] = orderBy;
             ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;

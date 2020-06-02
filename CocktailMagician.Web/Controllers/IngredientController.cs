@@ -1,35 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CocktailMagician.Services.Contracts;
-using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace CocktailMagician.Web.Controllers
 {
     public class IngredientController : Controller
     {
         private readonly IIngredientServices ingredientServices;
-        public IngredientController(IIngredientServices ingredientServices)
+        private readonly IToastNotification toast;
+        public IngredientController(IIngredientServices ingredientServices, IToastNotification toast)
         {
             this.ingredientServices = ingredientServices;
+            this.toast = toast;
         }
 
       
-        public async Task<IActionResult> ListIngredients(string orderBy, int? currentPage, IngredientViewModel model)
+        public async Task<IActionResult> ListIngredients(string orderBy, int? currentPage, string searchCriteria)
         {
-            var searchCriteria = model.SearchCriteria;
-            ViewData["CurrentSort"] = orderBy;
-            ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
-            ICollection<IngredientDTO> ingredients = new List<IngredientDTO>();
 
-            ingredients = await this.ingredientServices.GetIndexPageIngredients(orderBy, currentPage??1, searchCriteria);
-
-           
+            var ingredients = await this.ingredientServices.GetIndexPageIngredients(orderBy, currentPage ?? 1, searchCriteria);
 
             var ingViewModels = ingredients.GetViewModels();
 
@@ -45,11 +39,20 @@ namespace CocktailMagician.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> IngredientDetails(Guid id)
         {
-            var ingredient = await ingredientServices.GetIngredient(id);
+            if (id == null)
+                return NotFound();
 
-            return View(ingredient);
+            try
+            {
+                var ingredient = await ingredientServices.GetIngredient(id);
+                return View(ingredient);
+            }
+            catch (Exception)
+            {
+                this.toast.AddWarningToastMessage("Something went wrong!");
+                return RedirectToAction("ListIngredients");
+            }
         }
-      
 
     }
 }

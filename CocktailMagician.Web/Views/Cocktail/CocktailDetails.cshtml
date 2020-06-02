@@ -112,8 +112,7 @@
 </div>
 @if (User.IsInRole("Magician"))
 {
-<a class="button" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
-<partial model="new CocktailViewModel() { Name = Model.Name,
+    <a class="button" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
+    <partial model="new CocktailViewModel() { Name = Model.Name,
     IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
-
 }
