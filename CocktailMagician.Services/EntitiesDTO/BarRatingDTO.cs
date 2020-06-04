@@ -13,5 +13,10 @@ namespace CocktailMagician.Services.EntitiesDTO
         public Guid BarId { get; set; }
         public Bar Bar { get; set; }
         public int Rating { get; set; }
+
+        public int Count()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

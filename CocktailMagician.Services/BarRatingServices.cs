@@ -28,11 +28,15 @@ namespace CocktailMagician.Services
         /// <returns>Data transfer object of the created instance of the rating</returns>
         public async Task<BarRatingDTO> CreateRating(BarRatingDTO rating)
         {
-            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == rating.UserId)
-                                                 ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == rating.UserId);
 
-            var bar = await this.context.Bars.FirstOrDefaultAsync(c => c.Id == rating.BarId)
-                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+            if (user == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
+
+            var bar = await this.context.Bars.FirstOrDefaultAsync(c => c.Id == rating.BarId);
+
+            if (bar == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newRating = rating.GetEntity();
 

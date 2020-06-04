@@ -9,7 +9,7 @@ namespace CocktailMagician.Services.Contracts
     public interface ICocktailCommentServices
     {
         Task<ICollection<CocktailCommentsDTO>> GetAllCommentsOfUser(Guid? id, string username);
-        Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id);
+        Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid id);
         Task<CocktailCommentsDTO> CreateComment(CocktailCommentsDTO comment);
         Task<CocktailCommentsDTO> DeleteComment(Guid commentId);
     }

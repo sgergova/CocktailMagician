@@ -28,8 +28,10 @@ namespace CocktailMagician.Services
         public async Task<UserDTO> UpdateUser(UserDTO userDTO)
         {
             var user = await this.context.Users
-                                         .FirstOrDefaultAsync(u=>u.IsDeleted == false && u.Id == userDTO.Id)
-                                         ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+                                  .FirstOrDefaultAsync(u => u.IsDeleted == false && u.Id == userDTO.Id 
+                                                        || u.UserName == userDTO.UserName);
+            if (user == null)
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             user.UserName = userDTO.UserName;
             user.PhoneNumber = userDTO.PhoneNumber;
@@ -40,7 +42,7 @@ namespace CocktailMagician.Services
             user.CocktailComments = userDTO.CocktailComments;
             user.Cocktails = userDTO.Cocktails;
             user.ModifiedOn = userDTO.ModifiedOn;
-              
+
             this.context.Users.Update(user);
             await this.context.SaveChangesAsync();
 
