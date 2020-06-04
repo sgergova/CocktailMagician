@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
@@ -32,10 +33,20 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> DeleteCocktail(Guid id)
         {
-            await cocktailServices.DeleteCocktail(id);
+            if (id == null)
+                return NotFound();
+            try
+            {
+                var cocktail = await cocktailServices.DeleteCocktail(id);
+                this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyDeleted);
+                return RedirectToAction("ListCocktails", "Cocktail");
+            }
+            catch (Exception)
+            {
+                this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                return RedirectToAction("ListCocktails", new { Area = "" });
+            }
 
-
-            return RedirectToAction("ListCocktails", "Cocktail");
         }
         [HttpGet]
         public async Task<IActionResult> UpdateCocktail(Guid id)
@@ -48,10 +59,22 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> UpdateCocktail(CocktailViewModel updatedCocktail)
         {
-            var cocktailDTO = updatedCocktail.GetDtoFromVM();
-            await cocktailServices.UpdateCocktail(cocktailDTO.Id, cocktailDTO);
-
-            return RedirectToAction("ListCocktails", "Cocktail");
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var cocktailDTO = updatedCocktail.GetDtoFromVM();
+                    await cocktailServices.UpdateCocktail(cocktailDTO.Id, cocktailDTO);
+                    this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
+                    return RedirectToAction("ListCocktails", "Cocktail");
+                }
+                catch (Exception)
+                {
+                    this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                    return RedirectToAction("ListCocktails", new { Area = "" });
+                }
+            }
+            return NoContent();
         }
         [HttpPost]
         public async Task<IActionResult> CreateCocktail(CocktailViewModel cocktailVM)
@@ -63,13 +86,13 @@ namespace CocktailMagician.Web.Areas.Magician
                     var image = await uploadImagesServices.UploadImage(cocktailVM.Image);
                     cocktailVM.ImageURL = image;
                     var cocktail = await cocktailServices.CreateCocktail(cocktailVM.GetDtoFromVM());
-
+                    this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyCreated);
                     return RedirectToAction("ListCocktails", "Cocktail", new { Area = "" });
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    this.toast.AddErrorToastMessage("Ooops... something went wrong");
-                    return RedirectToAction("ListCocktails");
+                    this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                    return RedirectToAction("ListCocktails", new { Area = "" });
                 }
             }
             return NoContent();
@@ -78,20 +101,41 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> AddIngredients(CocktailViewModel model, string name)
         {
-            await cocktailServices.AddIngredientsToCocktail(name, model.IngredientNames.ToList());
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await cocktailServices.AddIngredientsToCocktail(name, model.IngredientNames.ToList());
+                    this.toast.AddSuccessToastMessage($"Successfully added to {model.Name}");
+                    return RedirectToAction("ListCocktails", "Cocktail", new { Area = "" });
+                }
+                catch (Exception)
+                {
+                    this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                    return RedirectToAction("ListCocktails", new { Area = "" });
+                }
+            }
+            return NoContent();
 
-            return RedirectToAction("ListCocktails", "Cocktail", new {Area="" });
         }
         [HttpPost]
         public async Task<IActionResult> RemoveIngredient(Guid cocktailId, Guid ingredientId)
         {
-            var ingredient = await ingredientServices.GetIngredient(ingredientId);
-            var cocktail = await cocktailServices.GetCocktail(cocktailId);
-
-            await cocktailServices.RemoveIngredientFromCocktail(cocktail.Name, ingredient.Name);
-
-            return RedirectToAction("ListCocktails", "Cocktail");
+            try
+            {
+                var ingredient = await ingredientServices.GetIngredient(ingredientId);
+                var cocktail = await cocktailServices.GetCocktail(cocktailId);
+                await cocktailServices.RemoveIngredientFromCocktail(cocktail.Name, ingredient.Name);
+                this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyDeleted);
+                return RedirectToAction("ListCocktails", "Cocktail");
+            }
+            catch (Exception)
+            {
+                this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                return RedirectToAction("ListCocktails", new { Area = "" });
+            }
+            
         }
-       
+
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 
 namespace CocktailMagician.Services
 {
@@ -24,13 +25,13 @@ namespace CocktailMagician.Services
         /// Provides all the comments that a current user has made.
         /// </summary>
         /// <param name="id">The ID of user</param>
-        /// <param name="barId">The ID of user</param>
         /// <returns>Sequence of comments</returns>
-        public async Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid? id, Guid? barId)
+        public async Task<ICollection<BarCommentDTO>> GetAllCommentsOfUser(Guid id)
         {
             var comments = await this.context.BarComments
                                       .Include(bc=>bc.Bar)
-                                      .Where(bc=>bc. IsDeleted == false && bc.UserId == id && bc.BarId == barId)
+                                      .Include(b=>b.User)
+                                      .Where(bc=>bc. IsDeleted == false && bc.UserId == id )
                                       .ToListAsync();
 
             return comments.GetDTOs();
@@ -44,9 +45,10 @@ namespace CocktailMagician.Services
         {
             var comments = await this.context.BarComments
                                       .Include(bc => bc.Bar)
-                                      .Include(bc=>bc.User)
+                                      .Include(bc => bc.User)
                                       .Where(bc => bc.IsDeleted == false && bc.BarId == barId)
-                                      .ToListAsync();
+                                      .ToListAsync()
+                                      ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments.GetDTOs();
         }
@@ -58,10 +60,10 @@ namespace CocktailMagician.Services
         public async Task<BarCommentDTO> CreateComment(BarCommentDTO barComment)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == barComment.UserId)
-                                               ?? throw new ArgumentNullException();
+                                               ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var bar = await this.context.Bars.FirstOrDefaultAsync(b=>b.Id == barComment.BarId)
-                                               ?? throw new ArgumentNullException();
+                                               ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newBarComment = barComment.GetEntity();
 
@@ -80,7 +82,8 @@ namespace CocktailMagician.Services
         public async Task<BarCommentDTO> DeleteComment(Guid barCommentId)
         {
             var comment = await GetBarCommentsQuerable()
-                                            .FirstOrDefaultAsync(bc=>bc.Id == barCommentId);
+                                            .FirstOrDefaultAsync(bc=>bc.Id == barCommentId)
+                                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             comment.IsDeleted = true;
             comment.DeletedOn = DateTime.UtcNow;
@@ -98,7 +101,8 @@ namespace CocktailMagician.Services
         public async Task<BarCommentDTO> EditComment(Guid barCommentId, string updates)
         {
             var comment = await GetBarCommentsQuerable()
-                                           .FirstOrDefaultAsync(bc => bc.Id == barCommentId);
+                                           .FirstOrDefaultAsync(bc => bc.Id == barCommentId)
+                                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             comment.Comments = updates;
             comment.ModifiedOn = DateTime.UtcNow;
@@ -118,7 +122,8 @@ namespace CocktailMagician.Services
         {
             var barComments = await GetBarCommentsQuerable()
                                             .Where(b=>b.BarId == id || b.Bar.Name == barName)
-                                            .ToListAsync();
+                                            .ToListAsync()
+                                            ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return barComments.GetDTOs();
         }
@@ -128,7 +133,7 @@ namespace CocktailMagician.Services
             var comments = this.context.BarComments
                                             .Include(bc => bc.User)
                                             .Where(bc => bc.IsDeleted == false)
-                                            ?? throw new ArgumentNullException();
+                                            ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments;
         }

@@ -25,10 +25,10 @@ namespace CocktailMagician.Services
         public async Task<CocktailCommentsDTO> CreateComment(CocktailCommentsDTO comment)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == comment.UserId)
-                                                ?? throw new ArgumentNullException();
+                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var cocktail = await this.context.Cocktails.FirstOrDefaultAsync(c=>c.Id == comment.CocktailId)
-                                                ?? throw new ArgumentNullException();
+                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newCocktailComment = comment.GetEntity();
 
@@ -58,7 +58,8 @@ namespace CocktailMagician.Services
         {
             var comments = await this.context.CocktailComments
                                      .Where(cc => cc.IsDeleted == false && cc.UserId == id || cc.User.UserName == username)
-                                     .ToListAsync();
+                                     .ToListAsync()
+                                      ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments.GetDTOs();
         }
@@ -68,7 +69,8 @@ namespace CocktailMagician.Services
             var comments = await this.context.CocktailComments
                                      .Where(cc => cc.IsDeleted == false && cc.CocktailId == id)
                                      .Include(cc => cc.User)
-                                     .ToListAsync();
+                                     .ToListAsync()
+                                      ?? throw new ArgumentNullException(Exceptions.EntityNotFound); ;
 
             return comments.GetDTOs();
         }

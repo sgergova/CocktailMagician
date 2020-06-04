@@ -53,7 +53,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 				var sut = new BarServices(assertContext);
                 var result = await sut.GetIndexPageBars("name", 1, "The");
 
-				Assert.AreEqual(result.Count, 1);
+				Assert.AreEqual(1, result.Count);
 				Assert.AreEqual(result.ToList()[0].Id, bar2.Id);
 				Assert.AreEqual(result.ToList()[0].Name, bar2.Name);
                 Assert.IsInstanceOfType(result, typeof(ICollection<BarDTO>));
@@ -99,7 +99,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 				var sut = new BarServices(assertContext);
 				var result = await sut.GetIndexPageBars(null, 1, null);
 
-				Assert.AreEqual(result.Count, 2);
+				Assert.AreEqual(2, result.Count);
 			}
 		}
 		[TestMethod]
@@ -140,7 +140,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 				var sut = new BarServices(assertContext);
 				var result = await sut.GetIndexPageBars(null, 1, "Belguim");
 
-				Assert.AreEqual(result.Count, 1);
+				Assert.AreEqual(1, result.Count);
 				Assert.AreEqual(result.ToList()[0].Id, bar2.Id);
 				Assert.AreEqual(result.ToList()[0].Name, bar2.Name);
 				
@@ -186,7 +186,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 				var sut = new BarServices(assertContext);
 				var result = await sut.GetIndexPageBars("name", 1, null);
 
-				Assert.AreEqual(result.Count, 2);
+				Assert.AreEqual(2, result.Count);
 				Assert.AreEqual(result.ToList()[0].Id, bar.Id);
 				Assert.AreEqual(result.ToList()[0].Name, bar.Name);
 				Assert.AreEqual(result.ToList()[1].Id, bar2.Id);
@@ -234,7 +234,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 				var sut = new BarServices(assertContext);
 				var result = await sut.GetIndexPageBars(null, 0, null);
 
-				Assert.AreEqual(result.Count, 1);
+				Assert.AreEqual(1, result.Count);
 				Assert.AreEqual(result.ToList()[0].Name, bar2.Name);
 			}
 		}

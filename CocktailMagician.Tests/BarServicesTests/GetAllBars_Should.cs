@@ -22,22 +22,22 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar = new Bar
             {
-                Id = Guid.Parse("828d338a-e243-41d1-949c-45cc1b09f7f0"),
+                Id = Guid.NewGuid(),
                 Name = "Manhattan",
                 Country = new Country
                 {
-                    Id = Guid.Parse("ae92c68c-778c-4c6c-a721-8ff208d0e0ba"),
+                    Id = Guid.NewGuid(),
                     Name = "USA"
                 }
             };
 
             var bar2 = new Bar
             {
-                Id = Guid.Parse("691cd199-fc90-4b80-971a-c53b218af997"),
+                Id = Guid.NewGuid(),
                 Name = "The Cocktail Bar",
                 Country = new Country
                 {
-                    Id = Guid.Parse("67e746ba-e72c-4d67-bb7d-257bb30c5e0f"),
+                    Id = Guid.NewGuid(),
                     Name = "Belguim"
                 }
             };

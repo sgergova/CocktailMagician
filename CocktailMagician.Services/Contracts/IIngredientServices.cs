@@ -16,13 +16,9 @@ namespace CocktailMagician.Services.Contracts
         Task<IngredientDTO> CreateIngredient(IngredientDTO barDTO);
         Task<IngredientDTO> UpdateIngredient(Guid id, IngredientDTO ingredientDTO);
         Task<IngredientDTO> DeleteIngredient(Guid id);
-        Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(string cocktailName);
         Task<ICollection<CocktailIngredientDTO>> GetCocktailIngredients(Guid cocktailId);
         Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId);
-        // IQueryable<Ingredient> OrderIngredient(IQueryable<Ingredient> ingredients, string orderBy);
-
         Task<ICollection<IngredientDTO>> GetIndexPageIngredients(string orderBy, int currentPage, string searchCriteria);
-
         int GetCount(int itemsPerPage, string searchCriteria);
        
     }

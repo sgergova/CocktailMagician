@@ -64,7 +64,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailDTO));
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailDTO.Name));
             }
 
         }
@@ -112,7 +112,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
-                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO);
+                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO.Name);
 
                 Assert.AreEqual(1, assertContext.BarCocktails.Count());
                 Assert.AreEqual(1, result.BarCocktails.Count());
@@ -172,7 +172,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO));
+                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO.Name));
             }
         }
     }

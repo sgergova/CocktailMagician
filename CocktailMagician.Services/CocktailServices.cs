@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 
 namespace CocktailMagician.Services
 {
@@ -29,7 +30,7 @@ namespace CocktailMagician.Services
 
             var entity = await GetCocktailsQueryable()
                                        .FirstOrDefaultAsync(b => b.Id == id)
-                                       ?? throw new ArgumentNullException();
+                                       ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return entity.GetDTO();
         }
@@ -67,7 +68,7 @@ namespace CocktailMagician.Services
                                               .Include(b => b.Cocktail)
                                               .Include(b => b.Bar)
                                               .ToListAsync()
-                                              ?? throw new ArgumentNullException("The name cannot be null");
+                                              ?? throw new ArgumentNullException(Exceptions.MissingName);
 
             return barCocktails.GetDTOs();
         }
@@ -76,7 +77,6 @@ namespace CocktailMagician.Services
         {
             var cocktails = GetCocktailsQueryable();
 
-           
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
@@ -98,22 +98,17 @@ namespace CocktailMagician.Services
         public async Task<CocktailDTO> CreateCocktail(CocktailDTO cocktailDTO)
         {
             if (this.context.Cocktails.Any(c => c.Name == cocktailDTO.Name))
-                throw new ArgumentException("The name is already existing");
+                throw new ArgumentException(Exceptions.NameExists);
 
             if (cocktailDTO.Name == null)
-                throw new ArgumentNullException("The name is mandatory");
-           
+                throw new ArgumentNullException(Exceptions.MissingName);
+
             var cocktail = cocktailDTO.GetEntity();
             await context.Cocktails.AddAsync(cocktail);
             await context.SaveChangesAsync();
 
-            foreach (var item in cocktailDTO.IngredientNames)
-            {
-
-               await AddIngredientToCocktail(cocktail.Name, item);
-
-            }
-            
+            if (cocktailDTO.IngredientNames != null)
+                cocktailDTO.IngredientNames.Select(async i => { await AddIngredientToCocktail(cocktail.Name, i); });
 
             return cocktail.GetDTO();
         }
@@ -129,77 +124,45 @@ namespace CocktailMagician.Services
             var cocktail = await this.context.Cocktails
                                              .Where(c => c.IsDeleted == false)
                                              .FirstOrDefaultAsync(c => c.Name == cocktailName)
-                                             ?? throw new ArgumentNullException("Cocktail not found");
+                                             ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             var ingredient = await this.context.Ingredients
                                            .Where(c => c.IsDeleted == false)
                                            .FirstOrDefaultAsync(i => i.Name == ingredientName)
-                                             ?? throw new ArgumentNullException("Ingredient not found");
+                                            ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             var cocktailIngredient = await this.context.CocktailIngredients
                                                  .FirstOrDefaultAsync(ci => ci.Cocktail.Name == cocktailName
                                                  && ci.Ingredient.Name == ingredientName);
             if (cocktailIngredient == null)
             {
-                var newCocktailIngredient = new CocktailIngredient
-                {
-                    CocktailId = cocktail.Id,
-                    IngredientId = ingredient.Id
-                };
-               
-
-                await this.context.CocktailIngredients.AddAsync(newCocktailIngredient);
+                var newIngredient = await Helper(cocktailName, ingredientName, cocktail.Id);
                 this.context.Cocktails.Update(cocktail);
                 this.context.Ingredients.Update(ingredient);
+                await this.context.CocktailIngredients.AddAsync(newIngredient);
                 await this.context.SaveChangesAsync();
             }
             else
             {
-                throw new InvalidOperationException($"{ingredient} is already part of {cocktail}");
+                throw new InvalidOperationException(Exceptions.AlreadyListed);
             }
-
             return cocktail.GetDTO();
         }
-        public async Task<CocktailDTO> AddIngredientsToCocktail(string cocktailName, List<string> ingredientName)
+        
+        public async Task<CocktailDTO> AddIngredientsToCocktail(string cocktailName, ICollection<string> ingredientsName)
         {
             var cocktail = await this.context.Cocktails
-                                             .Where(c => c.IsDeleted == false)
-                                             .FirstOrDefaultAsync(c => c.Name == cocktailName)
-                                             ?? throw new ArgumentNullException("Cocktail not found");
-            //var ingredient = new List<Ingredient>();
+                                            .FirstOrDefaultAsync(c => c.Name == cocktailName && c.IsDeleted == false)
+                                            ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
-            foreach (var item in ingredientName)
-            {
+            var a = ingredientsName.Select(async n => { await Helper(cocktailName, n, cocktail.Id); });
 
-                var ing = await this.context.Ingredients
-                                                 .Where(c => c.IsDeleted == false)
-                                                 .FirstOrDefaultAsync(i => i.Name == item)
-                                                   ?? throw new ArgumentNullException("Ingredient not found");
-                var newCocktailIngredient = new CocktailIngredient
-                {
-                    CocktailId = cocktail.Id,
-                    IngredientId = ing.Id
-                };
-
-
-                await this.context.CocktailIngredients.AddAsync(newCocktailIngredient);
-                this.context.Cocktails.Update(cocktail);
-                this.context.Ingredients.Update(ing);
-                await this.context.SaveChangesAsync();
-            }
-            //var cocktailIngredient = await this.context.CocktailIngredients
-            //                                     .FirstOrDefaultAsync(ci => ci.Cocktail.Name == cocktailName
-            //                                     && ci.Ingredient.Name == ingredientName);
-
-
-
-            //else
-            //{
-            //    throw new InvalidOperationException($"{ingredient} is already part of {cocktail}");
-            //}
+            await this.context.CocktailIngredients.AddRangeAsync();
+            await this.context.SaveChangesAsync();
 
             return cocktail.GetDTO();
         }
+
         /// <summary>
         /// Filters the cocktails according to user's input and returns alcoholic or non-alcoholic cocktails
         /// </summary>
@@ -209,7 +172,7 @@ namespace CocktailMagician.Services
         public async Task<ICollection<CocktailDTO>> SearchByAlcohol(string criteria)
         {
             if (criteria == null)
-                throw new ArgumentNullException("You should enter your criteria");
+                throw new ArgumentNullException(Exceptions.InvalidSearchCriteria);
 
             var cocktails = this.context.Cocktails
                                             .Where(c => c.IsDeleted == false)
@@ -236,7 +199,7 @@ namespace CocktailMagician.Services
             var ingredient = await this.context.CocktailIngredients
                                                .Where(i => i.IsDeleted == false)
                                                .FirstOrDefaultAsync(i => i.Ingredient.Name == ingredientName)
-                                               ?? throw new ArgumentNullException();
+                                               ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             var cocktail = await GetCocktailsQueryable()
                                           .FirstOrDefaultAsync(c => c.Name == cocktailName);
@@ -244,7 +207,7 @@ namespace CocktailMagician.Services
             var cocktailIngredient = await this.context.CocktailIngredients
                                        .FirstOrDefaultAsync(ci => ci.Ingredient.Name == ingredientName
                                        && ci.Cocktail.Name == cocktailName)
-                                       ?? throw new ArgumentNullException();
+                                       ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             cocktailIngredient.ModifiedOn = DateTime.UtcNow;
             cocktail.CocktailIngredients.Remove(cocktailIngredient);
@@ -264,7 +227,8 @@ namespace CocktailMagician.Services
         public async Task<CocktailDTO> UpdateCocktail(Guid id, CocktailDTO cocktailToUpdate)
         {
             var cocktail = await GetCocktailsQueryable()
-                                       .FirstOrDefaultAsync(c => c.Id == id);
+                                       .FirstOrDefaultAsync(c => c.Id == id)
+                                       ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             cocktail.Name = cocktailToUpdate.Name;
             cocktail.AlcoholPercentage = cocktailToUpdate.AlcoholPercentage;
@@ -286,18 +250,13 @@ namespace CocktailMagician.Services
         {
             var cocktailToDelete = await GetCocktailsQueryable()
                                  .FirstOrDefaultAsync(b => b.Id == id)
-                                 ?? throw new ArgumentNullException();
+                                 ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
-            var barCocktails = await AvailabilityAtBarsEntities(cocktailToDelete.Id);
+            var barCocktails = (await AvailabilityAtBarsEntities(cocktailToDelete.Id)).ToList();
 
             if (barCocktails.Count != 0)
-            {
-                foreach (var barCocktail in barCocktails)
-                {
-                    barCocktail.IsDeleted = true;
-                    barCocktail.DeletedOn = DateTime.UtcNow;
-                }
-            }
+                barCocktails.ForEach(bc => { bc.IsDeleted = true; bc.DeletedOn = DateTime.UtcNow; });
+
             cocktailToDelete.IsDeleted = true;
             cocktailToDelete.DeletedOn = DateTime.UtcNow;
 
@@ -316,10 +275,7 @@ namespace CocktailMagician.Services
                                                    .ThenInclude(c => c.User)
                                                .Where(b => b.IsDeleted == false);
             if (searchCriteria != null)
-            {
-
                 cocktails = cocktails.Where(b => b.Name.Contains(searchCriteria));
-            }
 
             cocktails = OrderCocktail(cocktails, orderBy);
             cocktails = currentPage == 1 ? cocktails.Take(10) : cocktails.Skip((currentPage - 1) * 10).Take(10);
@@ -333,7 +289,7 @@ namespace CocktailMagician.Services
         {
             double cocktailsCount = 0;
             if (searchCriteria != null)
-                    cocktailsCount = Math.Ceiling((double)this.context.Cocktails.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
+                cocktailsCount = Math.Ceiling((double)this.context.Cocktails.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
             else
             {
                 cocktailsCount = this.context.Cocktails.Count();
@@ -342,7 +298,7 @@ namespace CocktailMagician.Services
 
             return countInt;
         }
-        
+
         /// <summary>
         /// Seraches in the database how many cocktails are listed in currect bar.
         /// </summary>
@@ -359,7 +315,8 @@ namespace CocktailMagician.Services
             var barCocktails = await this.context.BarCocktails
                                                  .Where(bc => bc.IsDeleted == false)
                                                  .Where(bc => bc.CocktailId == cocktalId)
-                                                 .ToListAsync();
+                                                 .ToListAsync()
+                                                 ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             return barCocktails;
         }
@@ -379,9 +336,21 @@ namespace CocktailMagician.Services
         {
             var cocktails = this.context.Cocktails
                                     .Where(c => c.IsDeleted == false)
-                                    ?? throw new ArgumentNullException("Value cannot be null");
+                                    ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return cocktails;
+        }
+
+        private async Task<CocktailIngredient> Helper(string cocktailName, string ingredientName, Guid cocktailId)
+        {
+            var ingredient = await this.context.Ingredients
+                                       .FirstOrDefaultAsync(i => i.Name == ingredientName && i.IsDeleted == false)
+                                       ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+
+            if (this.context.CocktailIngredients.Any(ci => ci.Cocktail.Name == cocktailName && ci.Ingredient.Name == ingredientName))
+                throw new InvalidOperationException(Exceptions.AlreadyListed);
+
+            return new CocktailIngredient { CocktailId = cocktailId, IngredientId = ingredient.Id };
         }
     }
 }

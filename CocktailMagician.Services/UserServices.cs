@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 
 namespace CocktailMagician.Services
 {
@@ -28,7 +29,7 @@ namespace CocktailMagician.Services
         {
             var user = await this.context.Users
                                          .FirstOrDefaultAsync(u=>u.IsDeleted == false && u.Id == userDTO.Id)
-                                         ?? throw new ArgumentNullException();
+                                         ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             user.UserName = userDTO.UserName;
             user.PhoneNumber = userDTO.PhoneNumber;

@@ -1,6 +1,8 @@
-﻿using CocktailMagician.Services.EntitiesDTO;
+﻿using CocktailMagician.Data.Entities;
+using CocktailMagician.Services.EntitiesDTO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,14 +17,15 @@ namespace CocktailMagician.Services.Contracts
         Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO);
         Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId);
         Task<BarDTO> DeleteBar(Guid id);
-        Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail);
+        Task<BarDTO> AddCocktailToBar(Guid barId, string cocktailName);
         Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId);
         Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId);
         Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria);
         int GetCount(int itemsPerPage, string searchCriteria);
         Task<ICollection<BarDTO>> GetTopThreeBars();
         Task<ICollection<BarCocktailDTO>> GetCocktailsForBar(Guid barId);
-        Task<BarDTO> AddCocktailsToBar(string barName, List<string> cocktailNames);
+        Task<BarDTO> AddCocktailsToBar(string barName, ICollection<string> cocktailNames);
+       // Task<ICollection<BarDTO>> OrderBar(IQueryable<Bar> bars, string orderBy);
 
 
     }
