@@ -4,11 +4,11 @@
 <link rel="stylesheet" href="~/css/Rating.css" />
 
 <div>
-    <h3 style="position:relative; top:50px;left:150px">@Model.Name</h3>
+    <h3 @*style="position:relative; top:50px;left:150px"*@>@Model.Name</h3>
     <hr />
 
     <div class="col-md-5 order-md-1">
-        <img style="position:relative;top:15px;width:600px; height:500px;" src=@Model.ImageURL alt="Generic placeholder image">
+        <img style="width:600px; height:500px;" src=@Model.ImageURL alt="Generic placeholder image">
     </div>
     <div class="col-md-7 order-md-2" style="        position: relative;
     left: 587px;
@@ -16,19 +16,45 @@
         <p class="lead"><h4 style="color:#b58900">AlcoholPercentage: </h4> <h6>@Model.AlcoholPercentage</h6></p>
 
     </div>
+    <div @*style="    position: relative;
+    left: 604px;
+    top: -670px;"*@>
+        <h4 style="color:orange">Ingredients</h4>
 
+        @foreach (var item in Model.Ingredients)
+        {
+
+            <p style="color:orange">@item.Ingredient.Name</p>
+
+        }
+
+    </div>
 </div>
+<div style="position: absolute;
+   margin-top: -622px;
+    margin-left: 840px;">
+    <h4 style="color:orange"> Bars that offer this cocktail.</h4>
+    @foreach (var item in Model.Bars)
+    {
 
+        <div>
+            <a asp-controller="Bar" asp-action="BarDetails" asp-route-id="@item.BarId">
+                <p style="color:white">@item.Bar.Name</p>
+            </a>
+        </div>
+    }
+</div>
 
 @if (User.IsInRole("Magician"))
 {
 
-    <a class="button" style="position: relative; top: -300px; left: 620px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Cocktail" asp-action="DeleteCocktail" asp-route-id="@Model.Id">Delete</a>
+    <a class="button" style="position: absolute;
+    margin-top: 108px;
+    margin-left: -114px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Cocktail" asp-action="DeleteCocktail" asp-route-id="@Model.Id">Delete</a>
 }
 @if (User.IsInRole("Crawler"))
 {
-    <form id="rating" style="position: relative;top: -80px;
-    left: 16px;"
+    <form id="rating"
           method="post"
           action-xhr="https://amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/set"
           target="_blank">
@@ -98,30 +124,20 @@
 
 }
 
-<div style="    position: relative;
-    left: 604px;
-    top: -670px;">
-    <h4 style="color:orange">Ingredients</h4>
 
-    @foreach (var item in Model.Ingredients)
-    {
-
-        <p style="color:orange">@item.Ingredient.Name</p>
-
-    }
-
-</div>
 @if (User.IsInRole("Magician"))
 {
-    <a class="button" style="position: relative;
-    top: -623px;
-    left: 891px;" data-toggle="modal" style="" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
+    <a class="button" style="position: absolute;
+    margin-top: 735px;
+    margin-left: -121px;"
+       data-toggle="modal" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
     <partial model="new CocktailViewModel() { Name = Model.Name,
     IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
 
 }
-<div style="    position: relative;
-    left: 271px;">
+<div style="position: absolute;
+    margin-top: -103px;
+    margin-left: 254px;">
 
     @foreach (var item in Model.Comments)
     {
@@ -135,23 +151,11 @@
                 height: 100px;
             }
         </style>
-        <div style="position: relative;
-    top: -200px;">
+        <div @*style="position: relative;
+    top: -200px;"*@>
             <p>@item.Name</p>
             <p id="rcorners2">@item.Comment</p>
         </div>
 
-    }
-</div>
-<div>
-    Bars that offer this cocktail.
-    @foreach (var item in Model.Bars)
-    {
-
-        <div>
-            <a asp-controller="Bar" asp-action="BarDetails" asp-route-id="@item.BarId">
-                <p>@item.Bar.Name</p>
-            </a>
-        </div>
     }
 </div>

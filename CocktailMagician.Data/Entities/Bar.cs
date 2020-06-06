@@ -13,6 +13,9 @@ namespace CocktailMagician.Data.Entities
         public string Address { get; set; }
         public string Phone { get; set; }
         public int Rating { get; set; }
+        public int RatingSum { get; set; }
+        public int RatedCount { get; set; }
+        public int AverageRating { get; set; }
         public Guid CountryId { get; set; }
         public Country Country { get; set; }
         public ICollection<BarCocktail> BarCocktails { get; set; } = new List<BarCocktail>();

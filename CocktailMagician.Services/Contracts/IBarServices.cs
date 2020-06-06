@@ -22,7 +22,7 @@ namespace CocktailMagician.Services.Contracts
         int GetCount(int itemsPerPage, string searchCriteria);
         Task<ICollection<BarDTO>> GetTopThreeBars();
         Task<ICollection<BarCocktailDTO>> GetCocktailsForBar(Guid barId);
-        Task<BarDTO> AddCocktailsToBar(string barName, List<string> cocktailNames);
+        Task<BarDTO> AddCocktailsToBar(string barName, ICollection<string> cocktailNames);
 
 
     }

@@ -93,10 +93,10 @@ namespace CocktailMagician.Services
         public async Task<ICollection<BarDTO>> GetTopThreeBars()
         {
             var bars =  this.context.Bars
-                                          .Include(b => b.BarRating)
+                .Include(b=>b.Country)
                                           .Where(b => b.IsDeleted == false);
 
-            var topThree = await bars.Take(3).ToListAsync();
+            var topThree = await bars.OrderByDescending(b=>b.AverageRating).ToListAsync();
             var topThreeDTO = topThree.GetDTOs();
             return topThreeDTO;
         }
@@ -184,7 +184,7 @@ namespace CocktailMagician.Services
 
             return bar.GetDTO();
         }
-        public async Task<BarDTO> AddCocktailsToBar(string barName, List<string> cocktailNames)
+        public async Task<BarDTO> AddCocktailsToBar(string barName, ICollection<string> cocktailNames)
         {
             var bar = await this.context.Bars
                                              .Where(b => b.IsDeleted == false)

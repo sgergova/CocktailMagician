@@ -35,9 +35,9 @@ namespace CocktailMagician.Controllers
         //TODO: Opravi si pomiite
         public async Task<IActionResult> Index()
         {
-            var bars = await barServices.GetAllBars(null);
+            var bars = await barServices.GetTopThreeBars();
             var homeVM = new HomeViewModel();
-            homeVM.TopThreebars = bars.GetViewModels().Skip(6).Take(3).ToList();
+            homeVM.TopThreebars = bars.GetViewModels().Take(3).ToList();
 
             var cocktails = await cocktailServices.GetAllCocktails();
             homeVM.TopThreeCocktails = cocktails.GetViewModels().Take(3).ToList();

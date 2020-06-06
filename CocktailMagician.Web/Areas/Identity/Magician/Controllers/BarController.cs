@@ -54,6 +54,7 @@ namespace CocktailMagician.Web.Areas.Magician
                 var barDTO = updatedBar.GetDtoFromVM();
                 await barServices.UpdateBar(barDTO.Id, barDTO);
 
+
                 return RedirectToAction("ListBars", "Bar");
 
             }
@@ -92,18 +93,19 @@ namespace CocktailMagician.Web.Areas.Magician
 
 
         [HttpPost]
-        public async Task<IActionResult> AddCocktailToBar(Guid barId, Guid cocktailId)
+        public async Task<IActionResult> AddCocktailToBar(BarViewModel model, string name)
         {
             try
             {
-                var cocktail = await cocktailServices.GetCocktail(cocktailId);
-                await barServices.AddCocktailToBar(barId, cocktail);
-                return RedirectToAction("ListBars", "Bar");
+              
+
+                await barServices.AddCocktailsToBar(name, model.CocktailNames);
+                return RedirectToAction("ListBars", "Bar",new {Area="" });
             }
             catch (Exception)
             {
                 this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
-                return RedirectToAction("ListBars");
+                return RedirectToAction("ListBars", "Bar", new { Area = "" });
             }
            
         }
