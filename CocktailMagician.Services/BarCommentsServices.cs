@@ -13,6 +13,7 @@ using CocktailMagician.Services.CommonMessages;
 
 namespace CocktailMagician.Services
 {
+
     public class BarCommentsServices : IBarCommentsServices
     {
         private readonly CMContext context;
@@ -49,8 +50,6 @@ namespace CocktailMagician.Services
                                       .Where(bc => bc.IsDeleted == false && bc.BarId == barId)
                                       .ToListAsync();
 
-            if (comments.Count == 0)
-                throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments.GetDTOs();
         }
@@ -137,7 +136,7 @@ namespace CocktailMagician.Services
 
             if (barComments.Count == 0)
                 throw new ArgumentNullException(Exceptions.EntityNotFound);
-            
+
 
             return barComments.GetDTOs();
         }
@@ -152,3 +151,4 @@ namespace CocktailMagician.Services
         }
     }
 }
+

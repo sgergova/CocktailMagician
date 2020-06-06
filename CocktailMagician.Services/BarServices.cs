@@ -73,6 +73,7 @@ namespace CocktailMagician.Services
         }
         public async Task<ICollection<BarCocktailDTO>> GetCocktailsForBar(Guid barId)
         {
+
             var barCocktails = await this.context.BarCocktails
                                               .Where(b => b.BarId == barId)
                                               .Include(b => b.Cocktail)
@@ -93,20 +94,6 @@ namespace CocktailMagician.Services
             var topThree = await bars.Take(3).ToListAsync();
             var topThreeDTO = topThree.GetDTOs();
             return topThreeDTO;
-        }
-        /// <summary>
-        /// Orders a given sequence of bars according to given criteria, such as address, name, cocktail or country.
-        /// </summary>
-        /// <param name="bars">The sequence that should be ordered</param>
-        /// <param name="orderBy">The criteria for ordering</param>
-        /// <returns></returns>
-        public ICollection<BarDTO> OrderBar(IQueryable<Bar> bars, string orderBy)
-        {
-            var orderedBars = OrderBarsAsIQueryable(bars, orderBy);
-            var result = orderedBars.ToList();
-
-            return result.GetDTOs();
-
         }
         /// <summary>
         /// Adds the new bar to the database after checking if it does not exists already.
@@ -166,23 +153,21 @@ namespace CocktailMagician.Services
                 await context.BarCocktails.AddAsync(newBarCocktail);
                 await context.SaveChangesAsync();
             }
-            else
-            {
-                throw new InvalidOperationException(Exceptions.AlreadyListed);
-            }
-
             return bar.GetDTO();
         }
         public async Task<BarDTO> AddCocktailsToBar(string barName, ICollection<string> cocktailNames)
         {
-
             var bar = await this.context.Bars
-                                         .FirstOrDefaultAsync(c => c.Name == barName && c.IsDeleted == false)
-                                          ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+                                        .Include(b => b.Country)
+                                        .FirstOrDefaultAsync(c => c.Name == barName && c.IsDeleted == false);
 
-            var a = cocktailNames.Select(async n => { await Helper(barName, n, bar.Id); });
+            if (bar == null)
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
 
-            await this.context.CocktailIngredients.AddRangeAsync();
+            var a = cocktailNames.Select(async n => { await Helper(bar.Name, n, bar.Id); });
+
+            this.context.Bars.Update(bar);
+            await this.context.BarCocktails.AddRangeAsync();
             await this.context.SaveChangesAsync();
 
             return bar.GetDTO();
@@ -302,34 +287,19 @@ namespace CocktailMagician.Services
             return barToDelete.GetDTO();
         }
 
-        public async Task<ICollection<BarDTO>> GetIndexPageBars(string orderBy, int currentPage, string searchCriteria)
+        public async Task<ICollection<BarDTO>> GetIndexPageBars(int currentPage, string searchCriteria)
         {
-            IQueryable<Bar> bars = this.context.Bars
-                                               .Include(b => b.Country)
-                                               .Include(b => b.BarCocktails)
-                                               .Include(b => b.Comments)
-                                                   .ThenInclude(c => c.User)
-                                               .Where(b => b.IsDeleted == false);
-            if (searchCriteria != null)
-                bars = bars.Where(b => b.Name.Contains(searchCriteria) || b.Country.Name.Contains(searchCriteria));
+            var bars = SearchByCriteria(searchCriteria);
+            bars.OrderBy(b => b.Name);
+            var barsToReturn = currentPage == 1 ? await bars.Take(10).ToListAsync()
+                                : await bars.Skip((currentPage - 1) * 10).Take(10).ToListAsync();
 
-            bars = OrderBarsAsIQueryable(bars, orderBy);
-            bars = currentPage == 1 ? bars = bars.Take(10) : bars = bars.Skip((currentPage - 1) * 10).Take(10);
-
-            var results = await bars.ToListAsync();
-
-            return results.GetDTOs();
+            return barsToReturn.GetDTOs();
         }
 
-        public int GetCount(int itemsPerPage, string searchCriteria)
+        public int GetCount(int itemsPerPage)
         {
-            double barsCount = 0;
-            if (searchCriteria != null)
-                barsCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Country.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-            else
-            {
-                barsCount = this.context.Bars.Count();
-            }
+            double barsCount = this.context.Bars.Count();
             var countInt = (int)barsCount;
 
             return countInt;
@@ -350,12 +320,30 @@ namespace CocktailMagician.Services
         private async Task<ICollection<BarCocktail>> AvailabilityAtBarEntities(Guid barToDeleteId)
         {
             var barCocktailsAvailable = await this.context.BarCocktails
-                                                   .Where(bc => bc.BarId == barToDeleteId)
-                                                   .Where(bc => bc.IsListed == true)
+                                                   .Where(bc => bc.BarId == barToDeleteId && bc.IsListed == true)
                                                    .ToListAsync()
                                                    ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             return barCocktailsAvailable;
+        }
+
+        private IQueryable<Bar> SearchByCriteria(string searchCriteria)
+        {
+            IQueryable<Bar> bars = this.context.Bars
+                                             .Include(b => b.Country)
+                                             .Include(b => b.BarCocktails)
+                                             .Include(b => b.Comments)
+                                                 .ThenInclude(c => c.User)
+                                             .Where(b => b.IsDeleted == false);
+            if (searchCriteria != null)
+            {
+                var name = bars.Where(b => b.Name.Contains(searchCriteria));
+                var country = bars.Where(b => b.Country.Name.Contains(searchCriteria));
+                var address = bars.Where(b => b.Address.Contains(searchCriteria));
+                bars = name.Union(country).Union(address);
+            }
+
+            return bars;
         }
 
         private IQueryable<Bar> GetAllBarsQueryable()
@@ -367,19 +355,6 @@ namespace CocktailMagician.Services
                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return entities;
-        }
-        private IQueryable<Bar> OrderBarsAsIQueryable(IQueryable<Bar> bars, string orderBy)
-        {
-            return orderBy switch
-            {
-                "name" => bars.OrderBy(b => b.Name),
-                "name_desc" => bars.OrderByDescending(b => b.Name),
-                "address" => bars.OrderBy(b => b.Address),
-                "cocktail" => bars.OrderBy(b => b.BarCocktails),
-                "country" => bars.OrderBy(b => b.Country),
-
-                _ => bars.OrderBy(b => b.Name)
-            };
         }
 
         private async Task<BarCocktail> Helper(string barName, string cocktailName, Guid cocktailId)

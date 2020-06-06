@@ -46,35 +46,6 @@ namespace CocktailMagician.Tests.IngredientServicesTests
                 Assert.AreEqual(ingredient.Name, result.ToList()[0].Ingredient.Name);
                 Assert.AreEqual(cocktail.Name, result.ToList()[0].Cocktail.Name);
                 Assert.IsInstanceOfType(result, typeof(ICollection<CocktailIngredientDTO>));
-
-            }
-        }
-
-        [TestMethod]
-        public async Task GetCocktailIngredients_Throws_WhenParamsAreNotValid()
-        {
-            //Arrange
-            var options = Utils.GetOptions(nameof(GetCocktailIngredients_Throws_WhenParamsAreNotValid));
-
-            var ingredient = new Ingredient { Id = Guid.NewGuid(), Name = "Vodka" };
-            var cocktail = new Cocktail { Id = Guid.NewGuid(), Name = "Manhattan" };
-            var cocktailIngredient = new CocktailIngredient { IngredientId = ingredient.Id, CocktailId = cocktail.Id, IsDeleted = true };
-            var id = Guid.NewGuid();
-
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Ingredients.AddAsync(ingredient);
-                await arrangeContext.Cocktails.AddAsync(cocktail);
-                await arrangeContext.CocktailIngredients.AddAsync(cocktailIngredient);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-            //Act, Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new IngredientServices(assertContext);
-
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.GetCocktailIngredients(id));
             }
         }
     }

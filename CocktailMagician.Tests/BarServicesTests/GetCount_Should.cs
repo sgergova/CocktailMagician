@@ -41,7 +41,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 
 			using (var arrangeContext = new CMContext(options))
 			{
-				await arrangeContext.AddRangeAsync(bar, bar2);
+				await arrangeContext.Bars.AddRangeAsync(bar, bar2);
 				await arrangeContext.SaveChangesAsync();
 			};
 
@@ -49,7 +49,7 @@ namespace CocktailMagician.Tests.BarServicesTests
 			using (var assertContext = new CMContext(options))
 			{
 				var sut = new BarServices(assertContext);
-				var result = sut.GetCount(1, null);
+				var result = sut.GetCount(1);
 
 				Assert.AreEqual(2, result);
 			}

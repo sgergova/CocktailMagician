@@ -25,14 +25,11 @@ namespace CocktailMagician.Web.Controllers
             this.cocktailCommentServices = cocktailCommentServices;
         }
         [HttpGet]
-        public async Task<IActionResult>  ListCocktails(string orderBy, int? currentPage, string searchCriteria)
+        public async Task<IActionResult> ListCocktails(int? currentPage, string searchCriteria)
         {
-            //var searchCriteria = model.SearchCriteria;
-            ViewData["CurrentSort"] = orderBy;
-            ViewData["NameSortParm"] = orderBy == "name" ? "name_desc" : "name";
             ViewData["SearchParm"] = searchCriteria;
 
-            var cocktails = await this.cocktailServices.GetIndexPageCocktails(orderBy, currentPage ?? 1, searchCriteria);
+            var cocktails = await this.cocktailServices.GetIndexPageCocktails(currentPage ?? 1, searchCriteria);
 
             var ingredients = await ingredientServices.GetAllIngredients(null);
 
@@ -42,12 +39,12 @@ namespace CocktailMagician.Web.Controllers
                 IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList(),
                 currentPage = currentPage ?? 1,
                 items = cocktailViewModel,
-                TotalPages = this.cocktailServices.GetCount(10, searchCriteria)
+                TotalPages = this.cocktailServices.GetCount(10)
             };
 
             return View(paged);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> CocktailDetails(Guid id)
         {
@@ -61,7 +58,7 @@ namespace CocktailMagician.Web.Controllers
                 var cocktailVM = cocktail.GetViewModel();
                 cocktailVM.IngredientsToChoose = ingredients.Select(c => new SelectListItem(c.Name, c.Name)).ToList();
                 cocktailVM.Ingredients = await ingredientServices.GetCocktailIngredients(id);
-                cocktailVM.Bars = await cocktailServices.GetBarsForCocktail(id);
+                cocktailVM.Bars = await cocktailServices.GetBarsOfCocktail(id);
                 var comments = await cocktailCommentServices.GetAllCommentsForCocktail(id);
                 cocktailVM.Comments = comments.GetViewModels();
                 return View(cocktailVM);
