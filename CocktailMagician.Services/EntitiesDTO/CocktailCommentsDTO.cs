@@ -13,5 +13,6 @@ namespace CocktailMagician.Services.EntitiesDTO
         public User User { get; set; }
         public Guid CocktailId { get; set; }
         public Cocktail Cocktail { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

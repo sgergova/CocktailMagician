@@ -1,4 +1,5 @@
 ﻿using CocktailMagician.Data.AppContext;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -25,10 +26,10 @@ namespace CocktailMagician.Services
         public async Task<CocktailRatingDTO> CreateRating(CocktailRatingDTO rating)
         {
             var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == rating.UserId)
-                                                ?? throw new ArgumentNullException(); 
+                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId); 
             
             var cocktatil = await this.context.Cocktails.FirstOrDefaultAsync(c=>c.Id == rating.Id)
-                                                ?? throw new ArgumentNullException();
+                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newRating = rating.GetEntity();
 
@@ -50,7 +51,8 @@ namespace CocktailMagician.Services
                                                    .Include(c => c.Cocktail)
                                                    .Include(c => c.User)
                                                    .Where(c => c.CocktailId == cocktailId)
-                                                   .FirstOrDefaultAsync();
+                                                   .FirstOrDefaultAsync()
+                                                   ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return cocktailRating.GetDTO();
         }

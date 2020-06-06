@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 
 namespace CocktailMagician.Services
 {
@@ -28,7 +29,7 @@ namespace CocktailMagician.Services
         public async Task<IngredientDTO> GetIngredient(Guid id)
         {
             if (id == null)
-                throw new ArgumentNullException("The ID cannot be null");
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
 
             var entity = await GetAllQueryable()
@@ -44,7 +45,7 @@ namespace CocktailMagician.Services
         public async Task<IngredientDTO> GetIngredient(string name)
         {
             if (name == null)
-                throw new ArgumentNullException("The name cannot be null");
+                throw new ArgumentNullException(Exceptions.MissingName);
 
             var entity = await GetAllQueryable()
                                         .FirstOrDefaultAsync(b => b.Name == name);
@@ -61,12 +62,11 @@ namespace CocktailMagician.Services
             var entities = GetAllQueryable();
 
             if (name != null)
-            {
                 entities = entities.Where(i => i.Name.ToLower().Contains(name.ToLower()));
-            }
-            var ingredient = await entities.OrderBy(e => e.Name).ToListAsync();
 
-            return ingredient.GetDTOs();
+            var ingredients = await entities.ToListAsync();
+
+            return ingredients.GetDTOs();
         }
 
         /// <summary>
@@ -77,10 +77,10 @@ namespace CocktailMagician.Services
         public async Task<IngredientDTO> CreateIngredient(IngredientDTO ingredientDTO)
         {
             if (this.context.Ingredients.Any(b => b.Name == ingredientDTO.Name))
-                throw new ArgumentException("The name is already existing");
+                throw new ArgumentException(Exceptions.NameExists);
 
             if (ingredientDTO.Name == null)
-                throw new ArgumentNullException("The name is mandatory");
+                throw new ArgumentNullException(Exceptions.MissingName);
 
             var ingredient = ingredientDTO.GetEntity();
 
@@ -99,7 +99,7 @@ namespace CocktailMagician.Services
         {
             var ingredientToUpdate = await GetAllQueryable()
                                                .FirstOrDefaultAsync(i => i.Id == id)
-                                               ?? throw new ArgumentNullException();
+                                               ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             ingredientToUpdate.Name = ingredientDTO.Name;
             ingredientToUpdate.Quantity = ingredientDTO.Quantity;
@@ -122,18 +122,13 @@ namespace CocktailMagician.Services
         {
             var ingredientToDelete = await GetAllQueryable()
                                                     .FirstOrDefaultAsync(i => i.Id == id)
-                                                    ?? throw new ArgumentNullException();
+                                                    ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
-            var cocktailsIngredients = await AvailabilityAtCocktailsEntities(ingredientToDelete.Id);
+            var cocktailsIngredients = (await AvailabilityAtCocktailsEntities(ingredientToDelete.Id)).ToList();
 
             if (cocktailsIngredients.Count != 0)
-            {
-                foreach (var cocktailIngredient in cocktailsIngredients)
-                {
-                    cocktailIngredient.IsDeleted = true;
-                    cocktailIngredient.DeletedOn = DateTime.UtcNow;
-                }
-            }
+                cocktailsIngredients.ForEach(ci => { ci.IsDeleted = true; ci.DeletedOn = DateTime.UtcNow; });
+
             ingredientToDelete.IsDeleted = true;
             ingredientToDelete.DeletedOn = DateTime.UtcNow;
             context.Ingredients.Update(ingredientToDelete);
@@ -142,21 +137,6 @@ namespace CocktailMagician.Services
             return ingredientToDelete.GetDTO();
         }
         /// <summary>
-        /// Checks in the database for given cocktail's name.
-        /// </summary>
-        /// <param name="cocktailName">The cocktail that should search for</param>
-        /// <returns>A list of cocktails that contain the ingredient</returns>
-        public async Task<ICollection<CocktailIngredientDTO>> SearchCocktailByIngredient(string cocktailName)
-        {
-            var cocktails = await this.context.CocktailIngredients
-                                              .Where(i => i.Cocktail.Name == cocktailName)
-                                              .ToListAsync()
-                                              ?? throw new ArgumentNullException("The name cannot be null");
-
-            return cocktails.GetDTOs();
-        }
-
-        /// <summary>
         /// Checks in the database for given cocktail's ID.
         /// </summary>
         /// <param name="cocktailId">The cocktail that should search for</param>
@@ -164,40 +144,28 @@ namespace CocktailMagician.Services
         public async Task<ICollection<CocktailIngredientDTO>> GetCocktailIngredients(Guid cocktailId)
         {
             var cocktailIngr = await this.context.CocktailIngredients
-                                              .Where(i => i.Cocktail.Id == cocktailId)
-                                              .Include(i=>i.Cocktail)
-                                              .Include(i=>i.Ingredient)
-                                              .ToListAsync()
-                                              ?? throw new ArgumentNullException("The name cannot be null");
+                                              .Where(i => i.Cocktail.Id == cocktailId && i.IsDeleted == false)
+                                              .Include(i => i.Cocktail)
+                                              .Include(i => i.Ingredient)
+                                              .ToListAsync();
+
+            if (cocktailIngr.Count == 0)
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return cocktailIngr.GetDTOs();
         }
-        public IQueryable<Ingredient> OrderIngredient(IQueryable<Ingredient> ingredients, string orderBy)
-        {
-            return orderBy switch
-            {
-                "name" => ingredients.OrderBy(b => b.Name),
-               
 
-                _ => ingredients.OrderBy(b => b.Name)
-            };
-        }
         public async Task<ICollection<IngredientDTO>> GetIndexPageIngredients(string orderBy, int currentPage, string searchCriteria)
         {
             IQueryable<Ingredient> ingredients = this.context.Ingredients
                                                .Where(i => i.IsDeleted == false);
             if (searchCriteria != null)
-            {
-
                 ingredients = ingredients.Where(b => b.Name.Contains(searchCriteria));
-            }
-
-            //ingredients = OrderIngredient(ingredients, orderBy);
-            ingredients = currentPage == 1 ? ingredients = ingredients.Take(10) : ingredients = ingredients.Skip((currentPage - 1) * 10).Take(10);
+           
+            ingredients = ingredients.OrderBy(i => i.Name);
+            ingredients = currentPage == 1 ? ingredients.Take(10) : ingredients.Skip((currentPage - 1) * 10).Take(10);
 
             var results = await ingredients.ToListAsync();
-
-
             return results.GetDTOs();
         }
         public int GetCount(int itemsPerPage, string searchCriteria)
@@ -205,19 +173,21 @@ namespace CocktailMagician.Services
             double ingredientCount = 0;
             if (searchCriteria != null)
             {
-
-                ingredientCount = Math.Ceiling((double)this.context.Bars.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-
+                ingredientCount = Math.Ceiling((double)this.context.Ingredients.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
             }
             else
             {
-                ingredientCount = this.context.Bars.Count();
+                ingredientCount = this.context.Ingredients.Count();
             }
             var countInt = (int)ingredientCount;
 
             return countInt;
         }
-
+        /// <summary>
+        /// Finds all the ingredients included in given cocktail.
+        /// </summary>
+        /// <param name="ingredientId">The ID of ingredient that should be found</param>
+        /// <returns>Sequence of all cocktails that include the ingredient</returns>
         public async Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId)
         {
             var cocktailIngredients = await AvailabilityAtCocktailsEntities(ingredientId);
@@ -229,7 +199,8 @@ namespace CocktailMagician.Services
             var cocktailIngredients = await this.context.CocktailIngredients
                                                         .Where(b => b.IsDeleted == false)
                                                         .Where(b => b.IngredientId == ingredientId)
-                                                        .ToListAsync();
+                                                        .ToListAsync()
+                                                        ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             return cocktailIngredients;
         }
@@ -238,7 +209,7 @@ namespace CocktailMagician.Services
         {
             var entities = this.context.Ingredients
                                        .Where(b => b.IsDeleted == false)
-                                       ?? throw new ArgumentNullException("The value cannot be null");
+                                       ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return entities;
         }

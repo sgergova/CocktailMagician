@@ -20,7 +20,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             //Arrange
             var options = Utils.GetOptions(nameof(AddCocktailToBar_Throws_WhenBarId_IsInvalid));
 
-            var barID = Guid.Parse("65e6f2f3-a2a3-47da-b5e9-966085c05731");
+            var barID = Guid.NewGuid();
 
             //Act,Assert
             using (var assertContext = new CMContext(options))
@@ -37,8 +37,8 @@ namespace CocktailMagician.Tests.BarServicesTests
             //Arrange
             var options = Utils.GetOptions(nameof(AddCocktailToBar_Throws_When_BarCocktail_IsNotNull));
 
-            var barID = Guid.Parse("65e6f2f3-a2a3-47da-b5e9-966085c05731");
-            var cocktailId = Guid.Parse("42b312f9-09c9-435a-a82a-3b4d1f027234");
+            var barID = Guid.NewGuid();
+            var cocktailId = Guid.NewGuid();
 
 
             var barCocktail = new BarCocktail
@@ -64,7 +64,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailDTO));
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailDTO.Name));
             }
 
         }
@@ -78,18 +78,18 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar = new Bar
             {
-                Id = Guid.Parse("65e6f2f3-a2a3-47da-b5e9-966085c05731"),
+                Id = Guid.NewGuid(),
                 Name = "Cosmos",
                 Country = new Country
                 {
-                    Id = Guid.Parse("a7db8a1a-e036-4de8-b673-7ece0aecf043"),
+                    Id = Guid.NewGuid(),
                     Name = "Bulgaria"
                 }
             };
 
             var cocktail = new Cocktail
             {
-                Id = Guid.Parse("42b312f9-09c9-435a-a82a-3b4d1f027234"),
+                Id = Guid.NewGuid(),
                 Name = "Manhattan",
             };
 
@@ -112,10 +112,11 @@ namespace CocktailMagician.Tests.BarServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
-                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO);
+                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO.Name);
 
                 Assert.AreEqual(1, assertContext.BarCocktails.Count());
                 Assert.AreEqual(1, result.BarCocktails.Count());
+                Assert.AreEqual(true, result.BarCocktails.ToList()[0].IsListed);
                 Assert.IsInstanceOfType(result, typeof(BarDTO));
             }
         }
@@ -129,18 +130,18 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar = new Bar
             {
-                Id = Guid.Parse("86cb5331-0035-4a52-b99b-08df779358e3"),
+                Id = Guid.NewGuid(),
                 Name = "Cosmos",
                 Country = new Country
                 {
-                    Id = Guid.Parse("fb837576-a066-43a1-9812-3c1eac4d449c"),
+                    Id = Guid.NewGuid(),
                     Name = "Bulgaria"
                 }
             };
 
             var cocktail = new Cocktail
             {
-                Id = Guid.Parse("bb4b4175-81c5-4828-bca4-3660f796eb3f"),
+                Id =Guid.NewGuid(),
                 Name = "Manhattan",
             };
 
@@ -153,9 +154,8 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var barCocktail = new BarCocktail
             {
-                Id = Guid.Parse("ca28a84e-1885-4d1b-aee9-3ab4f9ade0f7"),
                 BarId = bar.Id,
-                CocktailId = cocktail.Id
+                CocktailId = cocktail.Id,
             };
 
             using (var arrangeContext = new CMContext(options))
@@ -172,7 +172,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO));
+                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO.Name));
             }
         }
     }

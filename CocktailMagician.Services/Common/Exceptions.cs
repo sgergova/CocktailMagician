@@ -14,6 +14,16 @@ namespace CocktailMagician.Services.CommonMessages
 
         public const string EntityNotFound = "The entity was not found!";
         public const string InvalidSearchCriteria = "Invalid search criteria";
+        public const string UpdatesMissing = "Please enter valid updates";
+
+        // Exceptions for controllers
+        public const string SomethingWentWrong = "Ooops... something went wrong";
+        public const string SuccessfullyCreated = "Successfully created";
+        public const string SuccessfullyDeleted = "Successfully deleted";
+        public const string SuccessfullyUpdated = "Successfully updated";
+
+
+
 
     }
 }

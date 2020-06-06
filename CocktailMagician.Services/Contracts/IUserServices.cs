@@ -10,6 +10,5 @@ namespace CocktailMagician.Services.Contracts
     public interface IUserServices
     {
         Task<UserDTO> UpdateUser(UserDTO user);
-        
     }
 }

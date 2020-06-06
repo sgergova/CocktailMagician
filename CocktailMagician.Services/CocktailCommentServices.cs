@@ -24,11 +24,14 @@ namespace CocktailMagician.Services
 
         public async Task<CocktailCommentsDTO> CreateComment(CocktailCommentsDTO comment)
         {
-            var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == comment.UserId)
-                                                ?? throw new ArgumentNullException();
+            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == comment.UserId);
+            if (user == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
-            var cocktail = await this.context.Cocktails.FirstOrDefaultAsync(c=>c.Id == comment.CocktailId)
-                                                ?? throw new ArgumentNullException();
+            var cocktail = await this.context.Cocktails.FirstOrDefaultAsync(c => c.Id == comment.CocktailId);
+
+            if (cocktail == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newCocktailComment = comment.GetEntity();
 
@@ -43,8 +46,11 @@ namespace CocktailMagician.Services
         public async Task<CocktailCommentsDTO> DeleteComment(Guid commentId)
         {
             var comment = await this.context.CocktailComments
-                                            .FirstOrDefaultAsync(cc=>cc.IsDeleted == false && cc.CocktailId == commentId)
-                                            ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+                                            .FirstOrDefaultAsync(cc => cc.IsDeleted == false && cc.Id == commentId);
+
+            if (comment == null)
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
+
             comment.IsDeleted = true;
             comment.DeletedOn = DateTime.UtcNow;
 
@@ -53,22 +59,25 @@ namespace CocktailMagician.Services
 
             return comment.GetDTO();
         }
-
+        //TODO && в заявката?
         public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsOfUser(Guid? id, string username)
         {
             var comments = await this.context.CocktailComments
-                                     .Where(cc => cc.IsDeleted == false && cc.UserId == id || cc.User.UserName == username)
-                                     .ToListAsync();
+                                     .Where(cc => cc.IsDeleted == false && cc.UserId == id && cc.User.UserName == username)
+                                     .ToListAsync()
+                                      ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments.GetDTOs();
         }
 
-        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid? id)
+        public async Task<ICollection<CocktailCommentsDTO>> GetAllCommentsForCocktail(Guid id)
         {
             var comments = await this.context.CocktailComments
                                      .Where(cc => cc.IsDeleted == false && cc.CocktailId == id)
                                      .Include(cc => cc.User)
                                      .ToListAsync();
+            if (comments.Count == 0)
+                throw new ArgumentNullException(Exceptions.EntityNotFound); 
 
             return comments.GetDTOs();
         }

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 
 namespace CocktailMagician.Web.Areas.Magician
 {
@@ -15,9 +17,11 @@ namespace CocktailMagician.Web.Areas.Magician
     public class IngredientController : Controller
     {
         private readonly IIngredientServices ingredientServices;
-        public IngredientController(IIngredientServices ingredientServices)
+        private readonly IToastNotification toast;
+        public IngredientController(IIngredientServices ingredientServices, IToastNotification toast)
         {
             this.ingredientServices = ingredientServices;
+            this.toast = toast;
         }
         //[HttpPost]
         //public async Task<IActionResult> CreateIngredient(IngredientViewModel ingredient)
@@ -29,10 +33,18 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> DeleteIngredient(Guid id)
         {
-            await ingredientServices.DeleteIngredient(id);
-
-
-            return RedirectToAction("ListIngredients", "Ingredient");
+            try
+            {
+                await ingredientServices.DeleteIngredient(id);
+                this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyDeleted);
+                return RedirectToAction("ListIngredients", "Ingredient");
+            }
+            catch (Exception)
+            {
+                this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                return RedirectToAction("ListIngredients");
+            }
+            
         }
         [HttpGet]
         public async Task<IActionResult> UpdateIngredient(Guid id)

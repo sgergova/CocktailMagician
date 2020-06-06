@@ -13,17 +13,15 @@ namespace CocktailMagician.Tests.CocktailsServicesTests
     public class CreateCocktail_Should
     {
         [TestMethod]
-        public async Task CreateBar_Adds_Correct()
+        public async Task CreateCocktail_Adds_Correct()
         {
             //Arrange
-            var options = Utils.GetOptions(nameof(CreateBar_Adds_Correct));
-
+            var options = Utils.GetOptions(nameof(CreateCocktail_Adds_Correct));
 
             var cocktail = new CocktailDTO
             {
                 Name = "Cuba Libre",
             };
-
 
             //Act, Assert
             using (var assertContext = new CMContext(options))
@@ -36,16 +34,16 @@ namespace CocktailMagician.Tests.CocktailsServicesTests
         }
 
         [TestMethod]
-        public async Task CreateBar_Returns_Correct()
+        public async Task CreateCocktail_Returns_Correct()
         {
             //Arrange
-            var options = Utils.GetOptions(nameof(CreateBar_Returns_Correct));
+            var options = Utils.GetOptions(nameof(CreateCocktail_Returns_Correct));
 
 
             var cocktail = new CocktailDTO
             {
                 Name = "Cuba Libre",
-                IsAlcoholic = true
+                IsAlcoholic = true,
             };
 
 
@@ -62,10 +60,10 @@ namespace CocktailMagician.Tests.CocktailsServicesTests
         }
 
         [TestMethod]
-        public async Task CreateBar_Throws_When_NameExists()
+        public async Task CreateCocktail_Throws_When_NameExists()
         {
             //Arrange
-            var options = Utils.GetOptions(nameof(CreateBar_Throws_When_NameExists));
+            var options = Utils.GetOptions(nameof(CreateCocktail_Throws_When_NameExists));
 
             var cocktail = new Cocktail
             {
@@ -94,10 +92,10 @@ namespace CocktailMagician.Tests.CocktailsServicesTests
         }
 
         [TestMethod]
-        public async Task CreateBar_Throws_When_NameIsNull()
+        public async Task CreateCocktail_Throws_When_NameIsNull()
         {
             //Arrange
-            var options = Utils.GetOptions(nameof(CreateBar_Throws_When_NameIsNull));
+            var options = Utils.GetOptions(nameof(CreateCocktail_Throws_When_NameIsNull));
 
 
             var cocktailDTO = new CocktailDTO

@@ -21,6 +21,7 @@ namespace CocktailMagician.Services.Mappers
                 UserId = item.UserId,
                 Cocktail = item.Cocktail,
                 CocktailId = item.CocktailId,
+                IsDeleted = item.IsDeleted,
             };
         }
 

@@ -30,7 +30,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
             {
                 await arrangeContext.Bars.AddRangeAsync(bar, bar2);
                 await arrangeContext.Users.AddAsync(user);
-                await arrangeContext.BarComments.AddAsync(comment);
+                await arrangeContext.BarComments.AddRangeAsync(comment, comment2);
                 await arrangeContext.SaveChangesAsync();
             }
 
@@ -39,7 +39,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
             {
                 //TODO: Replace USername with id
                 var sut = new BarCommentsServices(assertContext);
-                var result = await sut.GetAllCommentsOfUser(null, null);
+                var result = await sut.GetAllCommentsOfUser(user.Id);
 
                 Assert.AreEqual(1, result.Count);
                 Assert.IsInstanceOfType(result, typeof(ICollection<BarCommentDTO>));

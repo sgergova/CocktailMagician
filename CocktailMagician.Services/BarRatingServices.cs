@@ -1,5 +1,6 @@
 ﻿using CocktailMagician.Data.AppContext;
 using CocktailMagician.Data.Entities;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Services.EntitiesDTO;
 using CocktailMagician.Services.Mappers;
@@ -27,11 +28,15 @@ namespace CocktailMagician.Services
         /// <returns>Data transfer object of the created instance of the rating</returns>
         public async Task<BarRatingDTO> CreateRating(BarRatingDTO rating)
         {
-            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == rating.UserId)
-                                               ?? throw new ArgumentNullException();
+            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == rating.UserId);
 
-            var bar = await this.context.Bars.FirstOrDefaultAsync(c => c.Id == rating.BarId)
-                                                ?? throw new ArgumentNullException();
+            if (user == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
+
+            var bar = await this.context.Bars.FirstOrDefaultAsync(c => c.Id == rating.BarId);
+
+            if (bar == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newRating = rating.GetEntity();
             bar.RatedCount++;
@@ -57,7 +62,9 @@ namespace CocktailMagician.Services
                                        .Include(b => b.Bar)
                                        .Include(b => b.User)
                                        .Where(br => br.BarId == barId)
-                                       .FirstOrDefaultAsync();
+                                       .FirstOrDefaultAsync()
+                                       ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+
 
             return barRating.GetDTO();
         }

@@ -29,10 +29,10 @@ namespace CocktailMagician.Services
         public async Task<CountryDTO> CreateCountry(CountryDTO countryDTO)
         {
             if (this.context.Countries.Any(c => c.Name == countryDTO.Name))
-                throw new InvalidOperationException("The name of the country must be unique!");
+                throw new InvalidOperationException(Exceptions.NameExists);
 
             if (countryDTO.Name == null)
-                throw new ArgumentNullException("The name of the country is mandatory!");
+                throw new ArgumentNullException(Exceptions.MissingName);
 
             var country = countryDTO.GetEntity();
 
@@ -50,7 +50,7 @@ namespace CocktailMagician.Services
         {
             var country = await GetCountriesQuerable()
                                            .FirstOrDefaultAsync(c => c.Name == name)
-                                           ?? throw new ArgumentNullException("Country was not found");
+                                           ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return country.GetDTO();
         }
@@ -63,7 +63,7 @@ namespace CocktailMagician.Services
         {
             var country = await GetCountriesQuerable()
                                            .FirstOrDefaultAsync(c => c.Id == id)
-                                           ?? throw new ArgumentNullException("Country was not found");
+                                           ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return country.GetDTO();
         }
@@ -89,7 +89,7 @@ namespace CocktailMagician.Services
         {
             var countryToUpdate = await GetCountriesQuerable()
                                                .FirstOrDefaultAsync(c => c.Id == id)
-                                               ?? throw new ArgumentNullException() ;
+                                               ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             countryToUpdate.Name = countryDTO.Name;
             countryToUpdate.ModifiedOn = countryDTO.ModifiedOn;
@@ -109,21 +109,16 @@ namespace CocktailMagician.Services
         {
             var countryToDelete = await GetCountriesQuerable()
                                                .FirstOrDefaultAsync(c => c.Id == id)
-                                               ?? throw new ArgumentNullException();
+                                               ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
-            var barsAvailable = await BarsAvailableEntities(countryToDelete.Id);
+            var barsAvailable = (await BarsAvailableEntities(countryToDelete.Id)).ToList();
 
             countryToDelete.IsDeleted = true;
             countryToDelete.DeletedOn = DateTime.UtcNow;
 
             if (barsAvailable.Count != 0)
-            {
-                foreach (var bar in barsAvailable)
-                {
-                    bar.IsDeleted = true;
-                    bar.DeletedOn = DateTime.UtcNow;
-                }
-            }
+                barsAvailable.ForEach(ba => { ba.IsDeleted = true; ba.DeletedOn = DateTime.UtcNow; });
+
             context.Countries.Update(countryToDelete);
             await context.SaveChangesAsync();
 
@@ -150,12 +145,12 @@ namespace CocktailMagician.Services
         {
             var country = await GetCountriesQuerable()
                                             .FirstOrDefaultAsync(c => c.Id == countryId)
-                                            ?? throw new ArgumentNullException();
+                                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var bar = await this.context.Bars
                                          .FirstOrDefaultAsync(c => c.Id == barId)
-                                            ?? throw new ArgumentNullException();
-           
+                                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+
             if (bar.CountryId == countryId)
                 throw new InvalidOperationException(Exceptions.AlreadyListed);
 
@@ -174,11 +169,11 @@ namespace CocktailMagician.Services
         {
             var country = await GetCountriesQuerable()
                                             .FirstOrDefaultAsync(c => c.Id == countryId)
-                                            ?? throw new ArgumentNullException();
+                                            ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var bar = await this.context.Bars
                                    .FirstOrDefaultAsync(c => c.Id == barId)
-                                   ?? throw new ArgumentNullException();
+                                   ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             if (bar.CountryId == countryId)
             {
@@ -189,7 +184,7 @@ namespace CocktailMagician.Services
             }
             else
             {
-                throw new InvalidOperationException("The bar or/and the country was not found!"); 
+                throw new InvalidOperationException(Exceptions.EntityNotFound);
             }
             return country.GetDTO();
         }
@@ -197,7 +192,7 @@ namespace CocktailMagician.Services
         {
             var countries = this.context.Countries
                                         .Where(c => c.IsDeleted == false)
-                                        ?? throw new ArgumentNullException("Value cannot be null");
+                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return countries;
         }
@@ -205,9 +200,10 @@ namespace CocktailMagician.Services
         {
             var bars = await this.context.Bars
                                          .Where(b => b.IsDeleted == false)
-                                         .Include(b=>b.Country)
+                                         .Include(b => b.Country)
                                          .Where(b => b.CountryId == countryId)
-                                         .ToListAsync();
+                                         .ToListAsync()
+                                         ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             return bars;
         }

@@ -17,48 +17,49 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form asp-controller="Cocktail" asp-action="CreateCocktail">
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-5">
-                        <div class="form-group">
-                            <label asp-for="Name" class="control-label">Name</label>
-                            <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger"></span>
+            <form enctype="multipart/form-data" method="post" asp-controller="Cocktail" asp-action="CreateCocktail">
+
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label">Name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                AlcoholPercentage
+                                <input asp-for="AlcoholPercentage" class="form-control" />
+                                <span asp-validation-for="AlcoholPercentage" class="text-danger"></span>
+                            </div>
+
+                            <div class="md-form mb-4">
+                                Is it alchoholic:
+
+                                <input asp-for="IsAlcoholic" type="checkbox">
+                                <span asp-validation-for="IsAlcoholic" class="slider"></span>
+
+                            </div>
+                            @*ingredients to do*@
+                            <div class="custom-file form-group">
+                                <input asp-for="Image" type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*">
+                                <label class="custom-file-label" for="customFileLang">Upload image</label>
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                            <div class="md-form mb-4">
+                                <select asp-for="@Model.IngredientNames" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.IngredientsToChoose">
+                                    <option selected hidden disabled value="">Choose Ingredients</option>
+
+
+                                </select>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            AlcoholPercentage
-                            <input asp-for="AlcoholPercentage" class="form-control" />
-                            <span asp-validation-for="AlcoholPercentage" class="text-danger"></span>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button asp-area="Magician" asp-controller="Cocktail" asp-action="CreateCocktail" class="btn btn-deep-orange">Create</button>
                         </div>
-
-                        <div class="md-form mb-4">
-                            Is it alchoholic:
-
-                            <input asp-for="IsAlcoholic" type="checkbox">
-                            <span asp-validation-for="IsAlcoholic" class="slider"></span>
-
-                        </div>
-                        @*ingredients to do*@
-                        <div class="custom-file form-group">
-                            <input asp-for="Image" type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*">
-                            <label class="custom-file-label" for="customFileLang">Upload image</label>
-                            <span asp-validation-for="Image" class="text-danger"></span>
-                        </div>
-                        <div class="md-form mb-4">
-                            <select asp-for="@Model.IngredientNames" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.IngredientsToChoose">
-                                <option selected hidden disabled value="">Choose Ingredients</option>
-
-
-                            </select>
-                        </div>
-
                     </div>
-                    <div class="modal-footer d-flex justify-content-center">
-                        <button asp-area="Magician"  asp-controller="Cocktail" asp-action="CreateCocktail" class="btn btn-deep-orange">Create</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+                </form>
+</div>
     </div>
 </div>
 
