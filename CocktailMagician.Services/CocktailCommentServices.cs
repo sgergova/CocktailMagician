@@ -65,7 +65,7 @@ namespace CocktailMagician.Services
             var comments = await this.context.CocktailComments
                                      .Where(cc => cc.IsDeleted == false && cc.UserId == id && cc.User.UserName == username)
                                      .ToListAsync()
-                                      ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+                                     ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments.GetDTOs();
         }
@@ -75,9 +75,8 @@ namespace CocktailMagician.Services
             var comments = await this.context.CocktailComments
                                      .Where(cc => cc.IsDeleted == false && cc.CocktailId == id)
                                      .Include(cc => cc.User)
-                                     .ToListAsync();
-            if (comments.Count == 0)
-                throw new ArgumentNullException(Exceptions.EntityNotFound); 
+                                     .ToListAsync()
+                                     ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return comments.GetDTOs();
         }

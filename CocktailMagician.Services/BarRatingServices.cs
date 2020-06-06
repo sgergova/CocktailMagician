@@ -19,7 +19,7 @@ namespace CocktailMagician.Services
 
         public BarRatingServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
         /// <summary>
         /// Creates a new instance of bar rating.

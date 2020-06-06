@@ -25,7 +25,7 @@ namespace CocktailMagician.Tests.CocktailCommentServicesTests
 
             var cocktail = new Cocktail { Id = Guid.NewGuid(), Name = "Manhattan" };
             var cocktailComment = new CocktailComment { CocktailId = cocktail.Id, UserId = user.Id };
-            var cocktailComment2 = new CocktailComment{ CocktailId = cocktail.Id, UserId = user2.Id };
+            var cocktailComment2 = new CocktailComment { CocktailId = cocktail.Id, UserId = user2.Id };
 
 
             using (var arrangeContext = new CMContext(options))
@@ -78,30 +78,6 @@ namespace CocktailMagician.Tests.CocktailCommentServicesTests
                 var result = await sut.GetAllCommentsForCocktail(cocktail.Id);
 
                 Assert.AreEqual(1, result.Count());
-            }
-        }
-        [TestMethod]
-        public async Task GetAllCommentsForCocktail_Throws_When_NoCommentsFound()
-        {
-            //Arrange
-            var options = Utils.GetOptions(nameof(GetAllCommentsForCocktail_Throws_When_NoCommentsFound));
-
-            var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
-            var cocktail = new Cocktail { Id = Guid.NewGuid(), Name = "Manhattan" };
-
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Cocktails.AddAsync(cocktail);
-                await arrangeContext.Users.AddAsync(user);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-            //Act, Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new CocktailCommentServices(assertContext);
-
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.GetAllCommentsForCocktail(cocktail.Id));
             }
         }
     }

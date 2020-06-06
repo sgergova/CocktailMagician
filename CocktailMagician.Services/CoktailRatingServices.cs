@@ -16,7 +16,7 @@ namespace CocktailMagician.Services
 
         public CoktailRatingServices(CMContext context)
         {
-            this.context = context;
+            this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
         /// <summary>
         /// Creates a new instance of cocktail rating.
@@ -25,11 +25,15 @@ namespace CocktailMagician.Services
         /// <returns>Data transfer object of the created instance of the rating</returns>
         public async Task<CocktailRatingDTO> CreateRating(CocktailRatingDTO rating)
         {
-            var user = await this.context.Users.FirstOrDefaultAsync(u=>u.Id == rating.UserId)
-                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId); 
-            
-            var cocktatil = await this.context.Cocktails.FirstOrDefaultAsync(c=>c.Id == rating.Id)
-                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+            var user = await this.context.Users.FirstOrDefaultAsync(u => u.Id == rating.UserId);
+
+            if (user == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
+
+            var cocktatil = await this.context.Cocktails.FirstOrDefaultAsync(c => c.Id == rating.CocktailId);
+
+            if (cocktatil == null)
+                throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newRating = rating.GetEntity();
 

@@ -81,29 +81,5 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
                 Assert.IsInstanceOfType(result, typeof(ICollection<BarCommentDTO>));
             }
         }
-        [TestMethod]
-        public async Task GetAllCommentsOfBar_Throws_When_NoCommentsFound()
-        {
-            //Arrange
-            var options = Utils.GetOptions(nameof(GetAllCommentsOfBar_Throws_When_NoCommentsFound));
-
-            var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
-            var bar = new Bar { Id = Guid.NewGuid(), Name = "Manhattan" };
-
-            using (var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.Bars.AddAsync(bar);
-                await arrangeContext.Users.AddAsync(user);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-            //Act, Assert
-            using (var assertContext = new CMContext(options))
-            {
-                var sut = new BarCommentsServices(assertContext);
-
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.GetAllCommentsOfBar(bar.Id));
-            }
-        }
     }
 }

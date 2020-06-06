@@ -147,10 +147,8 @@ namespace CocktailMagician.Services
                                               .Where(i => i.Cocktail.Id == cocktailId && i.IsDeleted == false)
                                               .Include(i => i.Cocktail)
                                               .Include(i => i.Ingredient)
-                                              .ToListAsync();
-
-            if (cocktailIngr.Count == 0)
-                throw new ArgumentNullException(Exceptions.EntityNotFound);
+                                              .ToListAsync()
+                                              ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return cocktailIngr.GetDTOs();
         }
@@ -161,7 +159,7 @@ namespace CocktailMagician.Services
                                                .Where(i => i.IsDeleted == false);
             if (searchCriteria != null)
                 ingredients = ingredients.Where(b => b.Name.Contains(searchCriteria));
-           
+
             ingredients = ingredients.OrderBy(i => i.Name);
             ingredients = currentPage == 1 ? ingredients.Take(10) : ingredients.Skip((currentPage - 1) * 10).Take(10);
 
