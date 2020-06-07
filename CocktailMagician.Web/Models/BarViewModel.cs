@@ -23,6 +23,7 @@ namespace CocktailMagician.Web.Models
         public IFormFile Image { get; set; }
         public ICollection<BarCocktailDTO> BarCocktails { get; set; }
         public ICollection<string> CocktailNames { get; set; }
+        public ICollection<Guid> CocktailsId { get; set; }
         public List<SelectListItem> CocktailsToChoose{ get; set; }
         public ICollection<BarRating> Ratings { get; set; }
         public ICollection<BarCommentViewModel> Comments { get; set; }

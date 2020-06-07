@@ -18,8 +18,8 @@ namespace CocktailMagician.Services.Contracts
         Task<IngredientDTO> DeleteIngredient(Guid id);
         Task<ICollection<CocktailIngredientDTO>> GetCocktailIngredients(Guid cocktailId);
         Task<ICollection<CocktailIngredientDTO>> AvailabilityAtCocktails(Guid ingredientId);
-        Task<ICollection<IngredientDTO>> GetIndexPageIngredients(string orderBy, int currentPage, string searchCriteria);
-        int GetCount(int itemsPerPage, string searchCriteria);
+        Task<ICollection<IngredientDTO>> GetIndexPageIngredients(int currentPage, string searchCriteria);
+        int GetCount(int itemsPerPage);
        
     }
 }

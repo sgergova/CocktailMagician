@@ -20,6 +20,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             //Arrange
             var options = Utils.GetOptions(nameof(AddCocktailToBar_Throws_WhenBarId_IsInvalid));
 
+            var cocktailID = Guid.NewGuid();
             var barID = Guid.NewGuid();
 
             //Act,Assert
@@ -27,7 +28,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, null));
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailID));
             }
 
         }
@@ -64,7 +65,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailDTO.Name));
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.AddCocktailToBar(barID, cocktailDTO.Id));
             }
 
         }
@@ -112,7 +113,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
-                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO.Name);
+                var result = await sut.AddCocktailToBar(bar.Id, cocktailDTO.Id);
 
                 Assert.AreEqual(1, assertContext.BarCocktails.Count());
                 Assert.AreEqual(1, result.BarCocktails.Count());
@@ -172,44 +173,11 @@ namespace CocktailMagician.Tests.BarServicesTests
             {
                 var sut = new BarServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO.Name));
+                await Assert.ThrowsExceptionAsync<InvalidOperationException>(() => sut.AddCocktailToBar(bar.Id, cocktailDTO.Id));
             }
         }
     }
 
 }
 
-//public async Task<BarDTO> AddCocktailToBar(Guid barId, CocktailDTO cocktail)
-//{
-//    var bar = await GetAllBarsQueryable()
-//                         .FirstOrDefaultAsync(b => b.Id == barId)
-//                         ?? throw new ArgumentNullException();
 
-//    var cocktailToAdd = cocktail.GetEntity();
-
-//    var barCocktail = await this.context.BarCocktails
-//                                    .FirstOrDefaultAsync(bc => bc.BarId == barId && bc.CocktailId == cocktail.Id);
-
-//    if (barCocktail != null)
-//        throw new InvalidOperationException($"The cocktail is already listed on {bar}");
-
-
-//    if (barCocktail == null)
-//    {
-//        var newBarCocktail = new BarCocktail
-//        {
-//            Bar = bar,
-//            Cocktail = cocktailToAdd,
-//            IsListed = true
-//        };
-//        context.Cocktails.Update(cocktailToAdd);
-//        await context.BarCocktails.AddAsync(newBarCocktail);
-//        await context.SaveChangesAsync();
-//    }
-//    else
-//    {
-//        throw new InvalidOperationException("This cocktail is already in this bar.");
-//    }
-
-//    return bar.GetDTO();
-//}

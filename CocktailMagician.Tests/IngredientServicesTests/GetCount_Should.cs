@@ -33,7 +33,7 @@ namespace CocktailMagician.Tests.IngredientServicesTests
 			using (var assertContext = new CMContext(options))
 			{
 				var sut = new IngredientServices(assertContext);
-				var result = sut.GetCount(0, null);
+				var result = sut.GetCount(1);
 
 				Assert.AreEqual(2, result);
 			}

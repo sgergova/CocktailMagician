@@ -99,17 +99,17 @@ namespace CocktailMagician.Web.Areas.Magician
 
         }
         [HttpPost]
-        public async Task<IActionResult> AddIngredients(CocktailViewModel model, string name)
+        public async Task<IActionResult> AddIngredients(CocktailViewModel model, List<Guid> ingredientsId)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await cocktailServices.AddIngredientsToCocktail(name, model.IngredientNames.ToList());
+                    await cocktailServices.AddIngredientsToCocktail(model.Id, ingredientsId.ToList());
                     this.toast.AddSuccessToastMessage($"Successfully added to {model.Name}");
                     return RedirectToAction("ListCocktails", "Cocktail", new { Area = "" });
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     this.toast.AddErrorToastMessage(Exceptions.SomethingWentWrong);
                     return RedirectToAction("ListCocktails", new { Area = "" });

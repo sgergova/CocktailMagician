@@ -17,8 +17,8 @@ namespace CocktailMagician.Services.Contracts
         Task<BarDTO> UpdateBar(Guid id, BarDTO barDTO);
         Task<ICollection<BarCocktailDTO>> AvailabilityAtBar(Guid barToDeleteId);
         Task<BarDTO> DeleteBar(Guid id);
-        Task<BarDTO> AddCocktailToBar(Guid barId, string cocktailName);
-        Task<BarDTO> AddCocktailsToBar(string barName, ICollection<string> cocktailNames);
+        Task<BarDTO> AddCocktailToBar(Guid barId, Guid cocktailId);
+        Task<BarDTO> AddCocktailsToBar(Guid barId, ICollection<Guid> cocktailsId);
         Task<BarDTO> RemoveCocktailFromBar(Guid barId, Guid cocktailId);
         Task<BarDTO> RemoveCocktailFromBar(Guid barCocktailId);
         Task<ICollection<BarDTO>> GetIndexPageBars(int currentPage, string searchCriteria);
