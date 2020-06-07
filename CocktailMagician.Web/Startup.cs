@@ -10,6 +10,7 @@ using CocktailMagician.Data.Entities;
 using CocktailMagician.Services;
 using CocktailMagician.Services.Contracts;
 using NToastNotify;
+using CocktailMagician.Web.Middleware;
 
 namespace CocktailMagician
 {
@@ -94,7 +95,7 @@ namespace CocktailMagician
 
             app.UseRouting();
 
-           // app.UseMiddleware<PageNotFound>();
+            app.UseMiddleware<PageNotFound>();
 
             app.UseAuthentication();
             app.UseAuthorization();

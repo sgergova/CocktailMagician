@@ -16,7 +16,7 @@ namespace CocktailMagician.Services.Contracts
         Task<CocktailDTO> DeleteCocktail(Guid id);
         Task<CocktailDTO> RemoveIngredientFromCocktail(string cocktailName, string ingredientName);
         Task<CocktailDTO> AddIngredientToCocktail(string cocktailName, string ingrName);
-        Task<CocktailDTO> AddIngredientsToCocktail(string cocktailName, ICollection<string> ingredientName);
+        Task<CocktailDTO> AddIngredientsToCocktail(Guid cocktailId, ICollection<Guid> ingredientsId);
         int GetCount(int itemsPerPage);
         Task<ICollection<CocktailDTO>> GetTopThreeCocktails();
         Task<ICollection<CocktailDTO>> GetIndexPageCocktails(int currentPage, string searchCriteria);

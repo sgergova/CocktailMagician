@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using CocktailMagician.Services.CommonMessages;
 using CocktailMagician.Services.Contracts;
 using CocktailMagician.Web.Mappers;
 using CocktailMagician.Web.Models;
@@ -41,10 +43,10 @@ namespace CocktailMagician.Web.Areas.Magician
             }
             catch (Exception)
             {
-                this.toastNotification.AddWarningToastMessage("Something went wrong!");
+                this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
                 return RedirectToAction("ListBars");
             }
-          
+
         }
         [HttpPost]
         public async Task<IActionResult> UpdateBar(BarViewModel updatedBar)
@@ -53,17 +55,16 @@ namespace CocktailMagician.Web.Areas.Magician
             {
                 var barDTO = updatedBar.GetDtoFromVM();
                 await barServices.UpdateBar(barDTO.Id, barDTO);
-
-
+                this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
                 return RedirectToAction("ListBars", "Bar");
 
             }
             catch (Exception)
             {
-                this.toastNotification.AddWarningToastMessage("Something went wrong!");
+                this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
                 return RedirectToAction("ListBars");
             }
-            
+
         }
         [HttpPost]
         public async Task<IActionResult> CreateBar(BarViewModel bar)
@@ -78,36 +79,38 @@ namespace CocktailMagician.Web.Areas.Magician
                     var image = await uploadImagesServices.UploadImage(bar.Image);
                     bar.ImageURL = image;
                     var createdBar = await barServices.CreateBar(bar.GetDtoFromVM());
-
-                    return RedirectToAction("ListBars", "Bar", new { Area=""});
+                    this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyCreated);
+                    return RedirectToAction("ListBars", "Bar", new { Area = "" });
                 }
                 catch (Exception)
                 {
-                    this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
+                    this.toastNotification.AddErrorToastMessage(Exceptions.SomethingWentWrong);
                     return RedirectToAction("ListBars");
                 }
             }
             return NoContent();
         }
 
-
-
         [HttpPost]
-        public async Task<IActionResult> AddCocktailToBar(BarViewModel model, string name)
+        public async Task<IActionResult> AddCocktailToBar(Guid barId, Guid cocktailId, ICollection<Guid> cocktailsId)
         {
             try
             {
-              
-
-                await barServices.AddCocktailsToBar(name, model.CocktailNames);
-                return RedirectToAction("ListBars", "Bar",new {Area="" });
+                if (cocktailsId.Count > 1)
+                    await this.barServices.AddCocktailsToBar(barId, cocktailsId);
+                else
+                {
+                    var cocktail = await cocktailServices.GetCocktail(cocktailId);
+                    await barServices.AddCocktailToBar(barId, cocktail.Id);
+                }
+                return RedirectToAction("ListBars", "Bar");
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
-                return RedirectToAction("ListBars", "Bar", new { Area = "" });
+                this.toastNotification.AddErrorToastMessage(Exceptions.SomethingWentWrong);
+                return RedirectToAction("ListBars");
             }
-           
+
         }
         [HttpPost]
         public async Task<IActionResult> RemoveCocktailFromBar(Guid barId, Guid cocktailId)
@@ -121,10 +124,10 @@ namespace CocktailMagician.Web.Areas.Magician
             }
             catch (Exception)
             {
-                this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
+                this.toastNotification.AddErrorToastMessage(Exceptions.SomethingWentWrong);
                 return RedirectToAction("ListBars");
             }
-           
+
         }
 
         //[HttpPost]
@@ -137,14 +140,14 @@ namespace CocktailMagician.Web.Areas.Magician
             try
             {
                 var barToDelete = await barServices.DeleteBar(id);
-                this.toastNotification.AddSuccessToastMessage($"{barToDelete.Name} was deleted successfully!");
+                this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyDeleted);
 
-                return RedirectToAction("ListBars", "Bar",new { Area="" });
+                return RedirectToAction("ListBars", "Bar", new { Area = "" });
 
             }
             catch (Exception)
             {
-                this.toastNotification.AddErrorToastMessage("Ooops... something went wrong");
+                this.toastNotification.AddErrorToastMessage(Exceptions.SomethingWentWrong);
                 return RedirectToAction("ListBars");
             }
         }

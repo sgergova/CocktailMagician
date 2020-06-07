@@ -153,7 +153,7 @@ namespace CocktailMagician.Services
             return cocktailIngr.GetDTOs();
         }
 
-        public async Task<ICollection<IngredientDTO>> GetIndexPageIngredients(string orderBy, int currentPage, string searchCriteria)
+        public async Task<ICollection<IngredientDTO>> GetIndexPageIngredients(int currentPage, string searchCriteria)
         {
             IQueryable<Ingredient> ingredients = this.context.Ingredients
                                                .Where(i => i.IsDeleted == false);
@@ -166,18 +166,10 @@ namespace CocktailMagician.Services
             var results = await ingredients.ToListAsync();
             return results.GetDTOs();
         }
-        public int GetCount(int itemsPerPage, string searchCriteria)
+        public int GetCount(int itemsPerPage)
         {
-            double ingredientCount = 0;
-            if (searchCriteria != null)
-            {
-                ingredientCount = Math.Ceiling((double)this.context.Ingredients.Where(b => b.Name.Contains(searchCriteria)).Count() / itemsPerPage);
-            }
-            else
-            {
-                ingredientCount = this.context.Ingredients.Count();
-            }
-            var countInt = (int)ingredientCount;
+            double ingredientsCount = this.context.Ingredients.Count();
+            var countInt = (int)ingredientsCount;
 
             return countInt;
         }

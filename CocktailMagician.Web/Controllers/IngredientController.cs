@@ -19,11 +19,11 @@ namespace CocktailMagician.Web.Controllers
         }
 
       
-        public async Task<IActionResult> ListIngredients(string orderBy, int? currentPage, string searchCriteria)
+        public async Task<IActionResult> ListIngredients(int? currentPage, string searchCriteria)
         {
             ViewData["SearchParm"] = searchCriteria;
 
-            var ingredients = await this.ingredientServices.GetIndexPageIngredients(orderBy, currentPage ?? 1, searchCriteria);
+            var ingredients = await this.ingredientServices.GetIndexPageIngredients(currentPage ?? 1, searchCriteria);
 
             var ingViewModels = ingredients.GetViewModels();
 
@@ -31,7 +31,7 @@ namespace CocktailMagician.Web.Controllers
             {
                 currentPage = currentPage ?? 1,
                 items = ingViewModels,
-                TotalPages = this.ingredientServices.GetCount(10, searchCriteria)
+                TotalPages = this.ingredientServices.GetCount(10)
             };
 
             return View(paged);

@@ -137,7 +137,7 @@ namespace CocktailMagician.Services
                                                  && ci.Ingredient.Name == ingredientName);
             if (cocktailIngredient == null)
             {
-                var newIngredient = await Helper(cocktailName, ingredientName, cocktail.Id);
+                var newIngredient = await Helper(cocktail, ingredient.Id);
                 this.context.Cocktails.Update(cocktail);
                 this.context.Ingredients.Update(ingredient);
                 await this.context.CocktailIngredients.AddAsync(newIngredient);
@@ -150,15 +150,21 @@ namespace CocktailMagician.Services
             return cocktail.GetDTO();
         }
 
-        public async Task<CocktailDTO> AddIngredientsToCocktail(string cocktailName, ICollection<string> ingredientsName)
+        public async Task<CocktailDTO> AddIngredientsToCocktail(Guid cocktailId, ICollection<Guid> ingredientsId)
         {
             var cocktail = await this.context.Cocktails
-                                            .FirstOrDefaultAsync(c => c.Name == cocktailName && c.IsDeleted == false)
+                                            .FirstOrDefaultAsync(c => c.Id == cocktailId && c.IsDeleted == false)
                                             ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
-            var a = ingredientsName.Select(async n => { await Helper(cocktailName, n, cocktail.Id); });
 
-            await this.context.CocktailIngredients.AddRangeAsync();
+            if (cocktail == null)
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
+
+            var newIngredientsId = ingredientsId.ToList();
+            newIngredientsId.ForEach(async c => { cocktail.CocktailIngredients.Add(await Helper(cocktail, c)); });
+
+            this.context.Cocktails.Update(cocktail);
+            await this.context.BarCocktails.AddRangeAsync();
             await this.context.SaveChangesAsync();
 
             return cocktail.GetDTO();
@@ -322,16 +328,16 @@ namespace CocktailMagician.Services
             return cocktails;
         }
 
-        private async Task<CocktailIngredient> Helper(string cocktailName, string ingredientName, Guid cocktailId)
+        private async Task<CocktailIngredient> Helper(Cocktail cocktail, Guid ingredientId)
         {
             var ingredient = await this.context.Ingredients
-                                       .FirstOrDefaultAsync(i => i.Name == ingredientName && i.IsDeleted == false)
+                                       .FirstOrDefaultAsync(i => i.Id == ingredientId && i.IsDeleted == false)
                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
-            if (this.context.CocktailIngredients.Any(ci => ci.Cocktail.Name == cocktailName && ci.Ingredient.Name == ingredientName))
+            if (this.context.CocktailIngredients.Any(ci => ci.Cocktail.Id == cocktail.Id && ci.Ingredient.Id == ingredientId))
                 throw new InvalidOperationException(Exceptions.AlreadyListed);
 
-            return new CocktailIngredient { CocktailId = cocktailId, IngredientId = ingredient.Id };
+            return new CocktailIngredient { CocktailId = cocktail.Id, IngredientId = ingredient.Id };
         }
     }
 }

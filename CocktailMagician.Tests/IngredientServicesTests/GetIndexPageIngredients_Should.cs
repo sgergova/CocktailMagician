@@ -33,7 +33,7 @@ namespace CocktailMagician.Tests.IngredientServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new IngredientServices(assertContext);
-                var result = await sut.GetIndexPageIngredients("name", 1, "V");
+                var result = await sut.GetIndexPageIngredients(1, "V");
 
                 Assert.AreEqual(1, result.Count);
                 Assert.AreEqual(result.ToList()[0].Id, ingredient.Id);
@@ -61,7 +61,7 @@ namespace CocktailMagician.Tests.IngredientServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new IngredientServices(assertContext);
-                var result = await sut.GetIndexPageIngredients(null, 1, null);
+                var result = await sut.GetIndexPageIngredients(1, null);
 
                 Assert.AreEqual(2, result.Count);
             }
@@ -87,7 +87,7 @@ namespace CocktailMagician.Tests.IngredientServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new IngredientServices(assertContext);
-                var result = await sut.GetIndexPageIngredients(null, 0, null);
+                var result = await sut.GetIndexPageIngredients(0, null);
 
                 Assert.AreEqual(1, result.Count);
                 Assert.AreEqual(result.ToList()[0].Name, ingredient2.Name);
