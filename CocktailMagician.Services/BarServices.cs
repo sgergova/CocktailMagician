@@ -87,6 +87,7 @@ namespace CocktailMagician.Services
         public async Task<ICollection<BarDTO>> GetTopThreeBars()
         {
             var bars = this.context.Bars
+                                    .Include(b=>b.Country)
                                     .Include(b => b.BarRating)
                                     .Where(b => b.IsDeleted == false)
                                     ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
