@@ -79,6 +79,11 @@ namespace CocktailMagician.Services
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
+        /// <summary>
+        /// By given ID of cocktail, filters all the bars that it is offered
+        /// </summary>
+        /// <param name="cocktailId">The ID of cocktail</param>
+        /// <returns>Sequence of type BarCocktail which contains the information about the bars offered in</returns>
         public async Task<ICollection<BarCocktailDTO>> GetBarsOfCocktail(Guid cocktailId)
         {
             var barCocktails = await this.context.BarCocktails
@@ -151,7 +156,12 @@ namespace CocktailMagician.Services
             }
             return cocktail.GetDTO();
         }
-
+        /// <summary>
+        /// Adds given sequence of ingredients to a cocktail.
+        /// </summary>
+        /// <param name="cocktailId">The cocktail that should be modified</param>
+        /// <param name="ingredientsId">The sequence of ingredients that should be added</param>
+        /// <returns>The updated cocktail as DTO</returns>
         public async Task<CocktailDTO> AddIngredientsToCocktail(Guid cocktailId, ICollection<Guid> ingredientsId)
         {
             var cocktail = await this.context.Cocktails
@@ -172,31 +182,6 @@ namespace CocktailMagician.Services
 
             return cocktail.GetDTO();
         }
-
-        ///// <summary>
-        ///// Filters the cocktails according to user's input and returns alcoholic or non-alcoholic cocktails
-        ///// </summary>
-        ///// <param name="criteria">Alcoholic or non-alcoholic cocktails should be found</param>
-        ///// <param name="ingredientName">The name of the ingredient that should be added</param>
-        ///// <returns>Sequence of cocktails as DTO</returns>
-        //public async Task<ICollection<CocktailDTO>> SearchByAlcohol(string criteria)
-        //{
-        //    if (criteria == null)
-        //        throw new ArgumentNullException(Exceptions.InvalidSearchCriteria);
-
-        //    var cocktails = this.context.Cocktails
-        //                                    .Where(c => c.IsDeleted == false)
-        //                                    .AsQueryable();
-
-        //    if (criteria == "non-alcoholic")
-        //        cocktails = cocktails.Where(c => c.IsAlcoholic == false);
-
-        //    if (criteria == "alcoholic")
-        //        cocktails = cocktails.Where(c => c.IsAlcoholic == true);
-
-        //    var cocktailsToReturn = await cocktails.ToListAsync();
-        //    return cocktailsToReturn.GetDTOs();
-        //}
         /// <summary>
         /// Finds from the database the desired cocktail and the ingredient that should be removed and if they exist - 
         /// removes the ingredient.
@@ -276,7 +261,12 @@ namespace CocktailMagician.Services
 
             return cocktailToDelete.GetDTO();
         }
-
+        /// <summary>
+        /// After the sequence of cocktails is ordered according to given criteria, arrange the cocktails 10 per page. 
+        /// </summary>
+        /// <param name="currentPage">The page that user has opened</param>
+        /// <param name="searchCriteria">The criteria that the bars should be ordered</param>
+        /// <returns>Sequence of arranged cocktails as data transfer types</returns>
         public async Task<ICollection<CocktailDTO>> GetIndexPageCocktails(int currentPage, string searchCriteria)
         {
             IQueryable<Cocktail> cocktails = this.context.Cocktails
@@ -302,7 +292,7 @@ namespace CocktailMagician.Services
         }
 
         /// <summary>
-        /// Seraches in the database how many cocktails are listed in currect bar.
+        /// Searches in the database how many cocktails are listed in current bar.
         /// </summary>
         /// <param name="cocktalId">The ID of the cocktail</param>
         /// <returns>Sequence of cocktails that are listed as DTOs</returns>
@@ -312,6 +302,11 @@ namespace CocktailMagician.Services
 
             return barCocktails.GetDTOs();
         }
+        /// <summary>
+        /// Searches in the database how many cocktails are listed in current bar.
+        /// </summary>
+        /// <param name="cocktalId">The ID of the cocktail</param>
+        /// <returns>Sequence of cocktails that are listed </returns>
         private async Task<ICollection<BarCocktail>> AvailabilityAtBarsEntities(Guid cocktalId)
         {
             var barCocktails = await this.context.BarCocktails
@@ -322,6 +317,11 @@ namespace CocktailMagician.Services
 
             return barCocktails;
         }
+        /// <summary>
+        /// <summary>
+        /// Filters all the cocktails that are not marked as deleted in the database
+        /// </summary>
+        /// <returns>Sequence of all cocktails as IQueryable</returns>
         private IQueryable<Cocktail> GetCocktailsQueryable()
         {
             var cocktails = this.context.Cocktails
@@ -330,7 +330,12 @@ namespace CocktailMagician.Services
 
             return cocktails;
         }
-
+        /// <summary>
+        /// Creates new instance of type CocktailIngredient, and adds certain ingredient to given cocktail.
+        /// </summary>
+        /// <param name="cocktail">The cocktail that contains certain ingredient</param>
+        /// <param name="ingredientId">The ID of the ingredient that should be added</param>
+        /// <returns>A new instance of type BarCocktail</returns>
         private async Task<CocktailIngredient> Helper(Cocktail cocktail, Guid ingredientId)
         {
             var ingredient = await this.context.Ingredients

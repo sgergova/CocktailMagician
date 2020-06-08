@@ -19,17 +19,9 @@ namespace CocktailMagician.Tests.BarServicesTests
             //Arrange 
             var options = Utils.GetOptions(nameof(DeleteBar_Should_Delete_Correct));
 
-            var country = new Country
-            {
-                Id = Guid.NewGuid(),
-                Name = "Bulagria",
-            };
-            var bar = new Bar
-            {
-                Id = Guid.NewGuid(),
-                Name = "Cosmos",
-                CountryId = country.Id
-            };
+            var country = new Country { Id = Guid.NewGuid(), Name = "Bulagria", };
+            var bar = new Bar { Id = Guid.NewGuid(), Name = "Cosmos", CountryId = country.Id };
+         
 
             using (var arrangeContext = new CMContext(options))
             {
@@ -53,7 +45,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             //Arrange 
             var options = Utils.GetOptions(nameof(DeleteBar_Throws_When_BarNotFound));
 
-            var id = Guid.Parse("acce59ad-4010-449a-9a1c-2b8021c3deff");
+            var id = Guid.NewGuid();
 
 
             //Act,Assert

@@ -24,7 +24,7 @@ namespace CocktailMagician.Services
         /// <summary>
         /// Creates a new instance of bar rating.
         /// </summary>
-        /// <param name="rating">The rating that shoud be created</param>
+        /// <param name="rating">The rating that should be created</param>
         /// <returns>Data transfer object of the created instance of the rating</returns>
         public async Task<BarRatingDTO> CreateRating(BarRatingDTO rating)
         {
@@ -50,6 +50,21 @@ namespace CocktailMagician.Services
             await this.context.SaveChangesAsync();
 
             return newRating.GetDTO();
+        }
+        /// <summary>
+        /// Gets all ratings left of given bar.
+        /// </summary>
+        /// <returns>Sequence of the ratings</returns>
+        public async Task<BarRatingDTO> GetRatingOfBar()
+        {
+            var barRating = await this.context.BarRatings
+                                       .Include(b => b.Bar)
+                                       .Include(b => b.User)
+                                       .FirstOrDefaultAsync()
+                                       ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+
+
+            return barRating.GetDTO();
         }
         /// <summary>
         /// Gets all ratings left of given bar.

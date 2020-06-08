@@ -21,7 +21,7 @@ namespace CocktailMagician.Services
         /// <summary>
         /// Creates a new instance of cocktail rating.
         /// </summary>
-        /// <param name="rating">The rating that shoud be created</param>
+        /// <param name="rating">The rating that should be created</param>
         /// <returns>Data transfer object of the created instance of the rating</returns>
         public async Task<CocktailRatingDTO> CreateRating(CocktailRatingDTO rating)
         {

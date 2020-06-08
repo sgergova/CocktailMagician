@@ -51,20 +51,23 @@ namespace CocktailMagician.Web.Areas.Magician
         [HttpPost]
         public async Task<IActionResult> UpdateBar(BarViewModel updatedBar)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var barDTO = updatedBar.GetDtoFromVM();
-                await barServices.UpdateBar(barDTO.Id, barDTO);
-                this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
-                return RedirectToAction("ListBars", "Bar");
+                try
+                {
+                    var barDTO = updatedBar.GetDtoFromVM();
+                    await barServices.UpdateBar(barDTO.Id, barDTO);
+                    this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
+                    return RedirectToAction("ListBars", "Bar");
 
+                }
+                catch (Exception)
+                {
+                    this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
+                    return RedirectToAction("ListBars");
+                }
             }
-            catch (Exception)
-            {
-                this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
-                return RedirectToAction("ListBars");
-            }
-
+            return View(updatedBar);
         }
         [HttpPost]
         public async Task<IActionResult> CreateBar(BarViewModel bar)
