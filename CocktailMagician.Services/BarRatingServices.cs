@@ -51,21 +51,7 @@ namespace CocktailMagician.Services
 
             return newRating.GetDTO();
         }
-        /// <summary>
-        /// Gets all ratings left of given bar.
-        /// </summary>
-        /// <returns>Sequence of the ratings</returns>
-        public async Task<BarRatingDTO> GetRatingOfBar()
-        {
-            var barRating = await this.context.BarRatings
-                                       .Include(b => b.Bar)
-                                       .Include(b => b.User)
-                                       .FirstOrDefaultAsync()
-                                       ?? throw new ArgumentNullException(Exceptions.NullEntityId);
-
-
-            return barRating.GetDTO();
-        }
+        
         /// <summary>
         /// Gets all ratings left of given bar.
         /// </summary>
