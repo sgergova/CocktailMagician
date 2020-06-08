@@ -9,6 +9,7 @@ namespace CocktailMagician.Services.CommonMessages
         public const string NullEntityId = "Given Id was not found";
         public const string NameExists = "This name already exists!";
         public const string MissingName = "The name is mandatory";
+        public const string CommentRequired = "The comment is mandatory";
 
         public const string AlreadyListed = "{0} already contains {1}";
 

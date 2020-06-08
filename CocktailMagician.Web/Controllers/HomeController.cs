@@ -23,10 +23,12 @@ namespace CocktailMagician.Controllers
 
         private readonly IBarServices barServices;
         private readonly ICocktailServices cocktailServices;
+        private readonly IBarRatingServices barRatingServices;
 
-        public HomeController(ILogger<HomeController> logger,IBarServices barServices, ICocktailServices cocktailServices)
+        public HomeController(ILogger<HomeController> logger,IBarServices barServices, ICocktailServices cocktailServices,
+                               IBarRatingServices barRatingServices)
         {
-            
+            this.barRatingServices = barRatingServices;
             this.logger = logger;
             this.barServices = barServices;
             this.cocktailServices = cocktailServices;
@@ -35,9 +37,9 @@ namespace CocktailMagician.Controllers
         //TODO: Opravi si pomiite
         public async Task<IActionResult> Index()
         {
-            var bars = await barServices.GetTopThreeBars();
+            var bars = await barRatingServices.GetRatingOfBar();
             var homeVM = new HomeViewModel();
-            homeVM.TopThreebars = bars.GetViewModels().Take(3).ToList();
+          //  homeVM.TopThreebars = bars.GetViewModels().Take(3).ToList();
 
             var cocktails = await cocktailServices.GetAllCocktails();
             homeVM.TopThreeCocktails = cocktails.GetViewModels().Take(3).ToList();

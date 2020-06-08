@@ -56,7 +56,7 @@ namespace CocktailMagician.Services
         /// <summary>
         /// Takes the ID of the user and as well of the bar and creates new comment. 
         /// </summary>
-        /// <param name="barComment">The data tranfer object of bar comment that should be created</param>
+        /// <param name="barComment">The data transfer object of bar comment that should be created</param>
         /// <returns>The created comment of bar</returns>
         public async Task<BarCommentDTO> CreateComment(BarCommentDTO barComment)
         {
@@ -65,6 +65,9 @@ namespace CocktailMagician.Services
 
             var bar = await this.context.Bars.FirstOrDefaultAsync(b => b.Id == barComment.BarId)
                                                ?? throw new ArgumentNullException(Exceptions.NullEntityId);
+
+            if (String.IsNullOrWhiteSpace(barComment.Comments))
+                throw new ArgumentNullException(Exceptions.CommentRequired);
 
             var newBarComment = barComment.GetEntity();
 
@@ -100,16 +103,19 @@ namespace CocktailMagician.Services
         /// </summary>
         /// <param name="barCommentId">The ID of bar comment that should be edited</param>
         /// <param name="updates">The changes that should be applied.</param>
-        /// <returns>The modifed bar comment</returns>
+        /// <returns>The modified bar comment</returns>
         public async Task<BarCommentDTO> EditComment(Guid barCommentId, string updates)
         {
             var comment = await GetBarCommentsQuerable()
                                            .FirstOrDefaultAsync(bc => bc.Id == barCommentId);
 
+
+            if (String.IsNullOrWhiteSpace(updates)) 
+                throw new ArgumentNullException(Exceptions.CommentRequired);
+           
             if (comment == null)
-                throw new ArgumentNullException(Exceptions.NullEntityId);
-            if (comment == null)
-                throw new ArgumentNullException(Exceptions.UpdatesMissing);
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
+
 
             comment.Comments = updates;
             comment.ModifiedOn = DateTime.UtcNow;
@@ -125,7 +131,7 @@ namespace CocktailMagician.Services
         /// <param name="id">The ID of the bar</param>
         /// <param name="barName">The name of the bar</param>
         /// <returns>Sequence of all made comments</returns>
-        public async Task<ICollection<BarCommentDTO>> GetAllCommentsForBar(Guid? id, string barName)
+        public async Task<ICollection<BarCommentDTO>> GetAllCommentsForBar(Guid id, string barName)
         {
             if (barName == null)
                 throw new ArgumentNullException(Exceptions.MissingName);
@@ -140,6 +146,10 @@ namespace CocktailMagician.Services
 
             return barComments.GetDTOs();
         }
+        /// <summary>
+        /// Finds all bar comments from database
+        /// </summary>
+        /// <returns>Sequence of all bar comments of type IQueryable</returns>
         private IQueryable<BarComment> GetBarCommentsQuerable()
         {
             var comments = this.context.BarComments

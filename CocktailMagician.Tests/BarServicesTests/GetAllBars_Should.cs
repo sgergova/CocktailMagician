@@ -13,52 +13,7 @@ namespace CocktailMagician.Tests.BarServicesTests
     [TestClass]
    public class GetAllBars_Should
     {
-        [TestMethod]
-        public async Task GetBars_Return_When_NamePassed()
-        {
-            //Arrange
-
-            var options = Utils.GetOptions(nameof(GetBars_Return_When_NamePassed));
-
-            var bar = new Bar
-            {
-                Id = Guid.NewGuid(),
-                Name = "Manhattan",
-                Country = new Country
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "USA"
-                }
-            };
-
-            var bar2 = new Bar
-            {
-                Id = Guid.NewGuid(),
-                Name = "The Cocktail Bar",
-                Country = new Country
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Belguim"
-                }
-            };
-
-            using(var arrangeContext = new CMContext(options))
-            {
-                await arrangeContext.AddRangeAsync(bar, bar2);
-                await arrangeContext.SaveChangesAsync();
-            }
-
-            //Act, Assert
-            using(var assertContext = new CMContext(options))
-            {
-                var sut = new BarServices(assertContext);
-                var result = await sut.GetAllBars("Manhattan");
-
-                Assert.AreEqual(1, result.Count);
-            }
-        }
-
-       
+      
         [TestMethod]
         public async Task GetBars_Return_Only_ExistingEntities()
         {
@@ -68,12 +23,12 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar = new Bar
             {
-                Id = Guid.Parse("828d338a-e243-41d1-949c-45cc1b09f7f0"),
+                Id = Guid.NewGuid(),
                 Name = "Manhattan",
                 IsDeleted = true,
                 Country = new Country
                 {
-                    Id = Guid.Parse("8cb1d0cf-010a-436c-864f-4c1d3d1be8a4"),
+                    Id = Guid.NewGuid(),
                     Name = "USA"
                 }
 
@@ -81,12 +36,12 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar2 = new Bar
             {
-                Id = Guid.Parse("691cd199-fc90-4b80-971a-c53b218af997"),
+                Id = Guid.NewGuid(),
                 Name = "The Cocktail Bar",
                 Address = "Sofia",
                 Country = new Country
                 {
-                    Id = Guid.Parse("d30d6f12-4831-4d55-9c90-81ded6d42c5c"),
+                    Id = Guid.NewGuid(),
                     Name = "Bulgaria"
                 }
             };
@@ -101,9 +56,9 @@ namespace CocktailMagician.Tests.BarServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
-                var result = await sut.GetAllBars("Manhattan");
+                var result = await sut.GetAllBars();
 
-                Assert.AreEqual(0, result.Count);
+                Assert.AreEqual(1, result.Count);
             }
         }
       
@@ -116,22 +71,22 @@ namespace CocktailMagician.Tests.BarServicesTests
 
             var bar = new Bar
             {
-                Id = Guid.Parse("fabec5dc-1282-48d8-a768-cf78b17e390c"),
+                Id = Guid.NewGuid(),
                 Name = "Manhattan",
                 Country = new Country
                 {
-                    Id = Guid.Parse("45080ff0-0cd8-4786-ad3c-9a3becdaf90c"),
+                    Id = Guid.NewGuid(),
                     Name = "Bulgaria",
                 }
             };
 
             var bar2 = new Bar
             {
-                Id = Guid.Parse("c7d91283-7399-45f2-a185-598da9780480"),
+                Id = Guid.NewGuid(),
                 Name = "The Cocktail Bar",
                 Country = new Country
                 {
-                    Id = Guid.Parse("58abfbca-9e8c-4e98-8925-08eac637a513"),
+                    Id = Guid.NewGuid(),
                     Name = "Bulgaria",
                 }
             };
@@ -146,7 +101,7 @@ namespace CocktailMagician.Tests.BarServicesTests
             using (var assertContext = new CMContext(options))
             {
                 var sut = new BarServices(assertContext);
-                var result = await sut.GetAllBars("Bulgaria");
+                var result = await sut.GetAllBars();
 
                 Assert.IsInstanceOfType(result, typeof(ICollection<BarDTO>));
             }

@@ -23,7 +23,7 @@ namespace CocktailMagician.Tests.CocktailCommentServicesTests
             var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
             var cocktail = new Cocktail { Id = Guid.NewGuid(), Name = "Manhattan" };
 
-            var cocktailCommentDTO = new CocktailCommentsDTO { CocktailId = cocktail.Id, UserId = user.Id};
+            var cocktailCommentDTO = new CocktailCommentsDTO { CocktailId = cocktail.Id, UserId = user.Id, Comments="Great"};
 
 
             using (var arrangeContext = new CMContext(options))

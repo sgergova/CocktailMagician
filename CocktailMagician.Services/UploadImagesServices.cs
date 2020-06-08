@@ -47,9 +47,7 @@ namespace CocktailMagician.Services
         public async Task<string> UploadImage(IFormFile file)
         {
             if (CheckFile(file))
-            {
                 return await SaveFile(file);
-            }
 
             return "Invalid image file";
         }
@@ -77,7 +75,6 @@ namespace CocktailMagician.Services
             {
                 return e.Message;
             }
-
             return fileName;
         }
     }
