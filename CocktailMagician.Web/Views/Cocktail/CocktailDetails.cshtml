@@ -20,8 +20,13 @@
     left: 604px;
     top: -670px;"*@>
         <h4 style="color:orange">Ingredients</h4>
-
-       @String.Join(',', Model.Ingredients)
+        @{var lsitNames = new List<string>();}
+            @foreach (var item in Model.Ingredients)
+            {
+                lsitNames.Add(item.IngredientName);
+            }
+    <p>@String.Join(',', lsitNames)</p>
+       
 
 
 

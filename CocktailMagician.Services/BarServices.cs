@@ -149,7 +149,7 @@ namespace CocktailMagician.Services
 
             if (barCocktail == null)
             {
-                var newBarCocktail = await Helper(bar, cocktailToAdd.Id);
+                var newBarCocktail =  Helper(bar, cocktailToAdd.Id);
                 context.Cocktails.Update(cocktailToAdd);
                 await context.BarCocktails.AddAsync(newBarCocktail);
                 await context.SaveChangesAsync();
@@ -174,7 +174,7 @@ namespace CocktailMagician.Services
                 throw new ArgumentNullException(Exceptions.EntityNotFound);
            
             var newCocktailId = cocktailsId.ToList();
-            newCocktailId.ForEach(async c => { bar.BarCocktails.Add(await Helper(bar, c)); });
+            newCocktailId.ForEach( c => { bar.BarCocktails.Add(Helper(bar, c)); });
 
             this.context.Bars.Update(bar);
             await this.context.BarCocktails.AddRangeAsync();
@@ -393,10 +393,10 @@ namespace CocktailMagician.Services
         /// <param name="bar">The bar that should offer a cocktail</param>
         /// <param name="cocktailId">The ID of the cocktail that should be listed</param>
         /// <returns>A new instance of type BarCocktail</returns>
-        private async Task<BarCocktail> Helper(Bar bar, Guid cocktailId)
+        private BarCocktail Helper(Bar bar, Guid cocktailId)
         {
-            var cocktail = await this.context.Cocktails
-                                       .FirstOrDefaultAsync(c => c.Id == cocktailId && c.IsDeleted == false)
+            var cocktail = this.context.Cocktails
+                                       .FirstOrDefault(c => c.Id == cocktailId && c.IsDeleted == false)
                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             if (this.context.BarCocktails.Any(bc => bc.Bar.Id == bar.Id && bc.Cocktail.Id == cocktailId))

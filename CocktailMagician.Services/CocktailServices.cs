@@ -144,7 +144,7 @@ namespace CocktailMagician.Services
                                                  && ci.Ingredient.Name == ingredientName);
             if (cocktailIngredient == null)
             {
-                var newIngredient = await Helper(cocktail, ingredient.Id);
+                var newIngredient =  Helper(cocktail, ingredient.Id);
                 this.context.Cocktails.Update(cocktail);
                 this.context.Ingredients.Update(ingredient);
                 await this.context.CocktailIngredients.AddAsync(newIngredient);
@@ -174,7 +174,7 @@ namespace CocktailMagician.Services
                 throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             var newIngredientsId = ingredientsId.ToList();
-            newIngredientsId.ForEach(async c => { cocktail.CocktailIngredients.Add(await Helper(cocktail, c)); });
+            newIngredientsId.ForEach( c => { cocktail.CocktailIngredients.Add( Helper(cocktail, c)); });
            
             this.context.Cocktails.Update(cocktail);
             await this.context.BarCocktails.AddRangeAsync();
@@ -336,10 +336,10 @@ namespace CocktailMagician.Services
         /// <param name="cocktail">The cocktail that contains certain ingredient</param>
         /// <param name="ingredientId">The ID of the ingredient that should be added</param>
         /// <returns>A new instance of type BarCocktail</returns>
-        private async Task<CocktailIngredient> Helper(Cocktail cocktail, Guid ingredientId)
+        private CocktailIngredient Helper(Cocktail cocktail, Guid ingredientId)
         {
-            var ingredient = await this.context.Ingredients
-                                       .FirstOrDefaultAsync(i => i.Id == ingredientId && i.IsDeleted == false)
+            var ingredient =  this.context.Ingredients
+                                       .FirstOrDefault(i => i.Id == ingredientId && i.IsDeleted == false)
                                        ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             if (this.context.CocktailIngredients.Any(ci => ci.Cocktail.Id == cocktail.Id && ci.Ingredient.Id == ingredientId))
