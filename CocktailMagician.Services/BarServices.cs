@@ -34,7 +34,6 @@ namespace CocktailMagician.Services
                                         ?? throw new ArgumentNullException(Exceptions.NullEntityId);
 
             return entity.GetDTO();
-
         }
         /// <summary>
         /// Searches if given name of bar exists in the database and if its not found throws an exception.
@@ -54,26 +53,27 @@ namespace CocktailMagician.Services
 
         }
         /// <summary>
-        /// Orders found sequence of bars according to given parameters.
+        /// Orders  found sequence of bars according to given parameters.
         /// </summary>
         /// <param name="search">The criteria to search for</param>
         /// <returns>ICollection<BarDTO></returns>
-        public async Task<ICollection<BarDTO>> GetAllBars(string search)
+        public async Task<ICollection<BarDTO>> GetAllBars()
         {
             var bars = GetAllBarsQueryable();
             var barsToReturn = new List<Bar>();
-
-            if (search != null)
-                bars = bars.Where(b => b.Name.ToLower().Contains(search.ToLower()) || b.Address.ToLower().Contains(search.ToLower()));
 
             barsToReturn = await bars.ToListAsync();
             var barsDTO = barsToReturn.GetDTOs();
 
             return barsDTO;
         }
+        /// <summary>
+        /// Sorts, by given bar ID, all related cocktails to certain bar.
+        /// </summary>
+        /// <param name="barId">The ID of bar</param>
+        /// <returns>Sequence of all cocktails that the bar offers</returns>
         public async Task<ICollection<BarCocktailDTO>> GetCocktailsForBar(Guid barId)
         {
-
             var barCocktails = await this.context.BarCocktails
                                               .Where(b => b.BarId == barId)
                                               .Include(b => b.Cocktail)
@@ -82,19 +82,6 @@ namespace CocktailMagician.Services
                                               ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
             return barCocktails.GetDTOs();
-        }
-
-        public async Task<ICollection<BarDTO>> GetTopThreeBars()
-        {
-            var bars = this.context.Bars
-                                    .Include(b=>b.Country)
-                                    .Include(b => b.BarRating)
-                                    .Where(b => b.IsDeleted == false)
-                                    ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
-
-            var topThree = await bars.Take(3).ToListAsync();
-            var topThreeDTO = topThree.GetDTOs();
-            return topThreeDTO;
         }
         /// <summary>
         /// Adds the new bar to the database after checking if it does not exists already.
@@ -156,6 +143,14 @@ namespace CocktailMagician.Services
             }
             return bar.GetDTO();
         }
+        /// <summary>
+        /// Checks in the database if given cocktail's ID and bar's ID are valid and if yes adds cocktails to the bar.
+        /// If some of the params is not valid throws exception.
+        /// </summary>
+        /// <param name="barId">The ID of the bar</param>
+        /// <param name="cocktailsId">The sequence cocktails that should be added</param>
+        /// <param name="cocktail"></param>
+        /// <returns>The updated bar</returns>
         public async Task<BarDTO> AddCocktailsToBar(Guid barId, ICollection<Guid> cocktailsId)
         {
             var bar = await this.context.Bars
@@ -210,7 +205,7 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
         }
         /// <summary>
-        ///Searchs in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
+        ///Searches in the database if given cocktail's ID and bar's ID are valid and if yes removes current cocktail from the bar.
         /// If some of the params is not valid throws exception. 
         /// </summary>
         /// <param name="barCocktailId">The ID of bar that should be removed</param>
@@ -232,7 +227,7 @@ namespace CocktailMagician.Services
             return bar.GetDTO();
         }
         /// <summary>
-        /// Searchs in the database if given bar is available and if it exists updates with given one.
+        /// Searches in the database if given bar is available and if it exists updates with given one.
         /// If some of the params is not valid throws exception. 
         /// </summary>
         /// <param name="id">The ID of bar that should be updated</param>
@@ -288,7 +283,12 @@ namespace CocktailMagician.Services
 
             return barToDelete.GetDTO();
         }
-
+        /// <summary>
+        /// After the sequence of bars is ordered according to given criteria, arrange the bars 10 per page. 
+        /// </summary>
+        /// <param name="currentPage">The page that user has opened</param>
+        /// <param name="searchCriteria">The criteria that the bars should be ordered</param>
+        /// <returns>Sequence of arranged bars as data transfer types</returns>
         public async Task<ICollection<BarDTO>> GetIndexPageBars(int currentPage, string searchCriteria)
         {
             var bars = SearchByCriteria(searchCriteria);
@@ -298,7 +298,11 @@ namespace CocktailMagician.Services
 
             return barsToReturn.GetDTOs();
         }
-
+        /// <summary>
+        /// Get the count of all bars 
+        /// </summary>
+        /// <param name="itemsPerPage">The items that should be placed on a single page</param>
+        /// <returns>The number of all bars</returns>
         public int GetCount(int itemsPerPage)
         {
             double barsCount = this.context.Bars.Count();
@@ -318,7 +322,11 @@ namespace CocktailMagician.Services
 
             return barCocktailsAvailable.GetDTOs();
         }
-
+        /// <summary>
+        /// Checks if in a given bar are offered some cocktails
+        /// </summary>
+        /// <param name="barToDeleteId">The ID of bar</param>
+        /// <returns>Sequence of all found cocktails that are listed in the bar</returns>
         private async Task<ICollection<BarCocktail>> AvailabilityAtBarEntities(Guid barToDeleteId)
         {
             var barCocktailsAvailable = await this.context.BarCocktails
@@ -328,7 +336,12 @@ namespace CocktailMagician.Services
 
             return barCocktailsAvailable;
         }
-
+        /// <summary>
+        /// Orders all available bars according to the criteria, as follows: by name, by country and/or by address,
+        /// after that combines the result.
+        /// </summary>
+        /// <param name="searchCriteria"></param>
+        /// <returns>Sequence of arranged bars as IQueryable</returns>
         private IQueryable<Bar> SearchByCriteria(string searchCriteria)
         {
             IQueryable<Bar> bars = this.context.Bars
@@ -347,7 +360,10 @@ namespace CocktailMagician.Services
 
             return bars;
         }
-
+        /// <summary>
+        /// Filters all the bars that are not marked as deleted in the database
+        /// </summary>
+        /// <returns>Sequence of all bars as IQueryable</returns>
         private IQueryable<Bar> GetAllBarsQueryable()
         {
             var entities = this.context.Bars
@@ -358,7 +374,12 @@ namespace CocktailMagician.Services
 
             return entities;
         }
-
+        /// <summary>
+        /// Creates new instance of type BarCocktail, and lists certain cocktail to given bar.
+        /// </summary>
+        /// <param name="bar">The bar that should offer a cocktail</param>
+        /// <param name="cocktailId">The ID of the cocktail that should be listed</param>
+        /// <returns>A new instance of type BarCocktail</returns>
         private async Task<BarCocktail> Helper(Bar bar, Guid cocktailId)
         {
             var cocktail = await this.context.Cocktails

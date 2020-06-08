@@ -19,7 +19,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
 
             var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
             var bar = new Bar { Id = Guid.NewGuid(), Name = "Manhattan" };
-            var barComment = new BarComment { BarId = bar.Id, UserId = user.Id };
+            var barComment = new BarComment { BarId = bar.Id, UserId = user.Id, Comments = "Good one" };
 
             using (var arrangeContext = new CMContext(options))
             {
@@ -47,7 +47,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
 
             var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
             var bar = new Bar { Id = Guid.NewGuid(), Name = "Manhattan" };
-            var barComment = new BarComment { BarId = bar.Id, UserId = user.Id };
+            var barComment = new BarComment { BarId = bar.Id, UserId = user.Id, Comments = "I like it" };
             var commentId = Guid.NewGuid();
 
             using (var arrangeContext = new CMContext(options))
@@ -75,7 +75,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
 
             var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
             var bar = new Bar { Id = Guid.NewGuid(), Name = "Manhattan" };
-            var barComment = new BarComment { BarId = bar.Id, UserId = user.Id };
+            var barComment = new BarComment { BarId = bar.Id, UserId = user.Id, Comments = "My favorite" };
             var commentId = Guid.NewGuid();
 
             using (var arrangeContext = new CMContext(options))

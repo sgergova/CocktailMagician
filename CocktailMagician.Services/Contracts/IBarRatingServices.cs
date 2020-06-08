@@ -8,5 +8,6 @@ namespace CocktailMagician.Services.Contracts
     {
         Task<BarRatingDTO> CreateRating(BarRatingDTO rating);
         Task<BarRatingDTO> GetRatingOfBar( Guid barId);
+        Task<BarRatingDTO> GetRatingOfBar();
     }
 }

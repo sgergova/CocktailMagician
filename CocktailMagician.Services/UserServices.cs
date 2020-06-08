@@ -24,7 +24,7 @@ namespace CocktailMagician.Services
         /// Finds the user's profile that should be updated in the database by given ID
         /// </summary>
         /// <param name="userDTO">The changes that should be applied</param>
-        /// <returns>The updated user's profile as data tranfer object</returns>
+        /// <returns>The updated user's profile as data transfer object</returns>
         public async Task<UserDTO> UpdateUser(UserDTO userDTO)
         {
             var user = await this.context.Users
