@@ -21,12 +21,11 @@
     top: -670px;"*@>
         <h4 style="color:orange">Ingredients</h4>
 
-        @foreach (var item in Model.Ingredients)
-        {
+       @String.Join(',', Model.Ingredients)
 
-            <p style="color:orange">@item.Ingredient.Name</p>
 
-        }
+
+        
 
     </div>
 </div>
