@@ -36,7 +36,10 @@ namespace CocktailMagician.Services
                 throw new ArgumentNullException(Exceptions.NullEntityId);
 
             var newRating = rating.GetEntity();
+            cocktatil.RatedCount++;
+            cocktatil.RatingSum += rating.Rating;
 
+            cocktatil.AverageRating = cocktatil.RatingSum / cocktatil.RatedCount;
             this.context.Users.Update(user);
             this.context.Cocktails.Update(cocktatil);
             await this.context.CocktailRatings.AddAsync(newRating);

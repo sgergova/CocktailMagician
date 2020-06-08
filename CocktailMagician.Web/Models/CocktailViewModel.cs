@@ -15,13 +15,16 @@ namespace CocktailMagician.Web.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public double Rating { get; set; }
+        public int Rating { get; set; }
+        public int RatingSum { get; set; }
+        public int RatedCount { get; set; }
         public double AlcoholPercentage { get; set; }
         public bool IsAlcoholic { get; set; }
         public IFormFile Image { get; set; }
         public string ImageURL { get; set; }
         public ICollection<CocktailIngredientDTO> Ingredients { get; set; }
         public ICollection<string> IngredientNames{ get; set; }
+        public ICollection<Guid> IngredientIds { get; set; }
         public List<SelectListItem> IngredientsToChoose { get; set; }
         public ICollection<IngredientDTO> IngredientsForCocktail { get; set; }
         public ICollection<BarCocktailDTO> Bars { get; set; }

@@ -95,12 +95,19 @@ namespace CocktailMagician.Web.Areas.Magician
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCocktailToBar(Guid barId, ICollection<Guid> cocktailsId)
+        public async Task<IActionResult> AddCocktailToBar(Guid barId, BarViewModel model)
         {
             try
             {
-                await this.barServices.AddCocktailsToBar(barId, cocktailsId);
-                return RedirectToAction("ListBars", "Bar");
+                //if (model.CocktailsId.Count > 1)
+                    await this.barServices.AddCocktailsToBar(barId, model.CocktailsId);
+                //else
+                //{
+                //    ;
+                //    var cocktail = await cocktailServices.GetCocktail();
+                //    await barServices.AddCocktailToBar(barId, cocktail.Id);
+                //}
+                return RedirectToAction("ListBars", "Bar", new { Area=""});
             }
             catch (Exception e)
             {

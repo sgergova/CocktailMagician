@@ -14,7 +14,10 @@ namespace CocktailMagician.Data.Entities
         [MinLength(3, ErrorMessage = "The name should be at least 3 characters")]
         [StringLength(30, ErrorMessage = "The cocktail's name cannot be more than 30 characters.")]
         public string Name { get; set; }
-        public double Rating { get; set; }
+        public int Rating { get; set; }
+        public int RatingSum { get; set; }
+        public int RatedCount { get; set; }
+        public int AverageRating { get; set; }
         public double AlcoholPercentage { get; set; }
         public ICollection<CocktailIngredient> CocktailIngredients { get; set; } = new List<CocktailIngredient>();
         public ICollection<BarCocktail> Bars { get; set; } = new List<BarCocktail>();

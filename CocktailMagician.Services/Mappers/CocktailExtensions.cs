@@ -24,6 +24,9 @@ namespace CocktailMagician.Services.Mappers
                 Ingredients = item.CocktailIngredients?.GetDTOs(),
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
+                RatedCount = item.RatedCount,
+                RatingSum = item.RatingSum,
+                AverageRating = item.AverageRating,
                 Rating = item.Rating,
                 IsDeleted = item.IsDeleted,
                 DeletedOn = item.DeletedOn,
@@ -51,6 +54,9 @@ namespace CocktailMagician.Services.Mappers
                 CocktailIngredients = item.Ingredients?.GetEntities(),
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
+                RatedCount = item.RatedCount,
+                RatingSum = item.RatingSum,
+                AverageRating = item.AverageRating,
                 Rating = item.Rating,
                 CreatedOn = DateTime.UtcNow
             };

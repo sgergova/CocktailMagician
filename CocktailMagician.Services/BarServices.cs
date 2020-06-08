@@ -83,6 +83,19 @@ namespace CocktailMagician.Services
 
             return barCocktails.GetDTOs();
         }
+
+        public async Task<ICollection<BarDTO>> GetTopThreeBars()
+        {
+            var bars = this.context.Bars
+                                    .Include(b=>b.Country)
+                                    .Include(b => b.BarRating)
+                                    .Where(b => b.IsDeleted == false)
+                                    ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+
+            var topThree = await bars.OrderByDescending(b=>b.AverageRating).Take(3).ToListAsync();
+            var topThreeDTO = topThree.GetDTOs();
+            return topThreeDTO;
+        }
         /// <summary>
         /// Adds the new bar to the database after checking if it does not exists already.
         /// </summary>
