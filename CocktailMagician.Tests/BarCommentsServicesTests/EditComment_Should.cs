@@ -49,6 +49,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
             var bar = new Bar { Id = Guid.NewGuid(), Name = "Manhattan" };
             var barComment = new BarComment { BarId = bar.Id, UserId = user.Id, Comments = "I like it" };
             var commentId = Guid.NewGuid();
+            string commentToChange = "";
 
             using (var arrangeContext = new CMContext(options))
             {
@@ -63,7 +64,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
             {
                 var sut = new BarCommentsServices(assertContext);
 
-                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.EditComment(commentId, null));
+                await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => sut.EditComment(commentId, commentToChange));
             }
         }
 
