@@ -26,7 +26,7 @@
                         
                         
                         <div class="md-form mb-4">
-                            <select asp-for="@Model.IngredientNames" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.IngredientsToChoose">
+                            <select asp-for="@Model.IngredientIds" class="mdb-select" multiple="Multiple" hidden required asp-items="@Model.IngredientsToChoose">
                                 <option selected hidden disabled value="">Choose Ingredients</option>
 
                             </select>
@@ -34,7 +34,7 @@
 
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button asp-area="Magician" asp-controller="Cocktail" asp-action="AddIngredients" asp-route-name="@Model.Name" class="btn btn-deep-orange">Add</button>
+                        <button asp-area="Magician" asp-controller="Cocktail" asp-action="AddIngredients" asp-route-cocktailId="@Model.Id" class="btn btn-deep-orange">Add</button>
                     </div>
                 </div>
             </form>

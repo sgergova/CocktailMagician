@@ -42,6 +42,17 @@ namespace CocktailMagician.Services
             var returnCocktails = await cocktails.ToListAsync();
             return returnCocktails.GetDTOs();
         }
+        public async Task<ICollection<CocktailDTO>> GetTopThreeCocktails()
+        {
+            var cocktails = this.context.Cocktails
+                                    .Include(c => c.CocktailRatings)
+                                    .Where(b => b.IsDeleted == false)
+                                    ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
+
+            var topThree = await cocktails.OrderByDescending(b => b.AverageRating).Take(3).ToListAsync();
+            var topThreeDTO = topThree.GetDTOs();
+            return topThreeDTO;
+        }
         /// Orders found sequence of cocktails according to given parameters.
         /// </summary>
         /// <param name="name">Name of the cocktail</param>
@@ -81,16 +92,7 @@ namespace CocktailMagician.Services
             return barCocktails.GetDTOs();
         }
 
-        public async Task<ICollection<CocktailDTO>> GetTopThreeCocktails()
-        {
-            var cocktails = this.context.Cocktails
-                                    .Include(c => c.CocktailRatings)
-                                    .Where(b => b.IsDeleted == false);
-
-            var topThree = await cocktails.Take(3).ToListAsync();
-
-            return topThree.GetDTOs();
-        }
+       
         /// <summary>
         /// Adds the new cocktail to the database after checking if it does not exists already.
         /// </summary>
@@ -153,6 +155,7 @@ namespace CocktailMagician.Services
         public async Task<CocktailDTO> AddIngredientsToCocktail(Guid cocktailId, ICollection<Guid> ingredientsId)
         {
             var cocktail = await this.context.Cocktails
+                                             .Include(c=>c.CocktailIngredients)
                                             .FirstOrDefaultAsync(c => c.Id == cocktailId && c.IsDeleted == false)
                                             ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
@@ -162,7 +165,7 @@ namespace CocktailMagician.Services
 
             var newIngredientsId = ingredientsId.ToList();
             newIngredientsId.ForEach(async c => { cocktail.CocktailIngredients.Add(await Helper(cocktail, c)); });
-
+           
             this.context.Cocktails.Update(cocktail);
             await this.context.BarCocktails.AddRangeAsync();
             await this.context.SaveChangesAsync();

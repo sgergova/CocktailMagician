@@ -24,6 +24,8 @@ namespace CocktailMagician.Web.Mappers
                 ImageURL = item.ImageURL,
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
+                RatedCount = item.RatedCount,
+                RatingSum = item.RatingSum,
                 Rating = item.Rating,
                 Bars = item.Bars,
                 Comments = item.Comments.GetViewModels(),
@@ -49,11 +51,13 @@ namespace CocktailMagician.Web.Mappers
                 ImageURL = item.ImageURL,
                 IsAlcoholic = item.IsAlcoholic,
                 Name = item.Name,
+                RatedCount = item.RatedCount,
+                RatingSum = item.RatingSum,
                 Rating = item.Rating,
                 Bars = item.Bars,
                 Ingredients = item.Ingredients,
                 Stars = item.Stars,
-                IngredientNames = item.IngredientNames
+                
             };
         }
         public static ICollection<CocktailDTO> GetDtoFromVMs(this ICollection<CocktailViewModel> items)

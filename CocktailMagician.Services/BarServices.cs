@@ -92,7 +92,7 @@ namespace CocktailMagician.Services
                                     .Where(b => b.IsDeleted == false)
                                     ?? throw new ArgumentNullException(Exceptions.EntityNotFound);
 
-            var topThree = await bars.Take(3).ToListAsync();
+            var topThree = await bars.OrderByDescending(b=>b.AverageRating).Take(3).ToListAsync();
             var topThreeDTO = topThree.GetDTOs();
             return topThreeDTO;
         }

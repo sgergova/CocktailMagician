@@ -65,7 +65,7 @@ namespace CocktailMagician.Web.Controllers
                 var bar = await barServices.GetBar(id);
                 var barVM = bar.GetViewModel();
                 var comments = await barCommentsServices.GetAllCommentsOfBar(id);
-                barVM.CocktailsToChoose = cocktails.Select(c => new SelectListItem(c.Name, c.Name)).ToList();
+                barVM.CocktailsToChoose = cocktails.Select(c => new SelectListItem(c.Name,c.Id.ToString())).ToList();
                 barVM.BarCocktails = await barServices.GetCocktailsForBar(id);
                 barVM.Comments = comments.GetViewModels();
                 return View(barVM);
