@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace CocktailMagician.Tests.BarCommentsServicesTests
 {
     [TestClass]
-   public class CreateComment_Should
+    public class CreateComment_Should
     {
         [TestMethod]
         public async Task CreateComment_CreatesBar_Correct()
@@ -23,7 +23,7 @@ namespace CocktailMagician.Tests.BarCommentsServicesTests
             var user = new User { Id = Guid.NewGuid(), UserName = "Ivan" };
             var bar = new Bar { Id = Guid.NewGuid(), Name = "Manhattan" };
 
-            var barCommentDTO = new BarCommentDTO { BarId = bar.Id, UserId = user.Id };
+            var barCommentDTO = new BarCommentDTO { BarId = bar.Id, UserId = user.Id, Comments = "Good bar" };
 
 
             using (var arrangeContext = new CMContext(options))

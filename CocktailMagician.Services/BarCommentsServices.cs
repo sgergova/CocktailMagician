@@ -109,9 +109,13 @@ namespace CocktailMagician.Services
             var comment = await GetBarCommentsQuerable()
                                            .FirstOrDefaultAsync(bc => bc.Id == barCommentId);
 
-            
-            if (String.IsNullOrWhiteSpace(comment.Comments))
+
+            if (String.IsNullOrWhiteSpace(updates)) 
                 throw new ArgumentNullException(Exceptions.CommentRequired);
+           
+            if (comment == null)
+                throw new ArgumentNullException(Exceptions.EntityNotFound);
+
 
             comment.Comments = updates;
             comment.ModifiedOn = DateTime.UtcNow;
