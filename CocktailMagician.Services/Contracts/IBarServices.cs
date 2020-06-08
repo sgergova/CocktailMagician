@@ -24,6 +24,7 @@ namespace CocktailMagician.Services.Contracts
         Task<ICollection<BarDTO>> GetIndexPageBars(int currentPage, string searchCriteria);
         int GetCount(int itemsPerPage);
         Task<ICollection<BarCocktailDTO>> GetCocktailsForBar(Guid barId);
+        Task<ICollection<BarDTO>> GetTopThreeBars();
 
 
     }

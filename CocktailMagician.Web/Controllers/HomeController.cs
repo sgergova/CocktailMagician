@@ -37,12 +37,12 @@ namespace CocktailMagician.Controllers
         //TODO: Opravi si pomiite
         public async Task<IActionResult> Index()
         {
-            var bars = await barRatingServices.GetRatingOfBar();
+          
             var homeVM = new HomeViewModel();
-          //  homeVM.TopThreebars = bars.GetViewModels().Take(3).ToList();
-
-            var cocktails = await cocktailServices.GetAllCocktails();
-            homeVM.TopThreeCocktails = cocktails.GetViewModels().Take(3).ToList();
+            var bars = await barServices.GetTopThreeBars();
+            homeVM.TopThreebars = bars.GetViewModels();
+            var cocktails = await cocktailServices.GetTopThreeCocktails();
+            homeVM.TopThreeCocktails = cocktails.GetViewModels();
 
             return View(homeVM);
         }
