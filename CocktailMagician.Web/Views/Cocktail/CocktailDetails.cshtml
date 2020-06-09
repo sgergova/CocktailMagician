@@ -21,16 +21,16 @@
     top: -670px;"*@>
         <h4 style="color:orange">Ingredients</h4>
         @{var lsitNames = new List<string>();}
-            @foreach (var item in Model.Ingredients)
-            {
-                lsitNames.Add(item.IngredientName);
-            }
-    <p>@String.Join(',', lsitNames)</p>
-       
+        @foreach (var item in Model.Ingredients)
+        {
+            lsitNames.Add(item.IngredientName);
+        }
+        <p>@String.Join(',', lsitNames)</p>
 
 
 
-        
+
+
 
     </div>
 </div>
@@ -132,11 +132,19 @@
 @if (User.IsInRole("Magician"))
 {
     <a class="button" style="position: absolute;
-    margin-top: 735px;
+    margin-top: 640px;
     margin-left: -121px;"
        data-toggle="modal" data-target="#modalAddIngrToCocktail">Add Ingredients to cocktail</a>
     <partial model="new CocktailViewModel() {Id=Model.Id, Name = Model.Name,
     IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
+
+    <a class="button" data-toggle="modal" style=" position: relative;
+    left: -457px;
+    top: -361px;" data-target="#modalUpdateCocktail">
+        Update
+    </a>
+    <partial name="_UpdateBar" model="new CocktailViewModel() {Id=Model.Id, Name = Model.Name, AlcoholPercentage = Model.AlcoholPercentage,
+     }" />
 
 }
 <div style="position: absolute;

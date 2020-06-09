@@ -1,0 +1,55 @@
+﻿@model CocktailMagician.Web.Models.CocktailViewModel
+
+
+
+<style>
+    .modal-backdrop {
+        z-index: -1;
+    }
+</style>
+<div class="modal fade" id="modalUpdateCocktail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form enctype="multipart/form-data" method="post" asp-controller="Cocktail" asp-action="CreateCocktail">
+
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <div class="form-group">
+                            <label asp-for="Name" class="control-label">Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger">@Model.Name</span>
+                        </div>
+                        <div class="form-group">
+                            AlcoholPercentage
+                            <input asp-for="AlcoholPercentage" class="form-control" />
+                            <span asp-validation-for="AlcoholPercentage" class="text-danger">@Model.AlcoholPercentage</span>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            Is it alchoholic:
+
+                            <input asp-for="IsAlcoholic" type="checkbox">
+                            <span asp-validation-for="IsAlcoholic" class="slider"></span>
+
+                        </div>
+                      
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button asp-area="Magician" asp-controller="Cocktail" asp-action="UpdateCocktail" class="btn btn-deep-orange">Update</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+

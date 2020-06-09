@@ -31,23 +31,23 @@ namespace CocktailMagician.Web.Areas.Magician
             this.toastNotification = toastNotification;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> UpdateBar(Guid id)
-        {
-            try
-            {
-                var barToUpdate = await barServices.GetBar(id);
-                var barToUpdateVM = barToUpdate.GetViewModel();
+        //[HttpGet]
+        //public async Task<IActionResult> UpdateBar(Guid id)
+        //{
+        //    try
+        //    {
+        //        var barToUpdate = await barServices.GetBar(id);
+        //        var barToUpdateVM = barToUpdate.GetViewModel();
 
-                return View(barToUpdateVM);
-            }
-            catch (Exception)
-            {
-                this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
-                return RedirectToAction("ListBars");
-            }
+        //        return View(barToUpdateVM);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
+        //        return RedirectToAction("ListBars");
+        //    }
 
-        }
+        //}
         [HttpPost]
         public async Task<IActionResult> UpdateBar(BarViewModel updatedBar)
         {
@@ -58,7 +58,7 @@ namespace CocktailMagician.Web.Areas.Magician
                     var barDTO = updatedBar.GetDtoFromVM();
                     await barServices.UpdateBar(barDTO.Id, barDTO);
                     this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
-                    return RedirectToAction("ListBars", "Bar");
+                    return RedirectToAction("ListBars", "Bar", new {Area="" });
 
                 }
                 catch (Exception)

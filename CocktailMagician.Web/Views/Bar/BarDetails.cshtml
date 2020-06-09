@@ -34,12 +34,14 @@
 @if (User.IsInRole("Magician"))
 {
 
-    <a class="button" style="position:relative; top:-300px;left:620px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Bar" asp-action="DeleteBar" asp-route-id="@Model.Id">Delete</a>
+    <a class="button" style="position:relative; position: relative;
+    top: -800px;
+    left: -114px;" onclick="return confirm('Are you sure you want to delete @Model.Name ?');" asp-area="Magician" asp-controller="Bar" asp-action="DeleteBar" asp-route-id="@Model.Id">Delete</a>
 }
 @if (User.IsInRole("Crawler"))
 {
     <form id="rating" style="position: relative;
-    top: -282px;"
+        top: -463px;"
           method="post"
           action-xhr="https://amp.dev/documentation/examples/interactivity-dynamic-content/star_rating/set"
           target="_blank">
@@ -112,16 +114,26 @@
 }
 @if (User.IsInRole("Magician"))
 {
-<a class="button" data-toggle="modal" style="" data-target="#modalAddCocktailsToBar">
-    Add cocktails to this bar
-</a>
+    <a class="button" data-toggle="modal" style="    position: relative;
+    left: -145px;
+    top: -296px;" data-target="#modalAddCocktailsToBar">
+        Add cocktails to this bar
+    </a>
     <partial model="new BarViewModel() { Id = Model.Id,Name= Model.Name,
     CocktailsToChoose = Model.CocktailsToChoose }" name="_AddCocktailsToBar" />
+    <a class="button" data-toggle="modal" style=" position: relative;
+    left: -457px;
+    top: -361px;" data-target="#modalUpdateBar">
+        Update
+    </a>
+    <partial name="_UpdateBar" model="new BarViewModel() { Id = Model.Id,Name= Model.Name,
+    Address=Model.Address,Phone=Model.Phone }" />
 
 }
-<div style="left: 272px;
-    position: relative;
-    top: -130px;">
+<div style="    position: relative;
+
+    top: -172px;
+        left: 300px;">
     @foreach (var item in Model.Comments)
     {
         <style>
@@ -133,8 +145,9 @@
                 height: 100px;
             }
         </style>
-        <div style="position: relative;
-    top: -200px;">
+        <div style="        position: relative;
+        top: -200px;
+">
             <p>@item.Name</p>
             <p id="rcorners2">@item.Comment</p>
         </div>
