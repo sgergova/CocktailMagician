@@ -30,7 +30,7 @@ namespace CocktailMagician.Web.Areas.Magician
             this.toast = toast;
         }
 
-        [HttpPost]
+       
         public async Task<IActionResult> DeleteCocktail(Guid id)
         {
             if (id == null)
@@ -39,7 +39,7 @@ namespace CocktailMagician.Web.Areas.Magician
             {
                 var cocktail = await cocktailServices.DeleteCocktail(id);
                 this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyDeleted);
-                return RedirectToAction("ListCocktails", "Cocktail");
+                return RedirectToAction("ListCocktails", "Cocktail", new { Area=""});
             }
             catch (Exception)
             {
@@ -48,14 +48,14 @@ namespace CocktailMagician.Web.Areas.Magician
             }
 
         }
-        [HttpGet]
-        public async Task<IActionResult> UpdateCocktail(Guid id)
-        {
-            var cocktailToUpdate = await cocktailServices.GetCocktail(id);
-            var cocktailToUpdateVM = cocktailToUpdate.GetViewModel();
+        //[HttpGet]
+        //public async Task<IActionResult> UpdateCocktail(Guid id)
+        //{
+        //    var cocktailToUpdate = await cocktailServices.GetCocktail(id);
+        //    var cocktailToUpdateVM = cocktailToUpdate.GetViewModel();
 
-            return View(cocktailToUpdateVM);
-        }
+        //    return View(cocktailToUpdateVM);
+        //}
         [HttpPost]
         public async Task<IActionResult> UpdateCocktail(CocktailViewModel updatedCocktail)
         {
@@ -66,7 +66,7 @@ namespace CocktailMagician.Web.Areas.Magician
                     var cocktailDTO = updatedCocktail.GetDtoFromVM();
                     await cocktailServices.UpdateCocktail(cocktailDTO.Id, cocktailDTO);
                     this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
-                    return RedirectToAction("ListCocktails", "Cocktail");
+                    return RedirectToAction("ListCocktails", "Cocktail", new { Area=""});
                 }
                 catch (Exception)
                 {
