@@ -228,7 +228,6 @@ namespace CocktailMagician.Services
             cocktail.Name = cocktailToUpdate.Name;
             cocktail.AlcoholPercentage = cocktailToUpdate.AlcoholPercentage;
             cocktail.IsAlcoholic = cocktailToUpdate.IsAlcoholic;
-            cocktail.ImageURL = cocktailToUpdate.ImageURL;
             cocktail.ModifiedOn = DateTime.UtcNow;
 
             this.context.Cocktails.Update(cocktail);

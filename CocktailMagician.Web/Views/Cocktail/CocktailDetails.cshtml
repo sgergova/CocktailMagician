@@ -23,7 +23,7 @@
         @{var lsitNames = new List<string>();}
         @foreach (var item in Model.Ingredients)
         {
-            lsitNames.Add(item.IngredientName);
+            lsitNames.Add(item.Ingredient.Name);
         }
         <p>@String.Join(',', lsitNames)</p>
 
@@ -138,12 +138,13 @@
     <partial model="new CocktailViewModel() {Id=Model.Id, Name = Model.Name,
     IngredientsToChoose = Model.IngredientsToChoose }" name="_AddIngrToCocktail" />
 
-    <a class="button" data-toggle="modal" style=" position: relative;
-    left: -457px;
-    top: -361px;" data-target="#modalUpdateCocktail">
+    <a class="button" data-toggle="modal" style="     position: ABSOLUTE;
+
+    margin-top: 173px;
+    margin-left: -118px;" data-target="#modalUpdateCocktail">
         Update
     </a>
-    <partial name="_UpdateBar" model="new CocktailViewModel() {Id=Model.Id, Name = Model.Name, AlcoholPercentage = Model.AlcoholPercentage,
+    <partial name="_UpdateCocktail" model="new CocktailViewModel() {Id=Model.Id, Name = Model.Name, AlcoholPercentage = Model.AlcoholPercentage,
      }" />
 
 }

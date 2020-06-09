@@ -255,8 +255,6 @@ namespace CocktailMagician.Services
             barToUpdate.Name = barDTO.Name;
             barToUpdate.Address = barDTO.Address;
             barToUpdate.Phone = barDTO.Phone;
-            barToUpdate.BarImageURL = barDTO.ImageURL;
-            barToUpdate.Country.Name = barDTO.CountryName;
             barToUpdate.ModifiedOn = DateTime.UtcNow;
 
             this.context.Bars.Update(barToUpdate);

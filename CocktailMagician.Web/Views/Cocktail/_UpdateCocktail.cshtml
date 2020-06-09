@@ -23,12 +23,12 @@
                         <div class="form-group">
                             <label asp-for="Name" class="control-label">Name</label>
                             <input asp-for="Name" class="form-control" />
-                            <span asp-validation-for="Name" class="text-danger">@Model.Name</span>
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             AlcoholPercentage
                             <input asp-for="AlcoholPercentage" class="form-control" />
-                            <span asp-validation-for="AlcoholPercentage" class="text-danger">@Model.AlcoholPercentage</span>
+                            <span asp-validation-for="AlcoholPercentage" class="text-danger"></span>
                         </div>
 
                         <div class="md-form mb-4">
@@ -42,7 +42,7 @@
 
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <button asp-area="Magician" asp-controller="Cocktail" asp-action="UpdateCocktail" class="btn btn-deep-orange">Update</button>
+                        <button asp-area="Magician" asp-controller="Cocktail" asp-action="UpdateCocktail" asp-route-id="@Model.Id" class="btn btn-deep-orange">Update</button>
                     </div>
                 </div>
             </form>

@@ -57,14 +57,14 @@ namespace CocktailMagician.Web.Areas.Magician
         //    return View(cocktailToUpdateVM);
         //}
         [HttpPost]
-        public async Task<IActionResult> UpdateCocktail(CocktailViewModel updatedCocktail)
+        public async Task<IActionResult> UpdateCocktail(CocktailViewModel updatedCocktail,Guid id)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     var cocktailDTO = updatedCocktail.GetDtoFromVM();
-                    await cocktailServices.UpdateCocktail(cocktailDTO.Id, cocktailDTO);
+                    await cocktailServices.UpdateCocktail(id, cocktailDTO);
                     this.toast.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
                     return RedirectToAction("ListCocktails", "Cocktail", new { Area=""});
                 }
