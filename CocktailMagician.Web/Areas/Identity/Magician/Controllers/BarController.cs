@@ -49,14 +49,14 @@ namespace CocktailMagician.Web.Areas.Magician
 
         //}
         [HttpPost]
-        public async Task<IActionResult> UpdateBar(BarViewModel updatedBar)
+        public async Task<IActionResult> UpdateBar(BarViewModel updatedBar,Guid id)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     var barDTO = updatedBar.GetDtoFromVM();
-                    await barServices.UpdateBar(barDTO.Id, barDTO);
+                    await barServices.UpdateBar(id, barDTO);
                     this.toastNotification.AddSuccessToastMessage(Exceptions.SuccessfullyUpdated);
                     return RedirectToAction("ListBars", "Bar", new {Area="" });
 
@@ -64,7 +64,7 @@ namespace CocktailMagician.Web.Areas.Magician
                 catch (Exception)
                 {
                     this.toastNotification.AddWarningToastMessage(Exceptions.SomethingWentWrong);
-                    return RedirectToAction("ListBars");
+                    return RedirectToAction("ListBars", "Bar", new { Area = "" });
                 }
             }
             return View(updatedBar);
